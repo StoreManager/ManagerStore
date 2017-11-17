@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TencentMapSDKDemo_Raster</string>
+    
+    <string name="demo_label_basemap">地图展示:BasicMapActivity</string>
+    <string name="demo_desc_basemap">地图的基本加载显示</string>
+    <string name="demo_label_mapfragment">mapfragment展示:MapFragmentActivity</string>
+    <string name="demo_desc_mapfragment">mapfragment的基本加载显示</string>
+    <string name="demo_label_cust_mapfragment">自定义mapfragment展示:MapFragmentActivity</string>
+    <string name="demo_desc_cust_mapfragment">展示用户如何自定义一个带mapView的fragment</string>
+    <string name="demo_label_control">地图控制:MapControlActivity</string>
+    <string name="demo_desc_control">地图缩放、卫星图层的展示</string>
+    <string name="demo_label_geometry">几何图形:MapGeometryActivity</string>
+    <string name="demo_desc_geometry">添加、删除覆盖几何图形及图片</string>
+    <string name="demo_label_itemized_overlay">覆盖物:ItemizedOverlayActivity</string>
+    <string name="demo_desc_itemized_overlay">添加、删除覆盖物</string>
+    <string name="demo_label_marker">标注物:MarkerActivity</string>
+    <string name="demo_desc_marker">添加标志物及其操作</string>
+    <string name="demo_label_projection">projection类：ProjectionActivity</string>
+    <string name="demo_desc_projection">展示projection类提供的相关接口</string>
+    <string name="demo_label_map_polyline">折线:PolylineActivity</string>
+    <string name="demo_desc_map_polyline">折线的相关操作</string>
+    <string name="demo_label_map_polygon">多边形:PolygonActivity</string>
+    <string name="demo_desc_map_polygon">多边形的相关操作</string>
+    <string name="demo_label_map_circle">圆:CircleActivity</string>
+    <string name="demo_desc_map_circle">圆的相关操作</string>
+    <string name="demo_label_marker_attr">marker相关属性：MarkerAttributeActivity</string>
+    <string name="demo_desc_marker_attr">marker的相关属性展示</string>
+    <string name="demo_label_show_my_location">显示位置：ShowMyLocationActivity</string>
+    <string name="demo_desc_show_my_location">结合定位SDK展示用户的位置</string>
+    <string name="demo_label_uisettings">地图 UI 设置：MapUiSettingsActivity</string>
+    <string name="demo_desc_uisettings">logo位置/比例尺等</string>
+    <string name="demo_label_tile_overlay">TileOverlay：TileOverlayActivity</string>
+    <string name="demo_desc_tile_overlay">展示 TileOverlay 的使用</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="add_polyline">添加折线</string>
+    <string name="remove_polyline">删除折线</string>
+    <string name="polyline_width">折线宽</string>
+    <string name="polyline_transparent">透明度</string>
+
+    <string name="add_polygon">添加多边形</string>
+    <string name="remove_polygon">删除多边形</string>
+    <string name="geodesic">测地线</string>
+    <string name="stroke_width">描边宽</string>
+    <string name="transparency">透明度</string>
+    <string name="hue">填充色</string>
+
+    <string name="add_circle">添加圆</string>
+    <string name="remove_circle">删除圆</string>
+
+    <string name="btn_add_tile_overlay">添加自定义瓦片</string>
+    <string name="btn_clear_tile_overlay">清除自定义瓦片缓存</string>
+
+</resources>

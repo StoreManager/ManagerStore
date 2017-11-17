@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#444682"
+    tools:context=".activity.StoreAddressActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTitle">
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:background="@mipmap/navigationbar_back"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="店铺位置"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/mapview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/et_square"
+        android:hint="搜索"
+        android:textSize="16sp"
+        />
+    <Button
+        android:layout_marginLeft="3dp"
+        android:background="@drawable/registerstore_btn"
+        android:text="搜索"
+        android:id="@+id/btn_search"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/et_search"
+        android:layout_alignBottom="@+id/et_search"
+        android:layout_toEndOf="@+id/et_search"
+        android:onClick="searchLocation"
+        android:textColor="#000"
+        android:textSize="14sp"/>
+
+    <com.tencent.tencentmap.mapsdk.map.MapView
+        android:id="@+id/mapview"
+        android:layout_width="300dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/mapview"
+        android:gravity="center"
+        android:text="辽宁省大连市旅顺口区春风按摩院"
+        android:textColor="#EFEFEF"
+        android:textSize="16sp"/>
+
+    <Button
+        android:background="@color/colorTitle"
+        android:id="@+id/btn_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:text="确认位置"
+        android:textColor="@color/colorText"
+        android:textSize="16sp"/>
+</RelativeLayout>

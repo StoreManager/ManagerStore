@@ -1,0 +1,3 @@
+TencentSearch1.1.7
+修改：
+1、修复可能引起的 oom

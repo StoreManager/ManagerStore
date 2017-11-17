@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dawai.f_storemanager.MainActivity"
+    android:background="#444682"
+    android:orientation="vertical">
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="5"
+       android:text="LOGO"
+       android:gravity="center"
+       android:textColor="#ffffff"
+       android:textSize="50dp"
+       />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center">
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bt_square"
+            android:text="我是领导"
+            android:textColor="#fffdfd"
+            android:textSize="30dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:gravity="center">
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bt_square"
+            android:text="优秀员工"
+            android:textColor="#fffdfd"
+            android:textSize="30dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

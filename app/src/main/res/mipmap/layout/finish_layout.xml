@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="#444682"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_marginTop="150dp"
+        android:id="@+id/tv_text"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textColor="#EFEFEF"
+        android:textStyle="bold"
+        android:text="恭喜你完成注册！！"
+        android:layout_width="300dp"
+        android:layout_height="40dp"/>
+    <TextView
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_below="@id/tv_text"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textColor="#EFEFEF"
+        android:text="请耐心等待审核"
+        android:layout_width="300dp"
+        android:layout_height="40dp"/>
+    <Button
+        android:id="@+id/btn_backLogin"
+        android:layout_alignParentBottom="true"
+        android:textSize="16sp"
+        android:textColor="#EFEFEF"
+        android:text="返回登录"
+        android:alpha="30"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
+</RelativeLayout>

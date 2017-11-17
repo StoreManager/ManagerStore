@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">StoreManager</string>
+    <string name="welcome">欢迎使用智能商铺管理系统</string>
+    <string name="registerStore">添加商铺</string>
+
+    <string-array name="fragments_titles">
+        <item name="food">美食</item>
+        <item name="entertainment">休闲娱乐</item>
+    </string-array>
+</resources>
