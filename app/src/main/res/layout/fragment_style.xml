@@ -18,30 +18,30 @@
     android:layout_marginBottom="10dp"
     android:background="@drawable/storestyle_checked"/>
 
-    <TextView
-        android:id="@+id/tv_storestyle1"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="烧烤"
-        android:textSize="15sp"
-        android:layout_marginTop="20dp"
-        android:button="@null"
-        android:textColor="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/storestyle_checked"/>
-    <TextView
-        android:id="@+id/tv_storestyle2"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="汉堡"
-        android:textSize="15sp"
-        android:layout_marginTop="20dp"
-        android:button="@null"
-        android:textColor="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/storestyle_checked"/>
+    <!--<TextView-->
+        <!--android:id="@+id/tv_storestyle1"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="烧烤"-->
+        <!--android:textSize="15sp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:button="@null"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="@drawable/storestyle_checked"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/tv_storestyle2"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="汉堡"-->
+        <!--android:textSize="15sp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:button="@null"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="@drawable/storestyle_checked"/>-->
 </LinearLayout>

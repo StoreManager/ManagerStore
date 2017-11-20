@@ -1,4 +1,4 @@
-package com.cottee.managerstore.fragment;
+package com.cottee.managerstore.tabfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

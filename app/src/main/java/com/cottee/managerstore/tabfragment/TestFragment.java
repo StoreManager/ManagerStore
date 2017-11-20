@@ -1,4 +1,4 @@
-package com.cottee.managerstore.fragment;
+package com.cottee.managerstore.tabfragment;
 
 import android.content.Intent;
 import android.os.Bundle;

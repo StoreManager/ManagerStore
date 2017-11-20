@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.adapter.BaseViewPagerAdapter;
-import com.cottee.managerstore.fragment.TestFragment;
+import com.cottee.managerstore.tabfragment.TestFragment;
 import com.cottee.managerstore.view.TabPagerIndicator;
 
 import java.util.ArrayList;
