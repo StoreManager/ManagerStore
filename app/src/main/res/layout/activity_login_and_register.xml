@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/purplishblue"
+        android:gravity="center_vertical">
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@mipmap/back_2x"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/btn_back_to_store_main"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@mipmap/logo_2x"
+        android:gravity="center"
+        android:textSize="50dp"
+        />
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1"
+         android:orientation="horizontal">
+
+         <LinearLayout
+             android:layout_width="0dp"
+             android:layout_height="match_parent"
+             android:layout_weight="1"
+             android:gravity="center_horizontal">
+             <View
+                 android:layout_width="150dp"
+                 android:layout_height="6dp"
+                 android:background="#ffffff"
+                 />
+         </LinearLayout>
+
+     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="邮箱:"
+                android:textColor="@color/babyblue"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_weight="3"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="8"
+                android:background="@null"
+                android:textSize="12sp"
+                android:id="@+id/et_login_email"
+                android:hint="请输入邮箱"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="密码:"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/babyblue"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_weight="3"/>
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="8"
+        android:background="@null"
+        android:layout_marginTop="40dp"
+        android:id="@+id/et_login_password"
+        android:hint="请输入密码"
+        android:textSize="12sp"
+        android:inputType="textPassword"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_forget_pwd"
+            android:text="忘记密码？"
+            android:textColor="@color/blueGray"
+            android:textSize="14sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="110dp"/>
+
+        <Button
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bt_unchecked_login"
+            android:layout_marginTop="20dp"
+            android:text="登录"
+            android:id="@+id/btn_login"
+            android:textColor="@color/white"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_marginBottom="0dp"
+            android:alpha="30"
+            android:text="没有账号？  快去注册"
+            android:textColor="@color/blueGray"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
