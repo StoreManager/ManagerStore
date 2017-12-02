@@ -135,7 +135,7 @@ public class LoginRegisterInformationHandle extends Handler {
                         Intent intent = new Intent(context, RegisterPasswordActivity.class);
                         intent.putExtra("email", emailAddress);
                         context.startActivity(intent);
-                        //overridePendingTransition(R.anim.left_in, R.anim.right_out));
+                        ((Activity)context).overridePendingTransition(R.anim.right_in,R.anim.left_out);
                         break;
                     case VERSFALSE:
                         ToastUtils.showToast(context, "验证码错误");

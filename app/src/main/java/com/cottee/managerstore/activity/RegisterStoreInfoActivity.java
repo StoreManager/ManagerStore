@@ -1,9 +1,7 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -15,10 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.manage.StoreInfoManager;
@@ -29,9 +25,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.cottee.managerstore.properties.Properties.REQUEST_ADDRESS;
+import static com.cottee.managerstore.properties.Properties.REQUEST_CAMERA;
 
 public class RegisterStoreInfoActivity extends Activity {
 
@@ -39,12 +37,13 @@ public class RegisterStoreInfoActivity extends Activity {
     private TextView tv_storeStyle;
     private int position;
     private TestFragment testFragment;
-    private static final int REQUEST_ADDRESS = 2;
-    private static final int REQUEST_CAMERA = 3;
     private TextView tv_storeAddress;
     private EditText et_name;
     private EditText et_phoneNum;
     private Drawable state=null;
+    private LinearLayout linear_addStoreStyle;
+    private LinearLayout linear_addStoreAddress;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +56,32 @@ public class RegisterStoreInfoActivity extends Activity {
     }
 
     private void initView() {
+        linear_addStoreStyle = findViewById(R.id.linear_addStoreStyle);
+        linear_addStoreAddress = findViewById(R.id.linear_addStoreAddress);
         imgbtn_businessLicense = findViewById(R.id.imgbtn_businessLicense);
         tv_storeStyle = findViewById(R.id.tv_storeStyle);
-        tv_storeAddress = (TextView) findViewById(R.id.tv_storeAddress);
-        et_name = (EditText) findViewById(R.id.et_name);
-        et_phoneNum = (EditText) findViewById(R.id.et_phoneNum);
+        tv_storeAddress =  findViewById(R.id.tv_storeAddress);
+        et_name =  findViewById(R.id.et_name);
+        et_phoneNum =  findViewById(R.id.et_phoneNum);
     }
 
     private void initEvent() {
+        linear_addStoreStyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterStoreInfoActivity.this, StoreStyleActivity.class);
+                startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+        });
+        linear_addStoreAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterStoreInfoActivity.this, StoreAddressActivity.class);
+                startActivityForResult(intent, REQUEST_ADDRESS);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+        });
         imgbtn_businessLicense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,8 +90,6 @@ public class RegisterStoreInfoActivity extends Activity {
             }
         });
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent
             data) {
@@ -83,7 +98,6 @@ public class RegisterStoreInfoActivity extends Activity {
             case 1:
                 if (resultCode == RESULT_OK) {
                     String storeStyle = data.getStringExtra("storeStyle");
-                    System.out.println("ffff");
                     tv_storeStyle.setText(storeStyle);
                 }
                 break;
@@ -104,7 +118,6 @@ public class RegisterStoreInfoActivity extends Activity {
                     }
                     String name = new DateFormat().format("yyyyMMdd_hhmmss",
                             Calendar.getInstance(Locale.CHINA)) + ".jpg";
-//          Toast.makeText(this, name, Toast.LENGTH_LONG).show();
                     Bundle bundle = data.getExtras();
                     Bitmap bitmap = (Bitmap) bundle.get("data");//
                     // 获取相机返回的数据，并转换为Bitmap图片格式
@@ -133,24 +146,11 @@ public class RegisterStoreInfoActivity extends Activity {
         }
 
     }
-
-    public void chooseStoreStyle(View view) {
-        Intent intent = new Intent(this, StoreStyleActivity.class);
-        startActivityForResult(intent, 1);
-        overridePendingTransition(R.anim.right_in, R.anim.left_out);
-    }
-
-    public void chooseStoreAddress(View view) {
-        Intent intent = new Intent(this, StoreAddressActivity.class);
-        startActivityForResult(intent, REQUEST_ADDRESS);
-        overridePendingTransition(R.anim.right_in, R.anim.left_out);
-    }
-
     public void backAddRegisterStore(View view) {
         Intent intent = new Intent(this, RegisterStoreActivity.class);
         startActivity(intent);
         finish();
-        overridePendingTransition(R.anim.right_in, R.anim.left_out);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
 
     }
 
@@ -164,6 +164,7 @@ public class RegisterStoreInfoActivity extends Activity {
         StoreInfoManager storeInfoManager = new StoreInfoManager(RegisterStoreInfoActivity.this);
         storeInfoManager.infoIsEmpty(shopName, shopStyle,
                 shopAddress, shopPhoneNum, state);
+
 
     }
 

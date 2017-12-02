@@ -58,7 +58,9 @@
             android:layout_height="1px"
             android:background="#FFC0C0C0" />
         <LinearLayout
+            android:id="@+id/linear_addStoreStyle"
             android:orientation="horizontal"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <TextView
@@ -78,7 +80,6 @@
                 android:textColor="@color/blueGray"
                 android:background="@null"/>
             <Button
-                android:onClick="chooseStoreStyle"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
@@ -91,7 +92,9 @@
             android:background="#FFC0C0C0" />
 
         <LinearLayout
+            android:id="@+id/linear_addStoreAddress"
             android:orientation="horizontal"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="50dp">
             <TextView
@@ -111,7 +114,6 @@
                 android:textColor="@color/blueGray"
                 android:background="@null"/>
             <Button
-                android:onClick="chooseStoreAddress"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"

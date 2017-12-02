@@ -19,7 +19,8 @@ public class Properties {
     public final static int FORGET_CHECKOUT_EMAIL = 5;
     public final static int FORGET_CHECKOUT_EMAIL_VER = 6;
     public final static int FORGET_CHECKOUT_EMAIL_PWD = 7;
-
+    public static final int REQUEST_ADDRESS = 2;
+    public static final int REQUEST_CAMERA = 3;
 
 
 }

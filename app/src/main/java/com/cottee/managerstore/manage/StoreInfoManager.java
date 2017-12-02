@@ -5,13 +5,16 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2017-11-21.
  */
 
 public class StoreInfoManager {
   private Context context;
-
+  private List<String > list;
     public StoreInfoManager(Context context) {
         this.context = context;
     }
@@ -43,7 +46,13 @@ public class StoreInfoManager {
           Toast.makeText(context, toast_storeBusinessLicense, Toast.LENGTH_SHORT).show();
           return false;
       }
+      new ArrayList<String >();
+      for (int i=0;i<list.size();i++)
+      {
+          list.add("AA"+i);
+      }
       Toast.makeText(context, "完成信息填写！", Toast.LENGTH_SHORT).show();
+
       return true;
   }
 }

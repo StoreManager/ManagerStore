@@ -86,6 +86,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.left_in,R.anim.right_out);
             }
         } );
         btn_checkout.setOnClickListener( new View.OnClickListener() {
