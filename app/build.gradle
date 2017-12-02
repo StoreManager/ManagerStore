@@ -23,6 +23,7 @@ android {
 
 dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -32,4 +33,6 @@ dependencies {
     compile files('libs/TencentLocationSDK_v4.0_r139747.jar')
     implementation files('libs/TencentMapSDK_Android_2D_v1.2.8/libs/TencentMapSDK_Raster_v_1.2.8_e45bcd0.jar')
     implementation files('libs/TencentSearchSDK_v1.1.7/libs/TencentMapSearch_v1.1.7.490d100.jar')
+    implementation 'com.squareup.okhttp:okhttp:2.0.0'
+    implementation 'com.google.code.gson:gson:2.2.4'
 }

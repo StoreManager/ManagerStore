@@ -1,12 +1,17 @@
 package com.cottee.managerstore.tabfragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
+
+import java.util.SimpleTimeZone;
 
 public class TestFragment extends BaseFragment {
 
@@ -16,6 +21,9 @@ public class TestFragment extends BaseFragment {
 
     protected int position;
     private TextView tv_storestyle;
+    private String[] titles;
+
+
 
     public static TestFragment newInstance(int position) {
         TestFragment f = new TestFragment();
@@ -32,18 +40,28 @@ public class TestFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        position = getArguments().getInt(ARG_POSITION);
+        titles = getResources().getStringArray(R.array.fragments_titles);
         tv_storestyle = mView.findViewById(R.id
         .tv_storestyle);
         tv_storestyle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), RegisterStoreInfoActivity
-                        .class);
-                startActivity(intent);
-
+                Intent intent = new Intent();
+               String  storeStyle = getStoreStyle(position);
+               intent.putExtra("storeStyle",storeStyle);
+               getActivity().setResult(Activity.RESULT_OK,intent);
+               getActivity().finish();
             }
         });
         super.initView();
-
     }
+
+
+    public String getStoreStyle(int position)
+    {
+        String st=titles[position].toString()+tv_storestyle.getText().toString();
+        return st;
+    }
+
 }

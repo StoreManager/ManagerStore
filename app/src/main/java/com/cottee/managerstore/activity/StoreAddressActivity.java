@@ -2,22 +2,18 @@ package com.cottee.managerstore.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
-import com.tencent.lbssearch.TencentSearch;
-import com.tencent.lbssearch.httpresponse.BaseObject;
-import com.tencent.lbssearch.httpresponse.HttpResponseListener;
+import com.cottee.managerstore.bean.LocationInfo;
 import com.tencent.lbssearch.object.param.SearchParam;
-import com.tencent.lbssearch.object.param.SuggestionParam;
-import com.tencent.lbssearch.object.result.SuggestionResultObject;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.map.geolocation.TencentLocationManager;
@@ -29,7 +25,10 @@ import com.tencent.mapsdk.raster.model.MarkerOptions;
 import com.tencent.tencentmap.mapsdk.map.MapView;
 import com.tencent.tencentmap.mapsdk.map.TencentMap;
 
+import java.util.List;
+
 public class StoreAddressActivity extends Activity implements TencentLocationListener {
+    public static final int REQUEST_LOCATION = 1;
     private TencentLocationManager locationManager;
     private TencentLocationRequest request;
     private MapView mapview;
@@ -37,11 +36,13 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
     private TencentMap tencentMap;
     private Marker marker;
     private SearchParam.Region region;
-    private Button btn_search;
-    private EditText et_search;
+    private Button bt_search;
     private String city;
     private Button btn_back;
     private Button btn_checkout;
+    public static List<LocationInfo> locationDataList;
+    private float[] locations;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,6 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
         tencentMap = mapview.getMap();
         //设置缩放级别
         tencentMap.setZoom( 17 );
-
-
     }
 
     private void sendRequest() {
@@ -79,7 +78,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
     private void findView() {
         mapview = (MapView) findViewById( R.id.mapview );
         tv_location = (TextView) findViewById( R.id.tv_location );
-        et_search = (EditText) findViewById( R.id.et_search );
+        bt_search = (Button) findViewById( R.id.bt_search );
         btn_back = (Button) findViewById( R.id.btn_back );
         btn_checkout = (Button) findViewById( R.id.btn_checkout );
 
@@ -92,36 +91,19 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
         btn_checkout.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra( "address",address );
+                setResult( RESULT_OK,intent );
                 finish();
             }
         } );
-    }
-
-    public void searchLocation(View view) {
-        String searchLocation = et_search.getText().toString().trim();
-        SearchParam.Region region = new SearchParam.Region().poi( city );
-        SuggestionParam suggestionParam = new SuggestionParam().keyword( searchLocation ).region( String.valueOf( region ) );
-
-        TencentSearch tencentSearch = new TencentSearch( this );
-
-        tencentSearch.suggestion( suggestionParam, new HttpResponseListener() {
+        bt_search.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onSuccess(int i, BaseObject baseObject) {
-                SuggestionResultObject oj = (SuggestionResultObject) baseObject;
-                if (oj.data != null) {
-                    for (SuggestionResultObject.SuggestionData data : oj.data) {
-                        Toast.makeText( StoreAddressActivity.this, "" + data.title, Toast
-                                .LENGTH_SHORT ).show();
-                    }
-                } else {
-                    Toast.makeText( StoreAddressActivity.this, "查询失败", Toast
-                            .LENGTH_SHORT ).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int i, String s, Throwable throwable) {
-
+            public void onClick(View view) {
+                Intent intent = new Intent( StoreAddressActivity.this, SearchLocationActivity.class );
+                intent.putExtra( "city",city );
+                startActivityForResult( intent,REQUEST_LOCATION );
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         } );
     }
@@ -143,7 +125,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
                             .defaultMarker() )
                     .draggable( true ) );
 
-            String address = location.getProvince() + location.getCity() + location.getDistrict()
+            address = location.getProvince() + location.getCity() + location.getDistrict()
                     .toString();
             city = location.getCity().toString();
             if (location.getStreet().toString().equals( "Unknown" )) {
@@ -211,5 +193,31 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
     protected void onStop() {
         mapview.onStop();
         super.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_LOCATION:
+                if (resultCode == RESULT_OK) {
+                    float[] locations = data.getFloatArrayExtra( "locations" );
+                    address = data.getStringExtra( "address" );
+                    float lat = locations[0];
+                    float lot = locations[1];
+                    LatLng latLng = new LatLng( lat, lot );
+                    tencentMap.setCenter(latLng);
+                    marker = tencentMap.addMarker( new MarkerOptions()
+                            .position( latLng)
+                            .anchor( 0.5f, 0.5f )
+                            .icon( BitmapDescriptorFactory
+                                    .defaultMarker() )
+                            .draggable( true ) );
+                        tv_location.setText( address );
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 }

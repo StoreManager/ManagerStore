@@ -13,10 +13,10 @@
     android:textSize="15sp"
     android:layout_marginTop="20dp"
     android:button="@null"
-    android:textColor="@color/white"
+    android:textColor="@color/babyblue"
     android:layout_marginLeft="20dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/storestyle_checked"/>
+    android:background="@drawable/storestyle_btn"/>
 
     <!--<TextView-->
         <!--android:id="@+id/tv_storestyle1"-->

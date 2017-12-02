@@ -6,9 +6,11 @@
     <color name="colorBackground">#5d5f9e</color>
     <color name="colorText">#EFEFEF</color>
     <color name="colorTitle">#7274ab</color>
-    <color name="purplishblue">#444682</color>
-    <color name="babyblue">#7a7cc9</color>
+    <color name="purplishblue">#4862af</color>
+    <color name="babyblue">#8493ca</color>
     <color name="white">#fff</color>
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="transparent">#00000000</color>
+    <color name="blueGray">#AEA4A2</color>
+    <color name="gray">#AEA4A2</color>
 </resources>

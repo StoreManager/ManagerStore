@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.adapter.BaseViewPagerAdapter;
@@ -13,7 +15,7 @@ import com.cottee.managerstore.view.TabPagerIndicator;
 
 import java.util.ArrayList;
 
-public class StoreStyleActivity extends BaseActivity {
+public class StoreStyleActivity extends BaseActivity  {
 
     private TabPagerIndicator mPagerIndicator;
     private ViewPager mViewPager;
@@ -25,25 +27,27 @@ public class StoreStyleActivity extends BaseActivity {
 
     @Override
     protected int getContentViewLayoutID() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         return R.layout.activity_store_style;
     }
 
     @Override
     protected void initView() {
-        mPagerIndicator = (TabPagerIndicator) findViewById(R.id.pagerIndicator);
+        mPagerIndicator = findViewById(R.id.pagerIndicator);
         mPagerIndicator.setIndicatorColor(Color.parseColor("#7a7cc9"));
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mViewPager = findViewById(R.id.viewPager);
     }
     @Override
     protected void initData() {
         mTitles = this.getResources().getStringArray(R.array.fragments_titles);
-        TestFragment testFragment = (TestFragment) TestFragment.newInstance(0);
-        TestFragment testFragment1 =(TestFragment) TestFragment.newInstance(1);
+        TestFragment testFragment = TestFragment.newInstance(0);
+        TestFragment testFragment1 = TestFragment.newInstance(1);
 
         mFragments = new ArrayList<>();
         mFragments.add(testFragment);
         mFragments.add(testFragment1);
-        mPagerAdapter = new BaseViewPagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
+        mPagerAdapter = new BaseViewPagerAdapter(getSupportFragmentManager(),
+                mFragments, mTitles);
         mViewPager.setAdapter(mPagerAdapter);
         mPagerIndicator.setViewPager(mViewPager);
     }
@@ -52,4 +56,6 @@ public class StoreStyleActivity extends BaseActivity {
         Intent intent = new Intent(this, RegisterStoreInfoActivity.class);
         startActivity(intent);
     }
+
+
 }

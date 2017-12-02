@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 
 import com.cottee.managerstore.R;
@@ -22,10 +23,11 @@ public class RegisterStoreActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_registerstore);
         lv_registerStore = findViewById(R.id.lv_registerStore);
         storeList = new ArrayList<>();
-         for (int i=0;i<9;i++)
+         for (int i=0;i<2;i++)
          {
              storeList.add("管理"+i);
          }
@@ -39,6 +41,7 @@ public class RegisterStoreActivity extends Activity {
     {
         Intent intent = new Intent(this,RegisterStoreInfoActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
 }
     

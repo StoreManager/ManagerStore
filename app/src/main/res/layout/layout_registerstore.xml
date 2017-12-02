@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
@@ -20,18 +20,25 @@
             android:layout_gravity="center_vertical"
             android:text="中医按摩院"
             android:textSize="16sp"
-            android:textColor="@color/purplishblue"
-            android:textStyle="bold"/>
-
+            android:textColor="@color/babyblue"
+            />
+<TextView
+    android:id="@+id/tv_isRelease"
+    android:text="未发布"
+    android:textColor="#aea4a2"
+    android:textSize="12sp"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/btn_registerStoreManage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="180dp"
-            android:background="@drawable/registerstoremanage_btn"
+            android:layout_marginLeft="100dp"
             android:text="管理"
-            android:textColor="@color/white"
-            android:textSize="18sp"/>
+            android:textSize="10sp"
+           android:background="@drawable/storestyle_btn"
+            />
     </LinearLayout>
 </LinearLayout>

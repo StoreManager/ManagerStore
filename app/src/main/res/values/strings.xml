@@ -2,7 +2,8 @@
     <string name="app_name">StoreManager</string>
     <string name="welcome">欢迎使用智能商铺管理系统</string>
     <string name="registerStore">添加商铺</string>
-
+    <string name="filter_number_code">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="filter_var_code">0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string-array name="fragments_titles">
         <item name="food">美食</item>
         <item name="entertainment">休闲娱乐</item>
