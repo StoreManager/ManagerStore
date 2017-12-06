@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.cottee.managerstore">
     <uses-permission android:name="android.permission.CAMERA" />
-
+<uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -36,7 +36,13 @@
             android:launchMode="singleTask"/>
         <activity
             android:name=".activity.RegisterStoreInfoActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.StoreStyleActivity"
             android:launchMode="singleTask"/>
@@ -65,11 +71,11 @@
         </activity>
         <activity android:name=".activity1.StoreManagerMainActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".activity.StoreAddressActivity"
             android:launchMode="singleTask"/>

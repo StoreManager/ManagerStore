@@ -42,7 +42,12 @@ public class StoreInfoManager {
       {
           Toast.makeText(context, toast_storePhoneNumber, Toast.LENGTH_SHORT).show();
           return false;
-      }else if (state==null){
+      }
+      else if (!TextUtils.isEmpty(storePhoneNumber)&&!isMobileNo(storePhoneNumber))
+      {
+          Toast.makeText(context, "电话号码不正确", Toast.LENGTH_SHORT).show();
+      }
+          else if (state==null){
           Toast.makeText(context, toast_storeBusinessLicense, Toast.LENGTH_SHORT).show();
           return false;
       }
@@ -55,4 +60,14 @@ public class StoreInfoManager {
 
       return true;
   }
+
+    public static  boolean isMobileNo(String mobileNums)
+    {
+        String telRegex="[1][3587]\\d{9}";
+        if(TextUtils.isEmpty(mobileNums))
+            return  false;
+
+        else
+            return mobileNums.matches(telRegex);
+    }
 }
