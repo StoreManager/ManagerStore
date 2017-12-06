@@ -1,6 +1,5 @@
 package com.cottee.managerstore.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,7 +22,7 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
+///////////////////
 public class StoreStyleActivity extends BaseActivity  {
 
     private TabPagerIndicator mPagerIndicator;
