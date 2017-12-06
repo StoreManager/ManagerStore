@@ -37,8 +37,9 @@ public class SplashScreenActivity extends Activity {
                     handle.sendEmptyMessageAtTime(Properties.TO_LOGIN, 2000);
 
                 }
+
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                finish();
+
             }
         },1000*2);
 

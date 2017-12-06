@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.LoginRegisterInformationManage;
+import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.utils.ToastUtils;
 
 
@@ -62,12 +63,9 @@ public class BossLoginActivity extends Activity {
                 String loginEmail = etloginemail.getText().toString().trim();
                 String loginPassword = etloginpassword.getText().toString().trim();
 
-                SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("USER_EMAIL", loginEmail);
-                editor.putString("PASSWORD", loginPassword);
-                editor.commit();
-
+                UserManage userManage = new UserManage();
+                userManage.saveUserLogin(BossLoginActivity.this,loginEmail,loginPassword);
+                userManage.saveUserInfo(BossLoginActivity.this,loginEmail,loginPassword);
 
                 if(!loginEmail.isEmpty()){
                     if(!loginPassword.isEmpty()){
@@ -89,8 +87,10 @@ public class BossLoginActivity extends Activity {
         btnbacktomain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(BossLoginActivity.this,StoreManagerMainActivity.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                finish();
             }
         });
 
