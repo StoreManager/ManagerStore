@@ -8,6 +8,8 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.RegisterStoreActivity;
+import com.cottee.managerstore.manage.UserManage;
 
 
 /**
@@ -17,6 +19,8 @@ import com.cottee.managerstore.R;
 public class RegisterFinishActivity extends Activity {
 
     private Button btbacklogin;
+    private String emailAddress;
+    private String emailPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +29,25 @@ public class RegisterFinishActivity extends Activity {
         setContentView(R.layout.activity_register_finish);
         btbacklogin = (Button) findViewById(R.id.bt_backLogin);
 
+        Intent intent = getIntent();
+        emailAddress = intent.getStringExtra("email");
+        emailPwd = intent.getStringExtra("pwd");
+
+
         btbacklogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                UserManage manage = new UserManage();
+                manage.saveUserLogin(RegisterFinishActivity.this,emailAddress,emailPwd);
+                manage.saveUserInfo(RegisterFinishActivity.this,emailAddress,emailPwd);
+
+
                 Intent intent = new Intent(RegisterFinishActivity.this,
-                        BossLoginActivity.class);
+                        RegisterStoreActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                finish();
             }
         });
     }

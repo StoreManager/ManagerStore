@@ -1,7 +1,9 @@
 package com.cottee.managerstore.activity1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -27,6 +29,7 @@ public class BossLoginActivity extends Activity {
     private Button btnlogin;
     private Button btnbacktomain;
     private TextView tvforgetpwd;
+    private SharedPreferences config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class BossLoginActivity extends Activity {
         btnlogin = (Button) findViewById(R.id.btn_login);
         btnbacktomain = (Button) findViewById(R.id.btn_back_to_store_main);
         tvforgetpwd = (TextView) findViewById(R.id.tv_forget_pwd);
+
+
+        readData();
 
 
         tvregister.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +61,14 @@ public class BossLoginActivity extends Activity {
             public void onClick(View view) {
                 String loginEmail = etloginemail.getText().toString().trim();
                 String loginPassword = etloginpassword.getText().toString().trim();
+
+                SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("USER_EMAIL", loginEmail);
+                editor.putString("PASSWORD", loginPassword);
+                editor.commit();
+
+
                 if(!loginEmail.isEmpty()){
                     if(!loginPassword.isEmpty()){
                         LoginRegisterInformationManage loginManage = new LoginRegisterInformationManage(BossLoginActivity.this, new
@@ -89,6 +103,15 @@ public class BossLoginActivity extends Activity {
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
+
+    }
+
+    private void readData() {
+        config = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String number = config.getString("USER_EMAIL","");
+        String psd  = config.getString("PASSWORD","");
+        etloginemail.setText(number);
+        etloginpassword.setText(psd);
 
     }
 

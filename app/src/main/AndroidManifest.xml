@@ -24,6 +24,7 @@
     <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_2x"
@@ -37,11 +38,11 @@
         <activity
             android:name=".activity.RegisterStoreInfoActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
 
-            <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".activity.StoreStyleActivity"
@@ -71,16 +72,24 @@
         </activity>
         <activity android:name=".activity1.StoreManagerMainActivity"
             android:launchMode="singleTask">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
         </activity>
         <activity android:name=".activity.StoreAddressActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".activity.SearchLocationActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".activity1.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
 
         <meta-data
             android:name="TencentMapSDK"

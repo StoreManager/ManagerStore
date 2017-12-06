@@ -12,6 +12,12 @@
         android:background="@color/purplishblue"
         android:orientation="horizontal">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_user_exit"
+            android:text="退出"/>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

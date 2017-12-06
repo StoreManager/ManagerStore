@@ -1,13 +1,17 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.BossLoginActivity;
 import com.cottee.managerstore.adapter.StoreListviewAdapter;
 
 import java.util.ArrayList;
@@ -26,6 +30,34 @@ public class RegisterStoreActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_registerstore);
         lv_registerStore = findViewById(R.id.lv_registerStore);
+
+
+        Button button = (Button) findViewById(R.id.btn_user_exit);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sp = getSharedPreferences("userLogin", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
+
+                Intent intent = new Intent(RegisterStoreActivity.this, BossLoginActivity.class);
+                startActivity(intent);
+                finish();
+
+
+            }
+        });
+
+
+
+
+
+
+
+
         storeList = new ArrayList<>();
          for (int i=0;i<2;i++)
          {

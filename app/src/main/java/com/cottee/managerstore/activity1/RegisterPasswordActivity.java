@@ -62,6 +62,8 @@ public class RegisterPasswordActivity extends Activity {
                             pwsManage.finishUserRegister(emailAddress,etInputPWD);
 
                             Intent intent = new Intent(RegisterPasswordActivity.this,RegisterFinishActivity.class);
+                            intent.putExtra("email", emailAddress);
+                            intent.putExtra("pwd", etInputPWD);
                             startActivity(intent);
                         }
                         else {

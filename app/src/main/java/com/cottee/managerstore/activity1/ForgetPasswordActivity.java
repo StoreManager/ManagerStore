@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.LoginRegisterInformationManage;
+import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.utils.ToastUtils;
 
 
@@ -61,8 +63,13 @@ public class ForgetPasswordActivity extends Activity {
                                     LoginRegisterInformationHandle(ForgetPasswordActivity.this,""));
                             pwsManage.forgetPSDCheckOutEmailPwd(emailAddress, etInputPWD);
 
-                            Intent intent = new Intent(ForgetPasswordActivity.this,BossLoginActivity.class);
+                            UserManage manage = new UserManage();
+                            manage.saveUserLogin(ForgetPasswordActivity.this,emailAddress,etInputPWD);
+                            manage.saveUserInfo(ForgetPasswordActivity.this,emailAddress,etInputPWD);
+
+                            Intent intent = new Intent(ForgetPasswordActivity.this, RegisterStoreActivity.class);
                             startActivity(intent);
+                            finish();
                         }else{
                             ToastUtils.showToast(ForgetPasswordActivity.this,"密码不能小于六位");
                         }

@@ -10,6 +10,7 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
+import com.cottee.managerstore.activity1.StoreManagerMainActivity;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 
@@ -98,6 +99,11 @@ public class LoginRegisterInformationHandle extends Handler {
 
      private static final int FORGET_RETURNSUCCESS = 0;
     private static final int FORGET_RETURNFAILD = 1;
+
+
+
+    private static final int TO_HOME = 10;
+    private static final int TO_LOGIN = 11;
 
 
 
@@ -246,6 +252,16 @@ public class LoginRegisterInformationHandle extends Handler {
                     default:
                         break;
                 }
+
+            case TO_HOME :
+                Intent intent = new Intent(context, RegisterStoreActivity.class);
+                context.startActivity(intent);
+                break;
+
+            case TO_LOGIN :
+                Intent intent1 = new Intent(context, StoreManagerMainActivity.class);
+                context.startActivity(intent1);
+                break;
 
 
 
