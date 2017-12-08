@@ -13,7 +13,7 @@ import android.widget.Toast;
  * Created by Domen、on 2016/4/20.
  */
 public abstract class BaseActivity extends FragmentActivity {
-
+    //congyiTest
     protected static final String DEFAULT_NAME = "DEFAULT_NAME";
     protected static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
 
