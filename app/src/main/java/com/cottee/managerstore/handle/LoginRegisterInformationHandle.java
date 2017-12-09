@@ -105,7 +105,7 @@ public class LoginRegisterInformationHandle extends Handler {
     private static final int TO_HOME = 10;
     private static final int TO_LOGIN = 11;
 
-
+    private static final int SUBMIT_SUCCESS=0;//上传店铺基本信息成功
 
     public LoginRegisterInformationHandle(Context context,String emailAddress) {
         this.context = context;
@@ -250,6 +250,16 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
 
                     default:
+                        break;
+                }
+
+            case Properties.NECESSARY_INFOMATION:
+                switch (msg.arg1) {
+                    case SUBMIT_SUCCESS:
+                        ToastUtils.showToast( context, "提交成功" );
+                        break;
+                    default:
+                        ToastUtils.showToast( context, "提交失败" );
                         break;
                 }
 

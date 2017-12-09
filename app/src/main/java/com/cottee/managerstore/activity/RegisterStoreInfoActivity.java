@@ -17,7 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.StoreInfoManager;
+import com.cottee.managerstore.manage.SubmitStoreInfoManager;
 import com.cottee.managerstore.tabfragment.TestFragment;
 import com.cottee.managerstore.view.MyImageButton;
 
@@ -162,8 +164,16 @@ public class RegisterStoreInfoActivity extends Activity {
         state = imgbtn_businessLicense
                 .getDrawable();
         StoreInfoManager storeInfoManager = new StoreInfoManager(RegisterStoreInfoActivity.this);
-        storeInfoManager.infoIsEmpty(shopName, shopStyle,
-                shopAddress, shopPhoneNum, state);
+        boolean empty = storeInfoManager.infoIsEmpty( shopName, shopStyle,
+                shopAddress, shopPhoneNum, state );
+        if(empty){
+            SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager(
+                    RegisterStoreInfoActivity
+                    .this, new LoginRegisterInformationHandle(
+                    RegisterStoreInfoActivity.this, ""
+            ) );
+            submitStoreInfo.submitInfo( shopName,shopStyle,shopAddress,shopPhoneNum );
+        }
 
 
     }
