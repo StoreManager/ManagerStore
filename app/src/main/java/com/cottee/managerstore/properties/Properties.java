@@ -12,6 +12,10 @@ public class Properties {
     public static final String FORGET_PASSWORD_EMAIL_SUBMIT_PATH ="http://thethreestooges.cn/merchant/bean/login/forget_submit.php";
     public static final String FORGET_PASSWORD_EMAIL_VER_SUBMIT_PATH ="http://thethreestooges.cn/merchant/bean/login/forget_validate.php";
     public static final String FORGET_PASSWORD_EMAIL_PSD_SUBMIT_PATH ="http://thethreestooges.cn/merchant/bean/login/user_forget.php";
+    public static final String STORE_PHOTO = "https://thethreestooges.cn/merchant/bean/register/photo_mer_upload.php";
+    public static final String PHOTO_BUSLIC = "https://thethreestooges.cn/merchant/bean/register/photo_buslic_upload.php";
+    public static final String NECESSARY_INFO ="https://thethreestooges.cn/merchant/bean/register/first_register.php";
+    public static final String SUPPLY_INFO = "https://thethreestooges.cn/merchant/bean/register/supply_register.php";
     public final static int USER_LOGIN = 1;
     public final static int CHECKOUT_EMAIL = 2;
     public final static int CHECKOUT_EMAIL_VER = 3;
@@ -21,7 +25,7 @@ public class Properties {
     public final static int FORGET_CHECKOUT_EMAIL_PWD = 7;
     public static final int REQUEST_ADDRESS = 2;
     public static final int REQUEST_CAMERA = 3;
-
+    public final static int NECESSARY_INFOMATION= 8;
     public static final int TO_HOME = 10;
     public static final int TO_LOGIN = 11;
 
