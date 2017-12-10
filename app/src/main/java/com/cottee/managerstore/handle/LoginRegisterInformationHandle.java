@@ -235,7 +235,6 @@ public class LoginRegisterInformationHandle extends Handler {
                         ToastUtils.showToast(context, "无该用户记录");
                         break;
 
-
                 }
                 break;
 
@@ -252,6 +251,7 @@ public class LoginRegisterInformationHandle extends Handler {
                     default:
                         break;
                 }
+                break;
 
             case Properties.NECESSARY_INFOMATION:
                 switch (msg.arg1) {
@@ -262,7 +262,15 @@ public class LoginRegisterInformationHandle extends Handler {
                         ToastUtils.showToast( context, "提交失败" );
                         break;
                 }
-
+                break;
+            case Properties.PHOTO_BULIC:
+                String obj = (String) msg.obj;
+                if(obj.equals( "ok" )){
+                    ToastUtils.showToast( context, obj );
+                }else {
+                    ToastUtils.showToast( context, "图片失败" );
+                }
+                break;
             case TO_HOME :
                 Intent intent = new Intent(context, RegisterStoreActivity.class);
                 context.startActivity(intent);
@@ -272,9 +280,6 @@ public class LoginRegisterInformationHandle extends Handler {
                 Intent intent1 = new Intent(context, StoreManagerMainActivity.class);
                 context.startActivity(intent1);
                 break;
-
-
-
             default:
                 break;
         }

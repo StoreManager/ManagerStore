@@ -26,6 +26,7 @@ public class Properties {
     public static final int REQUEST_ADDRESS = 2;
     public static final int REQUEST_CAMERA = 3;
     public final static int NECESSARY_INFOMATION= 8;
+    public final static int PHOTO_BULIC=9;
     public static final int TO_HOME = 10;
     public static final int TO_LOGIN = 11;
 
