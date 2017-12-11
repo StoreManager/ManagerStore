@@ -273,13 +273,13 @@ public class LoginRegisterInformationHandle extends Handler {
                 }
                 break;
             case TO_HOME :
-                Intent intent = new Intent(context, RegisterStoreActivity.class);
-                context.startActivity(intent);
+                Intent homeIntent = new Intent(context, RegisterStoreActivity.class);
+                context.startActivity(homeIntent);
                 break;
 
             case TO_LOGIN :
-                Intent intent1 = new Intent(context, StoreManagerMainActivity.class);
-                context.startActivity(intent1);
+                Intent loginIntent = new Intent(context, StoreManagerMainActivity.class);
+                context.startActivity(loginIntent);
                 break;
             default:
                 break;
