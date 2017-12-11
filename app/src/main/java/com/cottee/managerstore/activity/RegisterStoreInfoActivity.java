@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
@@ -195,9 +196,10 @@ public class RegisterStoreInfoActivity extends Activity {
             if(fileName!=null){
                 submitStoreInfo.submitInfo( fileName );
             }
+            RegisterStoreActivity.storeList.add(0, new StoreInfo( shopName,shopStyle,shopAddress,
+                    shopPhoneNum,null,null,false,false,null,null ) );
         }
-
-
+        finish();
     }
 
 }

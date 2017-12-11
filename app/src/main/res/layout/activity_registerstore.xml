@@ -46,8 +46,16 @@
             android:onClick="addRregisterStore"
             android:text="@string/registerStore"/>
     </LinearLayout>
-
+    <TextView
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:id="@+id/tv_noStore"
+        android:gravity="center"
+        android:text="快去添加你的店铺吧"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <ListView
+        android:visibility="invisible"
         android:id="@+id/lv_registerStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

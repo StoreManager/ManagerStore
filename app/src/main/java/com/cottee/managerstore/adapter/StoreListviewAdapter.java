@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.bean.StoreInfo;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ import java.util.List;
 
 public class StoreListviewAdapter extends BaseAdapter {
     private Context context;
-    private List<String> storeList;
-    public StoreListviewAdapter(Context context, List<String> list) {
+    private List<StoreInfo> storeList;
+    public StoreListviewAdapter(Context context, List<StoreInfo> list) {
         this.context = context;
         this.storeList = list;
     }
@@ -50,18 +51,18 @@ public class StoreListviewAdapter extends BaseAdapter {
         } else {
             viewHolder=(ViewHolder)view.getTag();
         }
-        viewHolder.btn_storeManager.setText(storeList.get(i));
-        viewHolder.btn_storeManager.setOnClickListener(new View.OnClickListener() {
-
+        viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "进入管理"+storeList.get(i)+"的页面!", Toast.LENGTH_SHORT).show();
+                Toast.makeText( context,"跳转到"+storeList.get( i ).getStoreName()+"管理界面",Toast
+                        .LENGTH_SHORT ).show();
             }
-        });
+        } );
+        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getStoreName());
         return view;
     }
-    protected static class ViewHolder {
+    public static class ViewHolder {
         TextView tv_registerStoreName;
-        Button btn_storeManager;
+        TextView btn_storeManager;
     }
 }
