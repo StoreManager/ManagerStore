@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.cottee.managerstore">
-    <uses-permission android:name="android.permission.CAMERA" />
-<uses-permission android:name="android.permission.INTERNET"/>
-    <uses-feature android:name="android.hardware.camera" />
 
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 通过网络得到粗略位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -24,7 +26,6 @@
     <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_2x"
@@ -38,62 +39,76 @@
         <activity
             android:name=".activity.RegisterStoreInfoActivity"
             android:launchMode="singleTask">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
 
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activity.StoreStyleActivity"
             android:launchMode="singleTask"/>
-<activity android:name=".activity1.BossLoginActivity">
-
-</activity>
-        <activity android:name=".activity1.ForgetPasswordActivity"
-            android:launchMode="singleTask">
-
+        <activity android:name=".activity1.BossLoginActivity">
         </activity>
-        <activity android:name=".activity1.ForgetVarActivity"
+        <activity
+            android:name=".activity1.ForgetPasswordActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".activity1.ForgetVarActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".activity1.RegisterFinishActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".activity1.RegisterPasswordActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".activity1.RegisterVarActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".activity1.StoreManagerMainActivity"
             android:launchMode="singleTask">
 
-        </activity>
-        <activity android:name=".activity1.RegisterFinishActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name=".activity1.RegisterPasswordActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name=".activity1.RegisterVarActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name=".activity1.StoreManagerMainActivity"
-            android:launchMode="singleTask">
-            <!--<intent-filter>
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
-        <activity android:name=".activity.StoreAddressActivity"
+        <activity
+            android:name=".activity.StoreAddressActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".activity.SearchLocationActivity"
+        <activity
+            android:name=".activity.SearchLocationActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".activity1.SplashScreenActivity">
+        <activity
+            android:name=".activity1.SplashScreenActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.StoreManagerActivity"
+            android:launchMode="singleTask">
+        </activity>
 
         <meta-data
             android:name="TencentMapSDK"
             android:value="7KLBZ-SVMRD-PBA4J-PR24M-TKJW3-C2BX2"/>
+
+
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.cottee.managerstore.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.StoreManagerActivity;
 import com.cottee.managerstore.bean.StoreInfo;
 
 import java.util.List;
@@ -54,8 +56,9 @@ public class StoreListviewAdapter extends BaseAdapter {
         viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText( context,"跳转到"+storeList.get( i ).getStoreName()+"管理界面",Toast
-                        .LENGTH_SHORT ).show();
+                Intent intent = new Intent( context, StoreManagerActivity.class );
+                intent.putExtra( "storename",storeList.get( i ).getStoreName() );
+                context.startActivity( intent );
             }
         } );
         viewHolder.tv_registerStoreName.setText( storeList.get( i ).getStoreName());
