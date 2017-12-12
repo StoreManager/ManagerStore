@@ -39,13 +39,6 @@
         <activity
             android:name=".activity.RegisterStoreInfoActivity"
             android:launchMode="singleTask">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activity.StoreStyleActivity"
@@ -99,8 +92,6 @@
         <meta-data
             android:name="TencentMapSDK"
             android:value="7KLBZ-SVMRD-PBA4J-PR24M-TKJW3-C2BX2"/>
-
-
     </application>
 
 </manifest>
