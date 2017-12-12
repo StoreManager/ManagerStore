@@ -88,6 +88,9 @@
             android:name=".activity.StoreManagerActivity"
             android:launchMode="singleTask">
         </activity>
+        <activity android:name=".activity.DetialInfomation"
+            android:launchMode="singleTask">
+        </activity>
 
         <meta-data
             android:name="TencentMapSDK"
