@@ -18,6 +18,7 @@ import android.widget.ImageButton;
  */
 
 public class MyImageButton extends ImageButton {
+    //
     private Paint paint;
     public MyImageButton(Context context) {
         super(context);
