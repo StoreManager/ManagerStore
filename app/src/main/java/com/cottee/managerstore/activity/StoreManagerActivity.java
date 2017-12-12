@@ -15,6 +15,7 @@ public class StoreManagerActivity extends Activity implements View.OnClickListen
     private TextView tv_storename_manager;
     private Button btn_storeManager;
     public Context mContext = StoreManagerActivity.this;
+    private TextView tv_storeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,15 @@ public class StoreManagerActivity extends Activity implements View.OnClickListen
         tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
         btn_storeManager = (Button) findViewById( R.id.btn_storeManager );
         btn_storeManager.setOnClickListener( this );
+        tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
+        tv_storeManager.setOnClickListener( this );
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_storeManager:
+            case R.id.tv_storeManager:
                 Intent intent = new Intent( this, DetialInfomation.class );
                 startActivity( intent );
                 finish();
