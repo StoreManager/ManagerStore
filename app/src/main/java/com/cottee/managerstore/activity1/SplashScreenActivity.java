@@ -21,9 +21,12 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splashscreen);
 
-        handle = new LoginRegisterInformationHandle(SplashScreenActivity.this,"");
+
+
+        handle = new LoginRegisterInformationHandle(SplashScreenActivity.this, "");
 
 
         new Handler().postDelayed(new Runnable() {
@@ -38,11 +41,14 @@ public class SplashScreenActivity extends Activity {
 
                 }
 
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                finish();
+
 
             }
-        },1000*2);
+        }, 1000 * 2);
 
 
     }
+
 }
+
