@@ -30,6 +30,6 @@ public class Properties {
     public static final int TO_HOME = 10;
     public static final int TO_LOGIN = 11;
 
-
+    public static boolean isSend=false;
 
 }

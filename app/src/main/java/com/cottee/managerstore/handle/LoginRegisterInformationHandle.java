@@ -257,16 +257,16 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.NECESSARY_INFOMATION:
                 switch (msg.arg1) {
                     case SUBMIT_SUCCESS:
-                        ToastUtils.showToast( context, "提交成功" );
+                        Properties.isSend=true;
                         break;
                     default:
-                        ToastUtils.showToast( context, "提交失败" );
+                        Properties.isSend=false;
                         break;
                 }
                 break;
             case Properties.PHOTO_BULIC:
                 String obj = (String) msg.obj;
-                if(obj.equals( "ok" )){
+                if(obj.equals( "ok" )&&Properties.isSend){
                     Toast.makeText( context,"店铺正在审核中，成功后将以邮件方式通知您",Toast.LENGTH_LONG ).show();
                 }else {
                     ToastUtils.showToast( context, "审核失败，请重新上传。" );
