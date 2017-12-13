@@ -4,5 +4,17 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
-
+    <!--下单-->
+    <declare-styleable name="pressureview">
+        <attr name="color" format="color" />
+        <attr name="bezierradio" format="float" />
+        <attr name="animduration" format="integer" />
+        <attr name="scale_ranger" format="float" />
+        <attr name="bezierradion_range" format="float" />
+    </declare-styleable>
+    <!--店铺状态-->
+    <style name="AnimTools" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_in</item>
+        <item name="android:windowExitAnimation">@anim/push_out</item>
+    </style>
 </resources>

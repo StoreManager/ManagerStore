@@ -13,4 +13,13 @@
     <color name="transparent">#00000000</color>
     <color name="blueGray">#AEA4A2</color>
     <color name="gray">#AEA4A2</color>
+
+    <color name="Indigo_colorPrimaryDark">#303f9f</color>
+    <color name="Indigo_colorPrimary">#3f51b5</color>
+    <color name="Indigo_nav_color">#4675FF</color>
+
+    <color name="bottle_green">#749141</color>
+    <color name="green">#A2C466</color>
+    <color name="sky_blue">#E2EDE7</color>
+    <color name="pea_green">#CFE894</color>
 </resources>

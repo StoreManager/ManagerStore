@@ -7,5 +7,10 @@
     <string-array name="fragments_titles">
         <item name="food">美食</item>
         <item name="entertainment">休闲娱乐</item>
+
+
     </string-array>
+
+    <string name="drawer_open"> Drawer is opened </string>
+    <string name="drawer_close">Drawer is closed </string>
 </resources>

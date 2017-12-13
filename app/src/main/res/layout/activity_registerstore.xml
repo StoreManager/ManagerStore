@@ -1,65 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <!--Toolbar-->
+    <include layout="@layout/registerstore_toolbar" />
+    <!--DrawerLayout-->
+    <include layout="@layout/registerstore_drawerlayout" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@color/purplishblue"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_user_exit"
-            android:text="退出"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="25dp"
-            android:src="@mipmap/ic_launcher"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="0dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/welcome"
-            android:textColor="@color/colorText"
-            android:textSize="15sp"
-            />
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/registerstore_btn"
-            android:onClick="addRregisterStore"
-            android:text="@string/registerStore"/>
-    </LinearLayout>
-    <TextView
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:id="@+id/tv_noStore"
-        android:gravity="center"
-        android:text="快去添加你的店铺吧"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <ListView
-        android:visibility="invisible"
-        android:id="@+id/lv_registerStore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="1dp"
-        android:scrollbars="none"/>
 
 </LinearLayout>
