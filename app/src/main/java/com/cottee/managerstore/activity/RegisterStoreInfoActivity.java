@@ -196,8 +196,8 @@ public class RegisterStoreInfoActivity extends Activity {
             if(fileName!=null){
                 submitStoreInfo.submitInfo( fileName );
             }
-            RegisterStoreActivity.storeList.add(0, new StoreInfo( shopName,shopStyle,shopAddress,
-                    shopPhoneNum,null,null,false,false,null,null ) );
+            RegisterStoreActivity.storeList.add(0, new StoreInfo( shopName,shopStyle,
+                    shopAddress,shopPhoneNum,null,null,null,false,false,null,null ) );
         }
         finish();
     }

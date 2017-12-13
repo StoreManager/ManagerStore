@@ -15,21 +15,20 @@ public class StoreInfo {
     private String storePhoneNumber;
     private String minimumPay;//人均消费
     private String autograph;//个性签名
+    private String time;
     private boolean isPobulish;//是否发布
     private boolean isOpen;//是否打烊
     private Bitmap mainCover;//封面图片
     private List<Bitmap> bitmapList;//其他图片
 
-    public StoreInfo() {
-    }
-
-    public StoreInfo(String storeName, String storeStyle, String storeAddress, String storePhoneNumber, String minimumPay, String autograph, boolean isPobulish, boolean isOpen, Bitmap mainCover, List<Bitmap> bitmapList) {
+    public StoreInfo( String storeName, String storeStyle, String storeAddress, String storePhoneNumber, String minimumPay, String autograph, String time, boolean isPobulish, boolean isOpen, Bitmap mainCover, List<Bitmap> bitmapList) {
         this.storeName = storeName;
         this.storeStyle = storeStyle;
         this.storeAddress = storeAddress;
         this.storePhoneNumber = storePhoneNumber;
         this.minimumPay = minimumPay;
         this.autograph = autograph;
+        this.time = time;
         this.isPobulish = isPobulish;
         this.isOpen = isOpen;
         this.mainCover = mainCover;
@@ -82,6 +81,14 @@ public class StoreInfo {
 
     public void setAutograph(String autograph) {
         this.autograph = autograph;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public boolean isPobulish() {
