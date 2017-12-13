@@ -88,7 +88,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             case R.id.tv_storeManager:
                 Intent intent = new Intent( this, DetialInfomation.class );
                 startActivity( intent );
-                finish();
                 break;
             case R.id.linear_changeStore:
                 startActivity(new Intent(this,RegisterStoreActivity.class));
