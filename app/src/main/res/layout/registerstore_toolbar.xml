@@ -12,6 +12,7 @@
         android:text="添加店铺"
         android:onClick="addRregisterStore"
         android:background="@drawable/registerstore_btn"
+        android:layout_marginLeft="28dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </android.support.v7.widget.Toolbar>
