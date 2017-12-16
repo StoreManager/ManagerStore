@@ -12,6 +12,7 @@ import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
+import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 
@@ -24,6 +25,7 @@ public class LoginRegisterInformationHandle extends Handler {
 
     private Context context;
     private String emailAddress;
+    private String loginPassword;
 
     /*
    发送成功返回   0 （要给用户提示注意查看邮件之类的提示）
@@ -108,10 +110,23 @@ public class LoginRegisterInformationHandle extends Handler {
 
     private static final int SUBMIT_SUCCESS=0;//上传店铺基本信息成功
 
+    private static final int SEAT_PEOPLE_NUMBER_SUCCESS = 0;
+    private static final int SEAT_PEOPLE_NUMBER_FAILD = 1;
+
+
+
     public LoginRegisterInformationHandle(Context context,String emailAddress) {
         this.context = context;
         this.emailAddress = emailAddress;
     }
+
+
+    public LoginRegisterInformationHandle(Context context,String emailAddress,String loginPassword) {
+        this.context = context;
+        this.emailAddress = emailAddress;
+        this.loginPassword = loginPassword;
+    }
+
 
     @Override
     public void handleMessage(Message msg) {
@@ -186,6 +201,8 @@ public class LoginRegisterInformationHandle extends Handler {
                         Intent intent = new Intent(context, RegisterStoreActivity.class);
                         context.startActivity(intent);
                         ToastUtils.showToast(context, "登录成功");
+                        UserManage userManage = new UserManage();
+                        userManage.saveUserLogin(context,emailAddress,loginPassword);
                         break;
                     case PSWFAILD_USERUNEXIST:
                         ToastUtils.showToast(context, "用户不存在或密码错误");
@@ -281,6 +298,21 @@ public class LoginRegisterInformationHandle extends Handler {
                 Intent loginIntent = new Intent(context, StoreManagerMainActivity.class);
                 context.startActivity(loginIntent);
                 break;
+
+
+            case Properties.SEAT_INFORMATION:
+                switch (msg.arg1) {
+                    case SEAT_PEOPLE_NUMBER_SUCCESS:
+                        ToastUtils.showToast( context, "保存成功" );
+                        break;
+                    case SEAT_PEOPLE_NUMBER_FAILD:
+                        ToastUtils.showToast( context, "保存失败" );
+                        break;
+                }
+                break;
+
+
+
             default:
                 break;
         }

@@ -65,14 +65,13 @@ public class BossLoginActivity extends Activity {
                 String loginPassword = etloginpassword.getText().toString().trim();
 
                 UserManage userManage = new UserManage();
-                userManage.saveUserLogin(BossLoginActivity.this,loginEmail,loginPassword);
                 userManage.saveUserInfo(BossLoginActivity.this,loginEmail,loginPassword);
 
                 if(!loginEmail.isEmpty()){
                     if(!loginPassword.isEmpty()){
                         LoginRegisterInformationManage loginManage = new LoginRegisterInformationManage(BossLoginActivity.this, new
                                 LoginRegisterInformationHandle(BossLoginActivity.this,
-                                ""));
+                                loginEmail,loginPassword));
                         loginManage.userLogin(loginEmail,loginPassword);
                     }else {
                         ToastUtils.showToast(BossLoginActivity.this,"亲，密码不能为空");
