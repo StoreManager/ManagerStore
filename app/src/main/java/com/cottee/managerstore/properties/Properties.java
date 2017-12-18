@@ -16,6 +16,10 @@ public class Properties {
     public static final String PHOTO_BUSLIC = "https://thethreestooges.cn/merchant/bean/register/photo_buslic_upload.php";
     public static final String NECESSARY_INFO ="https://thethreestooges.cn/merchant/bean/register/first_register.php";
     public static final String SUPPLY_INFO = "https://thethreestooges.cn/merchant/bean/register/supply_register.php";
+    public static final String GET_STORE="https://thethreestooges" +
+            ".cn/merchant/bean/register/mer_show.php";//已审核的店铺地址
+
+
     public final static int USER_LOGIN = 1;
     public final static int CHECKOUT_EMAIL = 2;
     public final static int CHECKOUT_EMAIL_VER = 3;
@@ -29,6 +33,7 @@ public class Properties {
     public final static int PHOTO_BULIC=9;
     public static final int TO_HOME = 10;
     public static final int TO_LOGIN = 11;
+    public static final int SEAT_INFORMATION = 12;
 
     public static boolean isSend=false;
 

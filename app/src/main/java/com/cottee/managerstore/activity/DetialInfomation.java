@@ -1,6 +1,9 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +11,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.utils.Utils;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by user on 2017/12/12.
@@ -36,13 +52,26 @@ public class DetialInfomation extends Activity {
     private String time;
     private String money;
     private String phone;
+    private StoreInfo storeInfo;
+    private Bitmap bitmap;
+    private ImageView iv_surface;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_detialinfomation );
 
+        Intent intent = getIntent();
+        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
         findView();
+        String pho_url = storeInfo.getPho_url();
+        Glide.with(this).load(pho_url).into(iv_surface);
+        tv_storeName.setText( storeInfo.getName() );
+        tv_time.setText( storeInfo.getBusiness_hours() );
+        tv_sign.setText( storeInfo.getIntroduce() );
+        tv_phone.setText( storeInfo.getPhone() );
+        tv_style.setText( "("+storeInfo.getClassify()+")" );
+        tv_address.setText( storeInfo.getAddress() );
     }
 
     private void findView() {
@@ -66,17 +95,20 @@ public class DetialInfomation extends Activity {
         tv_style = (TextView) findViewById( R.id.tv_style );
         tv_address = (TextView) findViewById( R.id.tv_address );
 
+        iv_surface = (ImageView) findViewById( R.id.iv_surface );
         iv_photo1 = (ImageView) findViewById( R.id.iv_photo1 );
         iv_photo2 = (ImageView) findViewById( R.id.iv_photo2 );
         iv_photo3 = (ImageView) findViewById( R.id.iv_photo3 );
+
+    }
+
+    public void edit(View view){
 
         sign = tv_sign.getText().toString().trim();
         time = tv_time.getText().toString().trim();
         money = tv_money.getText().toString().trim();
         phone = tv_phone.getText().toString().trim();
-    }
 
-    public void edit(View view){
         tv_sign.setVisibility( View.GONE );
         et_sign.setVisibility( View.VISIBLE );
 
@@ -124,6 +156,30 @@ public class DetialInfomation extends Activity {
         tv_time.setText( time );
         tv_money.setText( money );
         tv_phone.setText( phone );
+    }
+
+    public byte[] getImage(String path) throws Exception{
+        URL url = new URL(path);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(5 * 1000);
+        conn.setRequestMethod("GET");
+        InputStream inStream = conn.getInputStream();
+        if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
+            return readStream(inStream);
+        }
+        return null;
+    }
+
+    public static byte[] readStream(InputStream inStream) throws Exception{
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while( (len=inStream.read(buffer)) != -1){
+            outStream.write(buffer, 0, len);
+        }
+        outStream.close();
+        inStream.close();
+        return outStream.toByteArray();
     }
 
 }

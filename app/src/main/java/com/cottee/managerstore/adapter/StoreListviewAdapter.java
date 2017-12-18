@@ -57,11 +57,11 @@ public class StoreListviewAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent( context, StoreManagerActivity.class );
-                intent.putExtra( "storename",storeList.get( i ).getStoreName() );
+                intent.putExtra( "storeInfo",storeList.get( i ) );
                 context.startActivity( intent );
             }
         } );
-        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getStoreName());
+        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName());
         return view;
     }
     public static class ViewHolder {

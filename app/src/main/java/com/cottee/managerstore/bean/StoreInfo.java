@@ -2,124 +2,114 @@ package com.cottee.managerstore.bean;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by user on 2017/12/10.
  */
 
-public class StoreInfo {
-    private String storeName;
-    private String storeStyle;
-    private String storeAddress;
-    private String storePhoneNumber;
-    private String minimumPay;//人均消费
-    private String autograph;//个性签名
-    private String time;
-    private boolean isPobulish;//是否发布
-    private boolean isOpen;//是否打烊
-    private Bitmap mainCover;//封面图片
-    private List<Bitmap> bitmapList;//其他图片
+public class StoreInfo implements Serializable{
+    private int mer_id;
+    private String name;
+    private String classify;
+    private String introduce;
+    private String phone;
+    private String address;
+    private String business_hours;
+    private String status;
+    private boolean reserve;
+    private String pho_url;
 
-    public StoreInfo( String storeName, String storeStyle, String storeAddress, String storePhoneNumber, String minimumPay, String autograph, String time, boolean isPobulish, boolean isOpen, Bitmap mainCover, List<Bitmap> bitmapList) {
-        this.storeName = storeName;
-        this.storeStyle = storeStyle;
-        this.storeAddress = storeAddress;
-        this.storePhoneNumber = storePhoneNumber;
-        this.minimumPay = minimumPay;
-        this.autograph = autograph;
-        this.time = time;
-        this.isPobulish = isPobulish;
-        this.isOpen = isOpen;
-        this.mainCover = mainCover;
-        this.bitmapList = bitmapList;
+    public StoreInfo(String name, String classify, String introduce, String phone, String address, String business_hours, String status, boolean reserve, String pho_url) {
+        this.name = name;
+        this.classify = classify;
+        this.introduce = introduce;
+        this.phone = phone;
+        this.address = address;
+        this.business_hours = business_hours;
+        this.status = status;
+        this.reserve = reserve;
+        this.pho_url = pho_url;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public int getMer_id() {
+        return mer_id;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setMer_id(int mer_id) {
+        this.mer_id = mer_id;
     }
 
-    public String getStoreStyle() {
-        return storeStyle;
+    public String getName() {
+        return name;
     }
 
-    public void setStoreStyle(String storeStyle) {
-        this.storeStyle = storeStyle;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getStoreAddress() {
-        return storeAddress;
+    public String getClassify() {
+        return classify;
     }
 
-    public void setStoreAddress(String storeAddress) {
-        this.storeAddress = storeAddress;
+    public void setClassify(String classify) {
+        this.classify = classify;
     }
 
-    public String getStorePhoneNumber() {
-        return storePhoneNumber;
+    public String getIntroduce() {
+        return introduce;
     }
 
-    public void setStorePhoneNumber(String storePhoneNumber) {
-        this.storePhoneNumber = storePhoneNumber;
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
-    public String getMinimumPay() {
-        return minimumPay;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMinimumPay(String minimumPay) {
-        this.minimumPay = minimumPay;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getAutograph() {
-        return autograph;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAutograph(String autograph) {
-        this.autograph = autograph;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTime() {
-        return time;
+    public String getBusiness_hours() {
+        return business_hours;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setBusiness_hours(String business_hours) {
+        this.business_hours = business_hours;
     }
 
-    public boolean isPobulish() {
-        return isPobulish;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPobulish(boolean pobulish) {
-        isPobulish = pobulish;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public boolean isOpen() {
-        return isOpen;
+    public boolean isReserve() {
+        return reserve;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    public void setReserve(boolean reserve) {
+        this.reserve = reserve;
     }
 
-    public Bitmap getMainCover() {
-        return mainCover;
+    public String getPho_url() {
+        return pho_url;
     }
 
-    public void setMainCover(Bitmap mainCover) {
-        this.mainCover = mainCover;
-    }
-
-    public List<Bitmap> getBitmapList() {
-        return bitmapList;
-    }
-
-    public void setBitmapList(List<Bitmap> bitmapList) {
-        this.bitmapList = bitmapList;
+    public void setPho_url(String pho_url) {
+        this.pho_url = pho_url;
     }
 }

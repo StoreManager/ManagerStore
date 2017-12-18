@@ -14,8 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
+
+import java.io.Serializable;
 
 public class StoreManagerActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar tl_custom;
@@ -30,6 +33,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_storeStatus;
     private Button btn_releaseStore;
     private PressureButton pbtn_order;
+    private TextView tv_storename_manager;
+    private StoreInfo storeInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +61,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         mDrawerToggle.syncState();
         dl_left.setDrawerListener(mDrawerToggle);
         Intent intent = getIntent();
-        String storename = intent.getStringExtra( "storename" );
-
-
-
-//        tv_storename_manager.setText( storename + "管理" );
+        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
+        tv_storename_manager.setText( storeInfo.getName() );
     }
 
     private void findView() {
@@ -70,7 +72,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         tl_custom = findViewById(R.id.tl_custom);
         dl_left = findViewById(R.id.dl_left);
         linear_changeStore = findViewById(R.id.linear_changeStore);
-//        tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
+        tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
         btn_storeManager = (Button) findViewById( R.id.btn_storeManager );
         btn_storeManager.setOnClickListener( this );
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
@@ -87,6 +89,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             case R.id.btn_storeManager:
             case R.id.tv_storeManager:
                 Intent intent = new Intent( this, DetialInfomation.class );
+                intent.putExtra( "storeInfo",storeInfo );
                 startActivity( intent );
                 break;
             case R.id.linear_changeStore:

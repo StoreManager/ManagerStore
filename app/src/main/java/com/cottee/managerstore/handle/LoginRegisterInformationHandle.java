@@ -311,8 +311,6 @@ public class LoginRegisterInformationHandle extends Handler {
                 }
                 break;
 
-
-
             default:
                 break;
         }

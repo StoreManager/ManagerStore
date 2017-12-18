@@ -1,6 +1,7 @@
 package com.cottee.managerstore.utils;
 
 import com.cottee.managerstore.bean.SearchLocation;
+import com.cottee.managerstore.bean.StoreInfo;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -10,6 +11,10 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,4 +43,19 @@ public class Utils {
         }
         return userBeanList;
     }
+
+    public static List<StoreInfo> handleStoreResponse(String response) {
+        JsonObject jsonObject = new JsonParser().parse( response ).getAsJsonObject();
+        JsonArray jsonArray = jsonObject.getAsJsonArray( "merinfo" );
+        Gson gson = new Gson();
+        List<StoreInfo> userBeanList = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            //通过反射 得到UserBean.class
+            StoreInfo storeInfo = gson.fromJson( user, new TypeToken<StoreInfo>() {
+            }.getType() );
+            userBeanList.add( storeInfo );
+        }
+        return userBeanList;
+    }
+
 }
