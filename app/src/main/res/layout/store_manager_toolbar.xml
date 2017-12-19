@@ -16,20 +16,21 @@
         android:layout_marginLeft="40dp"
         android:textColor="@color/white"
         android:textSize="16sp"/>
-    <TextView
-        android:id="@+id/tv_Status"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:text="店铺状态"
-        android:layout_marginLeft="50dp"
-        android:textColor="@color/white"
-        android:textSize="16sp"/>
-    <TextView
-        android:id="@+id/tv_storeStatus"
+    <!--<TextView-->
+        <!--android:id="@+id/tv_Status"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="店铺状态"-->
+        <!--android:layout_marginLeft="50dp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="16sp"/>-->
+    <ImageButton
+        android:id="@+id/imgbtn_storeStatus"
         android:clickable="true"
-        android:background="@mipmap/store_status"
-        android:layout_marginLeft="30dp"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
+        android:background="@mipmap/closethedoor"
+        android:layout_marginLeft="100dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        />
 </android.support.v7.widget.Toolbar>

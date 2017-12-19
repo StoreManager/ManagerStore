@@ -37,6 +37,7 @@ public class StoreStyleActivity extends AppCompatActivity implements ViewPager.O
 
     private static List<String> entertainment;
     private StoreStyleActivity.myHandler myHandler;
+    private static List<String> food;
 
 
     private static class myHandler extends Handler {
@@ -152,19 +153,7 @@ public class StoreStyleActivity extends AppCompatActivity implements ViewPager.O
         setContentView(R.layout.activity_store_style);
         sendRequestWithOkHttp();
         myHandler = new myHandler(StoreStyleActivity.this,fragments);
-//        findView();
-
-        /*UltimateBar ultimateBar = new UltimateBar(this);
-
-        ultimateBar.setImmersionBar();*/
-
-
         initViews();
-
-
-
-        /*login_username();*/
-
     }
 
     private void sendRequestWithOkHttp() {
@@ -198,17 +187,16 @@ public class StoreStyleActivity extends AppCompatActivity implements ViewPager.O
         Gson gson = new Gson();
         StoreStyleInfo styleInfo = gson.fromJson(jsonData, StoreStyleInfo.class);
         entertainment = styleInfo.getEntertainment();
-        return styleInfo.getFood();
+        food = styleInfo.getFood();
+        return food;
 
     }
 
     public static List<String> getEntertainments() {
         return entertainment;
     }
-
-    public void findView() {
-
-
+    public static List<String > getFood(){
+        return food;
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

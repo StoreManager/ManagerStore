@@ -32,7 +32,7 @@ public class StoreStausPopupWindow extends PopupWindow {
         linear_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String open="营业";
+                Toast.makeText(context, "营业", Toast.LENGTH_SHORT).show();
             }
         });
         linear_close.setOnClickListener(new View.OnClickListener() {

@@ -8,7 +8,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +20,6 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
-
-import java.io.Serializable;
 
 public class StoreManagerActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar tl_custom;
@@ -30,12 +31,12 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_storeManager;
     private LinearLayout linear_changeStore;
     private StoreStausPopupWindow storeStausPopupWindow;
-    private TextView tv_storeStatus;
+    private ImageButton imgbtn_storeStatus;
     private Button btn_releaseStore;
     private PressureButton pbtn_order;
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
-
+    private int clicked=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -68,7 +69,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private void findView() {
         pbtn_order = findViewById(R.id.pbtn_order);
         btn_releaseStore = findViewById(R.id.btn_releaseStore);
-        tv_storeStatus = findViewById(R.id.tv_storeStatus);
+        imgbtn_storeStatus = findViewById(R.id.imgbtn_storeStatus);
         tl_custom = findViewById(R.id.tl_custom);
         dl_left = findViewById(R.id.dl_left);
         linear_changeStore = findViewById(R.id.linear_changeStore);
@@ -78,7 +79,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
         pbtn_order.setOnClickListener(this);
         btn_releaseStore.setOnClickListener(this);
-        tv_storeStatus.setOnClickListener(this);
+       imgbtn_storeStatus.setOnClickListener(this);
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener(this);
     }
@@ -97,26 +98,42 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 overridePendingTransition(R.anim.left_in,R.anim.right_out);
                 break;
-            case R.id.tv_Status:
-                storeStausPopupWindow = new
-                        StoreStausPopupWindow(this);
-                storeStausPopupWindow.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            case R.id.imgbtn_storeStatus:
+                clicked++;
+                if (clicked%2==0){
+                    view.setBackgroundResource(R.mipmap.openthedoor);
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.3f,
+                            0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+                    scaleAnimation.setDuration(200);
+                    view.startAnimation(scaleAnimation);
+                }
+                else {
+                    view.setBackgroundResource(R.mipmap.closethedoor);
+                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.3f,
+                            0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+                    scaleAnimation.setDuration(200);
+                    view.startAnimation(scaleAnimation);
+                }
 
-
-
-                    @Override
-                    public void onFocusChange(View view, boolean hasFocus) {
-                        if (!hasFocus)
-                            storeStausPopupWindow.dismiss();
-
-                    }
-                });
-                //设置默认获取焦点
-                storeStausPopupWindow.setFocusable(true);
-//以某个控件的x和y的偏移量位置开始显示窗口
-                storeStausPopupWindow.showAsDropDown(tv_storeStatus, 0, 0);
-//如果窗口存在，则更新
-                storeStausPopupWindow.update();
+//                storeStausPopupWindow = new
+//                        StoreStausPopupWindow(this);
+//                storeStausPopupWindow.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//
+//
+//
+//                    @Override
+//                    public void onFocusChange(View view, boolean hasFocus) {
+//                        if (!hasFocus)
+//                            storeStausPopupWindow.dismiss();
+//
+//                    }
+//                });
+//                //设置默认获取焦点
+//                storeStausPopupWindow.setFocusable(true);
+////以某个控件的x和y的偏移量位置开始显示窗口
+//                storeStausPopupWindow.showAsDropDown(tv_storeStatus, 0, 0);
+////如果窗口存在，则更新
+//                storeStausPopupWindow.update();
                 break;
             case R.id.btn_releaseStore:
                 Toast.makeText(mContext, "发布店铺", Toast.LENGTH_SHORT).show();
