@@ -12,6 +12,7 @@ import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
+import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 
@@ -24,6 +25,7 @@ public class LoginRegisterInformationHandle extends Handler {
 
     private Context context;
     private String emailAddress;
+    private String loginPassword;
 
     /*
    发送成功返回   0 （要给用户提示注意查看邮件之类的提示）
@@ -108,10 +110,23 @@ public class LoginRegisterInformationHandle extends Handler {
 
     private static final int SUBMIT_SUCCESS=0;//上传店铺基本信息成功
 
+    private static final int SEAT_PEOPLE_NUMBER_SUCCESS = 0;
+    private static final int SEAT_PEOPLE_NUMBER_FAILD = 1;
+
+
+
     public LoginRegisterInformationHandle(Context context,String emailAddress) {
         this.context = context;
         this.emailAddress = emailAddress;
     }
+
+
+    public LoginRegisterInformationHandle(Context context,String emailAddress,String loginPassword) {
+        this.context = context;
+        this.emailAddress = emailAddress;
+        this.loginPassword = loginPassword;
+    }
+
 
     @Override
     public void handleMessage(Message msg) {
@@ -186,6 +201,8 @@ public class LoginRegisterInformationHandle extends Handler {
                         Intent intent = new Intent(context, RegisterStoreActivity.class);
                         context.startActivity(intent);
                         ToastUtils.showToast(context, "登录成功");
+                        UserManage userManage = new UserManage();
+                        userManage.saveUserLogin(context,emailAddress,loginPassword);
                         break;
                     case PSWFAILD_USERUNEXIST:
                         ToastUtils.showToast(context, "用户不存在或密码错误");
@@ -257,16 +274,16 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.NECESSARY_INFOMATION:
                 switch (msg.arg1) {
                     case SUBMIT_SUCCESS:
-                        ToastUtils.showToast( context, "提交成功" );
+                        Properties.isSend=true;
                         break;
                     default:
-                        ToastUtils.showToast( context, "提交失败" );
+                        Properties.isSend=false;
                         break;
                 }
                 break;
             case Properties.PHOTO_BULIC:
                 String obj = (String) msg.obj;
-                if(obj.equals( "ok" )){
+                if(obj.equals( "ok" )&&Properties.isSend){
                     Toast.makeText( context,"店铺正在审核中，成功后将以邮件方式通知您",Toast.LENGTH_LONG ).show();
                 }else {
                     ToastUtils.showToast( context, "审核失败，请重新上传。" );
@@ -281,6 +298,19 @@ public class LoginRegisterInformationHandle extends Handler {
                 Intent loginIntent = new Intent(context, StoreManagerMainActivity.class);
                 context.startActivity(loginIntent);
                 break;
+
+
+            case Properties.SEAT_INFORMATION:
+                switch (msg.arg1) {
+                    case SEAT_PEOPLE_NUMBER_SUCCESS:
+                        ToastUtils.showToast( context, "保存成功" );
+                        break;
+                    case SEAT_PEOPLE_NUMBER_FAILD:
+                        ToastUtils.showToast( context, "保存失败" );
+                        break;
+                }
+                break;
+
             default:
                 break;
         }
