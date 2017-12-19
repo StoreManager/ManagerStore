@@ -27,10 +27,17 @@
         android:layout_weight="3"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="@mipmap/logo_2x"
+        android:background="@mipmap/logo"
         android:gravity="center"
         android:textSize="50dp"
         />
+    <TextView
+        android:text="Sweet"
+        android:textSize="20sp"
+        android:textColor="@color/babyblue"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
      <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="0dp"

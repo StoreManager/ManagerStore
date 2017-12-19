@@ -20,11 +20,10 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.fragment.TestFragment;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
-import com.cottee.managerstore.properties.Properties;
-import com.cottee.managerstore.tabfragment.TestFragment;
 import com.cottee.managerstore.view.MyImageButton;
 
 import java.io.File;
@@ -114,41 +113,40 @@ public class RegisterStoreInfoActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent
             data) {
-
+        if (resultCode == RESULT_OK) {
         switch (requestCode) {
             case 1:
-                if (resultCode == RESULT_OK) {
-                    String storeStyle = data.getStringExtra( "storeStyle" );
-                    tv_storeStyle.setText( storeStyle );
-                }
+
+                    String storeStyle = data.getStringExtra("storeStyle");
+                    tv_storeStyle.setText(storeStyle);
+
                 break;
             case REQUEST_ADDRESS:
-                if (resultCode == RESULT_OK) {
-                    String address = data.getStringExtra( "address" );
-                    tv_storeAddress.setText( address );
-                }
+
+                    String address = data.getStringExtra("address");
+                    tv_storeAddress.setText(address);
+
                 break;
             case REQUEST_CAMERA:
-                if (resultCode == Activity.RESULT_OK) {
                     String sdStatus = Environment.getExternalStorageState();
-                    if (!sdStatus.equals( Environment.MEDIA_MOUNTED )) { //
+                    if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { //
                         // 检测sd是否可用
-                        Log.i( "TestFile",
-                                "SD card is not avaiable/writeable right now." );
+                        Log.i("TestFile",
+                                "SD card is not avaiable/writeable right now.");
                         return;
                     }
-                    String name = new DateFormat().format( "yyyyMMdd_hhmmss",
-                            Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
+                    String name = new DateFormat().format("yyyyMMdd_hhmmss",
+                            Calendar.getInstance(Locale.CHINA)) + ".jpg";
                     Bundle bundle = data.getExtras();
-                    Bitmap bitmap = (Bitmap) bundle.get( "data" );//
+                    Bitmap bitmap = (Bitmap) bundle.get("data");//
                     // 获取相机返回的数据，并转换为Bitmap图片格式
                     FileOutputStream b = null;
-                    File file = new File( "/sdcard/myImage/" );
+                    File file = new File("/sdcard/myImage/");
                     file.mkdirs();// 创建文件夹
                     fileName = "/sdcard/myImage/" + name;
                     try {
-                        b = new FileOutputStream( fileName );
-                        bitmap.compress( Bitmap.CompressFormat.JPEG, 100, b );
+                        b = new FileOutputStream(fileName);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
                         // 把数据写入文件
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -160,11 +158,16 @@ public class RegisterStoreInfoActivity extends Activity {
                             e.printStackTrace();
                         }
                     }
-                    imgbtn_businessLicense.setImageBitmap( bitmap );
-                }
+                    imgbtn_businessLicense.setImageBitmap(bitmap);
+
 
                 break;
+//            case 100:
+//                String storeStyle = data.getStringExtra("storeStyle");
+//                System.out.println(storeStyle);
+//                break;
         }
+    }
 
     }
 

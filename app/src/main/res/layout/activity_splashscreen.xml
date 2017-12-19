@@ -8,7 +8,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@mipmap/img_coffee"/>
+                    android:background="@mipmap/launchpage_big"/>
 
 
 

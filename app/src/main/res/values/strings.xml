@@ -10,7 +10,11 @@
 
 
     </string-array>
-
+    <array name="tab_main_title">
+        <item>测试使用</item>
+        <item>美食</item>
+        <item>休闲娱乐</item>
+    </array>
     <string name="drawer_open"> Drawer is opened </string>
     <string name="drawer_close">Drawer is closed </string>
 </resources>
