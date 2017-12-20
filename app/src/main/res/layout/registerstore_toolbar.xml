@@ -13,6 +13,6 @@
         android:onClick="addRregisterStore"
         android:background="@drawable/registerstore_btn"
         android:layout_marginLeft="28dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="80dp"
+        android:layout_height="40dp"/>
 </android.support.v7.widget.Toolbar>

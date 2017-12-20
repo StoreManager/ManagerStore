@@ -9,7 +9,7 @@
     android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     <TextView
         android:id="@+id/tv_storename_manager"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="50dp"
         android:gravity="center"
         android:text="店铺管理"
@@ -26,10 +26,11 @@
         <!--android:textColor="@color/white"-->
         <!--android:textSize="16sp"/>-->
     <ImageButton
+
         android:id="@+id/imgbtn_storeStatus"
         android:clickable="true"
         android:background="@mipmap/closethedoor"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="45dp"
         android:layout_width="25dp"
         android:layout_height="25dp"
         />
