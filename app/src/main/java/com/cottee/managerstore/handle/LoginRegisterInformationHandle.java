@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
+import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
@@ -284,9 +285,10 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PHOTO_BULIC:
                 String obj = (String) msg.obj;
                 if(obj.equals( "ok" )&&Properties.isSend){
-                    Toast.makeText( context,"店铺正在审核中，成功后将以邮件方式通知您",Toast.LENGTH_LONG ).show();
+                    Toast.makeText(context,"店铺正在审核中，成功后将以邮件方式通知您",Toast.LENGTH_LONG ).show();
+                    ( (RegisterStoreInfoActivity)context).finish();
                 }else {
-                    ToastUtils.showToast( context, "审核失败，请重新上传。" );
+                    ToastUtils.showToast( context, "服务器打瞌睡啦，请稍后再试" );
                 }
                 break;
             case TO_HOME :

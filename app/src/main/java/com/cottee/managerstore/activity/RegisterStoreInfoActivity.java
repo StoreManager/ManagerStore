@@ -162,10 +162,6 @@ public class RegisterStoreInfoActivity extends Activity {
 
 
                 break;
-//            case 100:
-//                String storeStyle = data.getStringExtra("storeStyle");
-//                System.out.println(storeStyle);
-//                break;
         }
     }
 
@@ -199,10 +195,6 @@ public class RegisterStoreInfoActivity extends Activity {
             if(fileName!=null){
                 submitStoreInfo.submitInfo( fileName );
             }
-//            RegisterStoreActivity.storeList.add(0, new StoreInfo( shopName,shopStyle,
-//                    shopAddress,shopPhoneNum,null,null,null,false,null ) );
         }
-        finish();
     }
-
 }
