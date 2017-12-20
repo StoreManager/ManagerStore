@@ -36,8 +36,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.RegisterStoreActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".activity.RegisterStoreInfoActivity"
             android:launchMode="singleTask">
@@ -89,10 +89,15 @@
         </activity>
         <activity
             android:name=".activity.StoreManagerActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+            android:name=".activity.DetialInfomation"
             android:launchMode="singleTask">
         </activity>
-        <activity android:name=".activity.DetialInfomation"
+        <activity
+            android:name=".activity.BigPhotoActivity"
             android:launchMode="singleTask">
         </activity>
 

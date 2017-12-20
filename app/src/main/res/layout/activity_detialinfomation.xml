@@ -193,5 +193,4 @@
             android:padding="1dp"
             android:src="@mipmap/cottee1"/>
     </LinearLayout>
-
 </LinearLayout>

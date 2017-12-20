@@ -19,9 +19,17 @@ public class StoreInfo implements Serializable{
     private String business_hours;
     private String status;
     private boolean reserve;
-    private String pho_url;
+    private String surface;
+    private String Thumbnail_one;
+    private String Thumbnail_three;
+    private String Thumbnail_two;
+    private boolean pass;
 
-    public StoreInfo(String name, String classify, String introduce, String phone, String address, String business_hours, String status, boolean reserve, String pho_url) {
+    public StoreInfo(int mer_id, String name, String classify, String introduce, String phone,
+                     String address, String business_hours, String status, boolean reserve,
+                     String surface, String thumbnail_one, String thumbnail_three, String
+                             thumbnail_two,boolean pass) {
+        this.mer_id = mer_id;
         this.name = name;
         this.classify = classify;
         this.introduce = introduce;
@@ -30,7 +38,19 @@ public class StoreInfo implements Serializable{
         this.business_hours = business_hours;
         this.status = status;
         this.reserve = reserve;
-        this.pho_url = pho_url;
+        this.surface = surface;
+        this.pass=pass;
+        Thumbnail_one = thumbnail_one;
+        Thumbnail_three = thumbnail_three;
+        Thumbnail_two = thumbnail_two;
+    }
+
+    public boolean isPass() {
+        return pass;
+    }
+
+    public void setPass(boolean pass) {
+        this.pass = pass;
     }
 
     public int getMer_id() {
@@ -105,11 +125,35 @@ public class StoreInfo implements Serializable{
         this.reserve = reserve;
     }
 
-    public String getPho_url() {
-        return pho_url;
+    public String getSurface() {
+        return surface;
     }
 
-    public void setPho_url(String pho_url) {
-        this.pho_url = pho_url;
+    public void setSurface(String surface) {
+        this.surface = surface;
+    }
+
+    public String getThumbnail_one() {
+        return Thumbnail_one;
+    }
+
+    public void setThumbnail_one(String thumbnail_one) {
+        Thumbnail_one = thumbnail_one;
+    }
+
+    public String getThumbnail_three() {
+        return Thumbnail_three;
+    }
+
+    public void setThumbnail_three(String thumbnail_three) {
+        Thumbnail_three = thumbnail_three;
+    }
+
+    public String getThumbnail_two() {
+        return Thumbnail_two;
+    }
+
+    public void setThumbnail_two(String thumbnail_two) {
+        Thumbnail_two = thumbnail_two;
     }
 }

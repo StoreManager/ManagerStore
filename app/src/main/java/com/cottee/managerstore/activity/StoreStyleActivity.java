@@ -115,8 +115,8 @@ public class StoreStyleActivity extends AppCompatActivity implements ViewPager.O
         int width = getResources().getDimensionPixelSize(R.dimen.tab_icon_width);
         int height = getResources().getDimensionPixelSize(R.dimen.tab_icon_height);
         mTabLayout.setContainerLayout(R.layout.tab_container_view, R.id.iv_tab_icon, R.id.tv_tab_text, width, height);
-//        mTabLayout.setSingleTextLayout(R.layout.tab_container_view, R.id.tv_tab_text);
-//        mTabLayout.setSingleIconLayout(R.layout.tab_container_view, R.id.iv_tab_icon);
+//        mTabLayout.setSingleTextLayout(R.activity_detialinfomation_layout.tab_container_view, R.id.tv_tab_text);
+//        mTabLayout.setSingleIconLayout(R.activity_detialinfomation_layout.tab_container_view, R.id.iv_tab_icon);
 
         mTabLayout.setViewPager(mPager);
 

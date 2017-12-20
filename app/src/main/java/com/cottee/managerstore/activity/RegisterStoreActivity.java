@@ -97,29 +97,29 @@ public class RegisterStoreActivity extends AppCompatActivity {
 //
 //            }
 //        } );
-        lv_registerStore.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder( mContext );
-                builder.setMessage( "确定删除此店铺吗？" );
-                builder.setCancelable( true );
-                builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        storeList.remove( position );
-                        onResume();
-                    }
-                } );
-                builder.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        onResume();
-                    }
-                } );
-                builder.show();
-            }
-        } );
+//        lv_registerStore.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder( mContext );
+//                builder.setMessage( "确定删除此店铺吗？" );
+//                builder.setCancelable( true );
+//                builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        storeList.remove( position );
+//                        onResume();
+//                    }
+//                } );
+//                builder.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        onResume();
+//                    }
+//                } );
+//                builder.show();
+//            }
+//        } );
     }
 
     private void initView() {
