@@ -65,7 +65,7 @@ public class RegisterStoreInfoActivity extends Activity {
     private LinearLayout linear_addStoreStyle;
     private LinearLayout linear_addStoreAddress;
     private Context context;
-    private String fileName=null;
+    private String fileName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,39 +117,39 @@ public class RegisterStoreInfoActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent
             data) {
         if (resultCode == RESULT_OK) {
-        switch (requestCode) {
-            case 1:
+            switch (requestCode) {
+                case 1:
 
-                    String storeStyle = data.getStringExtra("storeStyle");
-                    tv_storeStyle.setText(storeStyle);
+                    String storeStyle = data.getStringExtra( "storeStyle" );
+                    tv_storeStyle.setText( storeStyle );
 
-                break;
-            case REQUEST_ADDRESS:
+                    break;
+                case REQUEST_ADDRESS:
 
-                    String address = data.getStringExtra("address");
-                    tv_storeAddress.setText(address);
+                    String address = data.getStringExtra( "address" );
+                    tv_storeAddress.setText( address );
 
-                break;
-            case REQUEST_CAMERA:
+                    break;
+                case REQUEST_CAMERA:
                     String sdStatus = Environment.getExternalStorageState();
-                    if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { //
+                    if (!sdStatus.equals( Environment.MEDIA_MOUNTED )) { //
                         // 检测sd是否可用
-                        Log.i("TestFile",
-                                "SD card is not avaiable/writeable right now.");
+                        Log.i( "TestFile",
+                                "SD card is not avaiable/writeable right now." );
                         return;
                     }
-                    String name = new DateFormat().format("yyyyMMdd_hhmmss",
-                            Calendar.getInstance(Locale.CHINA)) + ".jpg";
+                    String name = new DateFormat().format( "yyyyMMdd_hhmmss",
+                            Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
                     Bundle bundle = data.getExtras();
-                    Bitmap bitmap = (Bitmap) bundle.get("data");//
+                    Bitmap bitmap = (Bitmap) bundle.get( "data" );//
                     // 获取相机返回的数据，并转换为Bitmap图片格式
                     FileOutputStream b = null;
-                    File file = new File("/sdcard/myImage/");
+                    File file = new File( "/sdcard/myImage/" );
                     file.mkdirs();// 创建文件夹
                     fileName = "/sdcard/myImage/" + name;
                     try {
-                        b = new FileOutputStream(fileName);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
+                        b = new FileOutputStream( fileName );
+                        bitmap.compress( Bitmap.CompressFormat.JPEG, 100, b );
                         // 把数据写入文件
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -161,12 +161,12 @@ public class RegisterStoreInfoActivity extends Activity {
                             e.printStackTrace();
                         }
                     }
-                    imgbtn_businessLicense.setImageBitmap(bitmap);
+                    imgbtn_businessLicense.setImageBitmap( bitmap );
 
 
-                break;
+                    break;
+            }
         }
-    }
 
     }
 
@@ -195,7 +195,7 @@ public class RegisterStoreInfoActivity extends Activity {
                     RegisterStoreInfoActivity.this, ""
             ) );
             submitStoreInfo.submitInfo( shopName, shopStyle, shopAddress, shopPhoneNum );
-            if(fileName!=null){
+            if (fileName != null) {
                 submitStoreInfo.submitInfo( fileName );
             }
         }
@@ -203,22 +203,31 @@ public class RegisterStoreInfoActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterStoreInfoActivity
-                .this);
-        dialog.setCancelable( true );
-        dialog.setMessage( "返回界面后，填写的信息将会消失哦！" );
-        dialog.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        } );
-        dialog.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        String shopName = et_name.getText().toString().trim();
+        String shopPhoneNum = et_phoneNum.getText().toString().trim();
+        String shopStyle = tv_storeStyle.getText().toString().trim();
+        String shopAddress = tv_storeAddress.getText().toString().trim();
 
-            }
-        } );
-        dialog.show();
+        if (!shopName.isEmpty()||!shopPhoneNum.isEmpty()||!shopStyle.isEmpty()||!shopAddress.isEmpty()){
+            AlertDialog.Builder dialog = new AlertDialog.Builder( RegisterStoreInfoActivity
+                    .this );
+            dialog.setCancelable( true );
+            dialog.setMessage( "返回界面后，填写的信息将会消失哦！" );
+            dialog.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            } );
+            dialog.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            } );
+            dialog.show();
+        }else {
+            finish();
+        }
     }
 }
