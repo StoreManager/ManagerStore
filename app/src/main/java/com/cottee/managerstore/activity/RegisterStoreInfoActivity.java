@@ -1,7 +1,10 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -196,5 +199,26 @@ public class RegisterStoreInfoActivity extends Activity {
                 submitStoreInfo.submitInfo( fileName );
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(RegisterStoreInfoActivity
+                .this);
+        dialog.setCancelable( true );
+        dialog.setMessage( "返回界面后，填写的信息将会消失哦！" );
+        dialog.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        } );
+        dialog.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        } );
+        dialog.show();
     }
 }
