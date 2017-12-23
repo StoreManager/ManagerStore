@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
@@ -37,6 +38,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
     private int clicked=1;
+    private Button btntoprojectmanage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -77,11 +80,13 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         btn_storeManager = (Button) findViewById( R.id.btn_storeManager );
         btn_storeManager.setOnClickListener( this );
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
+        btntoprojectmanage = (Button) findViewById(R.id.btn_to_project_manage);
         pbtn_order.setOnClickListener(this);
         btn_releaseStore.setOnClickListener(this);
        imgbtn_storeStatus.setOnClickListener(this);
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener(this);
+        btntoprojectmanage.setOnClickListener(this);
     }
 
     @Override
@@ -140,6 +145,10 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.pbtn_order:
                 Toast.makeText(mContext, "下单", Toast.LENGTH_SHORT).show();
+            case R.id.btn_to_project_manage:
+                Intent intentOne = new Intent(StoreManagerActivity.this, ProjectManageActivity.class);
+                startActivity(intentOne);
+                break;
             default:
                 break;
         }

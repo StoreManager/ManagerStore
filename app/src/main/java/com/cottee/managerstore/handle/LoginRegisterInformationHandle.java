@@ -114,6 +114,10 @@ public class LoginRegisterInformationHandle extends Handler {
     private static final int SEAT_PEOPLE_NUMBER_SUCCESS = 0;
     private static final int SEAT_PEOPLE_NUMBER_FAILD = 1;
 
+    private static final int PROJECT_MANAGE_SUCCESS = 0;
+    private static final int PROJECT_MANAGE_FAILD = 1;
+    private static final int PROJECT_MANAGE_CREATE_FAILD = 2;
+
 
 
     public LoginRegisterInformationHandle(Context context,String emailAddress) {
@@ -312,6 +316,23 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
                 }
                 break;
+
+            case Properties.PROJECT_MANAGE_LARGE_INFORMATION:
+                switch (msg.arg1) {
+                    case PROJECT_MANAGE_SUCCESS:
+                        ToastUtils.showToast( context, "保存成功" );
+                        break;
+                    case PROJECT_MANAGE_FAILD:
+                        ToastUtils.showToast( context, "保存失败" );
+                        break;
+                    case PROJECT_MANAGE_CREATE_FAILD:
+                        ToastUtils.showToast( context, "保存失败" );
+                        break;
+
+                }
+                break;
+
+
 
             default:
                 break;

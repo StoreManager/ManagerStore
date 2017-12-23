@@ -100,7 +100,8 @@
             android:name=".activity.BigPhotoActivity"
             android:launchMode="singleTask">
         </activity>
-
+        <activity android:name=".activity1.ProjectManageActivity"/>
+        <activity android:name=".activity1.ProjectManageAddClassify"/>
         <meta-data
             android:name="TencentMapSDK"
             android:value="7KLBZ-SVMRD-PBA4J-PR24M-TKJW3-C2BX2"/>
