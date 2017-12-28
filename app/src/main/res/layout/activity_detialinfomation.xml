@@ -93,15 +93,39 @@
             android:src="@mipmap/clock_time"/>
 
         <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="match_parent"
+            android:gravity="center"
+            android:id="@+id/tv_timeAM"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="9:00--20:00"/>
+            android:text="9:00"/>
 
         <EditText
-            android:id="@+id/et_time"
-            android:layout_width="match_parent"
+            android:id="@+id/et_timeAM"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="--"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_timePM"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="20:00"/>
+
+
+        <EditText
+            android:id="@+id/et_timePM"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:visibility="gone"/>
@@ -126,9 +150,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="$500"/>
+            android:text="500"/>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/et_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,6 +182,7 @@
             android:text="18340816220"/>
 
         <EditText
+            android:inputType="phone"
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
