@@ -101,10 +101,9 @@
             android:launchMode="singleTask">
         </activity>
         <activity android:name=".activity1.ProjectManageActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+                    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <activity android:name=".activity1.ProjectManageAddClassify"
+        <activity android:name=".activity1.ProjectManageAddClassifyActivity"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data
             android:name="TencentMapSDK"

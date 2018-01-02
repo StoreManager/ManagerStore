@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/transparent"
+              android:orientation="vertical"
+              android:id="@+id/ll_dialog_add_classify"
+              android:gravity="bottom">
+
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_none"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:orientation="vertical"
+        android:background="#e4e2e2"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:id="@+id/btn_dialog_exit"
+                android:background="@mipmap/dialog_exit"/>
+        </LinearLayout>
+
+
+        <GridView
+            android:paddingTop="20dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:numColumns="3"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="5dp"
+            android:id="@+id/gv_project_manage_classify_example"/>
+
+        <TextView
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*亲可以选择以上一(多)种菜品类型，或也可以自定义一种菜品"
+            android:textSize="13dp"
+            android:textColor="#ff0000"/>
+
+        <Button
+            android:id="@+id/btn_project_manage_classify_custom_classify"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:text="自定义菜品种类"
+            android:textColor="#000000"
+            android:background="#f2ee28"/>
+
+        <Button
+            android:id="@+id/btn_project_manage_classify_save_dishes"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="保存"
+            android:layout_marginTop="0dp"
+            android:textColor="#ffffff"
+            android:background="#098cab"/>
+
+
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

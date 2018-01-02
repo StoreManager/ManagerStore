@@ -11,6 +11,7 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
+import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
 import com.cottee.managerstore.manage.UserManage;
@@ -321,6 +322,8 @@ public class LoginRegisterInformationHandle extends Handler {
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
                         ToastUtils.showToast( context, "保存成功" );
+                        Intent intent = new Intent(context, ProjectManageActivity.class);
+                        context.startActivity(intent);
                         break;
                     case PROJECT_MANAGE_FAILD:
                         ToastUtils.showToast( context, "保存失败" );
