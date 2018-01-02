@@ -1,12 +1,14 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +21,6 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.utils.ToastUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -32,7 +33,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private Button btn_edit;
     private Button btn_save;
     private TextView tv_timeAM;
-    private EditText et_timeAM;
+    private Button btn_timeAM;
     private TextView tv_sign;
     private EditText et_sign;
     private TextView tv_money;
@@ -58,7 +59,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private String three;
     public Context mContext = DetialInfomation.this;
     private TextView tv_timePM;
-    private EditText et_timePM;
+    private Button btn_timePM;
+    private TextView tv_order;
+    private Button btn_order;
+    private String order;
+    private int click=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +100,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         btn_save = (Button) findViewById( R.id.btn_save );
 
         tv_timeAM = (TextView) findViewById( R.id.tv_timeAM );
-        et_timeAM = (EditText) findViewById( R.id.et_timeAM );
+        btn_timeAM = (Button) findViewById( R.id.et_timeAM );
 
         tv_timePM = (TextView) findViewById( R.id.tv_timePM );
-        et_timePM = (EditText) findViewById( R.id.et_timePM );
+        btn_timePM = (Button) findViewById( R.id.et_timePM );
 
         tv_sign = (TextView) findViewById( R.id.tv_sign );
         et_sign = (EditText) findViewById( R.id.et_sign );
@@ -120,8 +125,13 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         iv_photo2.setOnClickListener( this );
         iv_photo3 = (ImageView) findViewById( R.id.iv_photo3 );
         iv_photo3.setOnClickListener( this );
-        et_timeAM.setOnClickListener( this );
-        et_timePM.setOnClickListener( this );
+
+        btn_timeAM.setOnClickListener( this );
+        btn_timePM.setOnClickListener( this );
+
+        tv_order = (TextView) findViewById( R.id.tv_order );
+        btn_order = (Button) findViewById( R.id.btn_order );
+        btn_order.setOnClickListener( this );
 
     }
 
@@ -132,15 +142,16 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         timePM = tv_timePM.getText().toString().trim();
         money = tv_money.getText().toString().trim();
         phone = tv_phone.getText().toString().trim();
+        order = tv_order.getText().toString().trim();
 
         tv_sign.setVisibility( View.GONE );
         et_sign.setVisibility( View.VISIBLE );
 
         tv_timeAM.setVisibility( View.GONE );
-        et_timeAM.setVisibility( View.VISIBLE );
+        btn_timeAM.setVisibility( View.VISIBLE );
 
         tv_timePM.setVisibility( View.GONE );
-        et_timePM.setVisibility( View.VISIBLE );
+        btn_timePM.setVisibility( View.VISIBLE );
 
         tv_money.setVisibility( View.GONE );
         et_money.setVisibility( View.VISIBLE );
@@ -151,30 +162,36 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         btn_edit.setVisibility( View.GONE );
         btn_save.setVisibility( View.VISIBLE );
 
+        tv_order.setVisibility( View.GONE );
+        btn_order.setVisibility( View.VISIBLE );
+
         et_sign.setText( sign );
-        et_timeAM.setText( timeAM );
-        et_timePM.setText( timePM );
+        btn_timeAM.setText( timeAM );
+        btn_timePM.setText( timePM );
         et_money.setText( money );
         et_phone.setText( phone );
+        btn_order.setText( order );
 
     }
 
     public void save(View view) {
         sign = et_sign.getText().toString().trim();
-        timeAM = et_timeAM.getText().toString().trim();
-        timePM = et_timePM.getText().toString().trim();
+        timeAM = btn_timeAM.getText().toString().trim();
+        timePM = btn_timePM.getText().toString().trim();
         money = et_money.getText().toString().trim();
         phone = et_phone.getText().toString().trim();
+        order=btn_order.getText().toString().trim();
 
         boolean mobileNo = isMobileNo( phone );
-        if (mobileNo==true) {
+        boolean phoneNo = isTelePhoneNo( phone );
+        if (mobileNo == true || phoneNo == true) {
             et_sign.setVisibility( View.GONE );
             tv_sign.setVisibility( View.VISIBLE );
 
-            et_timeAM.setVisibility( View.GONE );
+            btn_timeAM.setVisibility( View.GONE );
             tv_timeAM.setVisibility( View.VISIBLE );
 
-            et_timePM.setVisibility( View.GONE );
+            btn_timePM.setVisibility( View.GONE );
             tv_timePM.setVisibility( View.VISIBLE );
 
             et_money.setVisibility( View.GONE );
@@ -186,13 +203,17 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             btn_edit.setVisibility( View.VISIBLE );
             btn_save.setVisibility( View.GONE );
 
+            btn_order.setVisibility( View.GONE );
+            tv_order.setVisibility( View.VISIBLE );
+
             tv_sign.setText( sign );
             tv_timeAM.setText( timeAM );
             tv_timePM.setText( timePM );
             tv_money.setText( money );
             tv_phone.setText( phone );
+            tv_order.setText( order );
         } else {
-            ToastUtils.showToast( this,"电话号码输入有误哦" );
+            ToastUtils.showToast( this, "号码输入有误哦" );
             return;
         }
     }
@@ -218,37 +239,74 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                 startActivity( intent );
                 break;
             case R.id.et_timeAM:
-                showTimePickerDialog( et_timeAM );
+                showTimePickerDialog( btn_timeAM );
                 break;
             case R.id.et_timePM:
-                showTimePickerDialog( et_timePM );
+                showTimePickerDialog( btn_timePM );
                 break;
+            case R.id.btn_order:
+                click++;
+                if(click%2==0){
+                    btn_order.setText( "可预约" );
+                }else {
+                    btn_order.setText( "不可预约" );
+                }
+
             default:
                 break;
         }
     }
-
-    private void showTimePickerDialog(final EditText editText) {
-        final Calendar calendar = Calendar.getInstance();
-        TimePickerDialog dialog = new TimePickerDialog( this,
+    /**
+     * 时间轴
+     */
+    private void showTimePickerDialog(final Button button) {
+        Calendar calendar = Calendar.getInstance();
+        final int hour = calendar.get( Calendar.HOUR_OF_DAY );
+        int minute = calendar.get( Calendar.MINUTE );
+        Dialog dialog = new TimePickerDialog( DetialInfomation.this,
                 new TimePickerDialog.OnTimeSetListener() {
+
+                    private String hour;
+                    private String min;
+
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        calendar.set( Calendar.HOUR, i );
-                        calendar.set( Calendar.MINUTE, i1 );
-                        SimpleDateFormat format = new SimpleDateFormat( "HH:mm" );
-                        String s = format.format( calendar.getTime() );
-                        editText.setText( s );
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        if(hourOfDay<10){
+                            hour = "0"+String.valueOf( hourOfDay );
+                        }else {
+                            hour=String.valueOf( hourOfDay );
+                        }
+                        if(minute<10){
+                            min = "0"+String.valueOf( minute );
+                        }else {
+                           min=String.valueOf( minute );
+                        }
+                        String time= hour +":"+min;
+                        button.setText(time);
                     }
-                }, calendar.get( Calendar.HOUR ), calendar.get( Calendar.MINUTE ), true );
+                }, hour, minute, DateFormat.is24HourFormat( DetialInfomation.this ) );
         dialog.show();
     }
 
+    /**
+     * 手机号正则
+     */
     public static boolean isMobileNo(String mobileNums) {
         String telRegex = "[1][3587]\\d{9}";
         if (TextUtils.isEmpty( mobileNums ))
             return false;
+        else
+            return mobileNums.matches( telRegex );
+    }
 
+    /**
+     * 固定电话正则
+     */
+    public static boolean isTelePhoneNo(String mobileNums) {
+        String telRegex = "^\\d{3,4}-\\d{7,8}$";
+        if (TextUtils.isEmpty( mobileNums ))
+            return false;
         else
             return mobileNums.matches( telRegex );
     }

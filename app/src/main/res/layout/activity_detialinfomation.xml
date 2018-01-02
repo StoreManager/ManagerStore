@@ -44,7 +44,7 @@
             android:onClick="save"
             android:visibility="gone"/>
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:layout_centerHorizontal="true"
             android:text="美食火锅"
             android:gravity="center"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="辽宁省大连市旅顺口区"
             android:gravity="center"
             android:layout_below="@id/tv_style"
@@ -62,7 +62,8 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
     <TextView
-        android:layout_marginTop="10dp"
+        android:maxLines="2"
+        android:layout_marginTop="8dp"
         android:textColor="#000"
         android:textSize="20sp"
         android:id="@+id/tv_sign"
@@ -72,6 +73,7 @@
         android:text="唯有美食与爱不可辜负"/>
 
     <EditText
+        android:maxLines="2"
         android:id="@+id/et_sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,14 +97,14 @@
         <TextView
             android:gravity="center"
             android:id="@+id/tv_timeAM"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="9:00"/>
 
-        <EditText
+        <Button
             android:id="@+id/et_timeAM"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:visibility="gone"/>
@@ -117,15 +119,15 @@
         <TextView
             android:gravity="center"
             android:id="@+id/tv_timePM"
-            android:layout_width="100dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="20:00"/>
 
 
-        <EditText
+        <Button
             android:id="@+id/et_timePM"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:visibility="gone"/>
@@ -134,7 +136,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="2dp">
@@ -164,7 +166,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/order"/>
+
+        <TextView
+            android:id="@+id/tv_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="不可预约"/>
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
