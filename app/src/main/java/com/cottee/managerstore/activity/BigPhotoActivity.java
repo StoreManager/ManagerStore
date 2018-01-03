@@ -33,6 +33,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.utils.CommonUtils;
+import com.cottee.managerstore.utils.FileUtil;
 import com.cottee.managerstore.utils.ToastUtils;
 
 import java.io.File;
@@ -49,19 +51,21 @@ import static com.cottee.managerstore.properties.Properties.REQUEST_CAMERA;
  */
 
 public class BigPhotoActivity extends Activity implements View.OnClickListener {
-    public static final int CHOOSE_PHOTO = 1;
     private Button btn_back_detial;
     private Button btn_changePhoto;
     private ImageView iv_bigPicture;
     public Context mContext;
-    private Uri uri;
-    private String imagePath;
     private LinearLayout ll_btn;
     private Button btn_openGallery;
     private Button btn_openCamera;
     private LinearLayout ll_picture;
     private Button btn_cancel;
-    private String fileName;
+
+    public static final int ACTIVITY_ALBUM_REQUESTCODE = 2000;
+
+    public static final int ACTIVITY_CAMERA_REQUESTCODE = 2001;
+
+    public static final int ACTIVITY_MODIFY_PHOTO_REQUESTCODE = 2002;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,18 +110,24 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_openGallery:
-                //判断是否授权
-                if (ContextCompat.checkSelfPermission( BigPhotoActivity.this, Manifest.permission
-                        .WRITE_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions( BigPhotoActivity.this, new String[]{Manifest
-                            .permission.WRITE_EXTERNAL_STORAGE}, 1 );
-                } else {
-                    openAlbum();
-                }
+                Intent i = new Intent(Intent.ACTION_PICK, null);// 调用android的图库
+                i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(i, ACTIVITY_ALBUM_REQUESTCODE);
+
                 break;
             case R.id.btn_openCamera:
-                Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
-                startActivityForResult( intent, REQUEST_CAMERA );
+                if (CommonUtils.isExistCamera(BigPhotoActivity.this)) {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 调用android自带的照相机
+                    Uri imageUri = Uri.fromFile( FileUtil.getHeadPhotoFileRaw());
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                    startActivityForResult(intent, ACTIVITY_CAMERA_REQUESTCODE);
+                } else {
+                    Toast.makeText(BigPhotoActivity.this,
+                            getResources().getString(R.string.user_no_camera),
+                            Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.btn_cancel:
                 cancelbtnAnim();
@@ -132,129 +142,44 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    //打开相册
-    private void openAlbum() {
-        Intent intent = new Intent( "android.intent.action.GET_CONTENT" );
-        intent.setType( "image/*" );
-        startActivityForResult( intent, CHOOSE_PHOTO );
-    }
-
-    //请求授权
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == CHOOSE_PHOTO) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openAlbum();
-            } else {
-                Toast.makeText( BigPhotoActivity.this, "你没有获取的权限", Toast.LENGTH_LONG ).show();
-            }
-        }
-    }
-
     //返回结果的回调函数
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CHOOSE_PHOTO) {
-            if (resultCode == RESULT_OK) {
-                if (Build.VERSION.SDK_INT >= 19) {//判断版本是否在4.4以上，执行不同的处理方法
-                    handlerImageOnKitKat( data );
-                } else {
-                    handlerImageBeforeKitKat( data );
-                }
-            }
-        }
-        if(requestCode==REQUEST_CAMERA){
-            if(resultCode==RESULT_OK){
-                String sdStatus = Environment.getExternalStorageState();
-                if (!sdStatus.equals( Environment.MEDIA_MOUNTED )) { //
-                    // 检测sd是否可用
-                    Log.i( "TestFile",
-                            "SD card is not avaiable/writeable right now." );
-                    return;
-                }
-                String name = new DateFormat().format( "yyyyMMdd_hhmmss",
-                        Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = (Bitmap) bundle.get( "data" );//
-                // 获取相机返回的数据，并转换为Bitmap图片格式
-                FileOutputStream b = null;
-                File file = new File( "/sdcard/myImage/" );
-                file.mkdirs();// 创建文件夹
-                fileName = "/sdcard/myImage/" + name;
-                try {
-                    b = new FileOutputStream( fileName );
-                    bitmap.compress( Bitmap.CompressFormat.JPEG, 100, b );
-                    // 把数据写入文件
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        b.flush();
-                        b.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        switch (requestCode) {
+            case ACTIVITY_ALBUM_REQUESTCODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    if(data.getData() == null){
+                        ToastUtils.showToast( this,getString(R.string.pic_not_valid ));
+                        return;
                     }
+                    CommonUtils.cutPhoto(this, data.getData(), true);
                 }
-                iv_bigPicture.setImageBitmap( bitmap );
-            }
+                break;
+            case ACTIVITY_CAMERA_REQUESTCODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                    bitmapOptions.inSampleSize = 2;
+                    int degree = FileUtil.readPictureDegree(FileUtil.getHeadPhotoDir() + FileUtil.HEADPHOTO_NAME_RAW);
+                    Bitmap cameraBitmap = BitmapFactory.decodeFile(FileUtil.getHeadPhotoDir() + FileUtil.HEADPHOTO_NAME_RAW, bitmapOptions);
+                    cameraBitmap = FileUtil.rotaingImageView(degree, cameraBitmap);
+                    FileUtil.saveCutBitmapForCache(this,cameraBitmap);
+                    CommonUtils.cutPhoto(this, Uri.fromFile(FileUtil.getHeadPhotoFileRaw()), true);
+                }
+                break;
+            case ACTIVITY_MODIFY_PHOTO_REQUESTCODE:
+                String coverPath = FileUtil.getHeadPhotoDir()  + FileUtil.HEADPHOTO_NAME_TEMP;
+                Bitmap bitmap = BitmapFactory.decodeFile(coverPath);
+                iv_bigPicture.setImageBitmap(bitmap);
+                //接下来是完成上传功能
+               /* HttpUtil.uploadCover(this, UrlContainer.UP_LIVE_COVER + "?uid="
+                        + LoginUtils.getInstance(this), coverPath, this);*/
+                //成功之后删除临时图片
+                FileUtil.deleteTempAndRaw();
+
+                break;
+
         }
     }
-
-    //4.4以下版本的处理方法
-    private void handlerImageBeforeKitKat(Intent data) {
-        uri = data.getData();
-        imagePath = getImagePath( uri, null );
-        displayImage( imagePath );
-    }
-
-    //4.4以上版本的处理方法
-    @TargetApi(19)
-    private void handlerImageOnKitKat(Intent data) {
-        imagePath = null;
-        uri = data.getData();
-        if (DocumentsContract.isDocumentUri( this, uri )) {
-            String docId = DocumentsContract.getDocumentId( uri );
-            if ("com.android.providers.media.documents".equals( uri.getAuthority() )) {
-                String id = docId.split( ":" )[1];
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePath( MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection );
-            } else if ("com.android.providers.downloads.documents".equals( uri.getAuthority() )) {
-                Uri contentUri = ContentUris.withAppendedId( Uri.parse(
-                        "content://downloads/public_downloads" ), Long.valueOf( docId ) );
-                imagePath = getImagePath( contentUri, null );
-            }
-        } else if ("content".equalsIgnoreCase( uri.getScheme() )) {
-            imagePath = getImagePath( uri, null );
-        } else if ("file".equalsIgnoreCase( uri.getScheme() )) {
-            imagePath = uri.getPath();
-        }
-        displayImage( imagePath );
-    }
-
-    //获得图片路径
-    private String getImagePath(Uri uri, String selection) {
-        String path = null;
-        Cursor cursor = getContentResolver().query( uri, null, selection, null, null );
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString( cursor.getColumnIndex( MediaStore.Images.Media.DATA ) );
-            }
-            cursor.close();
-        }
-        return path;
-    }
-
-    //显示图片
-    private void displayImage(String imagePath) {
-        if (imagePath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile( imagePath );
-            iv_bigPicture.setImageBitmap( bitmap );
-        } else {
-            Toast.makeText( this, "获取图片失败", Toast.LENGTH_LONG ).show();
-        }
-
-    }
-
     private void startbtnAnim() {
         final Animation T_Anim = new TranslateAnimation( 0f, 0, 900f, 0f );
         T_Anim.setDuration( 120 );

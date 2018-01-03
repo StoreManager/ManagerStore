@@ -17,4 +17,7 @@
     </array>
     <string name="drawer_open"> Drawer is opened </string>
     <string name="drawer_close">Drawer is closed </string>
+
+    <string name="user_no_camera">未发现您的摄像头，请确认您的设备存在摄像头再使用此功能～</string>
+    <string name="pic_not_valid">图片无效，请重试</string>
 </resources>
