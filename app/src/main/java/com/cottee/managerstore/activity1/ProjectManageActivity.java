@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.StoreManagerActivity;
@@ -40,7 +40,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     public static Map<Integer, Boolean> checkedBoxMap = new HashMap<Integer, Boolean>();
     private Button btnbacktostoremanager;
     private Button btnprojectmanageadd;
-    private TextView tv_project_manage_empty;
+    private ImageView imv_project_manage_empty;
 
 
     @Override
@@ -53,10 +53,10 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         setSupportActionBar(toolbar);
         adapter = new ProjectManageAdapter(this,projectList);
         if(!adapter.isEmpty()){
-            tv_project_manage_empty.setVisibility(View.GONE);
+            imv_project_manage_empty.setVisibility(View.GONE);
 
         }else {
-            tv_project_manage_empty.setVisibility(View.VISIBLE);
+            imv_project_manage_empty.setVisibility(View.VISIBLE);
         }
 
 
@@ -74,7 +74,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         btnbacktostoremanager = (Button) findViewById(R.id.btn_back_to_storemanager);
         lvprojectmanage = (ListView) findViewById(R.id.lv_project_manage);
         btnprojectmanageadd = (Button) findViewById(R.id.btn_project_manage_add);
-        tv_project_manage_empty = (TextView) findViewById(R.id.tv_project_manage_empty);
+        imv_project_manage_empty = (ImageView) findViewById(R.id.imv_project_manage_empty);
         btnbacktostoremanager.setOnClickListener( this);
         btnprojectmanageadd.setOnClickListener(this);
 

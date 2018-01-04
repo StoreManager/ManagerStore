@@ -46,7 +46,7 @@
     </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:id="@+id/tv_project_manage_empty"
+        android:id="@+id/imv_project_manage_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="啥也没有"

@@ -81,7 +81,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         btnprojectmanageaddclassifysave = (Button) findViewById(R.id.btn_project_manage_add_classify_save);
         btnprojectmanageclassifyadd = (Button) findViewById(R.id.btn_project_manage_classify_add);
         btn_back_to_project_manage_from_add = (Button) findViewById(R.id.btn_back_to_project_manage_from_add);
-        tv_msgEmpty = (TextView) findViewById(R.id.tv_project_manage_empty);
+        tv_msgEmpty = (TextView) findViewById(R.id.imv_project_manage_empty);
         btnprojectmanageaddclassifysave.setOnClickListener(this);
         btnprojectmanageclassifyadd.setOnClickListener(this);
         btn_back_to_project_manage_from_add.setOnClickListener(this);
@@ -178,7 +178,13 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                 viewHolder = (ViewHolder)convertview.getTag();
             }
 
-            viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName());
+            if(projectManageList.get(position).getProjectName().length()<10){
+                viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName());
+            }else{
+                viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName().substring(0,9)
+                        +".....");
+            }
+
 
             viewHolder.btnItemDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
