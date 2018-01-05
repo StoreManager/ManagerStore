@@ -53,6 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:layout_marginTop="8dp"
             android:text="辽宁省大连市旅顺口区"
             android:gravity="center"
@@ -83,7 +85,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="2dp">
@@ -93,31 +95,33 @@
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/clock_time"/>
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:text="营业时间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
-            android:gravity="center"
             android:id="@+id/tv_timeAM"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:text="9:00"/>
 
         <Button
             android:id="@+id/et_timeAM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:visibility="gone"/>
 
         <TextView
             android:layout_gravity="center"
-            android:gravity="center"
             android:text="--"
-            android:layout_width="50dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:gravity="center"
             android:id="@+id/tv_timePM"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
@@ -134,9 +138,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="2dp">
@@ -146,30 +150,32 @@
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/money"/>
-
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:text="人均消费"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tv_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:text="500"/>
 
         <EditText
             android:inputType="number"
             android:id="@+id/et_money"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="2dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="30dp"
@@ -178,16 +184,22 @@
             android:src="@mipmap/order"/>
 
         <TextView
+            android:layout_marginLeft="8dp"
+            android:text="能否预约"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:id="@+id/tv_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             android:text="不可预约"/>
         <Button
             android:id="@+id/btn_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="20dp"
             />
 
     </LinearLayout>
@@ -195,21 +207,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="6dp"
             android:src="@mipmap/phone"/>
-
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:text="联系方式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="20dp"
             android:text="18340816220"/>
 
         <EditText
@@ -217,7 +232,7 @@
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="20dp"
             android:visibility="gone"/>
     </LinearLayout>
 

@@ -85,8 +85,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         String time = storeInfo.getBusiness_hours();
         String[] split = time.split( "-" );
         tv_storeName.setText( storeInfo.getName() );
-        tv_timeAM.setText( split[0] );
-        tv_timePM.setText( split[1] );
+        timeAM = split[0];
+        timePM = split[1];
+        tv_timeAM.setText( timeAM );
+        tv_timePM.setText( timePM );
         tv_sign.setText( storeInfo.getIntroduce() );
         tv_phone.setText( storeInfo.getPhone() );
         tv_style.setText( "(" + storeInfo.getClassify() + ")" );
@@ -239,10 +241,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                 startActivity( intent );
                 break;
             case R.id.et_timeAM:
-                showTimePickerDialog( btn_timeAM );
+                showTimePickerDialog( btn_timeAM,timeAM );
                 break;
             case R.id.et_timePM:
-                showTimePickerDialog( btn_timePM );
+                showTimePickerDialog( btn_timePM,timePM );
                 break;
             case R.id.btn_order:
                 click++;
@@ -259,10 +261,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     /**
      * 时间轴
      */
-    private void showTimePickerDialog(final Button button) {
-        Calendar calendar = Calendar.getInstance();
-        final int hour = calendar.get( Calendar.HOUR_OF_DAY );
-        int minute = calendar.get( Calendar.MINUTE );
+    private void showTimePickerDialog(final Button button,String times) {
+        String[] split = times.split( "：" );
+        final int hour = Integer.parseInt( split[0] );
+        int minute = Integer.parseInt( split[1] );
+
         Dialog dialog = new TimePickerDialog( DetialInfomation.this,
                 new TimePickerDialog.OnTimeSetListener() {
 
@@ -282,7 +285,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                         }else {
                            min=String.valueOf( minute );
                         }
-                        String time= hour +":"+min;
+                        String time= hour +"："+min;
                         button.setText(time);
                     }
                 }, hour, minute, DateFormat.is24HourFormat( DetialInfomation.this ) );
