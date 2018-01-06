@@ -5,16 +5,20 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
@@ -27,7 +31,7 @@ import java.util.Calendar;
  * Created by user on 2017/12/12.
  */
 
-public class DetialInfomation extends Activity implements View.OnClickListener {
+public class DetialInfomation extends Activity implements View.OnClickListener , CompoundButton.OnCheckedChangeListener{
 
     private TextView tv_storeName;
     private Button btn_edit;
@@ -60,10 +64,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     public Context mContext = DetialInfomation.this;
     private TextView tv_timePM;
     private Button btn_timePM;
-    private TextView tv_order;
-    private Button btn_order;
+    private ToggleButton btn_order;
     private String order;
-    private int click=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +93,12 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         tv_timePM.setText( timePM );
         tv_sign.setText( storeInfo.getIntroduce() );
         tv_phone.setText( storeInfo.getPhone() );
-        tv_style.setText( "(" + storeInfo.getClassify() + ")" );
+        tv_style.setText( storeInfo.getClassify());
         tv_address.setText( storeInfo.getAddress() );
     }
 
     private void findView() {
+
         tv_storeName = (TextView) findViewById( R.id.tv_storeName );
 
         btn_edit = (Button) findViewById( R.id.btn_edit );
@@ -131,9 +134,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         btn_timeAM.setOnClickListener( this );
         btn_timePM.setOnClickListener( this );
 
-        tv_order = (TextView) findViewById( R.id.tv_order );
-        btn_order = (Button) findViewById( R.id.btn_order );
-        btn_order.setOnClickListener( this );
+        btn_order = (ToggleButton) findViewById( R.id.btn_order );
+        btn_order.setOnCheckedChangeListener( this );
 
     }
 
@@ -144,7 +146,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         timePM = tv_timePM.getText().toString().trim();
         money = tv_money.getText().toString().trim();
         phone = tv_phone.getText().toString().trim();
-        order = tv_order.getText().toString().trim();
 
         tv_sign.setVisibility( View.GONE );
         et_sign.setVisibility( View.VISIBLE );
@@ -164,8 +165,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         btn_edit.setVisibility( View.GONE );
         btn_save.setVisibility( View.VISIBLE );
 
-        tv_order.setVisibility( View.GONE );
-        btn_order.setVisibility( View.VISIBLE );
 
         et_sign.setText( sign );
         btn_timeAM.setText( timeAM );
@@ -205,15 +204,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             btn_edit.setVisibility( View.VISIBLE );
             btn_save.setVisibility( View.GONE );
 
-            btn_order.setVisibility( View.GONE );
-            tv_order.setVisibility( View.VISIBLE );
-
             tv_sign.setText( sign );
             tv_timeAM.setText( timeAM );
             tv_timePM.setText( timePM );
             tv_money.setText( money );
             tv_phone.setText( phone );
-            tv_order.setText( order );
         } else {
             ToastUtils.showToast( this, "号码输入有误哦" );
             return;
@@ -246,14 +241,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             case R.id.et_timePM:
                 showTimePickerDialog( btn_timePM,timePM );
                 break;
-            case R.id.btn_order:
-                click++;
-                if(click%2==0){
-                    btn_order.setText( "可预约" );
-                }else {
-                    btn_order.setText( "不可预约" );
-                }
-
             default:
                 break;
         }
@@ -312,5 +299,18 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             return false;
         else
             return mobileNums.matches( telRegex );
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(btn_save.getVisibility()==View.VISIBLE){
+            Resources resources = this.getResources();
+            Drawable on = resources.getDrawable(R.mipmap.turnoff);
+            Drawable off = resources.getDrawable(R.mipmap.turnon);
+            btn_order.setBackground( b?on:off );
+        }else {
+            ToastUtils.showToast( this,"先点击编辑按钮哦" );
+        }
+
     }
 }

@@ -113,7 +113,7 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 Intent i = new Intent(Intent.ACTION_PICK, null);// 调用android的图库
                 i.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(i, ACTIVITY_ALBUM_REQUESTCODE);
-
+                cancelbtnAnim();
                 break;
             case R.id.btn_openCamera:
                 if (CommonUtils.isExistCamera(BigPhotoActivity.this)) {
@@ -122,6 +122,7 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
                     startActivityForResult(intent, ACTIVITY_CAMERA_REQUESTCODE);
+                    cancelbtnAnim();
                 } else {
                     Toast.makeText(BigPhotoActivity.this,
                             getResources().getString(R.string.user_no_camera),
