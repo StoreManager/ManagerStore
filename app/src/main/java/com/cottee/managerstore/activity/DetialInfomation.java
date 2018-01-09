@@ -65,13 +65,17 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private TextView tv_timePM;
     private Button btn_timePM;
     private ToggleButton btn_order;
-    private String order;
+    private boolean reserve;
+    private Drawable on;
+    private Drawable off;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_detialinfomation );
-
+        Resources resources = this.getResources();
+        on = resources.getDrawable( R.mipmap.turnon);
+        off = resources.getDrawable( R.mipmap.turnoff);
         Intent intent = getIntent();
         storeInfo = (StoreInfo) intent.getSerializableExtra( "storeInfo" );
         findView();
@@ -79,6 +83,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         one = storeInfo.getThumbnail_one();
         two = storeInfo.getThumbnail_two();
         three = storeInfo.getThumbnail_three();
+        reserve = storeInfo.isReserve();
         Glide.with( this ).load( surface ).into( iv_surface );
         Glide.with( this ).load( one ).into( iv_photo1 );
         Glide.with( this ).load( two ).into( iv_photo2 );
@@ -95,6 +100,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         tv_phone.setText( storeInfo.getPhone() );
         tv_style.setText( storeInfo.getClassify());
         tv_address.setText( storeInfo.getAddress() );
+        if(reserve){
+            btn_order.setBackground( on );
+        }else {
+            btn_order.setBackground( off );
+        }
     }
 
     private void findView() {
@@ -171,7 +181,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         btn_timePM.setText( timePM );
         et_money.setText( money );
         et_phone.setText( phone );
-        btn_order.setText( order );
 
     }
 
@@ -181,7 +190,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         timePM = btn_timePM.getText().toString().trim();
         money = et_money.getText().toString().trim();
         phone = et_phone.getText().toString().trim();
-        order=btn_order.getText().toString().trim();
 
         boolean mobileNo = isMobileNo( phone );
         boolean phoneNo = isTelePhoneNo( phone );
@@ -304,9 +312,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if(btn_save.getVisibility()==View.VISIBLE){
-            Resources resources = this.getResources();
-            Drawable on = resources.getDrawable(R.mipmap.turnoff);
-            Drawable off = resources.getDrawable(R.mipmap.turnon);
             btn_order.setBackground( b?on:off );
         }else {
             ToastUtils.showToast( this,"先点击编辑按钮哦" );

@@ -190,13 +190,13 @@
             android:layout_height="wrap_content"/>
 
         <ToggleButton
+            android:checked="false"
             android:textOn=""
             android:textOff=""
             android:id="@+id/btn_order"
             android:layout_width="42dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:background="@mipmap/turnoff"
             android:visibility="visible"/>
 
     </LinearLayout>
