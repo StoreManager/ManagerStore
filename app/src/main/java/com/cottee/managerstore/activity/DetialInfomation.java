@@ -65,7 +65,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private TextView tv_timePM;
     private Button btn_timePM;
     private ToggleButton btn_order;
-    private boolean reserve;
+    private boolean reserve=false;
     private Drawable on;
     private Drawable off;
 
@@ -90,12 +90,14 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         Glide.with( this ).load( three ).into( iv_photo3 );
 
         String time = storeInfo.getBusiness_hours();
-        String[] split = time.split( "-" );
-        tv_storeName.setText( storeInfo.getName() );
-        timeAM = split[0];
-        timePM = split[1];
-        tv_timeAM.setText( timeAM );
-        tv_timePM.setText( timePM );
+        if(time!=null){
+            String[] split = time.split( "-" );
+            tv_storeName.setText( storeInfo.getName() );
+            timeAM = split[0];
+            timePM = split[1];
+            tv_timeAM.setText( timeAM );
+            tv_timePM.setText( timePM );
+        }
         tv_sign.setText( storeInfo.getIntroduce() );
         tv_phone.setText( storeInfo.getPhone() );
         tv_style.setText( storeInfo.getClassify());
