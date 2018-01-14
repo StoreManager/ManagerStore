@@ -3,6 +3,8 @@ package com.cottee.managerstore.activity1;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,18 +13,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cottee.managerstore.R;
-import com.cottee.managerstore.activity.StoreManagerActivity;
+import com.cottee.managerstore.bean.ProjectManageGetInfo;
 import com.cottee.managerstore.bean.ProjectManageInfo;
+import com.cottee.managerstore.httputils.HttpUtils;
+import com.cottee.managerstore.properties.Properties;
+import com.google.gson.Gson;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static com.cottee.managerstore.properties.Properties.PROJECT_MANAGE_GET;
+
 
 /**
  * Created by Administrator on 2017/12/16.
@@ -31,16 +42,18 @@ import java.util.Map;
 public class ProjectManageActivity extends AppCompatActivity implements View.OnClickListener{
 
 
+    private static ProjectManageAdapter adapter;
     private Toolbar toolbar;
     private ListView lvprojectmanage;
     private List<ProjectManageInfo> projectList = new ArrayList<>();
-    private List<String> projectManageStringList = new ArrayList<String>();
-    private ProjectManageAdapter adapter;
-    private boolean flage;
-    public static Map<Integer, Boolean> checkedBoxMap = new HashMap<Integer, Boolean>();
+
+
     private Button btnbacktostoremanager;
     private Button btnprojectmanageadd;
     private ImageView imv_project_manage_empty;
+    private List<String> dishTypeNameList;
+    private ProjectManageActivity.ProjectManageHandler handler = new ProjectManageActivity.ProjectManageHandler();
+    private List<String> dishTypeIdList;
 
 
     @Override
@@ -51,21 +64,113 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
         toolbar.setBackgroundColor(getResources().getColor(R.color.purplishblue));
         setSupportActionBar(toolbar);
-        adapter = new ProjectManageAdapter(this,projectList);
-        if(!adapter.isEmpty()){
-            imv_project_manage_empty.setVisibility(View.GONE);
-
-        }else {
-            imv_project_manage_empty.setVisibility(View.VISIBLE);
-        }
 
 
-        lvprojectmanage.setAdapter(adapter);
+        sendRequestWithOkHttp();
+
+
+
+    }
+
+
+
+
+
+
+
+
+    public void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                HttpUtils.sendOkHttpRequest(Properties.PROJECT_MANAGE_GET_PATH, new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        String responeData = response.body().string();
+
+                        System.out.println(responeData);
+                        parseJSONWithGSON(responeData);
+
+                    }
+                });
+            }
+        }).start();
+    }
+
+
+    private void parseJSONWithGSON(String jsonData) {
+        //使用轻量级的Gson解析得到的json
+        Gson gson = new Gson();
+        List<ProjectManageGetInfo.DishTypeBean> dishInfo = gson.fromJson(jsonData, ProjectManageGetInfo.class).getClassify();
+
+
+
+        System.out.println("MYT Type:"+dishInfo);
+
+        //控制台输出结果，便于查看
+        Message message = new Message();
+        message.what = PROJECT_MANAGE_GET;
+        message.obj = dishInfo;
+
+        handler.sendMessage(message);
+
 
 
 
 
     }
+
+
+
+    public  class ProjectManageHandler extends Handler {
+        private  Context context;
+
+        /*public ProjectManageHandler(Context context) {
+            this.context = context;
+
+        }*/
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case PROJECT_MANAGE_GET:
+                    dishTypeNameList = new ArrayList<String>();
+                    dishTypeIdList = new ArrayList<>();
+                    List<ProjectManageGetInfo.DishTypeBean> dishList = (List<ProjectManageGetInfo.DishTypeBean>) msg.obj;
+
+                    for(int i=0;i<dishList.size();i++){
+                        dishTypeNameList.add(dishList.get(i).getName());
+                        dishTypeIdList.add(dishList.get(i).getClass_id());
+
+
+                    }
+                    System.out.println(dishTypeNameList);
+                    adapter = new ProjectManageAdapter(ProjectManageActivity.this,dishTypeNameList);
+
+                    if(!adapter.isEmpty()){
+                        imv_project_manage_empty.setVisibility(View.GONE);
+
+                    }else {
+                        imv_project_manage_empty.setVisibility(View.VISIBLE);
+                    }
+
+                    lvprojectmanage.setAdapter(adapter);
+
+
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+
+
 
 
 
@@ -85,9 +190,14 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         switch(view.getId()){
         case R.id.btn_back_to_storemanager:
             finish();
-        break;
+            break;
+
         case R.id.btn_project_manage_add:
             Intent intent = new Intent(ProjectManageActivity.this,ProjectManageAddClassifyActivity.class);
+
+            System.out.println("MYT:"+(Serializable) dishTypeNameList);
+            intent.putExtra("dishName",(Serializable) dishTypeNameList);
+            intent.putExtra("dishId",(Serializable)dishTypeIdList);
             startActivity(intent);
             break;
 
@@ -97,113 +207,18 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     }
 
-
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-        case R.id.project_manage_update:
-        break;
-        case R.id.project_manage_add:
-            final EditText et = new EditText(ProjectManageActivity.this);
-
-            new AlertDialog.Builder(ProjectManageActivity.this).setTitle("请输入项目名字")
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setView(et)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            String input = et.getText().toString();
-
-                            if (input.equals("")) {
-                                Toast.makeText(getApplicationContext(), "输入不能为空！" , Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            else {
-
-                                for (ProjectManageInfo projectInfo : projectList)
-                                {
-                                    if (input.equals(projectInfo.getProjectName())) {
-                                        ToastUtils.showToast(ProjectManageActivity.this,"项目名字已存在");
-                                        return;
-                                    }
-                                }
-
-                                ProjectManageInfo projectManageInfo = new ProjectManageInfo(input);
-                                projectList.add(projectManageInfo);
-                                projectManageStringList.add(input);
-
-                                adapter.notifyDataSetChanged();
-
-
-                                ProjectTypeManage projecttypemanage = new ProjectTypeManage(ProjectManageActivity.this, new
-                                        LoginRegisterInformationHandle
-                                        (ProjectManageActivity
-                                        .this, ""));
-
-                                for (int i = 0; i< projectManageStringList.size(); i++){
-                                    projecttypemanage.projectManageCommit(projectManageStringList.get(i));
-                                    Log.d("------------","提交时："+ projectManageStringList.get(i));
-                                }
-
-
-
-                            }
-                        }
-                    })
-                    .setNegativeButton("取消", null)
-                    .show();
-        break;
-        case R.id.project_manage_delete:
-
-            if(adapter.getCount()<1){
-                ToastUtils.showToast(this,"项目为空，不可删除");
-                break;
-            }
-
-
-            flage=!flage;
-            adapter.notifyDataSetChanged();
-
-
-            btnprojectmanagedeletesubmit.setVisibility(View.VISIBLE);
-            lvprojectmanage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    CheckBox cbselectphonecontactschecked = (CheckBox) view.findViewById(R.id.cb_selete_delete);
-                    cbselectphonecontactschecked.toggle();
-                    ProjectManageActivity.ViewHolder holder = (ProjectManageActivity.ViewHolder) view.getTag();
-                    ProjectManageActivity.checkedBoxMap.put(position, holder.cbseletedelete.isChecked());
-                }
-            });
-
-
-
-            break;
-
-        default:
-        break;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
-
-
-
     public class ProjectManageAdapter extends BaseAdapter {
 
         private Context context;
-        private List<ProjectManageInfo> projectManageList;
+        private List<String> projectManageList;
 
 
-        public ProjectManageAdapter(Context context, List<ProjectManageInfo> projectManageList) {
+        public ProjectManageAdapter(Context context, List<String> projectManageList) {
 
             this.context = context;
             this.projectManageList = projectManageList;
 
-            for (int i = 0; i < projectManageList.size(); i++) {
-                checkedBoxMap.put(i, false);
-            }
+
 
 
         }
@@ -231,26 +246,15 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
             if(convertview==null){
                 viewHolder = new ViewHolder();
                 convertview = View.inflate(context, R.layout.item_project_manage, null);
-                viewHolder.cbseletedelete = (CheckBox) convertview.findViewById(R.id.cb_selete_delete);
-                viewHolder.btnProjectName = (Button) convertview.findViewById(R.id.btn_project_manage_name);
+                viewHolder.tvDishName = (TextView) convertview.findViewById(R.id.tv_item_project_manage_get_name);
+
                 convertview.setTag(viewHolder);
 
             }else{
                 viewHolder = (ViewHolder)convertview.getTag();
             }
 
-            viewHolder.btnProjectName.setText(projectManageList.get(position).getProjectName());
-
-
-            if(flage){
-                viewHolder.cbseletedelete.setVisibility(View.VISIBLE);
-                if(viewHolder.cbseletedelete.isChecked()){
-                    viewHolder.cbseletedelete.setChecked(checkedBoxMap.get(position));
-                }
-            }
-            else{
-                viewHolder.cbseletedelete.setVisibility(View.GONE);}
-
+            viewHolder.tvDishName.setText(projectManageList.get(position));
 
 
             return convertview;
@@ -260,8 +264,8 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     }
     protected  static   class ViewHolder{
 
-        Button btnProjectName;
-        CheckBox cbseletedelete;
+        TextView tvDishName;
+
 
     }
 
@@ -270,8 +274,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Intent intent = new Intent(ProjectManageActivity.this, StoreManagerActivity.class);
-            startActivity(intent);
+
             finish();
             return false;
         }else {

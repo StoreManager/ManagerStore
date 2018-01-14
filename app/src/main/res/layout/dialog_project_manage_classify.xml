@@ -70,7 +70,7 @@
             android:id="@+id/btn_project_manage_classify_save_dishes"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="保存"
+            android:text="确定"
             android:layout_marginTop="0dp"
             android:textColor="#ffffff"
             android:background="#098cab"/>

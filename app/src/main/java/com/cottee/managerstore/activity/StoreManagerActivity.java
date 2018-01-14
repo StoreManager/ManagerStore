@@ -18,10 +18,8 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
-import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.properties.Properties;
-import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.Utils;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
@@ -30,7 +28,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class StoreManagerActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,6 +47,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private StoreInfo storeInfo;
     private int clicked=1;
     private Button btntoprojectmanage;
+    private Button btn_to_employee_manage;
     private int storeid;
 
     @Override
@@ -94,12 +92,14 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         btn_storeManager.setOnClickListener( this );
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
         btntoprojectmanage = (Button) findViewById(R.id.btn_to_project_manage);
+        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
         pbtn_order.setOnClickListener(this);
         btn_releaseStore.setOnClickListener(this);
        imgbtn_storeStatus.setOnClickListener(this);
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener(this);
         btntoprojectmanage.setOnClickListener(this);
+        btn_to_employee_manage.setOnClickListener(this);
     }
 
     @Override
@@ -139,6 +139,26 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     scaleAnimation.setDuration(200);
                     view.startAnimation(scaleAnimation);
                 }
+
+//                storeStausPopupWindow = new
+//                        StoreStausPopupWindow(this);
+//                storeStausPopupWindow.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//
+//
+//
+//                    @Override
+//                    public void onFocusChange(View view, boolean hasFocus) {
+//                        if (!hasFocus)
+//                            storeStausPopupWindow.dismiss();
+//
+//                    }
+//                });
+//                //设置默认获取焦点
+//                storeStausPopupWindow.setFocusable(true);
+////以某个控件的x和y的偏移量位置开始显示窗口
+//                storeStausPopupWindow.showAsDropDown(tv_storeStatus, 0, 0);
+////如果窗口存在，则更新
+//                storeStausPopupWindow.update();
                 break;
             case R.id.btn_releaseStore:
                 Toast.makeText(mContext, "发布店铺", Toast.LENGTH_SHORT).show();

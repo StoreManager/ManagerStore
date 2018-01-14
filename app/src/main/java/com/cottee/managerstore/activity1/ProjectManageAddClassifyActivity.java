@@ -3,6 +3,7 @@ package com.cottee.managerstore.activity1;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -29,6 +31,7 @@ import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.widget.DragListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +46,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
     private Toolbar tbprojectmanageadd;
     private List<ProjectManageInfo> projectList = new ArrayList<>();
+    private List<ProjectManageInfo> projectTestList = new ArrayList<>();
     private ListView lvprojectmanageadd;
     private Button btnprojectmanageaddclassifysave;
     private Button btnprojectmanageclassifyadd;
@@ -53,15 +57,34 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private TextView tv_msgEmpty;
     private List<String> dishesExampleList = new ArrayList<>();
     private List<String> allDishTypeList = new ArrayList<>();
+    private String addType="";
+    private List<String> jsonDishName;
+    private List<String> jsonDishId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_manage_add_classify);
-
         initview();
         tbprojectmanageadd.setBackgroundColor(getResources().getColor(R.color.purplishblue));
         setSupportActionBar(tbprojectmanageadd);
+
+
+        Intent intent = getIntent();
+        jsonDishName = (List<String>) intent.getSerializableExtra("dishName");
+        jsonDishId = (List<String>) intent.getSerializableExtra("dishId");
+        System.out.println("json"+ jsonDishName);
+        System.out.println("json"+ jsonDishId);
+
+        for(int i = 0; i< jsonDishName.size(); i++){
+            ProjectManageInfo info = new ProjectManageInfo(jsonDishName.get(i));
+
+            projectList.add(info);
+            projectTestList.add(info);
+        }
+
+
+
 
         adapter = new ProjectManageAddAdapter(this,projectList);
         if(!adapter.isEmpty()){
@@ -92,14 +115,23 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         switch(view.getId()){
         case R.id.btn_project_manage_add_classify_save:
             for (int i =0;i<allDishTypeList.size();i++){
-                System.out.println(allDishTypeList.get(i));
 
-                ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
-                        (ProjectManageAddClassifyActivity.this,""));
-                manage.projectManageCommit(allDishTypeList.get(i));
+                String allDishType = allDishTypeList.get(i);
+                if(i ==allDishTypeList.size()-1 ){
+                    addType = addType+allDishType;
+
+                }else{
+                    addType = addType+allDishType+"#";
+                }
+
 
             }
-
+            String add = addType.trim();
+           /* add = add.substring(0, -1);*/
+            System.out.println(add);
+            ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
+                    (ProjectManageAddClassifyActivity.this,""));
+            manage.projectManageCommit(add);
 
         break;
         case R.id.btn_project_manage_classify_add:
@@ -112,16 +144,22 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         break;
 
         case R.id.btn_back_to_project_manage_from_add:
-            new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+
+            if(!jsonDishName.equals(allDishTypeList)){
+                new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
                                 finish();
 
-                        }
-                    })
-                    .setNegativeButton("取消", null)
-                    .show();
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+            }else {
+                finish();
+            }
+
 
             break;
 
@@ -130,32 +168,31 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     }
 
 
-    public class ProjectManageAddAdapter extends BaseAdapter {
+    public class ProjectManageAddAdapter extends DragListViewAdapter<ProjectManageInfo> {
 
         private Context context;
-        private List<ProjectManageInfo> projectManageList;
+       /* private List<ProjectManageInfo> projectManageList;*/
         private String projectName;
 
 
         public ProjectManageAddAdapter(Context context, List<ProjectManageInfo> projectManageList) {
-
-            this.context = context;
-            this.projectManageList = projectManageList;
-
+            super(context,projectManageList);
+            /*this.context = context;
+            this.projectManageList = projectManageList;*/
 
 
         }
 
-        @Override
+       /* @Override
         public int getCount() {
             return projectManageList.size();
         }
 
-        @Override
+        *//*@Override
         public Object getItem(int i) {
             return projectManageList.get(i);
         }
-
+*//*
         @Override
         public long getItemId(int i) {
             return i;
@@ -165,10 +202,16 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         public View getView(final int position, View convertview, ViewGroup viewGroup) {
 
 
-          final ViewHolder viewHolder;
+
+        }*/
+
+        @Override
+        public View getItemView(final int position, View convertview, ViewGroup parent) {
+
+            final ViewHolder viewHolder;
             if(convertview==null){
                 viewHolder = new ViewHolder();
-                convertview = View.inflate(context, R.layout.item_project_manage_add, null);
+                convertview = LayoutInflater.from(getApplicationContext()).inflate( R.layout.item_project_manage_add, parent,false  );
                 viewHolder.tvItemName = (TextView) convertview.findViewById(R.id.tv_item_project_manage_classify_name);
                 viewHolder.btnItemUpdate = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_update);
                 viewHolder.btnItemDelete = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_delete);
@@ -252,10 +295,13 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                 }
             });
 
+
             allDishTypeList.add(projectManageList.get(position).getProjectName());
 
 
             return convertview;
+
+
         }
 
 
@@ -501,6 +547,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                 ProjectManageInfo projectManageInfo = new ProjectManageInfo(input);
                                 projectList.add(projectManageInfo);
 
+                                list.clear();
 
                                 adapter.notifyDataSetChanged();
                                 if(!adapter.isEmpty()){
@@ -539,24 +586,33 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     }
 
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
 
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("取消", null)
-                    .show();
+            if(!jsonDishName.equals(allDishTypeList)){
+                new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
+            }else {
+                finish();
+            }
+
             return false;
         }else {
             return super.onKeyDown(keyCode, event);
         }
 
     }
+
+
 
 }
