@@ -249,7 +249,7 @@ public class DragListView extends ListView {
                 // 获取当前触摸位置对应的条目索引
                 mDragPosition = pointToPosition(mDownX, mDownY);
                 // 如果触摸的坐标不在条目上，在分割线、或外部区域，则为无效值-1; 宽度3/4 以右的区域可拖拽; Header和Footer无效
-                if (!isPositionValid(mDragPosition) || mDownX >getWidth() * 3/5) {
+                if (!isPositionValid(mDragPosition) || mDownX >getWidth() * 1/5) {
                     return super.onTouchEvent(ev);
                 }
                 mIsDraging = true;

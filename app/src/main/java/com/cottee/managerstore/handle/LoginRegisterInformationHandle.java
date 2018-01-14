@@ -351,6 +351,34 @@ public class LoginRegisterInformationHandle extends Handler {
                 }
                 break;
 
+            case Properties.PROJECT_MANAGE_DELETE:
+                switch (msg.arg1) {
+                    case PROJECT_MANAGE_SUCCESS:
+                        ToastUtils.showToast( context, "删除成功" );
+                        break;
+                    case PROJECT_MANAGE_FAILD:
+                        ToastUtils.showToast( context, "删除失败" );
+                        break;
+                    case PROJECT_MANAGE_CREATE_FAILD:
+                        ToastUtils.showToast( context, "删除失败" );
+                        break;
+                }
+                break;
+
+            case Properties.PROJECT_MANAGE_UPDATE:
+                switch (msg.arg1) {
+                    case PROJECT_MANAGE_SUCCESS:
+                        ToastUtils.showToast( context, "修改成功" );
+                        break;
+                    case PROJECT_MANAGE_FAILD:
+                        ToastUtils.showToast( context, "修改失败" );
+                        break;
+                    case PROJECT_MANAGE_CREATE_FAILD:
+                        ToastUtils.showToast( context, "修改失败" );
+                        break;
+                }
+                break;
+
 
             default:
                 break;

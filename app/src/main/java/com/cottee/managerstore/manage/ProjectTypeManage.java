@@ -33,7 +33,7 @@ public class ProjectTypeManage {
     }
 
 
-    private void sendRequest(final int type, final String typeNum) {
+    private void sendRequest(final int type, final String typeNum,final String classId) {
         new Thread() {
             @Override
             public void run() {
@@ -43,6 +43,17 @@ public class ProjectTypeManage {
                     switch (type) {
                         case PROJECT_MANAGE_LARGE_INFORMATION:
                             request = new Request.Builder().url(Properties.PROJECT_MANAGE_ADD_PATH).post(new FormBody.Builder().add("name", typeNum).build())
+                                    .build();
+                            break;
+                        case Properties.PROJECT_MANAGE_DELETE:
+                            request = new Request.Builder().url(Properties.PROJECT_MANAGE_DELETE_PATH).post(new FormBody.Builder().add("class_id",
+                                    classId).build())
+                                    .build();
+                            break;
+                        case Properties.PROJECT_MANAGE_UPDATE:
+                            request = new Request.Builder().url(Properties.PROJECT_MANAGE_UPDATE_PATH).post(new FormBody.Builder().add("name",
+                                    typeNum).add("class_id",
+                                    classId).build())
                                     .build();
                             break;
 
@@ -72,7 +83,21 @@ public class ProjectTypeManage {
 
     public void projectManageCommit(String typeName) {
 
-        sendRequest(PROJECT_MANAGE_LARGE_INFORMATION, typeName);
+        sendRequest(PROJECT_MANAGE_LARGE_INFORMATION, typeName,"");
 
     }
+
+    public void projectManageDelete(String classId) {
+
+        sendRequest(Properties.PROJECT_MANAGE_DELETE,"",classId);
+
+    }
+
+    public void projectManageUpdate(String typeName,String classId) {
+
+        sendRequest(Properties.PROJECT_MANAGE_DELETE,typeName,classId);
+
+    }
+
+
 }

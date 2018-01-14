@@ -46,7 +46,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
     private Toolbar tbprojectmanageadd;
     private List<ProjectManageInfo> projectList = new ArrayList<>();
-    private List<ProjectManageInfo> projectTestList = new ArrayList<>();
+    /*private List<ProjectManageInfo> projectTestList = new ArrayList<>();*/
+    /*private List<String> addDishList = new ArrayList<>();*/
+    private List<String> updateDishList = new ArrayList<>();
+    private List<String> deleteList = new ArrayList<>();
     private ListView lvprojectmanageadd;
     private Button btnprojectmanageaddclassifysave;
     private Button btnprojectmanageclassifyadd;
@@ -80,7 +83,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
             ProjectManageInfo info = new ProjectManageInfo(jsonDishName.get(i));
 
             projectList.add(info);
-            projectTestList.add(info);
+            /*projectTestList.add(info);*/
         }
 
 
@@ -114,10 +117,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     public void onClick(View view) {
         switch(view.getId()){
         case R.id.btn_project_manage_add_classify_save:
-            for (int i =0;i<allDishTypeList.size();i++){
+            /*for (int i =0;i<addDishList.size();i++){
 
-                String allDishType = allDishTypeList.get(i);
-                if(i ==allDishTypeList.size()-1 ){
+                String allDishType = addDishList.get(i);
+                if(i ==addDishList.size()-1 ){
                     addType = addType+allDishType;
 
                 }else{
@@ -127,11 +130,11 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
             }
             String add = addType.trim();
-           /* add = add.substring(0, -1);*/
+           *//* add = add.substring(0, -1);*//*
             System.out.println(add);
             ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
                     (ProjectManageAddClassifyActivity.this,""));
-            manage.projectManageCommit(add);
+            manage.projectManageCommit(add);*/
 
         break;
         case R.id.btn_project_manage_classify_add:
@@ -236,6 +239,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                             .setIcon(android.R.drawable.ic_dialog_info)
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+
 
                                     projectManageList.remove(position);
                                     adapter.notifyDataSetChanged();
@@ -497,7 +501,9 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                     for(int i = 0;i<list.size();i++){
 
                         ProjectManageInfo projectManageInfo = new ProjectManageInfo(list.get(i));
+                        /*addDishList.add(list.get(i))*/;
                         projectList.add(projectManageInfo);
+
                         adapter.notifyDataSetChanged();
                         if(!adapter.isEmpty()){
                             tv_msgEmpty.setVisibility(View.GONE);
@@ -545,7 +551,12 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                 }
 
                                 ProjectManageInfo projectManageInfo = new ProjectManageInfo(input);
+                                /*addDishList.add(input);*/
                                 projectList.add(projectManageInfo);
+
+                                ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
+                                        (ProjectManageAddClassifyActivity.this,""));
+                                manage.projectManageCommit(input);
 
                                 list.clear();
 

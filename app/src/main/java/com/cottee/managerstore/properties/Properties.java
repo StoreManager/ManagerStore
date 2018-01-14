@@ -25,6 +25,9 @@ public class Properties {
     public static  final  String PROJECT_MANAGE_ADD_PATH = "https://thethreestooges.cn/merchant/bean/classify/classify_insert.php";
     public static  final  String PROJECT_MANAGE_GET_PATH = "\n" +
             "https://thethreestooges.cn/merchant/bean/classify/classify_select.php";
+    public static  final  String PROJECT_MANAGE_UPDATE_PATH = "\n" +
+            "https://thethreestooges.cn/merchant/bean/classify/classify_update.php";
+    public static  final  String PROJECT_MANAGE_DELETE_PATH = "https://thethreestooges.cn/merchant/bean/classify/classify_delete.php";
 
     public final static int USER_LOGIN = 1;
     public final static int CHECKOUT_EMAIL = 2;
@@ -44,4 +47,6 @@ public class Properties {
     public static boolean isSend = false;
     public static final int SUPPLY_INFO = 14;
     public static final int PROJECT_MANAGE_GET = 15;
+    public static final int PROJECT_MANAGE_UPDATE =16;
+    public static final int PROJECT_MANAGE_DELETE =17;
 }
