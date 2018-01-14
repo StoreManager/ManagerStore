@@ -61,6 +61,7 @@ public class StoreListviewAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent( context, StoreManagerActivity.class );
                 intent.putExtra( "storeInfo",storeList.get( i ) );
+                intent.putExtra( "storeid",i );
                 context.startActivity( intent );
             }
         } );

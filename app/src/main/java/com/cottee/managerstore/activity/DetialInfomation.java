@@ -25,6 +25,9 @@ import com.bumptech.glide.Glide;
 import com.cottee.managerstore.Filter.CashierInputFilter;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
+import com.cottee.managerstore.manage.StoreInfoManager;
+import com.cottee.managerstore.manage.SubmitStoreInfoManager;
 import com.cottee.managerstore.utils.ToastUtils;
 
 import java.util.Calendar;
@@ -70,6 +73,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private boolean reserve=false;
     private Drawable on;
     private Drawable off;
+    private String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,16 +98,17 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         String time = storeInfo.getBusiness_hours();
         if(time!=null){
             String[] split = time.split( "-" );
-            tv_storeName.setText( storeInfo.getName() );
             timeAM = split[0];
             timePM = split[1];
             tv_timeAM.setText( timeAM );
             tv_timePM.setText( timePM );
         }
+        tv_storeName.setText( storeInfo.getName() );
         tv_sign.setText( storeInfo.getIntroduce() );
         tv_phone.setText( storeInfo.getPhone() );
         tv_style.setText( storeInfo.getClassify());
         tv_address.setText( storeInfo.getAddress() );
+        tv_money.setText( storeInfo.getAvecon() );
         if(reserve){
             btn_order.setBackground( on );
         }else {
@@ -196,7 +201,13 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         timePM = btn_timePM.getText().toString().trim();
         money = et_money.getText().toString().trim();
         phone = et_phone.getText().toString().trim();
-
+        time = timeAM+"-"+timePM;
+        Drawable current = btn_order.getBackground();
+        if(current==on){
+            reserve=true;
+        }else {
+            reserve=false;
+        }
         boolean mobileNo = isMobileNo( phone );
         boolean phoneNo = isTelePhoneNo( phone );
         if (mobileNo == true || phoneNo == true) {
@@ -227,6 +238,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
             ToastUtils.showToast( this, "号码输入有误哦" );
             return;
         }
+        SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
+                this, ""
+        ) );
+        submitStoreInfo.changeInfo( sign, time, money, String.valueOf(reserve),phone );
     }
 
     @Override
@@ -324,5 +339,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
             ToastUtils.showToast( this,"先点击编辑按钮哦" );
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

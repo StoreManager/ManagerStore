@@ -24,11 +24,12 @@ public class StoreInfo implements Serializable{
     private String Thumbnail_three;
     private String Thumbnail_two;
     private boolean pass;
+    private String avecon;
 
     public StoreInfo(int mer_id, String name, String classify, String introduce, String phone,
                      String address, String business_hours, String status, boolean reserve,
                      String surface, String thumbnail_one, String thumbnail_three, String
-                             thumbnail_two,boolean pass) {
+                             thumbnail_two, boolean pass,String avecon) {
         this.mer_id = mer_id;
         this.name = name;
         this.classify = classify;
@@ -40,6 +41,7 @@ public class StoreInfo implements Serializable{
         this.reserve = reserve;
         this.surface = surface;
         this.pass=pass;
+        this.avecon=avecon;
         Thumbnail_one = thumbnail_one;
         Thumbnail_three = thumbnail_three;
         Thumbnail_two = thumbnail_two;
@@ -155,5 +157,13 @@ public class StoreInfo implements Serializable{
 
     public void setThumbnail_two(String thumbnail_two) {
         Thumbnail_two = thumbnail_two;
+    }
+
+    public String getAvecon() {
+        return avecon;
+    }
+
+    public void setAvecon(String avecon) {
+        this.avecon = avecon;
     }
 }

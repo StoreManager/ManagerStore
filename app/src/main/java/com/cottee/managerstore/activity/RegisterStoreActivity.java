@@ -79,47 +79,8 @@ public class RegisterStoreActivity extends AppCompatActivity {
         };
         mDrawerToggle.syncState();
         dl_left.setDrawerListener( mDrawerToggle );
-//        Button button = (Button) findViewById( R.id.btn_user_exit );
         tv_nostore = (TextView) findViewById( R.id.tv_noStore );
         getStoreList();
-//        button.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SharedPreferences sp = getSharedPreferences( "userLogin", Context.MODE_PRIVATE );
-//                SharedPreferences.Editor editor = sp.edit();
-//                editor.clear();
-//                editor.commit();
-//
-//                Intent intent = new Intent( RegisterStoreActivity.this, BossLoginActivity.class );
-//                startActivity( intent );
-//                finish();
-//
-//
-//            }
-//        } );
-//        lv_registerStore.setOnItemClickListener( new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder( mContext );
-//                builder.setMessage( "确定删除此店铺吗？" );
-//                builder.setCancelable( true );
-//                builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        storeList.remove( position );
-//                        onResume();
-//                    }
-//                } );
-//                builder.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        onResume();
-//                    }
-//                } );
-//                builder.show();
-//            }
-//        } );
     }
 
     private void initView() {

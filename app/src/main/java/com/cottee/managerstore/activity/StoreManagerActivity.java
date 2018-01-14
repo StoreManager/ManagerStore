@@ -18,9 +18,20 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
+import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.properties.Properties;
+import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.utils.Utils;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoreManagerActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar tl_custom;
@@ -39,6 +50,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private StoreInfo storeInfo;
     private int clicked=1;
     private Button btntoprojectmanage;
+    private int storeid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +78,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         dl_left.setDrawerListener(mDrawerToggle);
         Intent intent = getIntent();
         storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
+        storeid = intent.getIntExtra( "storeid", 0 );
         tv_storename_manager.setText( storeInfo.getName() );
     }
 
@@ -87,6 +100,13 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener(this);
         btntoprojectmanage.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getStoreList();
+        storeInfo= RegisterStoreActivity.storeList.get( storeid );
     }
 
     @Override
@@ -119,26 +139,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     scaleAnimation.setDuration(200);
                     view.startAnimation(scaleAnimation);
                 }
-
-//                storeStausPopupWindow = new
-//                        StoreStausPopupWindow(this);
-//                storeStausPopupWindow.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//
-//
-//
-//                    @Override
-//                    public void onFocusChange(View view, boolean hasFocus) {
-//                        if (!hasFocus)
-//                            storeStausPopupWindow.dismiss();
-//
-//                    }
-//                });
-//                //设置默认获取焦点
-//                storeStausPopupWindow.setFocusable(true);
-////以某个控件的x和y的偏移量位置开始显示窗口
-//                storeStausPopupWindow.showAsDropDown(tv_storeStatus, 0, 0);
-////如果窗口存在，则更新
-//                storeStausPopupWindow.update();
                 break;
             case R.id.btn_releaseStore:
                 Toast.makeText(mContext, "发布店铺", Toast.LENGTH_SHORT).show();
@@ -152,6 +152,31 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             default:
                 break;
         }
+    }
+
+    private List<StoreInfo> getStoreList() {
+        new Thread() {
+            @Override
+            public void run() {
+                Utils.sendToWebService( Properties.GET_STORE, new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+
+                    }
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        String s = response.body().string();
+                        if (s.isEmpty()) {
+                            return;
+                        }
+                        RegisterStoreActivity.storeList= Utils.handleStoreResponse( s );
+                    }
+                } );
+
+            }
+        }.start();
+        return RegisterStoreActivity.storeList;
+
     }
 
 }
