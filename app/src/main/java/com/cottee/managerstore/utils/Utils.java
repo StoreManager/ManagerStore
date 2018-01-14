@@ -57,5 +57,17 @@ public class Utils {
         }
         return userBeanList;
     }
+    /**
+     * 宽高比例
+     * @param widthProportion
+     * @param heightProportion
+     * @param width
+     * @return
+     */
+    public static int getHeight(int widthProportion,int heightProportion,int width) {
+        int temp = width / widthProportion;
+
+        return temp * heightProportion;
+    }
 
 }

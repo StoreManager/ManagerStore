@@ -234,8 +234,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         Intent intent = new Intent( this, BigPhotoActivity.class );
         switch (view.getId()) {
             case R.id.iv_surface:
-                intent.putExtra( "photo_url", surface );
-                startActivity( intent );
+                Intent surfaceIntent = new Intent( this, FrontCoverActivity.class );
+                surfaceIntent.putExtra( "photo_url", surface );
+                startActivity( surfaceIntent );
                 break;
             case R.id.iv_photo1:
                 intent.putExtra( "photo_url", one );

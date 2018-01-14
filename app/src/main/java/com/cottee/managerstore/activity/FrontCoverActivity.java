@@ -34,10 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by user on 2017/12/20.
+ * Created by user on 2018/1/14.
  */
 
-public class BigPhotoActivity extends Activity implements View.OnClickListener {
+public class FrontCoverActivity extends Activity implements View.OnClickListener{
     private Button btn_back_detial;
     private Button btn_changePhoto;
     private ImageView iv_bigPicture;
@@ -96,17 +96,32 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.btn_openGallery:
-                Intent intent = new Intent( Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI );
-                startActivityForResult( intent,
-                        CAMRA_SETRESULT_CODE );
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent,
+                        CAMRA_SETRESULT_CODE);
                 break;
             case R.id.btn_openCamera:
-                Intent intents = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
-                intents.putExtra( MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile( new File( getPhotoPath() ) ) );
-                startActivityForResult( intents,
-                        PHOTO_SETRESULT_CODE );
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("用于店铺首页，请横向拍照！");
+                builder.setCancelable( true );
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intents = new Intent( MediaStore.ACTION_IMAGE_CAPTURE);
+                        intents.putExtra(MediaStore.EXTRA_OUTPUT,
+                                Uri.fromFile(new File(getPhotoPath())));
+                        startActivityForResult(intents,
+                                PHOTO_SETRESULT_CODE);
+                    }
+                } );
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
             case R.id.btn_cancel:
                 cancelbtnAnim();
@@ -140,15 +155,15 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
 
     // 拍照使用系统当前日期加以调整作为照片的名称
     private static String getPhotoFileName() {
-        Date date = new Date( System.currentTimeMillis() );
+        Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "'IMG'_yyyyMMdd_HHmmss" );
-        return dateFormat.format( date ) + ".jpg";
+                "'IMG'_yyyyMMdd_HHmmss");
+        return dateFormat.format(date) + ".jpg";
     }
 
     // 拍照路径
     public String getPhotoPath() {
-        File file = new File( Environment.getExternalStorageDirectory(), "/imgs" );
+        File file = new File( Environment.getExternalStorageDirectory(), "/imgs");
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -165,15 +180,15 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
             BitmapFactory.Options opt = new BitmapFactory.Options();
             opt.inJustDecodeBounds = true;
             // 设置只是解码图片的边距，此操作目的是度量图片的实际宽度和高度
-            BitmapFactory.decodeFile( filePath, opt );
+            BitmapFactory.decodeFile(filePath, opt);
             opt.inDither = false;
             opt.inPreferredConfig = Bitmap.Config.RGB_565;
 
             // 设置加载图片的颜色数为16bit，默认是RGB_8888，表示24bit颜色和透明通道，但一般用不上
             // opt.inSampleSize = 1;
-            opt.inSampleSize = computeSampleSize( opt, -1, 900 * 900 );
+            opt.inSampleSize = computeSampleSize(opt, -1, 900 * 900);
             opt.inJustDecodeBounds = false;
-            bm = BitmapFactory.decodeFile( filePath, opt );
+            bm = BitmapFactory.decodeFile(filePath, opt);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -182,8 +197,8 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
 
     public static int computeSampleSize(BitmapFactory.Options options,
                                         int minSideLength, int maxNumOfPixels) {
-        int initialSize = computeInitialSampleSize( options, minSideLength,
-                maxNumOfPixels );
+        int initialSize = computeInitialSampleSize(options, minSideLength,
+                maxNumOfPixels);
         int roundedSize;
         if (initialSize <= 8) {
             roundedSize = 1;
@@ -200,10 +215,10 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                                                 int minSideLength, int maxNumOfPixels) {
         double w = options.outWidth;
         double h = options.outHeight;
-        int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil( Math
-                .sqrt( w * h / maxNumOfPixels ) );
+        int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil(Math
+                .sqrt(w * h / maxNumOfPixels));
         int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(
-                Math.floor( w / minSideLength ), Math.floor( h / minSideLength ) );
+                Math.floor(w / minSideLength), Math.floor(h / minSideLength));
         if (upperBound < lowerBound) {
             return lowerBound;
         }
@@ -221,11 +236,11 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
         // 将Bitmap转换成字符串
         String result = "";
         ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-        bitmap.compress( Bitmap.CompressFormat.JPEG, 100, bStream );
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bStream);
         byte[] bytes = bStream.toByteArray();
-        byte[] bb = Base64.encode( bytes, Base64.DEFAULT );
+        byte[] bb = Base64.encode(bytes, Base64.DEFAULT);
         try {
-            result = new String( bb, "UTF-8" ).replace( "+", "%2B" );
+            result = new String(bb, "UTF-8").replace("+", "%2B");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -236,17 +251,17 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
     // 得到相册路径
     public String getCameraPath(Intent data) {
         Uri originalUri = data.getData();
-        String[] proj = {MediaStore.Images.Media.DATA};
+        String[] proj = { MediaStore.Images.Media.DATA };
 
         // 好像是android多媒体数据库的封装接口，具体的看Android文档     数据库
 
-        Cursor cursor = this.managedQuery( originalUri, proj,
-                null, null, null );
+        Cursor cursor = this.managedQuery(originalUri, proj,
+                null, null, null);
 
         // 获取游标
 
         int column_index = cursor
-                .getColumnIndexOrThrow( MediaStore.Images.Media.DATA );
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
         // 将光标移至开头 ，这个很重要，不小心很容易引起越界
 
@@ -254,7 +269,7 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
 
         // 最后根据索引值获取图片路径
 
-        String path = cursor.getString( column_index );
+        String path = cursor.getString(column_index);
         return path;
     }
 
@@ -267,9 +282,9 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
             if (resultCode == RESULT_OK) {
                 // 相册选中图片路径
                 String cameraPath = getCameraPath( data );
-                Bitmap bitmap = readBitmapAutoSize( cameraPath );
+                Bitmap bitmap =readBitmapAutoSize( cameraPath );
                 iv_bigPicture.setImageBitmap( bitmap );
-                String str = bitmaptoString( bitmap );
+                String str =bitmaptoString( bitmap );
                 LogUtils.d( "相相册选中路径  = " + cameraPath );
                 startClipActivity( cameraPath );
             }
@@ -297,11 +312,10 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
             }
         }
     }
-
     public void startClipActivity(String path) {
-        Intent intent = new Intent( this, PhotoClipSmallActivity.class );
+        Intent intent = new Intent( this, PhotoClipActivity.class );
         intent.putExtra( "path", path );
-        startActivityForResult( intent, PHOTO_CORPRESULT_CODE );
+        startActivityForResult( intent,PHOTO_CORPRESULT_CODE );
         cancelbtnAnim();
     }
 }

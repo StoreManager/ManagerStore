@@ -103,6 +103,12 @@
         <activity android:name=".activity1.ProjectManageActivity"
                     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+        <activity android:name=".activity.FrontCoverActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".activity.PhotoClipActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.PhotoClipSmallActivity"
+                  android:launchMode="singleTask"/>
         <activity android:name=".activity1.ProjectManageAddClassifyActivity"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <meta-data
