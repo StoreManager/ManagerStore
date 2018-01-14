@@ -15,12 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.cottee.managerstore.Filter.CashierInputFilter;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.utils.ToastUtils;
@@ -148,6 +150,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 
         btn_order = (ToggleButton) findViewById( R.id.btn_order );
         btn_order.setOnCheckedChangeListener( this );
+        CashierInputFilter[] filters={new CashierInputFilter()};
+        et_money.setFilters( filters );
 
     }
 
