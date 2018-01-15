@@ -3,6 +3,7 @@ package com.cottee.managerstore.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.properties.Properties;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.Utils;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
@@ -75,9 +77,9 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         mDrawerToggle.syncState();
         dl_left.setDrawerListener(mDrawerToggle);
         Intent intent = getIntent();
-        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
+//        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
         storeid = intent.getIntExtra( "storeid", 0 );
-        tv_storename_manager.setText( storeInfo.getName() );
+//        tv_storename_manager.setText( storeInfo.getName() );
     }
 
     private void findView() {
@@ -92,21 +94,20 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         btn_storeManager.setOnClickListener( this );
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
         btntoprojectmanage = (Button) findViewById(R.id.btn_to_project_manage);
-        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
+//        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
         pbtn_order.setOnClickListener(this);
         btn_releaseStore.setOnClickListener(this);
        imgbtn_storeStatus.setOnClickListener(this);
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener(this);
         btntoprojectmanage.setOnClickListener(this);
-        btn_to_employee_manage.setOnClickListener(this);
+//        btn_to_employee_manage.setOnClickListener(this);
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         getStoreList();
-        storeInfo= RegisterStoreActivity.storeList.get( storeid );
     }
 
     @Override
@@ -114,6 +115,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.btn_storeManager:
             case R.id.tv_storeManager:
+                storeInfo= RegisterStoreActivity.storeList.get( storeid );
                 Intent intent = new Intent( this, DetialInfomation.class );
                 intent.putExtra( "storeInfo",storeInfo );
                 startActivity( intent );
@@ -139,26 +141,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     scaleAnimation.setDuration(200);
                     view.startAnimation(scaleAnimation);
                 }
-
-//                storeStausPopupWindow = new
-//                        StoreStausPopupWindow(this);
-//                storeStausPopupWindow.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//
-//
-//
-//                    @Override
-//                    public void onFocusChange(View view, boolean hasFocus) {
-//                        if (!hasFocus)
-//                            storeStausPopupWindow.dismiss();
-//
-//                    }
-//                });
-//                //设置默认获取焦点
-//                storeStausPopupWindow.setFocusable(true);
-////以某个控件的x和y的偏移量位置开始显示窗口
-//                storeStausPopupWindow.showAsDropDown(tv_storeStatus, 0, 0);
-////如果窗口存在，则更新
-//                storeStausPopupWindow.update();
                 break;
             case R.id.btn_releaseStore:
                 Toast.makeText(mContext, "发布店铺", Toast.LENGTH_SHORT).show();
@@ -196,7 +178,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             }
         }.start();
         return RegisterStoreActivity.storeList;
-
     }
 
 }
