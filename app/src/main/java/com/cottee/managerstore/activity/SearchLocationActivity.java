@@ -7,6 +7,9 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -60,6 +63,11 @@ public class SearchLocationActivity extends Activity {
     private void findView() {
 
         lv_location = (ListView) findViewById( R.id.lv_location );
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_item);
+        LayoutAnimationController controller = new LayoutAnimationController(animation);
+        controller.setDelay(0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        lv_location.setLayoutAnimation(controller);
         btn_backToAddressStore = (Button) findViewById( R.id.btn_backToAddressStore );
         actv = (AutoCompleteTextView) findViewById( R.id.auto );
         btn_backToAddressStore.setOnClickListener( new View.OnClickListener() {

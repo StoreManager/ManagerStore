@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purplishblue">
+
+        <Button
+            android:id="@+id/btn_back_to_detial"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/back_2x"
+            android:gravity="center_horizontal"/>
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="会员管理"
+            android:textColor="@color/white"
+            android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/btn_toVipSandard"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@mipmap/menu"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+    <AutoCompleteTextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/actv_selectVip"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/et_square"
+        android:completionThreshold="2"
+        android:dropDownHorizontalOffset="0dp"
+        android:hint="查询"
+        android:textCursorDrawable="@drawable/autotextview"/>
+    <Button
+        android:layout_marginLeft="10dp"
+        android:layout_alignBaseline="@id/actv_selectVip"
+        android:layout_alignParentRight="true"
+        android:text="取消"
+        android:background="@drawable/bt_square"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ListView
+        android:id="@+id/lv_vip"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:layout_below="@id/actv_selectVip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+</RelativeLayout>

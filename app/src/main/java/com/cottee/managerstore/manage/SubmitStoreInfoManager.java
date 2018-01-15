@@ -31,6 +31,7 @@ public class SubmitStoreInfoManager {
     public final static int NECESSARY_INFOMATION = 8;
     public final static int PHOTO_BULIC = 9;
     public final static int SUPPLY_INFO = 14;
+    public final static int PHOTO_SURFACE= 18;
 
     public SubmitStoreInfoManager(Context context, LoginRegisterInformationHandle handler) {
         this.context = context;
@@ -76,17 +77,27 @@ public class SubmitStoreInfoManager {
     }
 
     private void sendRequest(final int type, final String path) {
+        final MediaType MEDIA_TYPE_PNG = MediaType.parse( "image/png" );
+        final File f = new File( path );
         new Thread() {
+
+            private MultipartBody requestBody;
+
             @Override
             public void run() {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = null;
                     switch (type) {
-                        case PHOTO_BULIC:
-                            MediaType MEDIA_TYPE_PNG = MediaType.parse( "image/png" );
-                            File f = new File( path );
-                            MultipartBody requestBody = new MultipartBody.Builder().setType( MultipartBody.FORM )
+                        case PHOTO_BULIC://营业执照
+                            requestBody = new MultipartBody.Builder().setType( MultipartBody.FORM )
+                                    .addFormDataPart( "photo_buslic", f.getName(), RequestBody.create(
+                                            MEDIA_TYPE_PNG, f ) ).build();
+                            request = new Request.Builder().url( Properties.PHOTO_BUSLIC ).post( requestBody )
+                                    .build();
+                            break;
+                            case PHOTO_SURFACE://封面
+                            requestBody = new MultipartBody.Builder().setType( MultipartBody.FORM )
                                     .addFormDataPart( "photo_buslic", f.getName(), RequestBody.create(
                                             MEDIA_TYPE_PNG, f ) ).build();
                             request = new Request.Builder().url( Properties.PHOTO_BUSLIC ).post( requestBody )
@@ -164,5 +175,8 @@ public class SubmitStoreInfoManager {
 
     public void changeInfo(String introduce, String time, String money, String reserve, String phone) {
         sendRequest( SUPPLY_INFO, introduce, time, money, reserve, phone );
+    }
+    public void changeSurface(String path){
+        sendRequest( PHOTO_SURFACE,path );
     }
 }

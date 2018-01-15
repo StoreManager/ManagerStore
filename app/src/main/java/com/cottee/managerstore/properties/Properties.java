@@ -49,4 +49,5 @@ public class Properties {
     public static final int PROJECT_MANAGE_GET = 15;
     public static final int PROJECT_MANAGE_UPDATE =16;
     public static final int PROJECT_MANAGE_DELETE =17;
+    public final static int PHOTO_SURFACE= 18;
 }
