@@ -95,7 +95,7 @@ public class ProjectTypeManage {
 
     public void projectManageUpdate(String typeName,String classId) {
 
-        sendRequest(Properties.PROJECT_MANAGE_DELETE,typeName,classId);
+        sendRequest(Properties.PROJECT_MANAGE_UPDATE,typeName,classId);
 
     }
 

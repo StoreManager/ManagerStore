@@ -11,7 +11,6 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
-import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
 import com.cottee.managerstore.manage.UserManage;
@@ -337,15 +336,15 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_MANAGE_LARGE_INFORMATION:
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
-                        ToastUtils.showToast( context, "保存成功" );
-                        Intent intent = new Intent( context, ProjectManageActivity.class );
-                        context.startActivity( intent );
+                        ToastUtils.showToast( context, "添加成功" );
+                        /*Intent intent = new Intent( context, ProjectManageActivity.class );
+                        context.startActivity( intent );*/
                         break;
                     case PROJECT_MANAGE_FAILD:
-                        ToastUtils.showToast( context, "保存失败" );
+                        ToastUtils.showToast( context, "添加失败" );
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
-                        ToastUtils.showToast( context, "保存失败" );
+                        ToastUtils.showToast( context, "添加失败" );
                         break;
 
                 }
@@ -354,7 +353,8 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_MANAGE_DELETE:
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
-                        ToastUtils.showToast( context, "删除成功" );
+                        /*ToastUtils.showToast( context, "删除成功" );*/
+
                         break;
                     case PROJECT_MANAGE_FAILD:
                         ToastUtils.showToast( context, "删除失败" );
@@ -368,7 +368,7 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_MANAGE_UPDATE:
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
-                        ToastUtils.showToast( context, "修改成功" );
+                        /*ToastUtils.showToast( context, "修改成功" );*/
                         break;
                     case PROJECT_MANAGE_FAILD:
                         ToastUtils.showToast( context, "修改失败" );

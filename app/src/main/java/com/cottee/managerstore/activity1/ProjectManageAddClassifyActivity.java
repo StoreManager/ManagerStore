@@ -47,9 +47,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private Toolbar tbprojectmanageadd;
     private List<ProjectManageInfo> projectList = new ArrayList<>();
     /*private List<ProjectManageInfo> projectTestList = new ArrayList<>();*/
-    /*private List<String> addDishList = new ArrayList<>();*/
+    private List<String> addDishList = new ArrayList<>();
     private List<String> updateDishList = new ArrayList<>();
-    private List<String> deleteList = new ArrayList<>();
+    private List<String> updateDishIdList = new ArrayList<>();
+    private List<String> deleteIdList = new ArrayList<>();
     private ListView lvprojectmanageadd;
     private Button btnprojectmanageaddclassifysave;
     private Button btnprojectmanageclassifyadd;
@@ -60,9 +61,14 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private TextView tv_msgEmpty;
     private List<String> dishesExampleList = new ArrayList<>();
     private List<String> allDishTypeList = new ArrayList<>();
-    private String addType="";
+
+    private String updateType="";
+    private String updateIdType="";
+    private String deleteType="";
     private List<String> jsonDishName;
     private List<String> jsonDishId;
+    private List<String> newJsonIdList;
+    /*private ProjectManageHandler handler = new ProjectManageHandler();*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +84,13 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         jsonDishId = (List<String>) intent.getSerializableExtra("dishId");
         System.out.println("json"+ jsonDishName);
         System.out.println("json"+ jsonDishId);
+
+
+
+        updateDishList.clear();
+        updateDishIdList.clear();
+        deleteIdList.clear();
+
 
         for(int i = 0; i< jsonDishName.size(); i++){
             ProjectManageInfo info = new ProjectManageInfo(jsonDishName.get(i));
@@ -101,6 +114,36 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
     }
 
+
+    /*public  class ProjectManageHandler extends Handler {
+        private  Context context;
+
+        *//*public ProjectManageHandler(Context context) {
+            this.context = context;
+
+        }*//*
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case PROJECT_MANAGE_GET:
+                    *//*dishTypeNameList = new ArrayList<String>();*//*
+                    newJsonIdList = new ArrayList<>();
+                    List<ProjectManageGetInfo.DishTypeBean> dishList = (List<ProjectManageGetInfo.DishTypeBean>) msg.obj;
+
+                    for(int i=0;i<dishList.size();i++){
+                        newJsonIdList.add(dishList.get(i).getClass_id());
+
+
+                    }
+                    System.out.println("newid："+newJsonIdList);
+
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }*/
+
     public void initview(){
         tbprojectmanageadd = (Toolbar) findViewById(R.id.tb_project_manage_add);
         lvprojectmanageadd = (ListView) findViewById(R.id.lv_project_manage_add);
@@ -113,34 +156,101 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         btn_back_to_project_manage_from_add.setOnClickListener(this);
     }
 
+
+
+
+
+
+
+
+    private String updateData(){
+        for (int i = 0; i< updateDishList.size(); i++){
+
+            String updateDishType = updateDishList.get(i);
+            if(i == updateDishList.size()-1 ){
+                updateType = updateType+updateDishType;
+
+            }else{
+                updateType = updateType+updateDishType+"#";
+            }
+
+        }
+        String update = updateType.trim();
+        /*update = update.substring(0, -1);*/
+        return update;
+    }
+    private String updateIdData(){
+        for (int i = 0; i< updateDishIdList.size(); i++){
+
+            String updateDishType = updateDishIdList.get(i);
+            if(i == updateDishIdList.size()-1 ){
+                updateIdType = updateIdType+updateDishType;
+
+            }else{
+                updateIdType = updateIdType+updateDishType+"#";
+            }
+
+        }
+        String update = updateIdType.trim();
+        /*update = update.substring(0, -1);*/
+        return update;
+    }
+    private String deleteIdData(){
+        for (int i = 0; i< deleteIdList.size(); i++){
+
+            String updateDishType = deleteIdList.get(i);
+            if(i == deleteIdList.size()-1 ){
+                deleteType = deleteType+updateDishType;
+
+            }else{
+                deleteType = deleteType+updateDishType+"#";
+            }
+
+        }
+        String update = deleteType.trim();
+        /*update = update.substring(0, -1);*/
+        return update;
+    }
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){
         case R.id.btn_project_manage_add_classify_save:
-            /*for (int i =0;i<addDishList.size();i++){
 
-                String allDishType = addDishList.get(i);
-                if(i ==addDishList.size()-1 ){
-                    addType = addType+allDishType;
-
-                }else{
-                    addType = addType+allDishType+"#";
-                }
+            String update = updateData();
+            String updateId = updateIdData();
+            String deleteId = deleteIdData();
 
 
-            }
-            String add = addType.trim();
-           *//* add = add.substring(0, -1);*//*
-            System.out.println(add);
+
+            System.out.println("更新名字:"+update);
+            System.out.println("更新id:"+updateId);
+            System.out.println("删除id:"+deleteId);
             ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
                     (ProjectManageAddClassifyActivity.this,""));
-            manage.projectManageCommit(add);*/
+            /*if(!add.equals("")){
+                manage.projectManageCommit(add);
+               *//* sendRequestWithOkHttp();*//*
+            }*/
+            if (!update.equals("")&&!updateId.equals("")){
+                manage.projectManageUpdate(update,updateId);
+            }
+            if(!deleteId.equals("")){
+                manage.projectManageDelete(deleteId);
+            }
+
+
+
+            finish();
+
+
+
 
         break;
         case R.id.btn_project_manage_classify_add:
 
-            dialog = new DishesDialog(ProjectManageAddClassifyActivity.this,adapter,projectList);
-            dialog.show();
+            /*dialog = new DishesDialog(ProjectManageAddClassifyActivity.this,adapter);
+            dialog.show();*/
 
 
 
@@ -243,6 +353,11 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
                                     projectManageList.remove(position);
                                     adapter.notifyDataSetChanged();
+                                    if(position+1<=jsonDishId.size()){
+                                        deleteIdList.add(jsonDishId.get(position));
+                                    }
+                                    System.out.println("删除的是:"+deleteIdList);
+
                                     if(!adapter.isEmpty()){
                                         tv_msgEmpty.setVisibility(View.GONE);
 
@@ -289,6 +404,13 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
                                         projectManageList.get(position).setProjectName(input);
                                         adapter.notifyDataSetChanged();
+                                        if(position+1<=jsonDishId.size()){
+                                            updateDishIdList.add(jsonDishId.get(position));
+                                            updateDishList.add(input);
+                                        }
+
+
+                                        System.out.println("修改的是:"+updateDishIdList+" "+updateDishList);
 
 
                                     }
@@ -417,17 +539,17 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         private Context context;
         private GridView gridView;
         private ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter;
-        private List<ProjectManageInfo> selectDishList = new ArrayList<>();
+
         private DishesClassifyAdapter classifyAdapter;
         private List<String> exampleList = new ArrayList<>();
         private List<String> list = new ArrayList<>();
 
 
-        public DishesDialog(@NonNull Context context, ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter, List<ProjectManageInfo> selectDishList) {
+        public DishesDialog(@NonNull Context context, ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter) {
             super(context);
             this.context = context;
             this.adapter = adapter;
-            this.selectDishList = selectDishList;
+
 
         }
 
@@ -501,7 +623,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                     for(int i = 0;i<list.size();i++){
 
                         ProjectManageInfo projectManageInfo = new ProjectManageInfo(list.get(i));
-                        /*addDishList.add(list.get(i))*/;
+                        addDishList.add(list.get(i));
                         projectList.add(projectManageInfo);
 
                         adapter.notifyDataSetChanged();
@@ -551,12 +673,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                 }
 
                                 ProjectManageInfo projectManageInfo = new ProjectManageInfo(input);
-                                /*addDishList.add(input);*/
+                                addDishList.add(input);
                                 projectList.add(projectManageInfo);
 
-                                ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
-                                        (ProjectManageAddClassifyActivity.this,""));
-                                manage.projectManageCommit(input);
+
 
                                 list.clear();
 
