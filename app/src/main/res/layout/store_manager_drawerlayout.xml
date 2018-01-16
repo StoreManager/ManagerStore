@@ -204,6 +204,7 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:onClick="manageMoney"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"

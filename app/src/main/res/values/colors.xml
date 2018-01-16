@@ -24,6 +24,7 @@
     <color name="pea_green">#CFE894</color>
     <color name="normal_color">#0093fe</color>
     <color name="grey">#aaaaaa</color>
+    <color name="province_line_border">#8e8484</color>
 
     <color name="main_bottom_tab_textcolor_normal">#999999</color>
     <color name="main_bottom_tab_textcolor_selected">@color/normal_color</color>

@@ -269,7 +269,8 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 String cameraPath = getCameraPath( data );
                 Bitmap bitmap = readBitmapAutoSize( cameraPath );
                 iv_bigPicture.setImageBitmap( bitmap );
-                String str = bitmaptoString( bitmap );
+                String str =
+                        bitmaptoString( bitmap );
                 LogUtils.d( "相相册选中路径  = " + cameraPath );
                 startClipActivity( cameraPath );
             }

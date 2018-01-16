@@ -179,5 +179,9 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         }.start();
         return RegisterStoreActivity.storeList;
     }
+    public void manageMoney(View view)
+    {
+        startActivity(new Intent(StoreManagerActivity.this,ManageMoneyActivity.class));
+    }
 
 }
