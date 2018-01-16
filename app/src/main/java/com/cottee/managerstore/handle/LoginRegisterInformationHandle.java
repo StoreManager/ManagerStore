@@ -343,15 +343,15 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_MANAGE_LARGE_INFORMATION:
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
-                        shapeLoadingDialog.setDismiss();
+                       /* shapeLoadingDialog.setDismiss();*/
 
                         break;
                     case PROJECT_MANAGE_FAILD:
-                        shapeLoadingDialog.setDismiss();
+                        /*shapeLoadingDialog.setDismiss();*/
                         ToastUtils.showToast( context, "添加失败" );
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
-                        shapeLoadingDialog.setDismiss();
+                        /*shapeLoadingDialog.setDismiss();*/
                         ToastUtils.showToast( context, "添加失败" );
                         break;
 
