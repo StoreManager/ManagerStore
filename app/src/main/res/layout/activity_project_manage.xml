@@ -10,25 +10,57 @@
     <com.cottee.managerstore.widget.PullToRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pt_push">
-        <!--<ImageView
-            android:id="@+id/imv_project_manage_empty"
+        android:id="@+id/pt_push"
+        android:gravity="center">
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00000000"
-            android:layout_gravity="center"
-            android:visibility="gone"/>-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp">
-            <ListView
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/lv_project_manage"
-                android:scrollbars="none"
-                android:divider="@null"/>
-        </LinearLayout>
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/error_refresh"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@mipmap/ic_warn"
+                    android:scaleType="centerInside"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/empty"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:orientation="vertical">
+
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/lv_project_manage"
+                    android:scrollbars="none"
+                    android:divider="@null"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/view_push"
+                    android:visibility="invisible"/>
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+
     </com.cottee.managerstore.widget.PullToRefreshLayout>
 
 

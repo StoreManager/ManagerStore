@@ -24,10 +24,10 @@ public class Properties {
 
     public static  final  String PROJECT_MANAGE_ADD_PATH = "https://thethreestooges.cn/merchant/bean/classify/classify_insert.php";
     public static  final  String PROJECT_MANAGE_GET_PATH = "\n" +
-            "https://thethreestooges.cn/merchant/bean/classify/classify_select.php";
+            "https://thethreestooges.cn:1225/classify/classify/select";
     public static  final  String PROJECT_MANAGE_UPDATE_PATH = "\n" +
             "https://thethreestooges.cn/merchant/bean/classify/classify_update.php";
-    public static  final  String PROJECT_MANAGE_DELETE_PATH = "https://thethreestooges.cn/merchant/bean/classify/classify_delete.php";
+    public static  final  String PROJECT_MANAGE_DELETE_PATH = "https://thethreestooges.cn:1225/classify/classify/delete";
 
     public final static int USER_LOGIN = 1;
     public final static int CHECKOUT_EMAIL = 2;

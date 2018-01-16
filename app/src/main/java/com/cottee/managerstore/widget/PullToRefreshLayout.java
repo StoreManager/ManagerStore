@@ -63,7 +63,7 @@ public class PullToRefreshLayout extends FrameLayout {
 
 
     private View loadingView, errorView, emptyView;
-    private int loading = R.layout.layout_loading, empty = R.layout.layout_empty, error = R.layout.layout_error;
+    private int loading = R.layout.layout_loading, empty = R.layout.layout_empty;
 
     public void setRefreshListener(BaseRefreshListener refreshListener) {
         this.refreshListener = refreshListener;
@@ -81,7 +81,7 @@ public class PullToRefreshLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PullToRefreshLayout, defStyleAttr, 0);
-        error = a.getResourceId(R.styleable.PullToRefreshLayout_view_error, error);
+        /*error = a.getResourceId(R.styleable.PullToRefreshLayout_view_error, error);*/
         loading = a.getResourceId(R.styleable.PullToRefreshLayout_view_loading, loading);
         empty = a.getResourceId(R.styleable.PullToRefreshLayout_view_empty, empty);
 
@@ -361,7 +361,7 @@ public class PullToRefreshLayout extends FrameLayout {
         }
     }
 
-    private void showErrorView() {
+   /* private void showErrorView() {
         if (errorView == null) {
             errorView = LayoutInflater.from(getContext()).inflate(error, null);
             LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -370,7 +370,7 @@ public class PullToRefreshLayout extends FrameLayout {
         } else {
             errorView.setVisibility(VISIBLE);
         }
-    }
+    }*/
 
     private void hideView(View view) {
         if (view != null)
@@ -405,7 +405,7 @@ public class PullToRefreshLayout extends FrameLayout {
                 hideView(loadingView);
                 hideView(emptyView);
 
-                showErrorView();
+               /* showErrorView();*/
                 break;
             default:
                 hideView(loadingView);

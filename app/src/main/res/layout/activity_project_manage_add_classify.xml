@@ -45,13 +45,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/imv_project_manage_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="啥也没有"
-        android:gravity="center"
-        android:visibility="gone"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -68,6 +62,29 @@
                 android:textSize="20dp"
                 android:textColor="#ffffff"
                 android:text="提交"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_add_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/error_refresh"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/ic_warn"
+                android:scaleType="centerInside"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/empty"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

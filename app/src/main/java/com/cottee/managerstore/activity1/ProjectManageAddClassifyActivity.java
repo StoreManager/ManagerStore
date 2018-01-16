@@ -1,11 +1,9 @@
 package com.cottee.managerstore.activity1;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +13,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,10 +49,9 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private Button btnprojectmanageaddclassifysave;
     private Button btnprojectmanageclassifyadd;
     private ProjectManageAddAdapter adapter;
-    private DishesDialog dialog;
+
     public static Map<Integer, Boolean> checkedMap = new HashMap<Integer, Boolean>();
     private Button btn_back_to_project_manage_from_add;
-    private TextView tv_msgEmpty;
     private List<String> dishesExampleList = new ArrayList<>();
     private List<String> allDishTypeList = new ArrayList<>();
 
@@ -68,6 +61,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private List<String> jsonDishName;
     private List<String> jsonDishId;
     private List<String> newJsonIdList;
+    private LinearLayout ll_add_empty;
     /*private ProjectManageHandler handler = new ProjectManageHandler();*/
 
     @Override
@@ -82,6 +76,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         Intent intent = getIntent();
         jsonDishName = (List<String>) intent.getSerializableExtra("dishName");
         jsonDishId = (List<String>) intent.getSerializableExtra("dishId");
+
         System.out.println("json"+ jsonDishName);
         System.out.println("json"+ jsonDishId);
 
@@ -104,10 +99,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
         adapter = new ProjectManageAddAdapter(this,projectList);
         if(!adapter.isEmpty()){
-            tv_msgEmpty.setVisibility(View.GONE);
+            ll_add_empty.setVisibility(View.GONE);
 
         }else {
-            tv_msgEmpty.setVisibility(View.VISIBLE);
+            ll_add_empty.setVisibility(View.VISIBLE);
         }
         lvprojectmanageadd.setAdapter(adapter);
 
@@ -150,7 +145,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         btnprojectmanageaddclassifysave = (Button) findViewById(R.id.btn_project_manage_add_classify_save);
         btnprojectmanageclassifyadd = (Button) findViewById(R.id.btn_project_manage_classify_add);
         btn_back_to_project_manage_from_add = (Button) findViewById(R.id.btn_back_to_project_manage_from_add);
-        tv_msgEmpty = (TextView) findViewById(R.id.imv_project_manage_empty);
+        ll_add_empty = (LinearLayout) findViewById(R.id.ll_add_empty);
         btnprojectmanageaddclassifysave.setOnClickListener(this);
         btnprojectmanageclassifyadd.setOnClickListener(this);
         btn_back_to_project_manage_from_add.setOnClickListener(this);
@@ -355,14 +350,16 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                     adapter.notifyDataSetChanged();
                                     if(position+1<=jsonDishId.size()){
                                         deleteIdList.add(jsonDishId.get(position));
+                                        jsonDishId.remove(jsonDishId.get(position));
+
                                     }
                                     System.out.println("删除的是:"+deleteIdList);
 
                                     if(!adapter.isEmpty()){
-                                        tv_msgEmpty.setVisibility(View.GONE);
+                                        ll_add_empty.setVisibility(View.GONE);
 
                                     }else {
-                                        tv_msgEmpty.setVisibility(View.VISIBLE);
+                                        ll_add_empty.setVisibility(View.VISIBLE);
                                     }
                                 }
                             })
@@ -437,284 +434,11 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         TextView tvItemName;
         Button btnItemUpdate;
         Button btnItemDelete;
-        CheckBox dishExampleName;
-
-    }
-
-
-
-
-
-    public class DishesClassifyAdapter extends BaseAdapter {
-
-
-        private Context context;
-        private ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter ;
-        private List<String> dishesList = new ArrayList<>();
-
-
-        public DishesClassifyAdapter(Context context, ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter,List<String> dishesList) {
-            this.context = context;
-            this.adapter = adapter;
-            this.dishesList = dishesList;
-
-
-
-            for (int i = 0; i < dishesList.size(); i++) {
-                checkedMap.put(i, false);
-            }
-        }
-
-
-        @Override
-        public int getCount() {
-            return dishesList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return dishesList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertview, ViewGroup viewGroup) {
-
-            final ViewHolder viewHolder;
-            if(convertview==null){
-
-                viewHolder = new ViewHolder();
-                convertview = View.inflate(context, R.layout.item_gride_project_classify, null);
-                viewHolder.dishExampleName=convertview.findViewById(R.id.cb_gride_item_project_manage_classify_dishes);
-
-                convertview.setTag(viewHolder);
-            }else {
-                viewHolder = (ViewHolder) convertview.getTag();
-            }
-            viewHolder.dishExampleName.setText(dishesList.get(position));
-            viewHolder.dishExampleName.setChecked(checkedMap.get(position));
-            viewHolder.dishExampleName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (checkedMap.get(position)==false) {
-                        checkedMap.put(position, true);
-                        setIsSelected(checkedMap);
-                        dishesExampleList.add(dishesList.get(position)) ;
-                        System.out.println(dishesList.get(position));
-
-                    } else {
-                        checkedMap.put(position, false);
-                        setIsSelected(checkedMap);
-                        dishesExampleList.remove(dishesList.get(position));
-                        System.out.println(dishesList.get(position));
-                    }
-                }
-            });
-
-
-
-
-            return convertview;
-        }
 
 
     }
 
-    public  Map<Integer, Boolean> getIsSelected() {
-        return checkedMap;
-    }
 
-    public  void setIsSelected(Map<Integer, Boolean> checkedMap) {
-        this.checkedMap = checkedMap;
-    }
-
-
-
-
-    public class DishesDialog extends Dialog {
-        private Context context;
-        private GridView gridView;
-        private ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter;
-
-        private DishesClassifyAdapter classifyAdapter;
-        private List<String> exampleList = new ArrayList<>();
-        private List<String> list = new ArrayList<>();
-
-
-        public DishesDialog(@NonNull Context context, ProjectManageAddClassifyActivity.ProjectManageAddAdapter adapter) {
-            super(context);
-            this.context = context;
-            this.adapter = adapter;
-
-
-        }
-
-        public DishesDialog(@NonNull Context context, int themeResId) {
-            super(context, themeResId);
-        }
-
-        protected DishesDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-            super(context, cancelable, cancelListener);
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.dialog_project_manage_classify);
-
-
-            exampleList.add("热菜");
-            exampleList.add("凉菜");
-            exampleList.add("汤品");
-            exampleList.add("甜品");
-            exampleList.add("主食");
-            exampleList.add("饮料");
-
-
-            gridView = (GridView) findViewById(R.id.gv_project_manage_classify_example);
-            classifyAdapter = new DishesClassifyAdapter(context,adapter, exampleList);
-            gridView.setAdapter(classifyAdapter);
-            initview();
-
-
-
-
-
-            setCancelable(true);
-            getWindow().setBackgroundDrawableResource(R.color.transparent);
-            getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
-       /* getWindow().setWindowAnimations(R.style.MyDialogAnimation);*/
-
-
-
-        }
-
-
-        public void initview(){
-
-            findViewById(R.id.btn_project_manage_classify_save_dishes).setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-
-
-                    list.clear();
-                    for (int i = 0;i<dishesExampleList.size();i++){
-
-                        for (ProjectManageInfo projectInfo : projectList)
-                        {
-                            if (dishesExampleList.get(i).equals(projectInfo.getProjectName())) {
-                                ToastUtils.showToast(ProjectManageAddClassifyActivity.this,"亲，有的您已经选过啦/自定义重名了");
-                                list.remove(dishesExampleList.get(i));
-                                return;
-                            }
-
-                        }
-                            System.out.println("最终"+dishesExampleList.get(i));
-                            list.add(dishesExampleList.get(i));
-                    }
-                    dishesExampleList.clear();
-
-                    for(int i = 0;i<list.size();i++){
-
-                        ProjectManageInfo projectManageInfo = new ProjectManageInfo(list.get(i));
-                        addDishList.add(list.get(i));
-                        projectList.add(projectManageInfo);
-
-                        adapter.notifyDataSetChanged();
-                        if(!adapter.isEmpty()){
-                            tv_msgEmpty.setVisibility(View.GONE);
-
-                        }else {
-                            tv_msgEmpty.setVisibility(View.VISIBLE);
-                        }
-                    }
-                    list.clear();
-                    dishesExampleList.clear();
-                    dialog.dismiss();
-
-                }
-            });
-
-
-
-            findViewById(R.id.btn_project_manage_classify_custom_classify).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    final EditText et = new EditText(ProjectManageAddClassifyActivity.this);
-                    new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("请添加菜品类型")
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setView(et)
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            dismiss();
-                            String input = et.getText().toString();
-
-                            if (input.equals("")) {
-                                Toast.makeText(getApplicationContext(), "输入不能为空！" , Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            else {
-
-                                for (ProjectManageInfo projectInfo : projectList)
-                                {
-                                    if (input.equals(projectInfo.getProjectName())) {
-                                        ToastUtils.showToast(ProjectManageAddClassifyActivity.this,"菜品类型已存在");
-                                        return;
-                                    }
-                                }
-
-                                ProjectManageInfo projectManageInfo = new ProjectManageInfo(input);
-                                addDishList.add(input);
-                                projectList.add(projectManageInfo);
-
-
-
-                                list.clear();
-
-                                adapter.notifyDataSetChanged();
-                                if(!adapter.isEmpty()){
-                                    tv_msgEmpty.setVisibility(View.GONE);
-
-                                }else {
-                                    tv_msgEmpty.setVisibility(View.VISIBLE);
-                                }
-
-                            }
-                        }
-                    })
-                    .setNegativeButton("取消", null)
-                    .show();
-                }
-            });
-
-
-            findViewById(R.id.btn_dialog_exit).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    list.clear();
-                    dishesExampleList.clear();
-                    dialog.dismiss();
-                }
-            });
-            findViewById(R.id.ll_dialog_none).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    list.clear();
-                    dishesExampleList.clear();
-                    dialog.dismiss();
-                }
-            });
-        }
-    }
 
 
 

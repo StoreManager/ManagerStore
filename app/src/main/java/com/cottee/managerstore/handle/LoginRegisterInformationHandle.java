@@ -16,6 +16,7 @@ import com.cottee.managerstore.activity1.StoreManagerMainActivity;
 import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.widget.ShapeLoadingDialog;
 
 /**
  * Created by Administrator on 2017/11/20.
@@ -27,6 +28,7 @@ public class LoginRegisterInformationHandle extends Handler {
     private Context context;
     private String emailAddress;
     private String loginPassword;
+    private ShapeLoadingDialog shapeLoadingDialog;
 
     /*
    发送成功返回   0 （要给用户提示注意查看邮件之类的提示）
@@ -137,6 +139,11 @@ public class LoginRegisterInformationHandle extends Handler {
         this.context = context;
         this.emailAddress = emailAddress;
         this.loginPassword = loginPassword;
+    }
+
+
+    public LoginRegisterInformationHandle(ShapeLoadingDialog shapeLoadingDialog) {
+        this.shapeLoadingDialog = shapeLoadingDialog;
     }
 
 
@@ -336,14 +343,15 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_MANAGE_LARGE_INFORMATION:
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
-                        ToastUtils.showToast( context, "添加成功" );
-                        /*Intent intent = new Intent( context, ProjectManageActivity.class );
-                        context.startActivity( intent );*/
+                        shapeLoadingDialog.setDismiss();
+
                         break;
                     case PROJECT_MANAGE_FAILD:
+                        shapeLoadingDialog.setDismiss();
                         ToastUtils.showToast( context, "添加失败" );
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
+                        shapeLoadingDialog.setDismiss();
                         ToastUtils.showToast( context, "添加失败" );
                         break;
 
@@ -384,5 +392,8 @@ public class LoginRegisterInformationHandle extends Handler {
                 break;
         }
     }
+
+
+
 
 }

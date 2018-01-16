@@ -21,7 +21,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +36,7 @@ import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BaseRefreshListener;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.PullToRefreshLayout;
+import com.cottee.managerstore.widget.ShapeLoadingDialog;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -69,7 +69,6 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private String addType = "";
     private Button btnbacktostoremanager;
     private Button btnprojectmanageupdate;
-    private ImageView imv_project_manage_empty;
     private List<String> dishTypeNameList;
     private List<ProjectManageInfo> allTypeNameList = new ArrayList<>();
     private ProjectManageActivity.ProjectManageHandler handler = new ProjectManageActivity.ProjectManageHandler();
@@ -78,6 +77,9 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private List<String> dishesExampleList = new ArrayList<>();
     private boolean up = false;
     private PullToRefreshLayout pullToRefreshLayout;
+    private LinearLayout ll_empty;
+    private View view_push;
+    private ShapeLoadingDialog shapeLoadingDialog;
 
 
     @Override
@@ -91,8 +93,15 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         setSupportActionBar(toolbar);
 
 
+        sendRequestWithOkHttp();
+        shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
+                .loadText("加载中...")
+                .build();
+        shapeLoadingDialog.show();
 
-        pullToRefreshLayout.autoRefresh();
+
+
+       /* pullToRefreshLayout.autoRefresh();*/
 
         pullToRefreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
@@ -124,22 +133,6 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private String addData() {
-        for (int i = 0; i < addDishList.size(); i++) {
-
-            String allDishType = addDishList.get(i);
-            if (i == addDishList.size() - 1) {
-                addType = addType + allDishType;
-
-            } else {
-                addType = addType + allDishType + "#";
-            }
-
-        }
-        String add = addType.trim();
-        /*add = add.substring(0, -1);*/
-        return add;
-    }
 
     public void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
@@ -184,6 +177,32 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    private String addData() {
+
+        System.out.println("addDish:"+addDishList);
+        for (int i = 0; i < addDishList.size(); i++) {
+
+            String allDishType = addDishList.get(i);
+            if (i == addDishList.size() - 1) {
+                addType = addType + allDishType;
+
+            } else {
+                addType = addType + allDishType + "#";
+            }
+
+        }
+        addDishList.clear();
+
+        String add = addType.trim();
+        addType = "";
+        /*add = add.substring(0, -1);*/
+        return add;
+    }
+
+
+
+
+
 
     public class ProjectManageHandler extends Handler {
         private Context context;
@@ -197,6 +216,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case PROJECT_MANAGE_GET:
+                    allTypeNameList.clear();
                     dishTypeNameList = new ArrayList<String>();
                     dishTypeIdList = new ArrayList<>();
                     List<ProjectManageGetInfo.DishTypeBean> dishList = (List<ProjectManageGetInfo.DishTypeBean>) msg.obj;
@@ -209,16 +229,21 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
                     }
                     System.out.println(dishTypeNameList);
+                    System.out.println(dishTypeIdList);
+                    System.out.println(allTypeNameList);
                     adapter = new ProjectManageAdapter(ProjectManageActivity.this, dishTypeNameList);
 
-                    /*if (!adapter.isEmpty()) {
-                        imv_project_manage_empty.setVisibility(View.GONE);
+                    if (!adapter.isEmpty()) {
+                        ll_empty.setVisibility(View.GONE);
 
                     } else {
-                        imv_project_manage_empty.setVisibility(View.VISIBLE);
-                    }*/
+
+
+                        ll_empty.setVisibility(View.VISIBLE);
+                    }
 
                     lvprojectmanage.setAdapter(adapter);
+                    shapeLoadingDialog.setDismiss();
 
 
                     break;
@@ -229,13 +254,14 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
     public void initview() {
+        view_push =  findViewById(R.id.view_push);
         pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pt_push);
         toolbar = findViewById(R.id.tl_project_manage);
         btnbacktostoremanager = (Button) findViewById(R.id.btn_back_to_storemanager);
         lvprojectmanage = (ListView) findViewById(R.id.lv_project_manage);
         btnprojectmanageupdate = (Button) findViewById(R.id.btn_project_manage_update);
         btnprojectmanageadd = (Button) findViewById(R.id.btn_project_manage_add);
-        /*imv_project_manage_empty = (ImageView) findViewById(R.id.imv_project_manage_empty);*/
+        ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         btnbacktostoremanager.setOnClickListener(this);
         btnprojectmanageupdate.setOnClickListener(this);
         btnprojectmanageadd.setOnClickListener(this);
@@ -482,6 +508,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
                     list.clear();
+                    System.out.println("info:"+allTypeNameList);
                     for (int i = 0; i < dishesExampleList.size(); i++) {
 
                         for (ProjectManageInfo projectInfo : allTypeNameList) {
@@ -504,18 +531,18 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                         addDishList.add(list.get(i));
                         projectList.add(projectManageInfo);
 
-                        String add = addData();
-                        System.out.println("添加：" + add);
-
-                        ProjectTypeManage manage = new ProjectTypeManage(ProjectManageActivity.this, new LoginRegisterInformationHandle
-                                (ProjectManageActivity.this, ""));
-                        if (!add.equals("")) {
-                            manage.projectManageCommit(add);
-                            pullToRefreshLayout.autoRefresh();
-                        }
-
-
                     }
+                    String add = addData();
+                    System.out.println("添加：" + add);
+
+                    ProjectTypeManage manage = new ProjectTypeManage(ProjectManageActivity.this, new LoginRegisterInformationHandle
+                            (shapeLoadingDialog));
+                    if (!add.equals("")) {
+                        /*shapeLoadingDialog.show();*/
+                        manage.projectManageCommit(add);
+                        pullToRefreshLayout.autoRefresh();
+                    }
+                    addDishList.clear();
                     list.clear();
                     dishesExampleList.clear();
                     dialog.dismiss();
@@ -610,6 +637,10 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     }
 
+
+
+
+
     @Override
     public void onPause() {
 
@@ -634,4 +665,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
+
+
 }
