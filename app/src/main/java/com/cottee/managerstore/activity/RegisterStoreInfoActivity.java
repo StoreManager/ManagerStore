@@ -208,7 +208,7 @@ public class RegisterStoreInfoActivity extends Activity {
         String shopStyle = tv_storeStyle.getText().toString().trim();
         String shopAddress = tv_storeAddress.getText().toString().trim();
 
-        if (!shopName.isEmpty()||!shopPhoneNum.isEmpty()||!shopStyle.isEmpty()||!shopAddress.isEmpty()){
+        if (!shopName.isEmpty() || !shopPhoneNum.isEmpty() || !shopStyle.isEmpty() || !shopAddress.isEmpty()) {
             AlertDialog.Builder dialog = new AlertDialog.Builder( RegisterStoreInfoActivity
                     .this );
             dialog.setCancelable( true );
@@ -225,8 +225,12 @@ public class RegisterStoreInfoActivity extends Activity {
 
                 }
             } );
-            dialog.show();
-        }else {
+            AlertDialog dialogs = dialog.create();
+            Window window = dialogs.getWindow();
+//为Window设置动画
+            window.setWindowAnimations( R.style.CustomDialog );
+            dialogs.show();
+        } else {
             finish();
         }
     }
