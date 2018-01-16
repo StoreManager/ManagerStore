@@ -110,44 +110,17 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     }
 
 
-    /*public  class ProjectManageHandler extends Handler {
-        private  Context context;
 
-        *//*public ProjectManageHandler(Context context) {
-            this.context = context;
-
-        }*//*
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case PROJECT_MANAGE_GET:
-                    *//*dishTypeNameList = new ArrayList<String>();*//*
-                    newJsonIdList = new ArrayList<>();
-                    List<ProjectManageGetInfo.DishTypeBean> dishList = (List<ProjectManageGetInfo.DishTypeBean>) msg.obj;
-
-                    for(int i=0;i<dishList.size();i++){
-                        newJsonIdList.add(dishList.get(i).getClass_id());
-
-
-                    }
-                    System.out.println("newid："+newJsonIdList);
-
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    }*/
 
     public void initview(){
         tbprojectmanageadd = (Toolbar) findViewById(R.id.tb_project_manage_add);
         lvprojectmanageadd = (ListView) findViewById(R.id.lv_project_manage_add);
         btnprojectmanageaddclassifysave = (Button) findViewById(R.id.btn_project_manage_add_classify_save);
-        btnprojectmanageclassifyadd = (Button) findViewById(R.id.btn_project_manage_classify_add);
+     /*   btnprojectmanageclassifyadd = (Button) findViewById(R.id.btn_project_manage_classify_add);*/
         btn_back_to_project_manage_from_add = (Button) findViewById(R.id.btn_back_to_project_manage_from_add);
         ll_add_empty = (LinearLayout) findViewById(R.id.ll_add_empty);
         btnprojectmanageaddclassifysave.setOnClickListener(this);
-        btnprojectmanageclassifyadd.setOnClickListener(this);
+       /* btnprojectmanageclassifyadd.setOnClickListener(this);*/
         btn_back_to_project_manage_from_add.setOnClickListener(this);
     }
 
@@ -234,22 +207,22 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                 manage.projectManageDelete(deleteId);
             }
 
-
-
+            Intent intent = new Intent(ProjectManageAddClassifyActivity.this,ProjectManageActivity.class);
+            startActivity(intent);
             finish();
 
 
 
 
         break;
-        case R.id.btn_project_manage_classify_add:
+        /*case R.id.btn_project_manage_classify_add:
 
-            /*dialog = new DishesDialog(ProjectManageAddClassifyActivity.this,adapter);
-            dialog.show();*/
+            *//*dialog = new DishesDialog(ProjectManageAddClassifyActivity.this,adapter);
+            dialog.show();*//*
 
 
 
-        break;
+        break;*/
 
         case R.id.btn_back_to_project_manage_from_add:
 

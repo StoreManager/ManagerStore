@@ -93,11 +93,18 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         setSupportActionBar(toolbar);
 
 
-        sendRequestWithOkHttp();
         shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
                 .loadText("加载中...")
                 .build();
         shapeLoadingDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                sendRequestWithOkHttp();
+            }
+        },2000);
+
 
 
 
@@ -282,6 +289,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                 intent.putExtra("dishName", (Serializable) dishTypeNameList);
                 intent.putExtra("dishId", (Serializable) dishTypeIdList);
                 startActivity(intent);
+
                 break;
 
             case R.id.btn_project_manage_add:
@@ -641,7 +649,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
 
-    @Override
+    /*@Override
     public void onPause() {
 
         super.onPause();
@@ -664,7 +672,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
         }
 
-    }
+    }*/
 
 
 
