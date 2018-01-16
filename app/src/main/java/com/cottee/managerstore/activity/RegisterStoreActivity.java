@@ -88,11 +88,11 @@ public class RegisterStoreActivity extends AppCompatActivity {
 
     private void initView() {
         lv_registerStore = findViewById( R.id.lv_registerStore );
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_item);
-        LayoutAnimationController controller = new LayoutAnimationController(animation);
-        controller.setDelay(0.5f);
-        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
-        lv_registerStore .setLayoutAnimation(controller);
+//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_item);
+//        LayoutAnimationController controller = new LayoutAnimationController(animation);
+//        controller.setDelay(0.5f);
+//        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+//        lv_registerStore .setLayoutAnimation(controller);
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
         linear_changePassword = findViewById( R.id.linear_changePassword );

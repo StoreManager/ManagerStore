@@ -161,7 +161,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     }
 
     public void edit(View view) {
-
         sign = tv_sign.getText().toString().trim();
         timeAM = tv_timeAM.getText().toString().trim();
         timePM = tv_timePM.getText().toString().trim();
@@ -210,6 +209,12 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         }
         boolean mobileNo = isMobileNo( phone );
         boolean phoneNo = isTelePhoneNo( phone );
+        boolean octNumber = isOctNumber( money );
+        if(octNumber==false) {
+            ToastUtils.showToast( this, "金额输入有误哦" );
+            return;
+        }
+
         if (mobileNo == true || phoneNo == true) {
             et_sign.setVisibility( View.GONE );
             tv_sign.setVisibility( View.VISIBLE );
@@ -238,6 +243,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
             ToastUtils.showToast( this, "号码输入有误哦" );
             return;
         }
+
         SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
                 this, ""
         ) );
@@ -279,7 +285,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
      * 时间轴
      */
     private void showTimePickerDialog(final Button button,String times) {
-        String[] split = times.split( "：" );
+        String[] split = times.split( ":" );
         final int hour = Integer.parseInt( split[0] );
         int minute = Integer.parseInt( split[1] );
 
@@ -302,7 +308,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                         }else {
                            min=String.valueOf( minute );
                         }
-                        String time= hour +"："+min;
+                        String time= hour +":"+min;
                         button.setText(time);
                     }
                 }, hour, minute, DateFormat.is24HourFormat( DetialInfomation.this ) );
@@ -344,5 +350,27 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     @Override
     public void onBackPressed() {
         finish();
+    }
+    //十进制
+    private static boolean isOctNumber(String str) {
+        boolean flag = false;
+        for (int i = 0, n = str.length(); i < n; i++) {
+            char c = str.charAt( i );
+            if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
+                flag = true;
+            }
+        }
+
+        if (str.length() > 1) {
+            String num = str.substring( 0, 1 );
+            if (Integer.valueOf( num ) == 0) {
+                if (str.substring( 1, 2 ).equals( "." ) || str.substring( 1, 2 ) == null) {
+                    flag = true;
+                } else {
+                    flag = false;
+                }
+            }
+        }
+        return flag;
     }
 }
