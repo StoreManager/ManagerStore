@@ -112,6 +112,8 @@
         <activity android:name=".activity1.ProjectManageAddClassifyActivity"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".activity1.EmployeeManageActivity"/>
+        <activity android:name=".activity.VIPManagerActivity"
+                  android:launchMode="singleTask"/>
         <meta-data
             android:name="TencentMapSDK"
             android:value="7KLBZ-SVMRD-PBA4J-PR24M-TKJW3-C2BX2"/>

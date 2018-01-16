@@ -15,6 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -85,6 +88,11 @@ public class RegisterStoreActivity extends AppCompatActivity {
 
     private void initView() {
         lv_registerStore = findViewById( R.id.lv_registerStore );
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_item);
+        LayoutAnimationController controller = new LayoutAnimationController(animation);
+        controller.setDelay(0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        lv_registerStore .setLayoutAnimation(controller);
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
         linear_changePassword = findViewById( R.id.linear_changePassword );
