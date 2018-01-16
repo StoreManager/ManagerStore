@@ -36,7 +36,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private Toolbar tl_custom;
     private DrawerLayout dl_left;
     private ActionBarDrawerToggle mDrawerToggle;
-//    private TextView tv_storename_manager;
+    //    private TextView tv_storename_manager;
     private Button btn_storeManager;
     public Context mContext = StoreManagerActivity.this;
     private TextView tv_storeManager;
@@ -47,35 +47,38 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private PressureButton pbtn_order;
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
-    private int clicked=1;
+    private int clicked = 1;
     private Button btntoprojectmanage;
     private Button btn_to_employee_manage;
     private int storeid;
+    private Button btn_vipManager;
+    private TextView tv_vipManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_storemanager );
         findView();
-        tl_custom.setTitle("");//设置Toolbar标题
-        tl_custom.setBackgroundColor(getResources().getColor(R.color.purplishblue));
+        tl_custom.setTitle( "" );//设置Toolbar标题
+        tl_custom.setBackgroundColor( getResources().getColor( R.color.purplishblue ) );
 //        tl_custom.setTitleTextColor(getResources().getColor(R.color.white)); //设置标题颜色
-        setSupportActionBar(tl_custom);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mDrawerToggle = new ActionBarDrawerToggle(this, dl_left,
-                tl_custom,R.string.drawer_open,R.string.drawer_close) {
+        setSupportActionBar( tl_custom );
+        getSupportActionBar().setHomeButtonEnabled( true ); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        mDrawerToggle = new ActionBarDrawerToggle( this, dl_left,
+                tl_custom, R.string.drawer_open, R.string.drawer_close ) {
             @Override
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
+                super.onDrawerOpened( drawerView );
             }
+
             @Override
             public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
+                super.onDrawerClosed( drawerView );
             }
         };
         mDrawerToggle.syncState();
-        dl_left.setDrawerListener(mDrawerToggle);
+        dl_left.setDrawerListener( mDrawerToggle );
         Intent intent = getIntent();
 //        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
         storeid = intent.getIntExtra( "storeid", 0 );
@@ -83,24 +86,29 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void findView() {
-        pbtn_order = findViewById(R.id.pbtn_order);
-        btn_releaseStore = findViewById(R.id.btn_releaseStore);
-        imgbtn_storeStatus = findViewById(R.id.imgbtn_storeStatus);
-        tl_custom = findViewById(R.id.tl_custom);
-        dl_left = findViewById(R.id.dl_left);
-        linear_changeStore = findViewById(R.id.linear_changeStore);
+        pbtn_order = findViewById( R.id.pbtn_order );
+        btn_releaseStore = findViewById( R.id.btn_releaseStore );
+        imgbtn_storeStatus = findViewById( R.id.imgbtn_storeStatus );
+        tl_custom = findViewById( R.id.tl_custom );
+        dl_left = findViewById( R.id.dl_left );
+        linear_changeStore = findViewById( R.id.linear_changeStore );
         tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
         btn_storeManager = (Button) findViewById( R.id.btn_storeManager );
         btn_storeManager.setOnClickListener( this );
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
-        btntoprojectmanage = (Button) findViewById(R.id.btn_to_project_manage);
-//        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
-        pbtn_order.setOnClickListener(this);
-        btn_releaseStore.setOnClickListener(this);
-       imgbtn_storeStatus.setOnClickListener(this);
         tv_storeManager.setOnClickListener( this );
-        linear_changeStore.setOnClickListener(this);
-        btntoprojectmanage.setOnClickListener(this);
+        btn_vipManager = (Button) findViewById( R.id.btn_vipManager );
+        btn_vipManager.setOnClickListener( this );
+        tv_vipManager = (TextView) findViewById( R.id.tv_vipManager );
+        tv_vipManager.setOnClickListener( this );
+        btntoprojectmanage = (Button) findViewById( R.id.btn_to_project_manage );
+//        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
+        pbtn_order.setOnClickListener( this );
+        btn_releaseStore.setOnClickListener( this );
+        imgbtn_storeStatus.setOnClickListener( this );
+        tv_storeManager.setOnClickListener( this );
+        linear_changeStore.setOnClickListener( this );
+        btntoprojectmanage.setOnClickListener( this );
 //        btn_to_employee_manage.setOnClickListener(this);
     }
 
@@ -115,41 +123,44 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.btn_storeManager:
             case R.id.tv_storeManager:
-                storeInfo= RegisterStoreActivity.storeList.get( storeid );
+                storeInfo = RegisterStoreActivity.storeList.get( storeid );
                 Intent intent = new Intent( this, DetialInfomation.class );
-                intent.putExtra( "storeInfo",storeInfo );
+                intent.putExtra( "storeInfo", storeInfo );
                 startActivity( intent );
                 break;
+            case R.id.btn_vipManager:
+            case R.id.tv_vipManager:
+                startActivity( new Intent( this, VIPManagerActivity.class ) );
+                break;
             case R.id.linear_changeStore:
-                startActivity(new Intent(this,RegisterStoreActivity.class));
+                startActivity( new Intent( this, RegisterStoreActivity.class ) );
                 finish();
-                overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                overridePendingTransition( R.anim.left_in, R.anim.right_out );
                 break;
             case R.id.imgbtn_storeStatus:
                 clicked++;
-                if (clicked%2==0){
-                    view.setBackgroundResource(R.mipmap.openthedoor);
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.3f,
-                            0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-                    scaleAnimation.setDuration(200);
-                    view.startAnimation(scaleAnimation);
-                }
-                else {
-                    view.setBackgroundResource(R.mipmap.closethedoor);
-                    ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1.3f,
-                            0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-                    scaleAnimation.setDuration(200);
-                    view.startAnimation(scaleAnimation);
+                if (clicked % 2 == 0) {
+                    view.setBackgroundResource( R.mipmap.openthedoor );
+                    ScaleAnimation scaleAnimation = new ScaleAnimation( 0.8f, 1.3f,
+                            0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
+                    scaleAnimation.setDuration( 200 );
+                    view.startAnimation( scaleAnimation );
+                } else {
+                    view.setBackgroundResource( R.mipmap.closethedoor );
+                    ScaleAnimation scaleAnimation = new ScaleAnimation( 0.8f, 1.3f,
+                            0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
+                    scaleAnimation.setDuration( 200 );
+                    view.startAnimation( scaleAnimation );
                 }
                 break;
             case R.id.btn_releaseStore:
-                Toast.makeText(mContext, "发布店铺", Toast.LENGTH_SHORT).show();
+                Toast.makeText( mContext, "发布店铺", Toast.LENGTH_SHORT ).show();
                 break;
             case R.id.pbtn_order:
-                Toast.makeText(mContext, "下单", Toast.LENGTH_SHORT).show();
+                Toast.makeText( mContext, "下单", Toast.LENGTH_SHORT ).show();
             case R.id.btn_to_project_manage:
-                Intent intentOne = new Intent(StoreManagerActivity.this, ProjectManageActivity.class);
-                startActivity(intentOne);
+                Intent intentOne = new Intent( StoreManagerActivity.this, ProjectManageActivity.class );
+                startActivity( intentOne );
                 break;
             default:
                 break;
@@ -165,13 +176,14 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     public void onFailure(Request request, IOException e) {
 
                     }
+
                     @Override
                     public void onResponse(Response response) throws IOException {
                         String s = response.body().string();
                         if (s.isEmpty()) {
                             return;
                         }
-                        RegisterStoreActivity.storeList= Utils.handleStoreResponse( s );
+                        RegisterStoreActivity.storeList = Utils.handleStoreResponse( s );
                     }
                 } );
 

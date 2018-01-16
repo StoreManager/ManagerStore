@@ -39,13 +39,13 @@
     <AutoCompleteTextView
         android:layout_marginLeft="5dp"
         android:id="@+id/actv_selectVip"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
         android:background="@drawable/et_square"
         android:completionThreshold="2"
         android:dropDownHorizontalOffset="0dp"
-        android:hint="查询"
+        android:hint="会员查询"
         android:textCursorDrawable="@drawable/autotextview"/>
     <Button
         android:layout_marginLeft="10dp"
