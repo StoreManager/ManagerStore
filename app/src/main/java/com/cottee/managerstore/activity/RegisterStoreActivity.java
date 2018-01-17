@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -54,6 +56,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
     public static List<StoreInfo> storeList = new ArrayList<>();
     private TextView tv_nostore;
     private Context mContext = RegisterStoreActivity.this;
+    private Drawable drawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,8 @@ public class RegisterStoreActivity extends AppCompatActivity {
         setContentView( R.layout.activity_registerstore );
         initView();
         initEvent();
+        Resources resources = this.getResources();
+        drawable = resources.getDrawable( R.mipmap.nopiblish);
         tl_custom.setTitle( "Sweet商铺管理系统" );//设置Toolbar标题
         tl_custom.setBackgroundColor( getResources().getColor( R.color.purplishblue ) );
         tl_custom.setTitleTextColor( getResources().getColor( R.color.white ) ); //设置标题颜色
@@ -174,7 +179,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
                                     tv_nostore.setVisibility( View.GONE );
                                     lv_registerStore.setVisibility( View.VISIBLE );
                                     storeListviewAdapter = new StoreListviewAdapter(
-                                            mContext, storeList );
+                                            mContext, storeList,drawable );
                                     lv_registerStore.setAdapter( storeListviewAdapter );
                                     storeListviewAdapter.notifyDataSetChanged();
                                 }

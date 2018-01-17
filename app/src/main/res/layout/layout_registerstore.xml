@@ -6,7 +6,15 @@
     android:descendantFocusability="blocksDescendants"
     android:padding="10dp"
     >
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/published"
+            android:id="@+id/iv_publish"
+            android:layout_width="16dp"
+            android:layout_height="16dp"/>
         <TextView
+            android:layout_toRightOf="@id/iv_publish"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:gravity="center"
@@ -18,18 +26,6 @@
             android:textColor="@color/babyblue"
             android:textSize="16sp"
             />
-
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@id/tv_registerStoreName"
-            android:id="@+id/tv_isRelease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="已发布"
-            android:textColor="@color/bottle_green"
-            android:textSize="12sp"/>
 
         <Button
             android:layout_marginTop="2.5dp"

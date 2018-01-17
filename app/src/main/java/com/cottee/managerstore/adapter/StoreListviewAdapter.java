@@ -2,11 +2,14 @@ package com.cottee.managerstore.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +27,11 @@ import java.util.List;
 public class StoreListviewAdapter extends BaseAdapter {
     private Context context;
     private List<StoreInfo> storeList;
-    public StoreListviewAdapter(Context context, List<StoreInfo> list) {
+    private Drawable drawable;
+    public StoreListviewAdapter(Context context, List<StoreInfo> list,Drawable drawable) {
         this.context = context;
         this.storeList = list;
+        this.drawable=drawable;
     }
     @Override
     public int getCount() {
@@ -51,7 +56,7 @@ public class StoreListviewAdapter extends BaseAdapter {
             view= View.inflate(context, R.layout.layout_registerstore,null);
             viewHolder.tv_registerStoreName=view.findViewById(R.id.tv_registerStoreName);
             viewHolder.btn_storeManager=view.findViewById(R.id.btn_registerStoreManage);
-            viewHolder.tv_isRelease=view.findViewById( R.id.tv_isRelease );
+            viewHolder.iv_publish=view.findViewById( R.id.iv_publish );
             view.setTag(viewHolder);
         } else {
             viewHolder=(ViewHolder)view.getTag();
@@ -67,7 +72,7 @@ public class StoreListviewAdapter extends BaseAdapter {
         } );
         viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName());
         if(!storeList.get( i ).isPass()){
-            viewHolder.tv_isRelease.setText( null );
+            viewHolder.iv_publish.setBackground( drawable );
             viewHolder.btn_storeManager.setText( "未审核" );
             viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
                 @Override
@@ -83,6 +88,7 @@ public class StoreListviewAdapter extends BaseAdapter {
     public static class ViewHolder {
         TextView tv_registerStoreName;
         TextView btn_storeManager;
-        TextView tv_isRelease;
+        ImageView iv_publish;
+
     }
 }

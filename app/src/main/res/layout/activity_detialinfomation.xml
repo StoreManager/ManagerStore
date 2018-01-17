@@ -3,6 +3,42 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purplishblue">
+
+        <Button
+            android:id="@+id/btn_backs"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/back_2x"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_edit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/edit"
+            android:onClick="edit"/>
+
+        <Button
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_save"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/save"
+            android:onClick="save"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/iv_surface"
@@ -20,29 +56,11 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:textSize="25sp"/>
+            android:textColor="@color/text"
+            android:textSize="20sp"/>
 
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@mipmap/edit"
-            android:onClick="edit"/>
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@mipmap/save"
-            android:onClick="save"
-            android:visibility="gone"/>
         <TextView
+            android:textColor="@color/text"
             android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
             android:gravity="center"
@@ -51,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textColor="@color/text"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:layout_marginTop="8dp"
@@ -64,7 +83,7 @@
         android:maxLines="2"
         android:layout_marginTop="8dp"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:id="@+id/tv_sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,12 +112,14 @@
             android:layout_marginLeft="10dp"
             android:src="@mipmap/clock"/>
         <TextView
+            android:textColor="#000"
             android:layout_marginLeft="6dp"
             android:text="营业时间"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textColor="#000"
             android:id="@+id/tv_timeAM"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
@@ -113,12 +134,14 @@
             android:visibility="gone"/>
 
         <TextView
+            android:textColor="#000"
             android:layout_gravity="center"
             android:text="--"
             android:layout_width="20dp"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textColor="#000"
             android:id="@+id/tv_timePM"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
@@ -148,11 +171,13 @@
             android:layout_marginLeft="10dp"
             android:src="@mipmap/money"/>
         <TextView
+            android:textColor="#000"
             android:layout_marginLeft="6dp"
             android:text="人均消费"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textColor="#000"
             android:id="@+id/tv_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -181,6 +206,7 @@
             android:src="@mipmap/order"/>
 
         <TextView
+            android:textColor="#000"
             android:layout_marginLeft="8dp"
             android:text="能否预约"
             android:layout_width="wrap_content"
@@ -210,11 +236,13 @@
             android:layout_marginLeft="10dp"
             android:src="@mipmap/phone"/>
         <TextView
+            android:textColor="#000"
             android:layout_marginLeft="8dp"
             android:text="联系方式"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:textColor="#000"
             android:id="@+id/tv_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -43,44 +43,44 @@ public class VipListviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        final ViewHolder viewHolder;
-        if (view == null) {
-            viewHolder=new ViewHolder();
-            view= View.inflate(context, R.layout.layout_registerstore,null);
-            viewHolder.tv_registerStoreName=view.findViewById(R.id.tv_registerStoreName);
-            viewHolder.btn_storeManager=view.findViewById(R.id.btn_registerStoreManage);
-            viewHolder.tv_isRelease=view.findViewById( R.id.tv_isRelease );
-            view.setTag(viewHolder);
-        } else {
-            viewHolder=(ViewHolder)view.getTag();
-        }
-        viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( context, StoreManagerActivity.class );
-                intent.putExtra( "storeInfo",storeList.get( i ) );
-                intent.putExtra( "storeid",i );
-                context.startActivity( intent );
-            }
-        } );
-        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName());
-        if(!storeList.get( i ).isPass()){
-            viewHolder.tv_isRelease.setText( null );
-            viewHolder.btn_storeManager.setText( "未审核" );
-            viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ToastUtils.showToast( context,"亲，请耐心等待，审核通过后才可以操作哦！" );
-                }
-            } );
-            view.setBackgroundColor( Color.parseColor( "#10000000" ) );
-//            view.setClickable( false );
-        }
+//        final ViewHolder viewHolder;
+//        if (view == null) {
+//            viewHolder=new ViewHolder();
+//            view= View.inflate(context, R.layout.layout_registerstore,null);
+//            viewHolder.tv_registerStoreName=view.findViewById(R.id.tv_registerStoreName);
+//            viewHolder.btn_storeManager=view.findViewById(R.id.btn_registerStoreManage);
+//            viewHolder.tv_isRelease=view.findViewById( R.id.tv_isRelease );
+//            view.setTag(viewHolder);
+//        } else {
+//            viewHolder=(ViewHolder)view.getTag();
+//        }
+//        viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent( context, StoreManagerActivity.class );
+//                intent.putExtra( "storeInfo",storeList.get( i ) );
+//                intent.putExtra( "storeid",i );
+//                context.startActivity( intent );
+//            }
+//        } );
+//        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName());
+//        if(!storeList.get( i ).isPass()){
+//            viewHolder.tv_isRelease.setText( null );
+//            viewHolder.btn_storeManager.setText( "未审核" );
+//            viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ToastUtils.showToast( context,"亲，请耐心等待，审核通过后才可以操作哦！" );
+//                }
+//            } );
+//            view.setBackgroundColor( Color.parseColor( "#10000000" ) );
+////            view.setClickable( false );
+//        }
         return view;
     }
     public static class ViewHolder {
-        TextView tv_registerStoreName;
-        TextView btn_storeManager;
-        TextView tv_isRelease;
+//        TextView tv_registerStoreName;
+//        TextView btn_storeManager;
+//        TextView tv_isRelease;
     }
 }

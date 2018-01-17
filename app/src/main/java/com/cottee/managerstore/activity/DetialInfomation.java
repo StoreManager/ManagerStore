@@ -74,6 +74,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private Drawable on;
     private Drawable off;
     private String time;
+    private Button btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +150,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         iv_photo2.setOnClickListener( this );
         iv_photo3 = (ImageView) findViewById( R.id.iv_photo3 );
         iv_photo3.setOnClickListener( this );
+
+        btn_back = (Button) findViewById( R.id.btn_backs );
+        btn_back.setOnClickListener( this );
 
         btn_timeAM.setOnClickListener( this );
         btn_timePM.setOnClickListener( this );
@@ -276,6 +280,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                 break;
             case R.id.et_timePM:
                 showTimePickerDialog( btn_timePM,timePM );
+                break;
+            case R.id.btn_backs:
+                finish();
                 break;
             default:
                 break;
