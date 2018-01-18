@@ -1,6 +1,7 @@
 package com.cottee.managerstore.manage;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -38,22 +39,26 @@ public class ProjectTypeManage {
             @Override
             public void run() {
                 try {
+                    SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);
+                    String session = sp.getString("session","");
+
+
                     OkHttpClient client = new OkHttpClient();
                     Request request = null;
                     switch (type) {
                         case PROJECT_MANAGE_LARGE_INFORMATION:
-                            request = new Request.Builder().url(Properties.PROJECT_MANAGE_ADD_PATH).post(new FormBody.Builder().add("name", typeNum).build())
+                            request = new Request.Builder().url(Properties.PROJECT_MANAGE_ADD_PATH).post(new FormBody.Builder().add("name", typeNum).add("session",session).build())
                                     .build();
                             break;
                         case Properties.PROJECT_MANAGE_DELETE:
                             request = new Request.Builder().url(Properties.PROJECT_MANAGE_DELETE_PATH).post(new FormBody.Builder().add("class_id",
-                                    classId).build())
+                                    classId).add("session",session).build())
                                     .build();
                             break;
                         case Properties.PROJECT_MANAGE_UPDATE:
                             request = new Request.Builder().url(Properties.PROJECT_MANAGE_UPDATE_PATH).post(new FormBody.Builder().add("name",
                                     typeNum).add("class_id",
-                                    classId).build())
+                                    classId).add("session",session).build())
                                     .build();
                             break;
 

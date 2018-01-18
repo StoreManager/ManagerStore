@@ -3,6 +3,7 @@ package com.cottee.managerstore.handle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
+import com.cottee.managerstore.manage.LoginRegisterInformationManage;
+import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
@@ -29,6 +32,7 @@ public class LoginRegisterInformationHandle extends Handler {
     private String emailAddress;
     private String loginPassword;
     private ShapeLoadingDialog shapeLoadingDialog;
+
 
     /*
    发送成功返回   0 （要给用户提示注意查看邮件之类的提示）
@@ -126,7 +130,11 @@ public class LoginRegisterInformationHandle extends Handler {
 
     private static final int PROJECT_MANAGE_SUCCESS = 0;
     private static final int PROJECT_MANAGE_FAILD = 1;
-    private static final int PROJECT_MANAGE_CREATE_FAILD = 2;
+    private static final int PROJECT_MANAGE_CREATE_FAILD = 250;
+
+    private static final int SESSION_SUCCESS = 1;
+    private LoginRegisterInformationManage session;
+    private SharedPreferences sp;
 
 
     public LoginRegisterInformationHandle(Context context, String emailAddress) {
@@ -146,6 +154,9 @@ public class LoginRegisterInformationHandle extends Handler {
         this.shapeLoadingDialog = shapeLoadingDialog;
     }
 
+
+    public LoginRegisterInformationHandle() {
+    }
 
     @Override
     public void handleMessage(Message msg) {
@@ -214,14 +225,62 @@ public class LoginRegisterInformationHandle extends Handler {
                 }
 
                 break;
+
+            /*case Properties.SESSION_TYPE:
+                if(msg.arg1==SESSION_SUCCESS){
+
+                    }else{
+                        ToastUtils.showToast( context, "session无效效，正在重新登陆请稍等 + session" );
+                        session.userLogin(emailAddress,loginPassword);
+                    }
+                    break;*/
+
+
+            case Properties.SESSION_TYPE:
+                switch (msg.arg1) {
+                    case 32:
+                        SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);//Context
+                        // .MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("session", (String) msg.obj);
+                        editor.commit();
+                        ToastUtils.showToast(context,"重新登录成功");
+
+                        break;
+                    case PSWFAILD_USERUNEXIST:
+                        ToastUtils.showToast( context, "失败" );
+                        break;
+
+                }
+                break;
+
+
+
+
+
             case Properties.USER_LOGIN:
                 switch (msg.arg1) {
-                    case LOGINSSUCCESS:
-                        Intent intent = new Intent( context, RegisterStoreActivity.class );
+                    case 32:
+                        SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);//Context
+                        // .MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("session", (String) msg.obj);
+                        editor.commit();
+
+                        System.out.println("shar session："+sp.getString("session",""));
+
+                        Intent intent = new Intent(context, RegisterStoreActivity.class );
                         context.startActivity( intent );
                         ToastUtils.showToast( context, "登录成功" );
                         UserManage userManage = new UserManage();
                         userManage.saveUserLogin( context, emailAddress, loginPassword );
+                        /*session = new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle(context,emailAddress,loginPassword));
+                        session.checksession((String) msg.obj);*/
+                        /*Intent intent = new Intent( context, RegisterStoreActivity.class );
+                        context.startActivity( intent );
+                        ToastUtils.showToast( context, "登录成功" );
+                        UserManage userManage = new UserManage();
+                        userManage.saveUserLogin( context, emailAddress, loginPassword );*/
                         break;
                     case PSWFAILD_USERUNEXIST:
                         ToastUtils.showToast( context, "用户不存在或密码错误" );
@@ -352,7 +411,10 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
                         /*shapeLoadingDialog.setDismiss();*/
-                        ToastUtils.showToast( context, "添加失败" );
+                        sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
+                        String commit = sp.getString("commit", "");
+                        new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
+                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageCommit(commit);
                         break;
 
                 }
@@ -368,7 +430,11 @@ public class LoginRegisterInformationHandle extends Handler {
                         ToastUtils.showToast( context, "删除失败" );
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
-                        ToastUtils.showToast( context, "删除失败" );
+                        sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
+                        String update = sp.getString("update", "");
+                        String updateId = sp.getString("updateId", "");
+                        new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
+                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageUpdate(update,updateId);
                         break;
                 }
                 break;
@@ -382,7 +448,10 @@ public class LoginRegisterInformationHandle extends Handler {
                         ToastUtils.showToast( context, "修改失败" );
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
-                        ToastUtils.showToast( context, "修改失败" );
+                        sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
+                        String deleteId = sp.getString("deleteId", "");
+                        new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
+                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageDelete(deleteId);
                         break;
                 }
                 break;

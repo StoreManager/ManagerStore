@@ -3,6 +3,7 @@ package com.cottee.managerstore.activity1;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -49,6 +50,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private Button btnprojectmanageaddclassifysave;
     private Button btnprojectmanageclassifyadd;
     private ProjectManageAddAdapter adapter;
+
 
     public static Map<Integer, Boolean> checkedMap = new HashMap<Integer, Boolean>();
     private Button btn_back_to_project_manage_from_add;
@@ -201,9 +203,18 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                *//* sendRequestWithOkHttp();*//*
             }*/
             if (!update.equals("")&&!updateId.equals("")){
+                SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("update", update);
+                editor.putString("updateId", updateId);
+                editor.commit();
                 manage.projectManageUpdate(update,updateId);
             }
             if(!deleteId.equals("")){
+                SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("deleteId", deleteId);
+                editor.commit();
                 manage.projectManageDelete(deleteId);
             }
 

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,7 +32,8 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.ProjectManageGetInfo;
 import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
-import com.cottee.managerstore.httputils.HttpUtils;
+import com.cottee.managerstore.httputils.HttpUtilSession;
+import com.cottee.managerstore.manage.LoginRegisterInformationManage;
 import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BaseRefreshListener;
@@ -38,9 +41,6 @@ import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.PullToRefreshLayout;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
 import com.google.gson.Gson;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -48,6 +48,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.cottee.managerstore.properties.Properties.PROJECT_MANAGE_GET;
 
@@ -67,6 +71,9 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private DishesDialog dialog;
     private List<String> addDishList = new ArrayList<>();
     private String addType = "";
+
+    // .MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
+
     private Button btnbacktostoremanager;
     private Button btnprojectmanageupdate;
     private List<String> dishTypeNameList;
@@ -78,7 +85,6 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private boolean up = false;
     private PullToRefreshLayout pullToRefreshLayout;
     private LinearLayout ll_empty;
-    private View view_push;
     private ShapeLoadingDialog shapeLoadingDialog;
 
 
@@ -106,6 +112,14 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         },2000);
 
 
+
+        lvprojectmanage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String dishId = dishTypeIdList.get(position);
+                ToastUtils.showToast(ProjectManageActivity.this,"Id"+dishId);
+            }
+        });
 
 
        /* pullToRefreshLayout.autoRefresh();*/
@@ -146,20 +160,38 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
             @Override
             public void run() {
 
-                HttpUtils.sendOkHttpRequest(Properties.PROJECT_MANAGE_GET_PATH, new Callback() {
+                HttpUtilSession.sendSessionOkHttpRequest(ProjectManageActivity.this,Properties.PROJECT_MANAGE_GET_PATH, new Callback() {
                     @Override
-                    public void onFailure(Request request, IOException e) {
+                    public void onFailure(Call call, IOException e) {
 
                     }
 
                     @Override
-                    public void onResponse(Response response) throws IOException {
+                    public void onResponse(Call call, Response response) throws IOException {
                         String responeData = response.body().string();
+                        System.out.println("ProjectManageAC Json:" + responeData);
 
-                        System.out.println(responeData);
-                        parseJSONWithGSON(responeData);
+
+                        if(responeData.trim().equals("250")){
+                            ToastUtils.showToast(ProjectManageActivity.this,"session无效效，正在重新登陆请稍等" );
+                            new LoginRegisterInformationManage(ProjectManageActivity.this,new LoginRegisterInformationHandle()).againLogin();
+                            sendRequestWithOkHttp();
+                        }
+                        else if (responeData.trim().equals("0")){
+
+                        }
+                        else {
+
+                            parseJSONWithGSON(responeData);
+                        }
+
+                        /*parseJSONWithGSON(responeData);*/
 
                     }
+
+
+
+
                 });
             }
         }).start();
@@ -179,7 +211,9 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         message.what = PROJECT_MANAGE_GET;
         message.obj = dishInfo;
 
+
         handler.sendMessage(message);
+
 
 
     }
@@ -223,16 +257,16 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case PROJECT_MANAGE_GET:
-                    allTypeNameList.clear();
+                    /*allTypeNameList.clear();*/
                     dishTypeNameList = new ArrayList<String>();
                     dishTypeIdList = new ArrayList<>();
                     List<ProjectManageGetInfo.DishTypeBean> dishList = (List<ProjectManageGetInfo.DishTypeBean>) msg.obj;
 
                     for (int i = 0; i < dishList.size(); i++) {
+                        ProjectManageInfo manageInfo = new ProjectManageInfo(dishList.get(i).getName());
+                        allTypeNameList.add(manageInfo);
                         dishTypeNameList.add(dishList.get(i).getName());
                         dishTypeIdList.add(dishList.get(i).getClass_id());
-                        ProjectManageInfo manageInfo = new ProjectManageInfo(dishTypeNameList.get(i));
-                        allTypeNameList.add(manageInfo);
 
                     }
                     System.out.println(dishTypeNameList);
@@ -261,7 +295,6 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
     public void initview() {
-        view_push =  findViewById(R.id.view_push);
         pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pt_push);
         toolbar = findViewById(R.id.tl_project_manage);
         btnbacktostoremanager = (Button) findViewById(R.id.btn_back_to_storemanager);
@@ -531,7 +564,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                         list.add(dishesExampleList.get(i));
                     }
                     dishesExampleList.clear();
-                    allTypeNameList.clear();
+                    /*allTypeNameList.clear();*/
 
                     for (int i = 0; i < list.size(); i++) {
 
@@ -546,6 +579,10 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     ProjectTypeManage manage = new ProjectTypeManage(ProjectManageActivity.this, new LoginRegisterInformationHandle
                             (shapeLoadingDialog));
                     if (!add.equals("")) {
+                        SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("commit", add);
+                        editor.commit();
                         /*shapeLoadingDialog.show();*/
                         manage.projectManageCommit(add);
                         pullToRefreshLayout.autoRefresh();
@@ -596,11 +633,15 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                                         ProjectTypeManage manage = new ProjectTypeManage(ProjectManageActivity.this, new LoginRegisterInformationHandle
                                                 (ProjectManageActivity.this, ""));
                                         if (!input.equals("")) {
+                                            SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
+                                            SharedPreferences.Editor editor = sp.edit();
+                                            editor.putString("commit", input);
+                                            editor.commit();
                                             manage.projectManageCommit(input);
                                             pullToRefreshLayout.autoRefresh();
                                         }
 
-
+                                        projectList.clear();
                                         list.clear();
 
 
@@ -649,7 +690,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
 
-    /*@Override
+    @Override
     public void onPause() {
 
         super.onPause();
@@ -672,7 +713,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
         }
 
-    }*/
+    }
 
 
 

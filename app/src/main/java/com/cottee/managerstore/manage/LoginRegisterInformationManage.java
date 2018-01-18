@@ -1,10 +1,9 @@
 package com.cottee.managerstore.manage;
 
-import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Message;
 import android.util.Log;
-
 
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.properties.Properties;
@@ -33,20 +32,82 @@ public class LoginRegisterInformationManage {
     public final static int FORGET_PASSWORD_EMAIL_VER_SUBMIT = 6;
     public final static int FORGET_PASSWORD_EMAIL_PSD_SUBMIT = 7;
     private String str;
+    private String sessionString;
+
+
 
     public LoginRegisterInformationManage(Context context, LoginRegisterInformationHandle handler) {
         this.context = context;
         this.handler = handler;
     }
 
-    /**
-     * 发送数据请求
-     *
-     * @param type     数据请求类型
-     * @param email    邮箱
-     * @param password 密码
-     */
-    private void sendRequest(final int type, final String email,  final
+
+    /*public void checksession() {
+        checkeOutSession();
+    }
+
+    private  void checkeOutSession() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+
+                    *//*SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);
+                    sp.getString("session",sessionString);*//*
+
+
+                    OkHttpClient client = new OkHttpClient();
+                    Request build = new Request.Builder().url("https://thethreestooges.cn:5210/login/testa").post(new FormBody
+                            .Builder().add("session", sessionString).build
+                            ()).build();
+                    Response execute = client.newCall(build).execute();
+                    if (execute.isSuccessful()) {
+                        final String session = execute.body().string();
+                        Log.i("ServerBackCode(服务 器返回):", session);
+
+                        if (session.equals("1")) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtils.showToast(context,
+                                            "session有效，验证成功"+session);
+
+                                }
+                            });
+                        } else {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtils.showToast(context,
+                                            "session无效效，正在重新登陆请稍等" + session);
+
+                                }
+                            });
+                            login();
+                        }
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }*/
+
+    public void againLogin(){login();}
+
+    private void login() {
+        SharedPreferences sp = context.getSharedPreferences("userLogin", Context.MODE_PRIVATE);
+        String user_email = sp.getString("USER_EMAIL", "");
+        String password = sp.getString("PASSWORD", "");
+
+        System.out.println("再次登录的用户信息:"+user_email+""+password);
+        sendUserRequest(Properties.SESSION_TYPE, user_email, password);
+    }
+
+
+    private void sendUserRequest(final int type, final String email,  final
     String password) {
         new Thread() {
             @Override
@@ -56,9 +117,55 @@ public class LoginRegisterInformationManage {
                     Request request = null;
                     switch (type) {
                         case USER_LOGIN:
-                            request = new Request.Builder().url(Properties.LOGIN_PATH).post(new FormBody.Builder().add("username", email).add("password",
+                            request = new Request.Builder().url("https://thethreestooges.cn:1225/identity/login/login.php").post(new FormBody.Builder
+                                    ().add("username", email).add("password",
                                     password).build()).build();
                             break;
+                        case Properties.SESSION_TYPE:
+                            request = new Request.Builder().url("https://thethreestooges.cn:1225/identity/login/login.php").post(new FormBody.Builder().add("username", email).add("password",
+                                    password).build()).build();
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    Response response = client.newCall(request).execute();
+
+                    if (response.isSuccessful()) {
+                        String sessionString = response.body().string();
+                        Log.i("ServerBackCode(服务器返回):", sessionString);
+                        Message message = new Message();
+                        message.what = type;
+                        message.arg1 = sessionString.length();
+                        message.obj = sessionString;
+                        handler.sendMessage(message);
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+    }
+
+
+
+
+    private void sendRequest(final int type, final String email,  final
+    String password) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = null;
+                    switch (type) {
+                        /*case USER_LOGIN:
+                            request = new Request.Builder().url(Properties.LOGIN_PATH).post(new FormBody.Builder().add("username", email).add("password",
+                                    password).build()).build();
+                            break;*/
                         case CHECKOUT_EMAIL:
                             request = new Request.Builder().url(Properties.EMAIL_SUBMIT_PATH).post(new FormBody.Builder().add("mail_address", email).build()).build();
                             break;
@@ -114,7 +221,7 @@ public class LoginRegisterInformationManage {
      */
     public void userLogin(String email, String password) {
 
-        sendRequest(USER_LOGIN, email, password);
+        sendUserRequest(USER_LOGIN, email, password);
 
     }
 

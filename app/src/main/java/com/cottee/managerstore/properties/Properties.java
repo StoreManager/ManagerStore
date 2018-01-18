@@ -29,6 +29,7 @@ public class Properties {
             "https://thethreestooges.cn:1225/classify/classify/update";
     public static  final  String PROJECT_MANAGE_DELETE_PATH = "https://thethreestooges.cn:1225/classify/classify/delete";
 
+    public final static int SESSION_TYPE = 250;
     public final static int USER_LOGIN = 1;
     public final static int CHECKOUT_EMAIL = 2;
     public final static int CHECKOUT_EMAIL_VER = 3;
