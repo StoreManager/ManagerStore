@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_add"
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/layout_food_detail_title"/>
+        <ImageButton
+            android:scaleType="fitXY"
+            android:clickable="false"
+            android:background="@mipmap/addimage"
+            android:id="@+id/imgbtn_foodImg"
+            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_gravity="center"
+            android:layout_height="150dp"/>
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="菜品名字 :"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_foodName"
+                android:text="肉"
+                android:textSize="13sp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edit_foodName"
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/editsharp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="菜品单价 :"
+                android:textSize="15sp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:background="@mipmap/money"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:id="@+id/tv_foodPrice"
+                android:text="12"
+                android:textSize="13sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edit_foodPrice"
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:gravity="start"
+                android:inputType="numberDecimal"
+                android:background="@drawable/editsharp"
+                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="菜品描述 : "
+                android:textSize="15sp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_des"
+                android:text="AAAA"
+                android:textSize="13sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/linear_description"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/edit_foodDescription"
+                    android:gravity="start"
+                    android:textSize="13sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/editsharp"
+                    android:layout_width="200dp"
+                    android:layout_height="80dp"/>
+                <TextView
+                    android:id="@+id/tv_countNumber"
+                    android:text="还剩余100字"
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="120dp"
+                android:background="#7274ab"
+                android:visibility="gone"
+                android:layout_gravity="bottom"
+                android:text="完成"
+                android:textColor="#fff"/>
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="120dp"
+                android:background="@mipmap/delete"
+                android:layout_gravity="bottom"
+                />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

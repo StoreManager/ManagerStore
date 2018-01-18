@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:gravity="center_horizontal"
+              android:background="@mipmap/img_popupmenu_bg"
+              android:orientation="vertical"
+              android:layout_gravity="center">
+    <LinearLayout
+        android:id="@+id/ly_item1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/tv_about_us"
+            android:textColor="#595d5f"
+            android:text="添加菜品" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="3dp"
+        android:background="#eeeeee" />
+    <LinearLayout
+        android:id="@+id/ly_item2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:textColor="#595d5f"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/tv_check_update"
+            android:layout_marginTop="10dp"
+            android:text="编辑菜品" />
+    </LinearLayout>
+
+</LinearLayout>
