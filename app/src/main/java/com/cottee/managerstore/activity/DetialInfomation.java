@@ -92,9 +92,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         three = storeInfo.getThumbnail_three();
         reserve = storeInfo.isReserve();
         Glide.with( this ).load( surface ).into( iv_surface );
-        Glide.with( this ).load( one ).into( iv_photo1 );
-        Glide.with( this ).load( two ).into( iv_photo2 );
-        Glide.with( this ).load( three ).into( iv_photo3 );
+//        Glide.with( this ).load( one ).into( iv_photo1 );
+//        Glide.with( this ).load( two ).into( iv_photo2 );
+//        Glide.with( this ).load( three ).into( iv_photo3 );
 
         String time = storeInfo.getBusiness_hours();
         if(time!=null){
