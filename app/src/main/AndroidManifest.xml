@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.cottee.managerstore">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -25,7 +26,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"></uses-permission>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
     <application
         android:allowBackup="true"
@@ -71,7 +72,6 @@
         <activity
             android:name=".activity1.StoreManagerMainActivity"
             android:launchMode="singleTask">
-
         </activity>
         <activity
             android:name=".activity.StoreAddressActivity"
@@ -79,8 +79,7 @@
         <activity
             android:name=".activity.SearchLocationActivity"
             android:launchMode="singleTask"/>
-        <activity
-            android:name=".activity1.SplashScreenActivity">
+        <activity android:name=".activity1.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -100,25 +99,42 @@
             android:name=".activity.BigPhotoActivity"
             android:launchMode="singleTask">
         </activity>
-        <activity android:name=".activity1.ProjectManageActivity"
-                    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".activity1.ProjectManageActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <activity android:name=".activity.FrontCoverActivity"
-                  android:launchMode="singleTask"/>
-        <activity android:name=".activity.PhotoClipActivity"
+        <activity
+            android:name=".activity.FrontCoverActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".activity.PhotoClipSmallActivity"
-                  android:launchMode="singleTask"/>
-        <activity android:name=".activity1.ProjectManageAddClassifyActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".activity.PhotoClipActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.PhotoClipSmallActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity1.ProjectManageAddClassifyActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".activity1.EmployeeManageActivity"/>
-        <activity android:name=".activity.VIPManagerActivity"
-                  android:launchMode="singleTask"/>
-        <activity android:name=".activity.ManageMoneyActivity"
-                  android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.VIPManagerActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.ManageMoneyActivity"
+            android:launchMode="singleTask"/>
+
         <meta-data
             android:name="TencentMapSDK"
             android:value="7KLBZ-SVMRD-PBA4J-PR24M-TKJW3-C2BX2"/>
+
+        <activity android:name=".activity.ManageFoodDetailActivity">
+        </activity>
+        <activity android:name=".activity.AddFoodActivity">
+        </activity>
+        <activity android:name=".activity.FoodDetailActivity">
+        </activity>
+        <activity android:name=".activity.ManagePicActivity">
+        </activity>
     </application>
 
 </manifest>

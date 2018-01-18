@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.ManageFoodDetailActivity;
 import com.cottee.managerstore.bean.ProjectManageGetInfo;
 import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
@@ -117,7 +118,13 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String dishId = dishTypeIdList.get(position);
-                ToastUtils.showToast(ProjectManageActivity.this,"Id"+dishId);
+                String dishName = dishTypeNameList.get(position);
+                Intent intent = new Intent(ProjectManageActivity.this,
+                        ManageFoodDetailActivity.class);
+                intent.putExtra("position",dishId);
+                intent.putExtra("positionName",dishName);
+                startActivity(intent);
+//                ToastUtils.showToast(ProjectManageActivity.this,"Id"+dishId);
             }
         });
 
