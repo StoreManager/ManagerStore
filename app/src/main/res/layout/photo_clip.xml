@@ -10,23 +10,24 @@
     </com.cottee.managerstore.view.ClipImageLayout>
 
     <Button
+        android:layout_margin="15dp"
         android:id="@+id/bt_photo_cancle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@null"
-        android:text="取消"
-        android:textColor="@color/white" />
+        android:background="@mipmap/cancesl"
+        />
 
     <Button
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="9dp"
         android:id="@+id/bt_photo_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@null"
-        android:text="选取"
-        android:textColor="@color/white" />
+        android:background="@mipmap/ok"
+         />
 
 </RelativeLayout>
