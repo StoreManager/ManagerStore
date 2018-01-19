@@ -99,6 +99,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         two = storeInfo.getThumbnail_two();
         three = storeInfo.getThumbnail_three();
         reserve = storeInfo.isReserve();
+        if(reserve){
+            btn_order.setChecked( true );
+        }else {
+            btn_order.setChecked( false );
+        }
         Glide.with( this ).load( surface ).into( iv_surface );
 //        Glide.with( this ).load( one ).into( iv_photo1 );
 //        Glide.with( this ).load( two ).into( iv_photo2 );
