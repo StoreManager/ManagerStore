@@ -102,7 +102,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 //        Glide.with( this ).load( two ).into( iv_photo2 );
 //        Glide.with( this ).load( three ).into( iv_photo3 );
 
-        String time = storeInfo.getBusiness_hours();
+         time = storeInfo.getBusiness_hours();
         if(time!=null){
             String[] split = time.split( "-" );
             timeAM = split[0];
@@ -110,12 +110,18 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
             tv_timeAM.setText( timeAM );
             tv_timePM.setText( timePM );
         }
+        //不可更改
         tv_storeName.setText( storeInfo.getName() );
-        tv_sign.setText( storeInfo.getIntroduce() );
-        tv_phone.setText( storeInfo.getPhone() );
-        tv_style.setText( storeInfo.getClassify());
         tv_address.setText( storeInfo.getAddress() );
-        tv_money.setText( storeInfo.getAvecon() );
+        tv_style.setText( storeInfo.getClassify());
+
+        //更改
+        sign = storeInfo.getIntroduce();
+        tv_sign.setText(sign);
+        phone = storeInfo.getPhone();
+        tv_phone.setText(phone);
+        money = storeInfo.getAvecon();
+        tv_money.setText(money);
         if(reserve){
             btn_order.setBackground( on );
         }else {
@@ -211,6 +217,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         money = et_money.getText().toString().trim();
         phone = et_phone.getText().toString().trim();
         time = timeAM+"-"+timePM;
+        submit();
+    }
+
+    private void submit() {
         Drawable current = btn_order.getBackground();
         if(current==on){
             reserve=true;
@@ -352,12 +362,22 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        btn_order.setBackground( b?on:off );
         if(btn_save.getVisibility()==View.VISIBLE){
-            btn_order.setBackground( b?on:off );
-        }else {
-            ToastUtils.showToast( this,"先点击编辑按钮哦" );
+           return;
         }
-
+        submit();
+//        Drawable current = btn_order.getBackground();
+//        if(current==on){
+//            reserve=true;
+//        }else {
+//            reserve=false;
+//        }
+//        SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
+//                this, ""
+//        ) );
+//        ToastUtils.showToast( this,""+reserve );
+//        submitStoreInfo.submitReverse(String.valueOf(reserve));
     }
 
     @Override
