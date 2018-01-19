@@ -432,6 +432,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                     flag = false;
                 }
             }
+            String last = str.substring( str.length() - 1, str.length() );
+            boolean equals = last.equals( "." );
+            if(equals){
+                flag=false;
+            }
         }
         return flag;
     }
