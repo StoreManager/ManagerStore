@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <ImageView
-                android:background="@mipmap/money"
+                android:background="@mipmap/moneya"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginTop="13dp"

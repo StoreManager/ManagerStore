@@ -39,10 +39,9 @@
             android:visibility="gone"/>
 
     </RelativeLayout>
-    <ScrollView
-        android:scrollbars="none"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include layout="@layout/detial_layout"/>
-    </ScrollView>
+        <com.cottee.managerstore.view.ZoomInScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/detial_layout"/>
+        </com.cottee.managerstore.view.ZoomInScrollView>
 </LinearLayout>

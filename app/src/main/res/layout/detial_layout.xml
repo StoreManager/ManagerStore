@@ -3,16 +3,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="----------* 店铺信息 *----------"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
     <ImageView
         android:id="@+id/iv_surface"
         android:layout_width="match_parent"
@@ -29,29 +19,31 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/text"
+            android:textColor="@color/purplishblue"
             android:textSize="20sp"/>
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/tv_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_storeName"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:gravity="center"
-            android:textColor="@color/text"/>
+            android:textColor="@color/purplishblue"/>
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/tv_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_style"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:textColor="@color/text"/>
+            android:textColor="@color/purplishblue"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -104,8 +96,6 @@
             android:layout_marginLeft="5dp"
             android:text="20:00"
             android:textColor="#000"/>
-
-
         <Button
             android:id="@+id/et_timePM"
             android:layout_width="wrap_content"
@@ -126,7 +116,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/money"/>
+            android:src="@mipmap/moneya"/>
 
         <TextView
             android:layout_width="wrap_content"

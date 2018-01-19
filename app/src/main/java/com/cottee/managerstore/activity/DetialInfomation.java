@@ -1,17 +1,22 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -30,6 +35,7 @@ import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
 import com.cottee.managerstore.utils.ToastUtils;
 
+import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -282,7 +288,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                 showTimePickerDialog( btn_timePM,timePM );
                 break;
             case R.id.btn_backs:
-                finish();
+                onBackPressed();
                 break;
             default:
                 break;
@@ -356,7 +362,29 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 
     @Override
     public void onBackPressed() {
-        finish();
+        if(btn_save.getVisibility()==View.VISIBLE){
+            AlertDialog.Builder builder = new AlertDialog.Builder( this );
+            builder.setMessage( "信息尚未保存，确定要返回吗？" );
+            builder.setCancelable( true );
+            builder.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            } );
+            builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            } );
+            AlertDialog dialog = builder.create();
+            Window window = dialog.getWindow();
+//为Window设置动画
+            window.setWindowAnimations( R.style.CustomDialog );
+            dialog.show();
+        }else {
+            finish();
+        }
     }
     //十进制
     private static boolean isOctNumber(String str) {
@@ -380,4 +408,5 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         }
         return flag;
     }
+
 }
