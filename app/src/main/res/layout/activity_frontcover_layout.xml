@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:padding="5dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/defaultphoto"/>
     </LinearLayout>
 
     <RelativeLayout

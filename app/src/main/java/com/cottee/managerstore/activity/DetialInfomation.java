@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -43,7 +44,8 @@ import java.util.Calendar;
  */
 
 public class DetialInfomation extends Activity implements View.OnClickListener , CompoundButton.OnCheckedChangeListener{
-
+    private static final int AM_TIME=1;
+    private static final int PM_TIME=2;
     private TextView tv_storeName;
     private Button btn_edit;
     private Button btn_save;
@@ -60,11 +62,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private ImageView iv_photo1;
     private ImageView iv_photo2;
     private ImageView iv_photo3;
-    private String sign;
+    private String sign="店铺介绍...";
     private String timeAM;
     private String timePM;
-    private String money;
-    private String phone;
+    private String money="0";
+    private String phone="18340815906";
     private StoreInfo storeInfo;
     private Bitmap bitmap;
     private ImageView iv_surface;
@@ -79,7 +81,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private boolean reserve=false;
     private Drawable on;
     private Drawable off;
-    private String time;
+    private String time="09:00-17:00";
     private Button btn_back;
 
     @Override
@@ -103,6 +105,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 //        Glide.with( this ).load( three ).into( iv_photo3 );
 
          time = storeInfo.getBusiness_hours();
+        System.out.println("----------------------"+time);
         if(time!=null){
             String[] split = time.split( "-" );
             timeAM = split[0];
@@ -292,10 +295,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                 startActivity( intent );
                 break;
             case R.id.et_timeAM:
-                showTimePickerDialog( btn_timeAM,timeAM );
+                showTimePickerDialog( btn_timeAM,timeAM,AM_TIME );
                 break;
             case R.id.et_timePM:
-                showTimePickerDialog( btn_timePM,timePM );
+                showTimePickerDialog( btn_timePM,timePM,PM_TIME );
                 break;
             case R.id.btn_backs:
                 onBackPressed();
@@ -307,7 +310,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     /**
      * 时间轴
      */
-    private void showTimePickerDialog(final Button button,String times) {
+    private void showTimePickerDialog(final Button button, String times, final int flag) {
         String[] split = times.split( ":" );
         final int hour = Integer.parseInt( split[0] );
         int minute = Integer.parseInt( split[1] );
@@ -333,6 +336,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                         }
                         String time= hour +":"+min;
                         button.setText(time);
+                        if(flag==AM_TIME){
+                            timeAM=time;
+                        }else if(flag==PM_TIME){
+                            timePM=time;
+                        }
                     }
                 }, hour, minute, DateFormat.is24HourFormat( DetialInfomation.this ) );
         dialog.show();

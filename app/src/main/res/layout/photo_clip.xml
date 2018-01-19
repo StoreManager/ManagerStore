@@ -10,10 +10,11 @@
     </com.cottee.managerstore.view.ClipImageLayout>
 
     <Button
-        android:layout_margin="15dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginBottom="9dp"
         android:id="@+id/bt_photo_cancle"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@mipmap/cancesl"

@@ -67,8 +67,8 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
         String photo_url = intent.getStringExtra( "photo_url" );
         if (photo_url != null) {
             iv_bigPicture.setBackground( null );
+            Glide.with( this ).load( photo_url ).into( iv_bigPicture );
         }
-        Glide.with( this ).load( photo_url ).into( iv_bigPicture );
     }
 
     private void findView() {

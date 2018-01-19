@@ -15,17 +15,20 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.utils.BitmapUtils;
 import com.cottee.managerstore.utils.LogUtils;
+import com.cottee.managerstore.utils.ToastUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,19 +54,21 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
     public static final int CAMRA_SETRESULT_CODE = 0;// 相册返回码
     public static final int PHOTO_SETRESULT_CODE = 1;// 拍照返回码
     public static final int PHOTO_CORPRESULT_CODE = 2;// 裁剪返回码
+    private RelativeLayout rl_photoSubmit;
+    private Button btn_photoSubmit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_frontcover_layout );
+        setContentView( R.layout.activity_bigphoto_layout );
 
         findView();
         Intent intent = getIntent();
         String photo_url = intent.getStringExtra( "photo_url" );
         if (photo_url != null) {
             iv_bigPicture.setBackground( null );
+            Glide.with( this ).load( photo_url ).into( iv_bigPicture );
         }
-        Glide.with( this ).load( photo_url ).into( iv_bigPicture );
     }
 
     private void findView() {
@@ -82,15 +87,22 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
         btn_openCamera.setOnClickListener( this );
         btn_cancel = (Button) findViewById( R.id.btn_cancel );
         btn_cancel.setOnClickListener( this );
+
+        rl_photoSubmit = (RelativeLayout) findViewById( R.id.rl_photoSubmit );
+        btn_photoSubmit = (Button) findViewById( R.id.btn_photoSubmit );
+        btn_photoSubmit.setOnClickListener( this );
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_back_to_detial:
-                finish();
+                onBackPressed();
                 break;
             case R.id.btn_changePhoto:
+                if (rl_photoSubmit.getVisibility() == View.VISIBLE) {
+                    rl_photoSubmit.setVisibility( View.GONE );
+                }
                 if (ll_btn.getVisibility() == View.GONE) {
                     startbtnAnim();
                 }
@@ -115,6 +127,10 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 if (ll_btn.getVisibility() == View.VISIBLE) {
                     cancelbtnAnim();
                 }
+                break;
+            case R.id.btn_photoSubmit:
+                ToastUtils.showToast( this, "上传照片" );
+                finish();
                 break;
             default:
                 break;
@@ -269,8 +285,7 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 String cameraPath = getCameraPath( data );
                 Bitmap bitmap = readBitmapAutoSize( cameraPath );
                 iv_bigPicture.setImageBitmap( bitmap );
-                String str =
-                        bitmaptoString( bitmap );
+                String str = bitmaptoString( bitmap );
                 LogUtils.d( "相相册选中路径  = " + cameraPath );
                 startClipActivity( cameraPath );
             }
@@ -295,7 +310,35 @@ public class BigPhotoActivity extends Activity implements View.OnClickListener {
                 BitmapUtils bitmapUtils = new BitmapUtils( getApplicationContext() );
                 Bitmap bitmap = bitmapUtils.decodeFile( path );
                 iv_bigPicture.setImageBitmap( bitmap );
+                rl_photoSubmit.setVisibility( View.VISIBLE );
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (rl_photoSubmit.getVisibility() == View.VISIBLE) {
+            AlertDialog.Builder builder = new AlertDialog.Builder( this );
+            builder.setMessage( "图片还未上传，确定要返回吗？" );
+            builder.setCancelable( true );
+            builder.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            } );
+            builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            } );
+            AlertDialog dialog = builder.create();
+            Window window = dialog.getWindow();
+//为Window设置动画
+            window.setWindowAnimations( R.style.CustomDialog );
+            dialog.show();
+        } else {
+            finish();
         }
     }
 

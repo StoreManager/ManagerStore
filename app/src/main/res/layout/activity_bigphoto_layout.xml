@@ -19,14 +19,14 @@
             android:gravity="center_horizontal"/>
 
         <Button
-            android:textSize="15sp"
             android:id="@+id/btn_changePhoto"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:background="@drawable/registerstore_btn"
-            android:text="修改图片"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/changephoto"
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -41,22 +41,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:src="@mipmap/defaultphoto"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_photoSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <Button
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/btn_photoSubmit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/photosubmit"/>
+    </RelativeLayout>
+
     <LinearLayout
-        android:gravity="center"
-        android:visibility="gone"
         android:id="@+id/ll_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -81,12 +98,13 @@
 
                 <Button
                     android:id="@+id/btn_openCamera"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="45dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@mipmap/camera"/>
             </LinearLayout>
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="25dp"
@@ -99,3 +117,4 @@
     </LinearLayout>
 
 </LinearLayout>
+
