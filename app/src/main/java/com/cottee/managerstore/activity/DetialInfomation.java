@@ -105,7 +105,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 //        Glide.with( this ).load( three ).into( iv_photo3 );
 
          time = storeInfo.getBusiness_hours();
-        System.out.println("----------------------"+time);
         if(time!=null){
             String[] split = time.split( "-" );
             timeAM = split[0];
@@ -234,7 +233,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         boolean phoneNo = isTelePhoneNo( phone );
         boolean octNumber = isOctNumber( money );
         if(octNumber==false) {
-            ToastUtils.showToast( this, "金额输入有误哦" );
+            ToastUtils.showToast( this, "金额格式有误哦" );
             return;
         }
 
