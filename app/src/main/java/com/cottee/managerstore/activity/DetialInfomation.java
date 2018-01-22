@@ -43,9 +43,9 @@ import java.util.Calendar;
  * Created by user on 2017/12/12.
  */
 
-public class DetialInfomation extends Activity implements View.OnClickListener , CompoundButton.OnCheckedChangeListener{
-    private static final int AM_TIME=1;
-    private static final int PM_TIME=2;
+public class DetialInfomation extends Activity implements View.OnClickListener {
+    private static final int AM_TIME = 1;
+    private static final int PM_TIME = 2;
     private TextView tv_storeName;
     private Button btn_edit;
     private Button btn_save;
@@ -62,11 +62,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private ImageView iv_photo1;
     private ImageView iv_photo2;
     private ImageView iv_photo3;
-    private String sign="店铺介绍...";
+    private String sign;
     private String timeAM;
     private String timePM;
-    private String money="0";
-    private String phone="18340815906";
+    private String money;
+    private String phone;
     private StoreInfo storeInfo;
     private Bitmap bitmap;
     private ImageView iv_surface;
@@ -78,10 +78,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
     private TextView tv_timePM;
     private Button btn_timePM;
     private ToggleButton btn_order;
-    private boolean reserve=false;
+    private boolean reserve = false;
     private Drawable on;
     private Drawable off;
-    private String time="09:00-17:00";
+    private String time;
     private Button btn_back;
 
     @Override
@@ -89,8 +89,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_detialinfomation );
         Resources resources = this.getResources();
-        on = resources.getDrawable( R.mipmap.turnon);
-        off = resources.getDrawable( R.mipmap.turnoff);
+        on = resources.getDrawable( R.mipmap.turnon );
+        off = resources.getDrawable( R.mipmap.turnoff );
         Intent intent = getIntent();
         storeInfo = (StoreInfo) intent.getSerializableExtra( "storeInfo" );
         findView();
@@ -99,18 +99,19 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         two = storeInfo.getThumbnail_two();
         three = storeInfo.getThumbnail_three();
         reserve = storeInfo.isReserve();
-        if(reserve){
+        if (reserve==true) {
             btn_order.setChecked( true );
-        }else {
+            btn_order.setBackground( on );
+        } else {
             btn_order.setChecked( false );
+            btn_order.setBackground( off );
         }
         Glide.with( this ).load( surface ).into( iv_surface );
 //        Glide.with( this ).load( one ).into( iv_photo1 );
 //        Glide.with( this ).load( two ).into( iv_photo2 );
 //        Glide.with( this ).load( three ).into( iv_photo3 );
-
-         time = storeInfo.getBusiness_hours();
-        if(time!=null){
+        time = storeInfo.getBusiness_hours();
+        if (time != null) {
             String[] split = time.split( "-" );
             timeAM = split[0];
             timePM = split[1];
@@ -120,20 +121,17 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         //不可更改
         tv_storeName.setText( storeInfo.getName() );
         tv_address.setText( storeInfo.getAddress() );
-        tv_style.setText( storeInfo.getClassify());
+        tv_style.setText( storeInfo.getClassify() );
 
         //更改
         sign = storeInfo.getIntroduce();
-        tv_sign.setText(sign);
+        tv_sign.setText( sign );
         phone = storeInfo.getPhone();
-        tv_phone.setText(phone);
+        tv_phone.setText( phone );
         money = storeInfo.getAvecon();
-        tv_money.setText(money);
-        if(reserve){
-            btn_order.setBackground( on );
-        }else {
-            btn_order.setBackground( off );
-        }
+        tv_money.setText( money );
+
+        btn_order.setOnCheckedChangeListener( new OnChangeListener());
     }
 
     private void findView() {
@@ -177,8 +175,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         btn_timePM.setOnClickListener( this );
 
         btn_order = (ToggleButton) findViewById( R.id.btn_order );
-        btn_order.setOnCheckedChangeListener( this );
-        CashierInputFilter[] filters={new CashierInputFilter()};
+        CashierInputFilter[] filters = {new CashierInputFilter()};
         et_money.setFilters( filters );
 
     }
@@ -223,21 +220,21 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         timePM = btn_timePM.getText().toString().trim();
         money = et_money.getText().toString().trim();
         phone = et_phone.getText().toString().trim();
-        time = timeAM+"-"+timePM;
+        time = timeAM + "-" + timePM;
         submit();
     }
 
     private void submit() {
-        Drawable current = btn_order.getBackground();
-        if(current==on){
-            reserve=true;
-        }else {
-            reserve=false;
+        Drawable background = btn_order.getBackground();
+        if (background == on) {
+            reserve = true;
+        } else {
+            reserve = false;
         }
         boolean mobileNo = isMobileNo( phone );
         boolean phoneNo = isTelePhoneNo( phone );
         boolean octNumber = isOctNumber( money );
-        if(octNumber==false) {
+        if (octNumber == false) {
             ToastUtils.showToast( this, "金额格式有误哦" );
             return;
         }
@@ -274,7 +271,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
         SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
                 this, ""
         ) );
-        submitStoreInfo.changeInfo( sign, time, money, String.valueOf(reserve),phone );
+        submitStoreInfo.changeInfo( sign, time, money, String.valueOf( reserve ), phone );
     }
 
     @Override
@@ -299,10 +296,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                 startActivity( intent );
                 break;
             case R.id.et_timeAM:
-                showTimePickerDialog( btn_timeAM,timeAM,AM_TIME );
+                showTimePickerDialog( btn_timeAM, timeAM, AM_TIME );
                 break;
             case R.id.et_timePM:
-                showTimePickerDialog( btn_timePM,timePM,PM_TIME );
+                showTimePickerDialog( btn_timePM, timePM, PM_TIME );
                 break;
             case R.id.btn_backs:
                 onBackPressed();
@@ -311,6 +308,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                 break;
         }
     }
+
     /**
      * 时间轴
      */
@@ -328,22 +326,22 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
-                        if(hourOfDay<10){
-                            hour = "0"+String.valueOf( hourOfDay );
-                        }else {
-                            hour=String.valueOf( hourOfDay );
+                        if (hourOfDay < 10) {
+                            hour = "0" + String.valueOf( hourOfDay );
+                        } else {
+                            hour = String.valueOf( hourOfDay );
                         }
-                        if(minute<10){
-                            min = "0"+String.valueOf( minute );
-                        }else {
-                           min=String.valueOf( minute );
+                        if (minute < 10) {
+                            min = "0" + String.valueOf( minute );
+                        } else {
+                            min = String.valueOf( minute );
                         }
-                        String time= hour +":"+min;
-                        button.setText(time);
-                        if(flag==AM_TIME){
-                            timeAM=time;
-                        }else if(flag==PM_TIME){
-                            timePM=time;
+                        String time = hour + ":" + min;
+                        button.setText( time );
+                        if (flag == AM_TIME) {
+                            timeAM = time;
+                        } else if (flag == PM_TIME) {
+                            timePM = time;
                         }
                     }
                 }, hour, minute, DateFormat.is24HourFormat( DetialInfomation.this ) );
@@ -372,29 +370,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
             return mobileNums.matches( telRegex );
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        btn_order.setBackground( b?on:off );
-        if(btn_save.getVisibility()==View.VISIBLE){
-           return;
-        }
-        submit();
-//        Drawable current = btn_order.getBackground();
-//        if(current==on){
-//            reserve=true;
-//        }else {
-//            reserve=false;
-//        }
-//        SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
-//                this, ""
-//        ) );
-//        ToastUtils.showToast( this,""+reserve );
-//        submitStoreInfo.submitReverse(String.valueOf(reserve));
-    }
+
 
     @Override
     public void onBackPressed() {
-        if(btn_save.getVisibility()==View.VISIBLE){
+        if (btn_save.getVisibility() == View.VISIBLE) {
             AlertDialog.Builder builder = new AlertDialog.Builder( this );
             builder.setMessage( "信息尚未保存，确定要返回吗？" );
             builder.setCancelable( true );
@@ -414,10 +394,11 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
 //为Window设置动画
             window.setWindowAnimations( R.style.CustomDialog );
             dialog.show();
-        }else {
+        } else {
             finish();
         }
     }
+
     //十进制
     private static boolean isOctNumber(String str) {
         boolean flag = false;
@@ -439,11 +420,22 @@ public class DetialInfomation extends Activity implements View.OnClickListener ,
             }
             String last = str.substring( str.length() - 1, str.length() );
             boolean equals = last.equals( "." );
-            if(equals){
-                flag=false;
+            if (equals) {
+                flag = false;
             }
         }
         return flag;
+    }
+
+    public class OnChangeListener implements CompoundButton.OnCheckedChangeListener{
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            btn_order.setBackground( b ? on : off );
+        if(btn_save.getVisibility()==View.VISIBLE){
+           return;
+        }
+        submit();
+        }
     }
 
 }

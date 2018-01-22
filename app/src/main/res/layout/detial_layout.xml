@@ -56,8 +56,8 @@
         android:padding="2dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/clock"/>
 
@@ -114,8 +114,8 @@
         android:padding="2dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/moneya"/>
 
@@ -150,8 +150,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/order"/>
 
@@ -163,14 +163,12 @@
             android:textColor="#000"/>
 
         <ToggleButton
-            android:clickable="true"
             android:id="@+id/btn_order"
             android:layout_width="42dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:textOff=""
-            android:textOn=""
-            android:visibility="visible"/>
+            android:textOn=""/>
 
     </LinearLayout>
 
@@ -181,8 +179,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:src="@mipmap/phone"/>
 
@@ -216,8 +214,8 @@
 
         <ImageView
             android:id="@+id/iv_titlephoto"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:src="@mipmap/introd"/>
@@ -255,9 +253,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="----------* 店铺风采 *----------"
+        android:text="————¤ 店铺风采 ¤————"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textColor="#202020"/>
 
     <LinearLayout
         android:gravity="center"
