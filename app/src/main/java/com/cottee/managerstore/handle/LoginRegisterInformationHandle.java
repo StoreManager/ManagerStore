@@ -14,9 +14,9 @@ import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
+import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.manage.LoginRegisterInformationManage;
 import com.cottee.managerstore.manage.ProjectTypeManage;
-import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
@@ -239,12 +239,15 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.SESSION_TYPE:
                 switch (msg.arg1) {
                     case 32:
-                        SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);//Context
-                        // .MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("session", (String) msg.obj);
-                        editor.commit();
+                        UserRequestInfo.setSession((String) msg.obj);
+                        System.out.println("重新登录获取的session"+ UserRequestInfo.getSession());
                         ToastUtils.showToast(context,"重新登录成功");
+
+
+                        String dishType = UserRequestInfo.getDishType();
+                        System.out.println("重新登录后菜品类型"+dishType);
+                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageCommit(dishType);
+
 
                         break;
                     case PSWFAILD_USERUNEXIST:
@@ -261,26 +264,25 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.USER_LOGIN:
                 switch (msg.arg1) {
                     case 32:
-                        SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);//Context
+                        /*SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);//Context
                         // .MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("session", (String) msg.obj);
-                        editor.commit();
+                        editor.commit();*/
 
-                        System.out.println("shar session："+sp.getString("session",""));
+                        UserRequestInfo.setSession((String) msg.obj);
+                        UserRequestInfo.setUserEmail(emailAddress);
+                        UserRequestInfo.setUserPassword(loginPassword);
+                        System.out.println("login session："+ UserRequestInfo.getSession());
+                        System.out.println("login email："+ UserRequestInfo.getUserEmail());
+                        System.out.println("login password："+ UserRequestInfo.getUserPassword());
 
                         Intent intent = new Intent(context, RegisterStoreActivity.class );
                         context.startActivity( intent );
                         ToastUtils.showToast( context, "登录成功" );
-                        UserManage userManage = new UserManage();
-                        userManage.saveUserLogin( context, emailAddress, loginPassword );
-                        /*session = new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle(context,emailAddress,loginPassword));
-                        session.checksession((String) msg.obj);*/
-                        /*Intent intent = new Intent( context, RegisterStoreActivity.class );
-                        context.startActivity( intent );
-                        ToastUtils.showToast( context, "登录成功" );
-                        UserManage userManage = new UserManage();
+                        /*UserManage userManage = new UserManage();
                         userManage.saveUserLogin( context, emailAddress, loginPassword );*/
+
                         break;
                     case PSWFAILD_USERUNEXIST:
                         ToastUtils.showToast( context, "用户不存在或密码错误" );
@@ -411,10 +413,9 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
                     case PROJECT_MANAGE_CREATE_FAILD:
                         /*shapeLoadingDialog.setDismiss();*/
-                        sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
-                        String commit = sp.getString("commit", "");
+
                         new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
-                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageCommit(commit);
+
                         break;
 
                 }

@@ -1,7 +1,8 @@
 package com.cottee.managerstore.httputils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+
+import com.cottee.managerstore.bean.UserRequestInfo;
 
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -16,8 +17,7 @@ import okhttp3.RequestBody;
 public class HttpUtilSession {
     public static void sendSessionOkHttpRequest(Context context,final String address, final Callback callback) {
 
-        SharedPreferences preferences=context.getSharedPreferences("Session", Context.MODE_PRIVATE);
-        String session=preferences.getString("session", "");
+        String session = UserRequestInfo.getSession();
 
         OkHttpClient client = new OkHttpClient();
 

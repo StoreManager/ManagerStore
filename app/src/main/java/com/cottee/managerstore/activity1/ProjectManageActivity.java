@@ -12,17 +12,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +38,7 @@ import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BaseRefreshListener;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.widget.PopupMenu;
 import com.cottee.managerstore.widget.PullToRefreshLayout;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
 import com.google.gson.Gson;
@@ -65,7 +65,6 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
     private static ProjectManageAdapter adapter;
-    private Toolbar toolbar;
     private ListView lvprojectmanage;
     public static Map<Integer, Boolean> checkedMap = new HashMap<Integer, Boolean>();
     private List<ProjectManageInfo> projectList = new ArrayList<>();
@@ -75,18 +74,19 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     // .MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
 
-    private Button btnbacktostoremanager;
-    private Button btnprojectmanageupdate;
+
     private List<String> dishTypeNameList;
     private List<ProjectManageInfo> allTypeNameList = new ArrayList<>();
     private ProjectManageActivity.ProjectManageHandler handler = new ProjectManageActivity.ProjectManageHandler();
     private List<String> dishTypeIdList;
-    private Button btnprojectmanageadd;
     private List<String> dishesExampleList = new ArrayList<>();
     private boolean up = false;
     private PullToRefreshLayout pullToRefreshLayout;
     private LinearLayout ll_empty;
     private ShapeLoadingDialog shapeLoadingDialog;
+    private ImageView imv_back_to_storemanager;
+    private PopupMenu popupMenu;
+    private ImageView iv_menu;
 
 
     @Override
@@ -96,8 +96,10 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         initview();
         addDishList.clear();
         allTypeNameList.clear();
-        toolbar.setBackgroundColor(getResources().getColor(R.color.purplishblue));
-        setSupportActionBar(toolbar);
+
+        String[] abs = new String[]{"添加菜品", "修改菜品",""};
+        popupMenu = new PopupMenu(this,abs);
+
 
 
         shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
@@ -303,40 +305,59 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     public void initview() {
         pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pt_push);
-        toolbar = findViewById(R.id.tl_project_manage);
-        btnbacktostoremanager = (Button) findViewById(R.id.btn_back_to_storemanager);
+        imv_back_to_storemanager = (ImageView) findViewById(R.id.imv_back_to_storemanager);
         lvprojectmanage = (ListView) findViewById(R.id.lv_project_manage);
-        btnprojectmanageupdate = (Button) findViewById(R.id.btn_project_manage_update);
-        btnprojectmanageadd = (Button) findViewById(R.id.btn_project_manage_add);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
-        btnbacktostoremanager.setOnClickListener(this);
-        btnprojectmanageupdate.setOnClickListener(this);
-        btnprojectmanageadd.setOnClickListener(this);
+        iv_menu = (ImageView) findViewById(R.id.iv_menu);
+        imv_back_to_storemanager.setOnClickListener(this);
+
+
+
+        iv_menu.setOnClickListener(this);
+
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_back_to_storemanager:
+            case R.id.iv_menu:
+                popupMenu.showLocation(R.id.iv_menu);// 设置弹出菜单弹出的位置
+                // 设置回调监听，获取点击事件
+                popupMenu.setOnItemClickListener(new PopupMenu.OnItemClickListener() {
+
+                            @Override
+                            public void onClick(PopupMenu.MENUITEM item, String str) {
+                                switch(str){
+                                    case "添加菜品":
+                                        dialog = new DishesDialog(ProjectManageActivity.this);
+                                        dialog.show();
+                                        break;
+                                    case "修改菜品":
+                                        Intent intent = new Intent(ProjectManageActivity.this, ProjectManageAddClassifyActivity.class);
+
+                                        System.out.println("MYT:" + (Serializable) dishTypeNameList);
+                                        intent.putExtra("dishName", (Serializable) dishTypeNameList);
+                                        intent.putExtra("dishId", (Serializable) dishTypeIdList);
+                                        startActivity(intent);
+                                        break;
+                                    case "":
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+
+                            }
+                        });
+                break;
+
+
+            case R.id.imv_back_to_storemanager:
                 finish();
                 break;
 
-            case R.id.btn_project_manage_update:
-                Intent intent = new Intent(ProjectManageActivity.this, ProjectManageAddClassifyActivity.class);
 
-                System.out.println("MYT:" + (Serializable) dishTypeNameList);
-                intent.putExtra("dishName", (Serializable) dishTypeNameList);
-                intent.putExtra("dishId", (Serializable) dishTypeIdList);
-                startActivity(intent);
-
-                break;
-
-            case R.id.btn_project_manage_add:
-                dialog = new DishesDialog(ProjectManageActivity.this);
-                dialog.show();
-
-                break;
 
             default:
                 break;

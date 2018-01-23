@@ -3,7 +3,6 @@ package com.cottee.managerstore.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.EmployeeManageActivity;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.properties.Properties;
-import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.Utils;
 import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
@@ -53,6 +52,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private int storeid;
     private Button btn_vipManager;
     private TextView tv_vipManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         imgbtn_storeStatus = findViewById( R.id.imgbtn_storeStatus );
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
+        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
+        btn_to_employee_manage.setOnClickListener(this);
         linear_changeStore = findViewById( R.id.linear_changeStore );
         tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
         btn_storeManager = (Button) findViewById( R.id.btn_storeManager );
@@ -161,6 +163,10 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             case R.id.btn_to_project_manage:
                 Intent intentOne = new Intent( StoreManagerActivity.this, ProjectManageActivity.class );
                 startActivity( intentOne );
+                break;
+            case R.id.btn_to_employee_manage:
+                Intent intentTwo = new Intent( StoreManagerActivity.this, EmployeeManageActivity.class );
+                startActivity( intentTwo );
                 break;
             default:
                 break;

@@ -1,10 +1,10 @@
 package com.cottee.managerstore.manage;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Message;
 import android.util.Log;
 
+import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.properties.Properties;
 
@@ -98,12 +98,11 @@ public class LoginRegisterInformationManage {
     public void againLogin(){login();}
 
     private void login() {
-        SharedPreferences sp = context.getSharedPreferences("userLogin", Context.MODE_PRIVATE);
-        String user_email = sp.getString("USER_EMAIL", "");
-        String password = sp.getString("PASSWORD", "");
+        String userEmail = UserRequestInfo.getUserEmail();
+        String userPassword = UserRequestInfo.getUserPassword();
 
-        System.out.println("再次登录的用户信息:"+user_email+""+password);
-        sendUserRequest(Properties.SESSION_TYPE, user_email, password);
+        System.out.println("再次登录的用户信息:"+userEmail+""+userPassword);
+        sendUserRequest(Properties.SESSION_TYPE, userEmail, userPassword);
     }
 
 

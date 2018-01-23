@@ -20,7 +20,7 @@ public class EmployeeManageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 1;
+        return 50;
     }
 
     @Override
