@@ -13,7 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
@@ -83,6 +85,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private Drawable off;
     private String time;
     private Button btn_back;
+    private TextView isMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +102,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         two = storeInfo.getThumbnail_two();
         three = storeInfo.getThumbnail_three();
         reserve = storeInfo.isReserve();
-        if (reserve==true) {
+        if (reserve == true) {
             btn_order.setChecked( true );
             btn_order.setBackground( on );
         } else {
@@ -131,7 +134,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         money = storeInfo.getAvecon();
         tv_money.setText( money );
 
-        btn_order.setOnCheckedChangeListener( new OnChangeListener());
+        btn_order.setOnCheckedChangeListener( new OnChangeListener() );
     }
 
     private void findView() {
@@ -159,6 +162,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         tv_style = (TextView) findViewById( R.id.tv_style );
         tv_address = (TextView) findViewById( R.id.tv_address );
 
+        isMoney = (TextView) findViewById( R.id.tv_isMoney );
         iv_surface = (ImageView) findViewById( R.id.iv_surface );
         iv_surface.setOnClickListener( this );
         iv_photo1 = (ImageView) findViewById( R.id.iv_photo1 );
@@ -177,6 +181,31 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         btn_order = (ToggleButton) findViewById( R.id.btn_order );
         CashierInputFilter[] filters = {new CashierInputFilter()};
         et_money.setFilters( filters );
+        et_money.addTextChangedListener( new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String trim = et_money.getText().toString().trim();
+                if(trim.isEmpty()){
+                    return;
+                }
+                boolean octNumber = isOctNumber( trim );
+                if (octNumber) {
+                    isMoney.setVisibility( View.GONE );
+                } else {
+                    isMoney.setVisibility( View.VISIBLE );
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        } );
 
     }
 
@@ -371,7 +400,6 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     }
 
 
-
     @Override
     public void onBackPressed() {
         if (btn_save.getVisibility() == View.VISIBLE) {
@@ -400,8 +428,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     }
 
     //十进制
-    private static boolean isOctNumber(String str) {
-        boolean flag = false;
+    private boolean isOctNumber(String str) {
+        boolean flag = true;
         for (int i = 0, n = str.length(); i < n; i++) {
             char c = str.charAt( i );
             if (c == '0' | c == '1' | c == '2' | c == '3' | c == '4' | c == '5' | c == '6' | c == '7' | c == '8' | c == '9') {
@@ -411,7 +439,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
 
         if (str.length() > 1) {
             String num = str.substring( 0, 1 );
-            if (Integer.valueOf( num ) == 0) {
+            if (num.equals( "." )) {
+                flag = false;
+            } else if (Integer.valueOf( num ) == 0) {
                 if (str.substring( 1, 2 ).equals( "." ) || str.substring( 1, 2 ) == null) {
                     flag = true;
                 } else {
@@ -423,18 +453,26 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             if (equals) {
                 flag = false;
             }
+
+            if (str.contains( "." )) {
+                int i = str.indexOf( "." );
+                String substring = str.substring( i + 1, str.length() );
+                if(substring.length()>2){
+                    flag=false;
+                }
+            }
         }
         return flag;
     }
 
-    public class OnChangeListener implements CompoundButton.OnCheckedChangeListener{
+    public class OnChangeListener implements CompoundButton.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             btn_order.setBackground( b ? on : off );
-        if(btn_save.getVisibility()==View.VISIBLE){
-           return;
-        }
-        submit();
+            if (btn_save.getVisibility() == View.VISIBLE) {
+                return;
+            }
+            submit();
         }
     }
 
