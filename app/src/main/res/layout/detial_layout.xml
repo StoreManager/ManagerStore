@@ -128,7 +128,7 @@
 
         <TextView
             android:id="@+id/tv_money"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="500"
@@ -141,6 +141,14 @@
             android:layout_marginLeft="20dp"
             android:inputType="numberDecimal"
             android:visibility="gone"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_isMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="金额格式错误"
+            android:textColor="#d60202"/>
     </LinearLayout>
 
     <LinearLayout
