@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Message;
 import android.util.Log;
 
+import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.properties.Properties;
 
@@ -39,7 +40,11 @@ public class SubmitStoreInfoManager {
     }
 
     private void sendRequest(final int type, final String name, final String classify, final String
-            address, final String phone) {
+            address, final String phone,final double lat,final double lng) {
+
+
+
+
         new Thread() {
             @Override
             public void run() {
@@ -50,7 +55,11 @@ public class SubmitStoreInfoManager {
                         case NECESSARY_INFOMATION:
                             request = new Request.Builder().url( Properties.NECESSARY_INFO ).post( new FormBody
                                     .Builder().add( "name", name ).add( "classify",
-                                    classify ).add( "address", address ).add( "phone", phone )
+                                    classify ).add( "latitude", String.valueOf( lat ) ).add(
+                                            "longitude", String.valueOf( lng ) ).add(
+                                                    "session",UserRequestInfo.getSession() ).add(
+                                            "address", address ).add(
+                                            "phone", phone )
                                     .build() )
                                     .build();
                             break;
@@ -165,8 +174,8 @@ public class SubmitStoreInfoManager {
     }
 
     public void submitInfo(String name, String classify, String
-            address, String phone) {
-        sendRequest( NECESSARY_INFOMATION, name, classify, address, phone );
+            address, String phone,double lat,double lng) {
+        sendRequest( NECESSARY_INFOMATION, name, classify, address, phone,lat,lng );
     }
 
     public void submitInfo(String path) {

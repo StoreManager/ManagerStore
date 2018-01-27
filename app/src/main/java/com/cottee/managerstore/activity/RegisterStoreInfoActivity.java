@@ -21,18 +21,29 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.fragment.TestFragment;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
+import com.cottee.managerstore.utils.OssUtils;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.view.MyImageButton;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -66,6 +77,8 @@ public class RegisterStoreInfoActivity extends Activity {
     private LinearLayout linear_addStoreAddress;
     private Context context;
     private String fileName = null;
+    private double[] locations;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +140,7 @@ public class RegisterStoreInfoActivity extends Activity {
                 case REQUEST_ADDRESS:
 
                     String address = data.getStringExtra( "address" );
+                    locations = data.getDoubleArrayExtra( "location" );
                     tv_storeAddress.setText( address );
 
                     break;
@@ -138,7 +152,7 @@ public class RegisterStoreInfoActivity extends Activity {
                                 "SD card is not avaiable/writeable right now." );
                         return;
                     }
-                    String name = new DateFormat().format( "yyyyMMdd_hhmmss",
+                    name = new DateFormat().format( "yyyyMMdd_hhmmss",
                             Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
                     Bundle bundle = data.getExtras();
                     Bitmap bitmap = (Bitmap) bundle.get( "data" );//
@@ -194,9 +208,35 @@ public class RegisterStoreInfoActivity extends Activity {
                             .this, new LoginRegisterInformationHandle(
                     RegisterStoreInfoActivity.this, ""
             ) );
-            submitStoreInfo.submitInfo( shopName, shopStyle, shopAddress, shopPhoneNum );
+            submitStoreInfo.submitInfo( shopName, shopStyle, shopAddress, shopPhoneNum,
+                    locations[0],locations[1] );
             if (fileName != null) {
-                submitStoreInfo.submitInfo( fileName );
+                try {
+                    InputStream open = new FileInputStream( fileName );
+                    ByteArrayOutputStream output = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int n = 0;
+                    while (-1 != (n = open.read( buffer ))) {
+                        output.write( buffer, 0, n );
+                    }
+                    String userEmail = UserRequestInfo.getUserEmail();
+                    OssUtils.updata( this, "merchant/"+userEmail+name + ".jpg",
+                            output
+                            .toByteArray(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                        @Override
+                        public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                            ToastUtils.showToast( context,"success" );
+                        }
+
+                        @Override
+                        public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
+
+                        }
+                    } );
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

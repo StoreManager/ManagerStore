@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/text"
+            android:textColor="#202020"
             android:textSize="20sp"/>
 
         <TextView
@@ -261,7 +261,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="————¤ 店铺风采 ¤————"
+        android:text="¤ 店铺风采 ¤"
         android:textSize="18sp"
         android:textColor="#202020"/>
 

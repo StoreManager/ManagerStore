@@ -20,6 +20,7 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.EmployeeManageActivity;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.Utils;
 import com.cottee.managerstore.view.PressureButton;
@@ -30,6 +31,8 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.List;
+
+import okhttp3.Call;
 
 public class StoreManagerActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar tl_custom;
@@ -177,14 +180,14 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         new Thread() {
             @Override
             public void run() {
-                Utils.sendToWebService( Properties.GET_STORE, new Callback() {
+                HttpUtilSession.sendSessionOkHttpRequest( mContext, Properties.GET_STORE, new okhttp3.Callback() {
                     @Override
-                    public void onFailure(Request request, IOException e) {
+                    public void onFailure(Call call, IOException e) {
 
                     }
 
                     @Override
-                    public void onResponse(Response response) throws IOException {
+                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
                         String s = response.body().string();
                         if (s.isEmpty()) {
                             return;
@@ -192,7 +195,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                         RegisterStoreActivity.storeList = Utils.handleStoreResponse( s );
                     }
                 } );
-
             }
         }.start();
         return RegisterStoreActivity.storeList;

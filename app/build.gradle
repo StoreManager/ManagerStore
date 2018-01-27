@@ -42,4 +42,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.2.4'
     implementation 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.aliyun.dpa:oss-android-sdk:2.4.5'
 }

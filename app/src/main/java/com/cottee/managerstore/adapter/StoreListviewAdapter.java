@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.StoreManagerActivity;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.utils.ToastUtils;
 
 import java.util.List;

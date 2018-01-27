@@ -14,7 +14,7 @@ public class Properties {
     public static final String FORGET_PASSWORD_EMAIL_PSD_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/user_forget.php";
     public static final String STORE_PHOTO = "https://thethreestooges.cn/merchant/bean/register/photo_mer_upload.php";
     public static final String PHOTO_BUSLIC = "https://thethreestooges.cn/merchant/bean/register/photo_buslic_upload.php";
-    public static final String NECESSARY_INFO = "https://thethreestooges.cn/merchant/bean/register/first_register.php";
+    public static final String NECESSARY_INFO = "https://thethreestooges.cn:1225/register/first/register";
     public static final String SUPPLY_INFOS= "https://thethreestooges.cn/merchant/bean/register/update_register.php";
 
 //    public static final String SUPPLY_INFOS= "https://thethreestooges" +

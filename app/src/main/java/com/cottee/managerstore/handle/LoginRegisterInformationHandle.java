@@ -21,6 +21,7 @@ import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
 
+
 /**
  * Created by Administrator on 2017/11/20.
  */

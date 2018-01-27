@@ -41,7 +41,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
     private Button btn_back;
     private Button btn_checkout;
     public static List<LocationInfo> locationDataList;
-    private float[] locations;
+    private double[] Dlocations;
     private String address;
 
     @Override
@@ -94,6 +94,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.putExtra( "address",address );
+                intent.putExtra( "location",Dlocations );
                 setResult( RESULT_OK,intent );
                 finish();
             }
@@ -116,6 +117,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
             double longitude = location.getLongitude();
             //纬度
             double latitude = location.getLatitude();
+            Dlocations= new double[]{latitude,longitude};
             LatLng locationlatLng = new LatLng( latitude, longitude );
             tencentMap.setCenter( locationlatLng );
 
@@ -205,6 +207,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
                     address = data.getStringExtra( "address" );
                     float lat = locations[0];
                     float lot = locations[1];
+                    Dlocations= new double[]{lat,lot};
                     LatLng latLng = new LatLng( lat, lot );
                     tencentMap.setCenter(latLng);
                     marker = tencentMap.addMarker( new MarkerOptions()
