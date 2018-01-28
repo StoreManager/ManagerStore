@@ -254,6 +254,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     }
 
     private void submit() {
+        if(money.isEmpty()||money.equals( "0.00" )||money.equals( "0.0" )){
+            money="0";
+        }
         Drawable background = btn_order.getBackground();
         if (background == on) {
             reserve = true;

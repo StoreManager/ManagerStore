@@ -37,18 +37,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginLeft="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="店铺名称"
+                android:textColor="@color/babyblue"/>
+
             <EditText
+                android:layout_gravity="center"
                 android:id="@+id/et_name"
                 android:layout_width="300dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:textSize="16sp"
                 android:textColor="#364197"
                 android:background="@null"
-                android:hint="店铺名字(不可更改)"
+                android:hint="(不可更改)"
                 />
 
 
@@ -127,19 +137,29 @@
             android:background="#FFC0C0C0" />
        <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+           android:layout_height="50dp"
            android:orientation="horizontal">
+
+           <TextView
+               android:layout_gravity="center"
+               android:layout_marginLeft="25dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="16sp"
+               android:text="联系电话"
+               android:textColor="@color/babyblue"/>
+
            <EditText
+               android:layout_gravity="center"
                android:maxLength="11"
                android:id="@+id/et_phoneNum"
                android:layout_width="300dp"
-               android:layout_height="40dp"
-               android:layout_marginLeft="25dp"
-               android:layout_marginTop="15dp"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
                android:textSize="16sp"
                android:textColor="#364197"
                android:background="@null"
-               android:hint="店铺联系电话"/>
+               />
        </LinearLayout>
         <View
             android:layout_width="match_parent"
