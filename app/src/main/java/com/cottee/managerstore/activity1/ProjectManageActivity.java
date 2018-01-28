@@ -102,7 +102,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
 
-        shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
+       /* shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
                 .loadText("加载中...")
                 .build();
         shapeLoadingDialog.show();
@@ -110,11 +110,11 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
             @Override
             public void run() {
 
-                sendRequestWithOkHttp();
+
             }
-        },2000);
+        },2000);*/
 
-
+        sendRequestWithOkHttp();
 
         lvprojectmanage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -182,9 +182,10 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
                         if(responeData.trim().equals("250")){
+                            shapeLoadingDialog.setDismiss();
                             ToastUtils.showToast(ProjectManageActivity.this,"session无效效，正在重新登陆请稍等" );
                             new LoginRegisterInformationManage(ProjectManageActivity.this,new LoginRegisterInformationHandle()).againLogin();
-                            sendRequestWithOkHttp();
+                            /*sendRequestWithOkHttp();*/
                         }
                         else if (responeData.trim().equals("0")){
 
@@ -293,7 +294,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     }
 
                     lvprojectmanage.setAdapter(adapter);
-                    shapeLoadingDialog.setDismiss();
+                   /* shapeLoadingDialog.setDismiss();*/
 
 
                     break;

@@ -1,11 +1,11 @@
 package com.cottee.managerstore.manage;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.properties.Properties;
 
@@ -39,8 +39,7 @@ public class ProjectTypeManage {
             @Override
             public void run() {
                 try {
-                    SharedPreferences sp = context.getSharedPreferences("Session", Context.MODE_PRIVATE);
-                    String session = sp.getString("session","");
+                    String session = UserRequestInfo.getSession();
 
 
                     OkHttpClient client = new OkHttpClient();

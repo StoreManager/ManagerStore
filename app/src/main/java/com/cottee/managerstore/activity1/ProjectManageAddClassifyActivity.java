@@ -3,7 +3,6 @@ package com.cottee.managerstore.activity1;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -187,53 +186,9 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         switch(view.getId()){
         case R.id.btn_project_manage_add_classify_save:
 
-            String update = updateData();
-            String updateId = updateIdData();
-            String deleteId = deleteIdData();
-
-
-
-            System.out.println("更新名字:"+update);
-            System.out.println("更新id:"+updateId);
-            System.out.println("删除id:"+deleteId);
-            ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
-                    (ProjectManageAddClassifyActivity.this,""));
-            /*if(!add.equals("")){
-                manage.projectManageCommit(add);
-               *//* sendRequestWithOkHttp();*//*
-            }*/
-            if (!update.equals("")&&!updateId.equals("")){
-                SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("update", update);
-                editor.putString("updateId", updateId);
-                editor.commit();
-                manage.projectManageUpdate(update,updateId);
-            }
-            if(!deleteId.equals("")){
-                SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("deleteId", deleteId);
-                editor.commit();
-                manage.projectManageDelete(deleteId);
-            }
-
-            Intent intent = new Intent(ProjectManageAddClassifyActivity.this,ProjectManageActivity.class);
-            startActivity(intent);
             finish();
-
-
-
-
         break;
-        /*case R.id.btn_project_manage_classify_add:
 
-            *//*dialog = new DishesDialog(ProjectManageAddClassifyActivity.this,adapter);
-            dialog.show();*//*
-
-
-
-        break;*/
 
         case R.id.btn_back_to_project_manage_from_add:
 
@@ -269,6 +224,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
         public ProjectManageAddAdapter(Context context, List<ProjectManageInfo> projectManageList) {
             super(context,projectManageList);
+
             /*this.context = context;
             this.projectManageList = projectManageList;*/
 
@@ -337,7 +293,18 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                         jsonDishId.remove(jsonDishId.get(position));
 
                                     }
-                                    System.out.println("删除的是:"+deleteIdList);
+                                    ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
+                                            (ProjectManageAddClassifyActivity.this,""));
+                                    String deleteId = deleteIdData();
+
+                                    System.out.println("删除id:"+deleteId);
+                                    if(!deleteId.equals("")){
+
+                                        manage.projectManageDelete(deleteId);
+                                    }
+
+
+
 
                                     if(!adapter.isEmpty()){
                                         ll_add_empty.setVisibility(View.GONE);
@@ -389,9 +356,18 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                             updateDishIdList.add(jsonDishId.get(position));
                                             updateDishList.add(input);
                                         }
-
-
                                         System.out.println("修改的是:"+updateDishIdList+" "+updateDishList);
+                                        ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
+                                                (ProjectManageAddClassifyActivity.this,""));
+                                        String update = updateData();
+                                        String updateId = updateIdData();
+                                        System.out.println("更新名字:"+update);
+                                        System.out.println("更新id:"+updateId);
+
+                                        if (!update.equals("")&&!updateId.equals("")){
+
+                                            manage.projectManageUpdate(update,updateId);
+                                        }
 
 
                                     }
