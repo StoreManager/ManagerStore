@@ -11,12 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.utils.ToastUtils;
-import com.cottee.managerstore.widget.DragListViewAdapter;
+import com.cottee.managerstore.widget.slidelistutils.SlideAndDragListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import java.util.Map;
  * Created by Administrator on 2017/12/23.
  */
 
-public class ProjectManageAddClassifyActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProjectManageAddClassifyActivity extends AppCompatActivity implements View.OnClickListener ,SlideAndDragListView.OnDragDropListener{
 
     private Toolbar tbprojectmanageadd;
     private List<ProjectManageInfo> projectList = new ArrayList<>();
@@ -45,9 +46,8 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private List<String> updateDishList = new ArrayList<>();
     private List<String> updateDishIdList = new ArrayList<>();
     private List<String> deleteIdList = new ArrayList<>();
-    private ListView lvprojectmanageadd;
+    private SlideAndDragListView lvprojectmanageadd;
     private Button btnprojectmanageaddclassifysave;
-    private Button btnprojectmanageclassifyadd;
     private ProjectManageAddAdapter adapter;
 
 
@@ -63,6 +63,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private List<String> jsonDishId;
     private List<String> newJsonIdList;
     private LinearLayout ll_add_empty;
+    private int beginPosition ;
+    private int endPosition ;
+    private Button btn_project_manage_add_classify_no_save;
+    private ProjectManageInfo mDraggedEntity;
     /*private ProjectManageHandler handler = new ProjectManageHandler();*/
 
     @Override
@@ -106,22 +110,26 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
             ll_add_empty.setVisibility(View.VISIBLE);
         }
         lvprojectmanageadd.setAdapter(adapter);
+        lvprojectmanageadd.setOnDragDropListener(this);
+
+        if(beginPosition!=endPosition){
+            btn_project_manage_add_classify_no_save.setVisibility(View.GONE);
+            btnprojectmanageaddclassifysave.setVisibility(View.VISIBLE);
+        }
 
 
     }
 
 
-
-
     public void initview(){
         tbprojectmanageadd = (Toolbar) findViewById(R.id.tb_project_manage_add);
-        lvprojectmanageadd = (ListView) findViewById(R.id.lv_project_manage_add);
+        lvprojectmanageadd = (SlideAndDragListView) findViewById(R.id.lv_project_manage_add);
         btnprojectmanageaddclassifysave = (Button) findViewById(R.id.btn_project_manage_add_classify_save);
-     /*   btnprojectmanageclassifyadd = (Button) findViewById(R.id.btn_project_manage_classify_add);*/
+        btn_project_manage_add_classify_no_save = (Button) findViewById(R.id.btn_project_manage_add_classify_no_save);
         btn_back_to_project_manage_from_add = (Button) findViewById(R.id.btn_back_to_project_manage_from_add);
         ll_add_empty = (LinearLayout) findViewById(R.id.ll_add_empty);
         btnprojectmanageaddclassifysave.setOnClickListener(this);
-       /* btnprojectmanageclassifyadd.setOnClickListener(this);*/
+
         btn_back_to_project_manage_from_add.setOnClickListener(this);
     }
 
@@ -192,7 +200,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
         case R.id.btn_back_to_project_manage_from_add:
 
-            if(!jsonDishName.equals(allDishTypeList)){
+            if(beginPosition!=endPosition){
                 new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -215,61 +223,58 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     }
 
 
-    public class ProjectManageAddAdapter extends DragListViewAdapter<ProjectManageInfo> {
+
+
+    public class ProjectManageAddAdapter extends BaseAdapter {
 
         private Context context;
-       /* private List<ProjectManageInfo> projectManageList;*/
+        private List<ProjectManageInfo> projectManageList;
         private String projectName;
 
 
         public ProjectManageAddAdapter(Context context, List<ProjectManageInfo> projectManageList) {
-            super(context,projectManageList);
 
-            /*this.context = context;
-            this.projectManageList = projectManageList;*/
+
+            this.context = context;
+            this.projectManageList = projectManageList;
 
 
         }
 
-       /* @Override
+        @Override
         public int getCount() {
             return projectManageList.size();
         }
 
-        *//*@Override
-        public Object getItem(int i) {
-            return projectManageList.get(i);
-        }
-*//*
         @Override
-        public long getItemId(int i) {
-            return i;
+        public Object getItem(int position) {
+            return projectManageList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
 
         @Override
         public View getView(final int position, View convertview, ViewGroup viewGroup) {
-
-
-
-        }*/
-
-        @Override
-        public View getItemView(final int position, View convertview, ViewGroup parent) {
-
             final ViewHolder viewHolder;
             if(convertview==null){
                 viewHolder = new ViewHolder();
-                convertview = LayoutInflater.from(getApplicationContext()).inflate( R.layout.item_project_manage_add, parent,false  );
+                convertview = LayoutInflater.from(getApplicationContext()).inflate( R.layout.item_project_manage_add, viewGroup,false  );
                 viewHolder.tvItemName = (TextView) convertview.findViewById(R.id.tv_item_project_manage_classify_name);
                 viewHolder.btnItemUpdate = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_update);
                 viewHolder.btnItemDelete = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_delete);
+                viewHolder.btnItemDrag = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_drag);
+                viewHolder.btnItemDrag.setOnTouchListener(mOnTouchListener);
                 convertview.setTag(viewHolder);
 
             }else{
                 viewHolder = (ViewHolder)convertview.getTag();
             }
 
-            if(projectManageList.get(position).getProjectName().length()<10){
+            viewHolder.btnItemDrag.setTag(Integer.parseInt(position + ""));
+            if(projectManageList.get(position).getProjectName().length()<7){
                 viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName());
             }else{
                 viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName().substring(0,9)
@@ -394,11 +399,47 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         TextView tvItemName;
         Button btnItemUpdate;
         Button btnItemDelete;
+        Button btnItemDrag;
 
 
     }
 
+    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            Object o = v.getTag();
+            if (o != null && o instanceof Integer) {
+                lvprojectmanageadd.startDrag(((Integer) o).intValue());
+            }
+            return false;
+        }
+    };
 
+    @Override
+    public void onDragViewStart(int beginPosition) {
+        this.beginPosition = beginPosition;
+        mDraggedEntity = projectList.get(beginPosition);
+        ToastUtils.showToast(this,"onDragViewStart   beginPosition--->" + beginPosition);
+    }
+
+    @Override
+    public void onDragDropViewMoved(int fromPosition, int toPosition) {
+        ProjectManageInfo remove = projectList.remove(fromPosition);
+        projectList.add(toPosition, remove);
+        ToastUtils.showToast(this,"onDragDropViewMoved   fromPosition--->" + fromPosition + "  toPosition-->" + toPosition);
+    }
+
+    @Override
+    public void onDragViewDown(int finalPosition) {
+        endPosition = finalPosition;
+        if(beginPosition!=endPosition){
+            btn_project_manage_add_classify_no_save.setVisibility(View.GONE);
+            btnprojectmanageaddclassifysave.setVisibility(View.VISIBLE);
+        }
+        projectList.set(finalPosition, mDraggedEntity);
+        ToastUtils.showToast(this,"onDragViewDown   finalPosition--->" + finalPosition);
+
+    }
 
 
 
@@ -406,7 +447,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 
-            if(!jsonDishName.equals(allDishTypeList)){
+            if(beginPosition!=endPosition){
                 new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -427,6 +468,10 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         }
 
     }
+
+
+
+
 
 
 

@@ -102,19 +102,19 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
 
-       /* shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
+        shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
                 .loadText("加载中...")
                 .build();
         shapeLoadingDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
+                sendRequestWithOkHttp();
 
             }
-        },2000);*/
+        },2000);
 
-        sendRequestWithOkHttp();
+
 
         lvprojectmanage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -294,7 +294,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     }
 
                     lvprojectmanage.setAdapter(adapter);
-                   /* shapeLoadingDialog.setDismiss();*/
+                    shapeLoadingDialog.setDismiss();
 
 
                     break;
