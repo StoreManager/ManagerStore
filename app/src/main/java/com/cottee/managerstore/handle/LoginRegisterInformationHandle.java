@@ -124,7 +124,7 @@ public class LoginRegisterInformationHandle extends Handler {
     private static final int TO_HOME = 10;
     private static final int TO_LOGIN = 11;
 
-    private static final int SUBMIT_SUCCESS = 0;//上传店铺基本信息成功
+    private static final int SUBMIT_SUCCESS = 1;//上传店铺基本信息成功
 
     private static final int SEAT_PEOPLE_NUMBER_SUCCESS = 0;
     private static final int SEAT_PEOPLE_NUMBER_FAILD = 1;
@@ -355,20 +355,22 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.NECESSARY_INFOMATION:
                 switch (msg.arg1) {
                     case SUBMIT_SUCCESS:
-                        Properties.isSend = true;
+                        ToastUtils.showToast( context,"店铺正在审核中，成功后将以邮件方式通知您" );
+                        ((Activity)context).finish();
                         break;
                     default:
-                        Properties.isSend = false;
+                        ToastUtils.showToast( context, "服务器打瞌睡啦，请稍后再试" );
                         break;
                 }
                 break;
             case Properties.PHOTO_BULIC:
-                String obj = (String) msg.obj;
-                if (obj.equals( "ok" ) && Properties.isSend) {
-                    Toast.makeText( context, "店铺正在审核中，成功后将以邮件方式通知您", Toast.LENGTH_LONG ).show();
-                    ((RegisterStoreInfoActivity) context).finish();
-                } else {
-                    ToastUtils.showToast( context, "服务器打瞌睡啦，请稍后再试" );
+                switch (msg.arg1) {
+                    case 1:
+                        ToastUtils.showToast( context,"图片修改成功" );
+                        break;
+                    default:
+                        ToastUtils.showToast( context, "服务器打瞌睡啦，请稍后再试" );
+                        break;
                 }
                 break;
             case TO_HOME:
@@ -394,11 +396,11 @@ public class LoginRegisterInformationHandle extends Handler {
                 break;
             case Properties.SUPPLY_INFO:
                 switch (msg.arg1) {
-                    case 0:
+                    case 1:
                         ToastUtils.showToast( context, "修改成功" );
                         break;
-                    case 1:
-                        ToastUtils.showToast( context, "修改失败，请检查网络" );
+                    case 0:
+                        ToastUtils.showToast( context, "图片修改成功" );
                         break;
                 }
                 break;

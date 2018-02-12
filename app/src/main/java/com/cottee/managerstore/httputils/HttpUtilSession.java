@@ -15,17 +15,16 @@ import okhttp3.RequestBody;
  */
 
 public class HttpUtilSession {
-    public static void sendSessionOkHttpRequest(Context context,final String address, final Callback callback) {
+    public static void sendSessionOkHttpRequest(Context context, final String address, final Callback callback) {
 
         String session = UserRequestInfo.getSession();
-
         OkHttpClient client = new OkHttpClient();
 
-        RequestBody requestBody = new FormBody.Builder().add("session",session).build();
+        RequestBody requestBody = new FormBody.Builder().add( "session", session ).build();
 
         Request request = new Request.Builder()
-                .url(address).post(requestBody)
+                .url( address ).post( requestBody )
                 .build();
-        client.newCall(request).enqueue(callback);
+        client.newCall( request ).enqueue( callback );
     }
 }

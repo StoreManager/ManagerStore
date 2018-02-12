@@ -6,37 +6,52 @@
     android:descendantFocusability="blocksDescendants"
     android:padding="10dp"
     >
-        <ImageView
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/published"
-            android:id="@+id/iv_publish"
-            android:layout_width="16dp"
-            android:layout_height="16dp"/>
-        <TextView
-            android:layout_toRightOf="@id/iv_publish"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:id="@+id/tv_registerStoreName"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:text="storeName"
-            android:textColor="@color/babyblue"
-            android:textSize="16sp"
-            />
 
-        <Button
-            android:layout_marginTop="2.5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentRight="true"
-            android:id="@+id/btn_registerStoreManage"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:background="@drawable/storestyle_btn"
-            android:text="管理"
-            android:textSize="10sp"
-            />
+    <ImageView
+        android:id="@+id/iv_publish"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="17dp"
+        android:src="@mipmap/published"/>
+
+    <TextView
+        android:id="@+id/tv_registerStoreName"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/iv_publish"
+        android:gravity="center"
+        android:text="storeName"
+        android:textColor="@color/babyblue"
+        android:textSize="16sp"
+        />
+
+    <Button
+        android:id="@+id/btn_registerStoreManage"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2.5dp"
+        android:background="@drawable/storestyle_btn"
+        android:text="管理"
+        android:textSize="10sp"
+        />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_registerStoreManage"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2.5dp"
+        android:text="未审核"
+        android:textSize="10sp"
+        />
 </RelativeLayout>

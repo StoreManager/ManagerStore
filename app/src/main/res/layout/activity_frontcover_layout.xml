@@ -20,12 +20,12 @@
 
         <Button
             android:id="@+id/btn_changePhoto"
-            android:layout_width="35dp"
+            android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@mipmap/changephoto"
+            android:background="@mipmap/change"
             android:textSize="15sp"/>
     </RelativeLayout>
 

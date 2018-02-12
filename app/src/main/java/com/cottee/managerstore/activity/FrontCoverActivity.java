@@ -26,13 +26,17 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.utils.BitmapUtils;
 import com.cottee.managerstore.utils.LogUtils;
+import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.utils.ToastUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,17 +54,24 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
     private Button btn_openCamera;
     private LinearLayout ll_picture;
     private Button btn_cancel;
+    private boolean isResult=false;
 
     public static final int CAMRA_SETRESULT_CODE = 0;// 相册返回码
     public static final int PHOTO_SETRESULT_CODE = 1;// 拍照返回码
     public static final int PHOTO_CORPRESULT_CODE = 2;// 裁剪返回码
     private RelativeLayout rl_photoSubmit;
     private Button btn_photoSubmit;
+    private String path;
+    private String userEmail;
+    private String submitPath;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_frontcover_layout );
+
+        userEmail = UserRequestInfo.getUserEmail();
+        submitPath = "merchant/"+ userEmail + "surface.jpg";
 
         findView();
         Intent intent = getIntent();
@@ -139,15 +150,42 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
                 dialog.show();
                 break;
             case R.id.btn_cancel:
+                if(isResult){
+                    rl_photoSubmit.setVisibility( View.VISIBLE );
+                }
                 cancelbtnAnim();
                 break;
             case R.id.ll_picture:
                 if (ll_btn.getVisibility() == View.VISIBLE) {
                     cancelbtnAnim();
                 }
+                if(isResult){
+                    rl_photoSubmit.setVisibility( View.VISIBLE );
+                }
                 break;
             case R.id.btn_photoSubmit:
-                ToastUtils.showToast( this,"上传照片" );
+
+                if (path != null) {
+                    try {
+                        InputStream open = new FileInputStream( path );
+                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                        byte[] buffer = new byte[4096];
+                        int n = 0;
+                        while (-1 != (n = open.read( buffer ))) {
+                            output.write( buffer, 0, n );
+                        }
+
+                        OssUtils.updata( this, submitPath,
+                                output.toByteArray());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Intent pathIntent = new Intent();
+                pathIntent.putExtra( "submitPath",submitPath );
+                pathIntent.putExtra( "bitmampath",path);
+                setResult( RESULT_OK,pathIntent );
                 finish();
                 break;
             default:
@@ -324,18 +362,19 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
         else if (PHOTO_CORPRESULT_CODE == requestCode) {
             if (resultCode == RESULT_OK) {
                 LogUtils.d( "裁剪返回  = " );
-                String path = data.getStringExtra( "path" );
+                path = data.getStringExtra( "path" );
                 BitmapUtils bitmapUtils = new BitmapUtils( getApplicationContext() );
                 Bitmap bitmap = bitmapUtils.decodeFile( path );
                 iv_bigPicture.setImageBitmap( bitmap );
                 rl_photoSubmit.setVisibility( View.VISIBLE );
+                isResult=true;
             }
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(rl_photoSubmit.getVisibility()==View.VISIBLE){
+        if(isResult){
             AlertDialog.Builder builder = new AlertDialog.Builder( this );
             builder.setMessage( "图片还未上传，确定要返回吗？" );
             builder.setCancelable( true );

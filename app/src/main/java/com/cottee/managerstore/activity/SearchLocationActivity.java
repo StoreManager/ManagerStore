@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.adapter.SearchLocationAdapter;
 import com.cottee.managerstore.bean.SearchLocation;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.Utils;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;

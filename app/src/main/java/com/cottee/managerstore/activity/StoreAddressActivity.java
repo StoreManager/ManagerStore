@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.LocationInfo;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.tencent.lbssearch.object.param.SearchParam;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
@@ -95,6 +96,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
                 Intent intent = new Intent();
                 intent.putExtra( "address",address );
                 intent.putExtra( "location",Dlocations );
+                intent.putExtra( "city",city );
                 setResult( RESULT_OK,intent );
                 finish();
             }
@@ -205,6 +207,7 @@ public class StoreAddressActivity extends Activity implements TencentLocationLis
                 if (resultCode == RESULT_OK) {
                     float[] locations = data.getFloatArrayExtra( "locations" );
                     address = data.getStringExtra( "address" );
+                    city=data.getStringExtra( "city" );
                     float lat = locations[0];
                     float lot = locations[1];
                     Dlocations= new double[]{lat,lot};

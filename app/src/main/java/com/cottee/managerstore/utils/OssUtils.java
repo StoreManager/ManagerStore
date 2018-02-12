@@ -68,13 +68,12 @@ public class OssUtils {
 
     }
 
-    public static void updata(Context context, final String objectkey, final byte[] bytes,
-                              final OSSCompletedCallback<PutObjectRequest, PutObjectResult> completedCallback) {
+    public static void updata(Context context, final String objectkey, final byte[] bytes) {
         initOSS(context, new OnLoginSuccessful() {
             @Override
             public void onKeyUpData() {
                 PutObjectRequest put = new PutObjectRequest(TEST_BUCKET, objectkey, bytes);
-//                setServiceCallBack(put);
+                setServiceCallBack(put);
                 // 异步上传时可以设置进度回调
                 put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
                     @Override
@@ -82,7 +81,7 @@ public class OssUtils {
                         Log.d("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
                     }
                 });
-                OSSAsyncTask task = oss.asyncPutObject(put, completedCallback);
+//                OSSAsyncTask task = oss.asyncPutObject(put, completedCallback);
             }
         });
     }

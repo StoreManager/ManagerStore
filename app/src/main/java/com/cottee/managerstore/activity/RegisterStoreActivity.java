@@ -31,6 +31,7 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.BossLoginActivity;
 import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.Utils;
 import com.squareup.okhttp.Callback;
@@ -40,6 +41,8 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
 
 
 public class RegisterStoreActivity extends AppCompatActivity {
@@ -63,6 +66,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
 //        requestWindowFeature( Window.FEATURE_NO_TITLE );
         setContentView( R.layout.activity_registerstore );
+
         initView();
         initEvent();
         Resources resources = this.getResources();
@@ -88,16 +92,11 @@ public class RegisterStoreActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
         dl_left.setDrawerListener( mDrawerToggle );
         tv_nostore = (TextView) findViewById( R.id.tv_noStore );
-        getStoreList();
+//        getStoreList();
     }
 
     private void initView() {
         lv_registerStore = findViewById( R.id.lv_registerStore );
-//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_item);
-//        LayoutAnimationController controller = new LayoutAnimationController(animation);
-//        controller.setDelay(0.5f);
-//        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
-//        lv_registerStore .setLayoutAnimation(controller);
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
         linear_changePassword = findViewById( R.id.linear_changePassword );
@@ -151,46 +150,38 @@ public class RegisterStoreActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getStoreList();
-    }
-
-    private void getStoreList() {
-        new Thread() {
+//        getStoreList();
+        HttpUtilSession.sendSessionOkHttpRequest( mContext, Properties.GET_STORE, new okhttp3.Callback() {
             @Override
-            public void run() {
-                Utils.sendToWebService( Properties.GET_STORE, new Callback() {
-                    @Override
-                    public void onFailure(Request request, IOException e) {
-
-                    }
-                    @Override
-                    public void onResponse(Response response) throws IOException {
-                        String s = response.body().string();
-                        if (s.isEmpty()) {
-                            return;
-                        }
-                        storeList = Utils.handleStoreResponse( s );
-                        if (storeList.size() == 0) {
-                            tv_nostore.setVisibility( View.VISIBLE );
-                        } else {
-                            runOnUiThread( new Runnable() {
-                                @Override
-                                public void run() {
-                                    tv_nostore.setVisibility( View.GONE );
-                                    lv_registerStore.setVisibility( View.VISIBLE );
-                                    storeListviewAdapter = new StoreListviewAdapter(
-                                            mContext, storeList,drawable );
-                                    lv_registerStore.setAdapter( storeListviewAdapter );
-                                    storeListviewAdapter.notifyDataSetChanged();
-                                }
-                            } );
-
-                        }
-                    }
-                } );
+            public void onFailure(Call call, IOException e) {
 
             }
-        }.start();
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                String s = response.body().string();
+                if (s.isEmpty()) {
+                    return;
+                }
+                storeList = Utils.handleStoreResponse( s );
+                if (storeList.size() == 0) {
+                    tv_nostore.setVisibility( View.VISIBLE );
+                } else {
+                    runOnUiThread( new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_nostore.setVisibility( View.GONE );
+                            lv_registerStore.setVisibility( View.VISIBLE );
+                            storeListviewAdapter = new StoreListviewAdapter(
+                                    mContext, storeList,drawable );
+                            lv_registerStore.setAdapter( storeListviewAdapter );
+                            storeListviewAdapter.notifyDataSetChanged();
+                        }
+                    } );
+
+                }
+            }
+        } );
 
     }
 

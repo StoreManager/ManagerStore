@@ -32,7 +32,8 @@ public class SubmitStoreInfoManager {
     public final static int NECESSARY_INFOMATION = 8;
     public final static int PHOTO_BULIC = 9;
     public final static int SUPPLY_INFO = 14;
-    public final static int PHOTO_SURFACE= 18;
+    public final static int SUPPLY_STORE_ID = 19;
+    public final static int PHOTO_SURFACE = 18;
 
     public SubmitStoreInfoManager(Context context, LoginRegisterInformationHandle handler) {
         this.context = context;
@@ -40,9 +41,8 @@ public class SubmitStoreInfoManager {
     }
 
     private void sendRequest(final int type, final String name, final String classify, final String
-            address, final String phone,final double lat,final double lng) {
-
-
+            address, final String phone, final double lat, final double lng,final String
+            photoUrl,final String city,final String circle,final String photo) {
 
 
         new Thread() {
@@ -54,12 +54,15 @@ public class SubmitStoreInfoManager {
                     switch (type) {
                         case NECESSARY_INFOMATION:
                             request = new Request.Builder().url( Properties.NECESSARY_INFO ).post( new FormBody
-                                    .Builder().add( "name", name ).add( "classify",
-                                    classify ).add( "latitude", String.valueOf( lat ) ).add(
+                                    .Builder().add(
+                                    "session", UserRequestInfo.getSession() ).add( "name", name )
+                                    .add( "classify",
+                                            classify ).add( "latitude", String.valueOf( lat ) ).add(
                                             "longitude", String.valueOf( lng ) ).add(
-                                                    "session",UserRequestInfo.getSession() ).add(
                                             "address", address ).add(
-                                            "phone", phone )
+                                            "phone", phone ).add( "photo",photoUrl ).add(
+                                                    "city", city)
+                                    .add( "circle", "hahaha").add( "photo",photo )
                                     .build() )
                                     .build();
                             break;
@@ -85,31 +88,19 @@ public class SubmitStoreInfoManager {
         }.start();
     }
 
-    private void sendRequest(final int type, final String path) {
-        final MediaType MEDIA_TYPE_PNG = MediaType.parse( "image/png" );
-        final File f = new File( path );
+    private void sendEnvirRequest(final int type, final String path) {
         new Thread() {
-
-            private MultipartBody requestBody;
-
             @Override
             public void run() {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = null;
                     switch (type) {
-                        case PHOTO_BULIC://营业执照
-                            requestBody = new MultipartBody.Builder().setType( MultipartBody.FORM )
-                                    .addFormDataPart( "photo_buslic", f.getName(), RequestBody.create(
-                                            MEDIA_TYPE_PNG, f ) ).build();
-                            request = new Request.Builder().url( Properties.PHOTO_BUSLIC ).post( requestBody )
-                                    .build();
-                            break;
-                            case PHOTO_SURFACE://封面
-                            requestBody = new MultipartBody.Builder().setType( MultipartBody.FORM )
-                                    .addFormDataPart( "photo_buslic", f.getName(), RequestBody.create(
-                                            MEDIA_TYPE_PNG, f ) ).build();
-                            request = new Request.Builder().url( Properties.PHOTO_BUSLIC ).post( requestBody )
+                        case PHOTO_BULIC:
+                            request = new Request.Builder().url( Properties.NECESSARY_INFO ).post( new FormBody
+                                    .Builder().add(
+                                    "session", UserRequestInfo.getSession() ).add( "envir ", path )
+                                    .build() )
                                     .build();
                             break;
                         default:
@@ -123,7 +114,7 @@ public class SubmitStoreInfoManager {
                         Log.i( "ServerBackCode(服务 器返回):", str );
                         Message message = new Message();
                         message.what = type;
-                        message.obj = str;
+                        message.arg1 = Integer.parseInt( str );
                         handler.sendMessage( message );
                     }
                 } catch (IOException e) {
@@ -135,7 +126,7 @@ public class SubmitStoreInfoManager {
     }
 
     private void sendRequest(final int type, final String introduce, final String time, final
-    String money, final String reserve, final String phone) {
+    String money, final String reserve, final String phone,final String url) {
         new Thread() {
             @Override
             public void run() {
@@ -144,10 +135,11 @@ public class SubmitStoreInfoManager {
                     Request request = null;
                     switch (type) {
                         case SUPPLY_INFO:
-                            request = new Request.Builder().url( Properties.SUPPLY_INFOS).post( new FormBody
-                                    .Builder().add( "introduce", introduce ).add( "business_hours",
-                                    time ).add( "reserve", reserve ).add( "avecon", money ).add(
-                                    "phone", phone )
+                            request = new Request.Builder().url( Properties.SUPPLY_INFOS ).post( new FormBody
+                                    .Builder().add( "introduce", introduce )
+                                    .add( "business_hours",
+                                    time ).add( "reserve", reserve ).add( "avecon", money ).add( "session",UserRequestInfo.getSession
+                                    () ).add( "photo_surface",url ).add( "status","false" )
                                     .build() )
                                     .build();
                             break;
@@ -173,19 +165,61 @@ public class SubmitStoreInfoManager {
         }.start();
     }
 
+    private void sendStoreIdRequest(final int type, final String storeId) {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = null;
+                    switch (type) {
+                        case SUPPLY_STORE_ID:
+                            request = new Request.Builder().url( Properties.SUPPLY_STORE_ID ).post( new FormBody
+                                    .Builder().add( "session", UserRequestInfo.getSession() )
+                                    .add( "mer_id",storeId )
+                                    .build() )
+                                    .build();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    Response response = client.newCall( request ).execute();
+
+                    if (response.isSuccessful()) {
+                        str = response.body().string();
+                        Log.i( "ServerBackCode(服务 器返回):", str );
+                        Message message = new Message();
+                        message.what = type;
+                        message.arg1 = Integer.parseInt( str );
+                        handler.sendMessage( message );
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
+    }
+
+
+
     public void submitInfo(String name, String classify, String
-            address, String phone,double lat,double lng) {
-        sendRequest( NECESSARY_INFOMATION, name, classify, address, phone,lat,lng );
+            address, String phone, double lat, double lng,String photoUrl,String city, String
+            circle,String photo) {
+        sendRequest( NECESSARY_INFOMATION, name, classify, address, phone, lat, lng,photoUrl,
+                city,circle,photo);
     }
 
-    public void submitInfo(String path) {
-        sendRequest( PHOTO_BULIC, path );
+    public void submitEnvirInfo(String path) {
+        sendEnvirRequest( PHOTO_BULIC, path );
     }
 
-    public void changeInfo(String introduce, String time, String money, String reserve, String phone) {
-        sendRequest( SUPPLY_INFO, introduce, time, money, reserve, phone );
+    public void changeInfo(String introduce, String time, String money, String reserve, String
+            phone,String url) {
+        sendRequest( SUPPLY_INFO, introduce, time, money, reserve, phone ,url);
     }
-    public void changeSurface(String path){
-        sendRequest( PHOTO_SURFACE,path );
+    public void submitStoreId(String storeId) {
+        sendStoreIdRequest( SUPPLY_STORE_ID, storeId );
     }
 }

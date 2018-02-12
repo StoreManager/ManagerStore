@@ -79,6 +79,7 @@ public class RegisterStoreInfoActivity extends Activity {
     private String fileName = null;
     private double[] locations;
     private String name;
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +142,7 @@ public class RegisterStoreInfoActivity extends Activity {
 
                     String address = data.getStringExtra( "address" );
                     locations = data.getDoubleArrayExtra( "location" );
+                    city = data.getStringExtra( "city" );
                     tv_storeAddress.setText( address );
 
                     break;
@@ -208,8 +210,6 @@ public class RegisterStoreInfoActivity extends Activity {
                             .this, new LoginRegisterInformationHandle(
                     RegisterStoreInfoActivity.this, ""
             ) );
-            submitStoreInfo.submitInfo( shopName, shopStyle, shopAddress, shopPhoneNum,
-                    locations[0],locations[1] );
             if (fileName != null) {
                 try {
                     InputStream open = new FileInputStream( fileName );
@@ -220,20 +220,12 @@ public class RegisterStoreInfoActivity extends Activity {
                         output.write( buffer, 0, n );
                     }
                     String userEmail = UserRequestInfo.getUserEmail();
-                    OssUtils.updata( this, "merchant/"+userEmail+name + ".jpg",
+                    String submitPath="merchant/"+userEmail+name;
+                    OssUtils.updata( this, submitPath,
                             output
-                            .toByteArray(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                        @Override
-                        public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                            ToastUtils.showToast( context,"success" );
-                        }
-
-                        @Override
-                        public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
-
-                        }
-                    } );
-
+                            .toByteArray());
+                    submitStoreInfo.submitInfo( shopName, shopStyle, shopAddress, shopPhoneNum,
+                            locations[0],locations[1],fileName,city,null,submitPath);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

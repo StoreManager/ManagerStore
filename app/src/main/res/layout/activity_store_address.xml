@@ -10,7 +10,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/purplishblue">
+        android:background="@color/purplishblue"
+        android:id="@+id/linearLayout">
         <Button
             android:id="@+id/btn_back"
             android:layout_width="20dp"
@@ -30,9 +31,9 @@
         android:id="@+id/bt_search"
         android:layout_width="240dp"
         android:layout_height="35dp"
-        android:layout_above="@+id/mapview"
+        android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="27dp"
         android:background="@drawable/et_square"
         android:hint="搜索"
         android:textColorHint="@color/blueGray"
@@ -40,7 +41,7 @@
     <com.tencent.tencentmap.mapsdk.map.MapView
         android:id="@+id/mapview"
         android:layout_width="300dp"
-        android:layout_height="250dp"
+        android:layout_height="350dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 

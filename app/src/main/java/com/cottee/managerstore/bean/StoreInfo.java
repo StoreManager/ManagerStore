@@ -1,7 +1,5 @@
 package com.cottee.managerstore.bean;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,57 +7,43 @@ import java.util.List;
  * Created by user on 2017/12/10.
  */
 
-public class StoreInfo implements Serializable{
-    private int mer_id;
+public class StoreInfo implements Serializable {
+
+    /**
+     * mer_id : 1
+     * name : 老板娘烤肉店
+     * classify : 聚餐宴请
+     * introduce : 位于北京宣武门内大街的烤肉宛和什刹海北岸的烤肉季，是北京最负盛名两家烤肉店。两店一南一北，素有南宛北季之称。烤肉宛始建于康熙二十五年。最初是店主宛某带着伙计，手推小车，上置烤肉炙子，在宣武门到西革一带沿街售卖烤肉。咸丰年间，在宣武门内大街设立了固定的门面，专营烤牛肉。烤好的牛肉质嫩味鲜，馨香诱人。烤肉季开业于同治未年，店主叫季德彩，起初在风景优美的什刹海银锭桥边设摊卖烤肉。到了1920 年，才在什刹海北岸建立了店铺，专营烤羊肉。烤出的羊肉含浆滑美，令人久食不厌。
+     * phone : 15831454246
+     * address : 辽宁省大连市旅顺口区旅顺盐场海鲜街45号（大连医科大学、大连外国语学院）
+     * business_hours : 08:00-20:00
+     * status : true
+     * reserve : true
+     * pass : true
+     * avecon : 0
+     * surface : https://thethreestooges.cn/merchant/img/photo_mer/1/surface.jpg
+     * environment : ["https://thethreestooges.cn/merchant/img/photo_mer/1/environment/1.jpg","https://thethreestooges.cn/merchant/img/photo_mer/1/environment/2.jpg","https://thethreestooges.cn/merchant/img/photo_mer/1/environment/3.jpg"]
+     */
+
+    private String mer_id;
     private String name;
     private String classify;
     private String introduce;
     private String phone;
     private String address;
     private String business_hours;
-    private String status;
+    private boolean status;
     private boolean reserve;
-    private String surface;
-    private String Thumbnail_one;
-    private String Thumbnail_three;
-    private String Thumbnail_two;
     private boolean pass;
     private String avecon;
+    private String surface;
+    private List<String> environment;
 
-    public StoreInfo(int mer_id, String name, String classify, String introduce, String phone,
-                     String address, String business_hours, String status, boolean reserve,
-                     String surface, String thumbnail_one, String thumbnail_three, String
-                             thumbnail_two, boolean pass,String avecon) {
-        this.mer_id = mer_id;
-        this.name = name;
-        this.classify = classify;
-        this.introduce = introduce;
-        this.phone = phone;
-        this.address = address;
-        this.business_hours = business_hours;
-        this.status = status;
-        this.reserve = reserve;
-        this.surface = surface;
-        this.pass=pass;
-        this.avecon=avecon;
-        Thumbnail_one = thumbnail_one;
-        Thumbnail_three = thumbnail_three;
-        Thumbnail_two = thumbnail_two;
-    }
-
-    public boolean isPass() {
-        return pass;
-    }
-
-    public void setPass(boolean pass) {
-        this.pass = pass;
-    }
-
-    public int getMer_id() {
+    public String getMer_id() {
         return mer_id;
     }
 
-    public void setMer_id(int mer_id) {
+    public void setMer_id(String mer_id) {
         this.mer_id = mer_id;
     }
 
@@ -111,11 +95,11 @@ public class StoreInfo implements Serializable{
         this.business_hours = business_hours;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -127,36 +111,12 @@ public class StoreInfo implements Serializable{
         this.reserve = reserve;
     }
 
-    public String getSurface() {
-        return surface;
+    public boolean isPass() {
+        return pass;
     }
 
-    public void setSurface(String surface) {
-        this.surface = surface;
-    }
-
-    public String getThumbnail_one() {
-        return Thumbnail_one;
-    }
-
-    public void setThumbnail_one(String thumbnail_one) {
-        Thumbnail_one = thumbnail_one;
-    }
-
-    public String getThumbnail_three() {
-        return Thumbnail_three;
-    }
-
-    public void setThumbnail_three(String thumbnail_three) {
-        Thumbnail_three = thumbnail_three;
-    }
-
-    public String getThumbnail_two() {
-        return Thumbnail_two;
-    }
-
-    public void setThumbnail_two(String thumbnail_two) {
-        Thumbnail_two = thumbnail_two;
+    public void setPass(boolean pass) {
+        this.pass = pass;
     }
 
     public String getAvecon() {
@@ -166,4 +126,21 @@ public class StoreInfo implements Serializable{
     public void setAvecon(String avecon) {
         this.avecon = avecon;
     }
+
+    public String getSurface() {
+        return surface;
+    }
+
+    public void setSurface(String surface) {
+        this.surface = surface;
+    }
+
+    public List<String> getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(List<String> environment) {
+        this.environment = environment;
+    }
 }
+

@@ -36,16 +36,22 @@ import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
+import com.cottee.managerstore.utils.BitmapUtils;
 import com.cottee.managerstore.utils.ToastUtils;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by user on 2017/12/12.
  */
 
 public class DetialInfomation extends Activity implements View.OnClickListener {
+    private static final int PATH_REQ = 3;
+    private static final int ONE_REQ = 4;
+    private static final int TWO_REQ = 5;
+    private static final int THREE_REQ = 6;
     private static final int AM_TIME = 1;
     private static final int PM_TIME = 2;
     private TextView tv_storeName;
@@ -80,12 +86,14 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private TextView tv_timePM;
     private Button btn_timePM;
     private ToggleButton btn_order;
-    private boolean reserve = false;
+    private boolean reserve;
     private Drawable on;
     private Drawable off;
     private String time;
     private Button btn_back;
     private TextView isMoney;
+    private List<String> environment;
+    private SubmitStoreInfoManager submitStoreInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,21 +106,36 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         storeInfo = (StoreInfo) intent.getSerializableExtra( "storeInfo" );
         findView();
         surface = storeInfo.getSurface();
-        one = storeInfo.getThumbnail_one();
-        two = storeInfo.getThumbnail_two();
-        three = storeInfo.getThumbnail_three();
+        environment = storeInfo.getEnvironment();
         reserve = storeInfo.isReserve();
-        if (reserve == true) {
+        if (reserve) {
             btn_order.setChecked( true );
             btn_order.setBackground( on );
         } else {
             btn_order.setChecked( false );
             btn_order.setBackground( off );
         }
-        Glide.with( this ).load( surface ).into( iv_surface );
-//        Glide.with( this ).load( one ).into( iv_photo1 );
-//        Glide.with( this ).load( two ).into( iv_photo2 );
-//        Glide.with( this ).load( three ).into( iv_photo3 );
+        if (surface != null && !surface.equals( "#" ) && !surface.equals( " " )) {
+            iv_surface.setBackground( null );
+            Glide.with( this ).load( surface ).into( iv_surface );
+        }
+        if (environment.size() > 1) {
+            one = environment.get( 0 );
+            two = environment.get( 1 );
+            three = environment.get( 2 );
+            if (environment.get( 0 ) != null) {
+                iv_photo1.setBackground( null );
+                Glide.with( this ).load( environment.get( 0 ) ).into( iv_photo1 );
+            }
+            if (environment.get( 1 ) != null) {
+                iv_photo2.setBackground( null );
+                Glide.with( this ).load( environment.get( 1 ) ).into( iv_photo2 );
+            }
+            if (environment.get( 2 ) != null) {
+                iv_photo3.setBackground( null );
+                Glide.with( this ).load( environment.get( 2 ) ).into( iv_photo3 );
+            }
+        }
         time = storeInfo.getBusiness_hours();
         if (time != null) {
             String[] split = time.split( "-" );
@@ -190,7 +213,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String trim = et_money.getText().toString().trim();
-                if(trim.isEmpty()){
+                if (trim.isEmpty()) {
                     return;
                 }
                 boolean octNumber = isOctNumber( trim );
@@ -254,8 +277,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     }
 
     private void submit() {
-        if(money.isEmpty()||money.equals( "0.00" )||money.equals( "0.0" )){
-            money="0";
+        if (money.isEmpty() || money.equals( "0.00" ) || money.equals( "0.0" )) {
+            money = "0";
         }
         Drawable background = btn_order.getBackground();
         if (background == on) {
@@ -300,10 +323,10 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             return;
         }
 
-        SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
+        submitStoreInfo = new SubmitStoreInfoManager( this, new LoginRegisterInformationHandle(
                 this, ""
         ) );
-        submitStoreInfo.changeInfo( sign, time, money, String.valueOf( reserve ), phone );
+        submitStoreInfo.changeInfo( sign, time, money, String.valueOf( reserve ), phone, surface );
     }
 
     @Override
@@ -313,19 +336,22 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             case R.id.iv_surface:
                 Intent surfaceIntent = new Intent( this, FrontCoverActivity.class );
                 surfaceIntent.putExtra( "photo_url", surface );
-                startActivity( surfaceIntent );
+                startActivityForResult( surfaceIntent, PATH_REQ );
                 break;
             case R.id.iv_photo1:
                 intent.putExtra( "photo_url", one );
-                startActivity( intent );
+                intent.putExtra( "photo_id", "4" );
+                startActivityForResult( intent, ONE_REQ );
                 break;
             case R.id.iv_photo2:
                 intent.putExtra( "photo_url", two );
-                startActivity( intent );
+                intent.putExtra( "photo_id", "2" );
+                startActivityForResult( intent, TWO_REQ );
                 break;
             case R.id.iv_photo3:
                 intent.putExtra( "photo_url", three );
-                startActivity( intent );
+                intent.putExtra( "photo_id", "3" );
+                startActivityForResult( intent, THREE_REQ );
                 break;
             case R.id.et_timeAM:
                 showTimePickerDialog( btn_timeAM, timeAM, AM_TIME );
@@ -460,8 +486,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             if (str.contains( "." )) {
                 int i = str.indexOf( "." );
                 String substring = str.substring( i + 1, str.length() );
-                if(substring.length()>2){
-                    flag=false;
+                if (substring.length() > 2) {
+                    flag = false;
                 }
             }
         }
@@ -479,4 +505,46 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PATH_REQ:
+                if (resultCode == RESULT_OK) {
+                    surface = data.getStringExtra( "submitPath" );
+                    String bitmampath = data.getStringExtra( "bitmampath" );
+                    submit();
+                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+                    iv_surface.setImageBitmap( bitmap );
+                }
+            case ONE_REQ:
+                if (resultCode == RESULT_OK) {
+                    String submitPath1 = data.getStringExtra( "submitPath" );
+                    String bitmampath = data.getStringExtra( "bitmampath" );
+//                    submitStoreInfo.submitEnvirInfo( submitPath1 );
+                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+                    iv_photo1.setImageBitmap( bitmap );
+                }
+                break;
+            case TWO_REQ:
+                if (resultCode == RESULT_OK) {
+                    String submitPath2 = data.getStringExtra( "submitPath" );
+                    String bitmampath = data.getStringExtra( "bitmampath" );
+//                    submitStoreInfo.submitEnvirInfo( submitPath2 );
+                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+                    iv_photo2.setImageBitmap( bitmap );
+                }
+                break;
+            case THREE_REQ:
+                String submitPath3 = data.getStringExtra( "submitPath" );
+                if (resultCode == RESULT_OK) {
+                    String bitmampath = data.getStringExtra( "bitmampath" );
+//                    submitStoreInfo.submitEnvirInfo( submitPath3 );
+                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+                    iv_photo3.setImageBitmap( bitmap );
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
