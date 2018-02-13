@@ -45,7 +45,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private LinearLayout linear_changeStore;
     private StoreStausPopupWindow storeStausPopupWindow;
     private ImageButton imgbtn_storeStatus;
-    private Button btn_releaseStore;
     private Button pbtn_order;
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
@@ -106,7 +105,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         tv_vipManager.setOnClickListener( this );
         btntoprojectmanage = (Button) findViewById( R.id.btn_to_project_manage );
         pbtn_order.setOnClickListener( this );
-        btn_releaseStore.setOnClickListener( this );
+//        btn_releaseStore.setOnClickListener( this );
         imgbtn_storeStatus.setOnClickListener( this );
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener( this );
