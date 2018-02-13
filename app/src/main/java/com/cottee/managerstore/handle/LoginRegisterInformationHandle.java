@@ -6,17 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
-import com.cottee.managerstore.activity.RegisterStoreInfoActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
 import com.cottee.managerstore.activity1.StoreManagerMainActivity;
 import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.manage.LoginRegisterInformationManage;
 import com.cottee.managerstore.manage.ProjectTypeManage;
+import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
@@ -274,6 +273,7 @@ public class LoginRegisterInformationHandle extends Handler {
                         UserRequestInfo.setSession((String) msg.obj);
                         UserRequestInfo.setUserEmail(emailAddress);
                         UserRequestInfo.setUserPassword(loginPassword);
+
                         System.out.println("login session："+ UserRequestInfo.getSession());
                         System.out.println("login email："+ UserRequestInfo.getUserEmail());
                         System.out.println("login password："+ UserRequestInfo.getUserPassword());
@@ -281,8 +281,8 @@ public class LoginRegisterInformationHandle extends Handler {
                         Intent intent = new Intent(context, RegisterStoreActivity.class );
                         context.startActivity( intent );
                         ToastUtils.showToast( context, "登录成功" );
-                        /*UserManage userManage = new UserManage();
-                        userManage.saveUserLogin( context, emailAddress, loginPassword );*/
+                        UserManage userManage = new UserManage();
+                        userManage.saveUserLogin( context, emailAddress, loginPassword,true );
 
                         break;
                     case PSWFAILD_USERUNEXIST:

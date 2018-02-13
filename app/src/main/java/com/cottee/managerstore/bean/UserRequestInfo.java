@@ -5,10 +5,11 @@ package com.cottee.managerstore.bean;
  */
 
 public class UserRequestInfo {
-    public static String session;
+    public static String session = "";
     public static String userEmail;
     public static String userPassword;
     public static String dishType;
+
 
     public static String getSession() {
         return session;

@@ -64,7 +64,7 @@ public class ForgetPasswordActivity extends Activity {
                             pwsManage.forgetPSDCheckOutEmailPwd(emailAddress, etInputPWD);
 
                             UserManage manage = new UserManage();
-                            manage.saveUserLogin(ForgetPasswordActivity.this,emailAddress,etInputPWD);
+                            manage.saveUserLogin(ForgetPasswordActivity.this,emailAddress,etInputPWD,true);
                             manage.saveUserInfo(ForgetPasswordActivity.this,emailAddress,etInputPWD);
 
                             Intent intent = new Intent(ForgetPasswordActivity.this, RegisterStoreActivity.class);

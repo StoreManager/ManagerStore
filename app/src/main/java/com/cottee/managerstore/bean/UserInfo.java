@@ -6,7 +6,7 @@ package com.cottee.managerstore.bean;
 
 public class UserInfo {
     private String userEmail;
-
+    private boolean isLogin;
     private String password;
 
     public String getUserEmail() {
@@ -26,5 +26,11 @@ public class UserInfo {
         this.password = password;
     }
 
+    public boolean isLogin() {
+        return isLogin;
+    }
 
+    public void setLogin(boolean login) {
+        this.isLogin = login;
+    }
 }

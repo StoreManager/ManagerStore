@@ -28,11 +28,12 @@ public class UserManage {
     /**
      * 保存自动登录的用户信息
      */
-    public void saveUserLogin(Context context, String userEmail, String password) {
+    public void saveUserLogin(Context context, String userEmail, String password,boolean islogin) {
         SharedPreferences sp = context.getSharedPreferences("userLogin", Context.MODE_PRIVATE);//Context.MODE_PRIVATE表示SharePrefences的数据只有自己应用程序能访问。
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("USER_EMAIL", userEmail);
         editor.putString("PASSWORD", password);
+        editor.putBoolean("IS_LOGIN", islogin);
         editor.commit();
     }
 
@@ -57,6 +58,7 @@ public class UserManage {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserEmail(sp.getString("USER_EMAIL", ""));
         userInfo.setPassword(sp.getString("PASSWORD", ""));
+        userInfo.setLogin(sp.getBoolean("IS_LOGIN", false));
         return userInfo;
     }
 
@@ -67,7 +69,7 @@ public class UserManage {
     public boolean hasUserInfo(Context context) {
         UserInfo userInfo = getUserInfo(context);
         if (userInfo != null) {
-            if ((!TextUtils.isEmpty(userInfo.getUserEmail())) && (!TextUtils.isEmpty(userInfo.getPassword()))) {//有数据
+            if ((!TextUtils.isEmpty(userInfo.getUserEmail())) && (!TextUtils.isEmpty(userInfo.getPassword()))&&userInfo.isLogin()!=false) {//有数据
                 return true;
             } else {
                 return false;

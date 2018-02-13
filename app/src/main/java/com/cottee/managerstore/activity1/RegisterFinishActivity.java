@@ -39,7 +39,7 @@ public class RegisterFinishActivity extends Activity {
             public void onClick(View view) {
 
                 UserManage manage = new UserManage();
-                manage.saveUserLogin(RegisterFinishActivity.this,emailAddress,emailPwd);
+                manage.saveUserLogin(RegisterFinishActivity.this,emailAddress,emailPwd,true);
                 manage.saveUserInfo(RegisterFinishActivity.this,emailAddress,emailPwd);
 
 
