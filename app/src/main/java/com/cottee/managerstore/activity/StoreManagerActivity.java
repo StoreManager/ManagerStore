@@ -2,6 +2,7 @@ package com.cottee.managerstore.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -38,7 +39,6 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private Toolbar tl_custom;
     private DrawerLayout dl_left;
     private ActionBarDrawerToggle mDrawerToggle;
-    //    private TextView tv_storename_manager;
     private Button btn_storeManager;
     public Context mContext = StoreManagerActivity.this;
     private TextView tv_storeManager;
@@ -46,7 +46,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private StoreStausPopupWindow storeStausPopupWindow;
     private ImageButton imgbtn_storeStatus;
     private Button btn_releaseStore;
-    private PressureButton pbtn_order;
+    private Button pbtn_order;
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
     private int clicked = 1;
@@ -83,14 +83,12 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         mDrawerToggle.syncState();
         dl_left.setDrawerListener( mDrawerToggle );
         Intent intent = getIntent();
-//        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
-        storeid = intent.getIntExtra( "storeid", 0 );
-//        tv_storename_manager.setText( storeInfo.getName() );
+        storeInfo = (StoreInfo)intent.getSerializableExtra( "storeInfo" );
+        storeid = intent.getIntExtra( "locationStoreID", 0 );
     }
 
     private void findView() {
         pbtn_order = findViewById( R.id.pbtn_order );
-        btn_releaseStore = findViewById( R.id.btn_releaseStore );
         imgbtn_storeStatus = findViewById( R.id.imgbtn_storeStatus );
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
@@ -107,14 +105,12 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         tv_vipManager = (TextView) findViewById( R.id.tv_vipManager );
         tv_vipManager.setOnClickListener( this );
         btntoprojectmanage = (Button) findViewById( R.id.btn_to_project_manage );
-//        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
         pbtn_order.setOnClickListener( this );
         btn_releaseStore.setOnClickListener( this );
         imgbtn_storeStatus.setOnClickListener( this );
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener( this );
         btntoprojectmanage.setOnClickListener( this );
-//        btn_to_employee_manage.setOnClickListener(this);
     }
 
     @Override
@@ -128,8 +124,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.btn_storeManager:
             case R.id.tv_storeManager:
-                storeInfo = RegisterStoreActivity.storeList.get( storeid );
                 Intent intent = new Intent( this, DetialInfomation.class );
+                storeInfo=RegisterStoreActivity.storeList.get( storeid );
                 intent.putExtra( "storeInfo", storeInfo );
                 startActivity( intent );
                 break;
@@ -158,9 +154,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     view.startAnimation( scaleAnimation );
                 }
                 break;
-            case R.id.btn_releaseStore:
-                Toast.makeText( mContext, "发布店铺", Toast.LENGTH_SHORT ).show();
-                break;
+
             case R.id.pbtn_order:
                 Toast.makeText( mContext, "下单", Toast.LENGTH_SHORT ).show();
             case R.id.btn_to_project_manage:
@@ -203,6 +197,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     {
         startActivity(new Intent(StoreManagerActivity.this,ManageMoneyActivity.class));
     }
+
 
 
 }

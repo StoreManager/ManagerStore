@@ -5,6 +5,20 @@ package com.cottee.managerstore.properties;
  */
 
 public class Properties {
+    //具体菜品
+    public static  final  String PROJECT_DETAIL_MANAGE_GET_PATH ="https://thethreestooges.cn:1225/classify/item/select";
+    public static final String PROJECT_DETAIL_MANAGE_ADD_PATH="https://thethreestooges.cn:1225/classify/item/insert";
+    public static final String PROJECT_DETAIL_MANAGE_UPDATE_PATH="https://thethreestooges.cn:1225/classify/item/update";
+    public static final String PROJECT_DETAIL_MANAGE_DELETE_PATH="\n" +
+            "https://thethreestooges.cn:1225/classify/item/delete";
+
+    public static boolean isSend = false;
+    public final static int PHOTO_SURFACE= 18;
+
+    public static final int PROJECT_DETAIL_MANAGE_UPDATE =21;
+    public static final int PROJECT_DETAIL_MANAGE_ADD=24;
+    public static final int PROJECT_DETAIL_MANAGE_DELETE =23;
+
     public static final String EMAIL_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_submit.php";
     public static final String MAIL_VERIFICATION_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_validate.php";
     public static final String USER_BUILD_PATH = "http://thethreestooges.cn/merchant/bean/login/user_write.php";
@@ -15,12 +29,14 @@ public class Properties {
     public static final String STORE_PHOTO = "https://thethreestooges.cn/merchant/bean/register/photo_mer_upload.php";
     public static final String PHOTO_BUSLIC = "https://thethreestooges.cn/merchant/bean/register/photo_buslic_upload.php";
     public static final String NECESSARY_INFO = "https://thethreestooges.cn:1225/register/first/register";
-    public static final String SUPPLY_INFOS= "https://thethreestooges.cn/merchant/bean/register/update_register.php";
-
-//    public static final String SUPPLY_INFOS= "https://thethreestooges" +
+    public static final String SUPPLY_INFOS= "https://thethreestooges.cn:1225/register/supply/register";
+    public static final String SUPPLY_STORE_ID="https://thethreestooges.cn:1225/register/set/user_mer";
+    //    public static final String SUPPLY_INFOS= "https://thethreestooges" +
 //            ".cn/merchant/bean/register/supply_register.php";
-    public static final String GET_STORE = "https://thethreestooges" +
-            ".cn/merchant/bean/register/mer_show.php";//已审核的店铺地址
+    public static final String GET_STORE = "https://thethreestooges.cn:1225/register/mer/show";//已审核的店铺地址
+    public static final String STORE_ENVIR = "https://thethreestooges" +
+            ".cn:1225/register/environment/up";//店铺环境
+    //已审核的店铺地址
 
     public static  final  String PROJECT_MANAGE_ADD_PATH = "https://thethreestooges.cn:1225/classify/classify/insert";
     public static  final  String PROJECT_MANAGE_GET_PATH = "\n" +
@@ -45,10 +61,8 @@ public class Properties {
     public static final int TO_LOGIN = 11;
     public static final int SEAT_INFORMATION = 12;
     public static final int PROJECT_MANAGE_LARGE_INFORMATION = 13;
-    public static boolean isSend = false;
     public static final int SUPPLY_INFO = 14;
     public static final int PROJECT_MANAGE_GET = 15;
     public static final int PROJECT_MANAGE_UPDATE =16;
     public static final int PROJECT_MANAGE_DELETE =17;
-    public final static int PHOTO_SURFACE= 18;
 }

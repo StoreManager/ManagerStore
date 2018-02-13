@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
    <LinearLayout
+       android:id="@+id/linear_storeManage"
        android:background="@color/white"
        android:orientation="vertical"
        android:layout_width="match_parent"
@@ -14,12 +15,13 @@
     <!--DrawerLayout-->
     <include layout="@layout/store_manager_drawerlayout" />
    </LinearLayout>
-    <com.cottee.managerstore.view.PressureButton
+    <Button
         android:id="@+id/pbtn_order"
         android:text="下单"
+        android:clickable="false"
+        android:background="@color/gray"
         android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"/>
-
 </FrameLayout>

@@ -43,4 +43,13 @@
         <item name="android:windowEnterAnimation">@anim/left_in</item>
         <item name="android:windowExitAnimation">@anim/right_out</item>
     </style>
+
+
+    <!--店铺打样开店状态-->
+    <style name="StoreStausTheme" parent="android:Theme.Material.Light">
+      <item name="android:colorPrimaryDark">@color/blueGray</item>
+      <item name="android:colorPrimary">@color/blueGray</item>
+      <item name="android:windowNoTitle">@color/blueGray</item>
+      <item name="android:navigationBarColor">@color/blueGray</item>
+    </style>
 </resources>
