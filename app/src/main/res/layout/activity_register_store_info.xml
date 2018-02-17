@@ -194,7 +194,7 @@
 
     </LinearLayout>
     <Button
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="99dp"
         android:onClick="finishRegisterStore"
         android:layout_width="330dp"
         android:layout_height="50dp"

@@ -6,32 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.StoreAddressActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/purplishblue"
-        android:id="@+id/linearLayout">
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="5dp"
-            android:background="@mipmap/back_2x"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:text="店铺位置"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"/>
-    </LinearLayout>
-
+    <Button
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="31dp"
+        android:id="@+id/btn_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_toLeftOf="@id/bt_search"
+        android:background="@mipmap/back_2x"/>
     <Button
         android:id="@+id/bt_search"
         android:layout_width="240dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
         android:background="@drawable/et_square"
@@ -39,11 +25,11 @@
         android:textColorHint="@color/blueGray"
         android:textSize="10sp"/>
     <com.tencent.tencentmap.mapsdk.map.MapView
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/bt_search"
         android:id="@+id/mapview"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_width="match_parent"
+        android:layout_height="400dp"/>
 
     <TextView
         android:id="@+id/tv_location"
@@ -57,12 +43,14 @@
         android:textSize="16sp"/>
 
     <Button
-        android:background="@drawable/bt_unchecked_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/storestyle_btn"
         android:id="@+id/btn_checkout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:text="确认位置"
-        android:textColor="@color/white"
-        android:textSize="13sp"/>
+        android:textColor="@color/babyblue"
+        android:textSize="16sp"/>
 </RelativeLayout>
