@@ -68,25 +68,28 @@ public class StoreListviewAdapter extends BaseAdapter {
         } else {
             viewHolder=(ViewHolder)view.getTag();
         }
-        viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( context, StoreManagerActivity.class );
-                intent.putExtra( "storeInfo",storeList.get( i ) );
-                intent.putExtra( "locationStoreID",i );
-                SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager(
-                        context, new LoginRegisterInformationHandle(
-                        context, ""));
-                submitStoreInfo.submitStoreId( storeList.get( i ).getMer_id() );
-                context.startActivity( intent );
-            }
-        } );
         viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName());
-        if(!storeList.get( i ).isPass()){
-            viewHolder.iv_publish.setImageDrawable( drawable );
-            viewHolder.tv_storeManager.setVisibility( View.VISIBLE );
-            viewHolder.btn_storeManager.setVisibility( View.GONE );
-            view.setBackgroundColor( Color.parseColor( "#10000000" ) );
+        viewHolder.iv_publish.setImageDrawable( drawable );
+        viewHolder.tv_storeManager.setVisibility( View.VISIBLE );
+        viewHolder.btn_storeManager.setVisibility( View.GONE );
+        view.setBackgroundColor( Color.parseColor( "#10000000" ) );
+        if(storeList.get( i ).isPass()){
+            viewHolder.tv_storeManager.setVisibility( View.GONE);
+            viewHolder.btn_storeManager.setVisibility( View.VISIBLE);
+            view.setBackgroundColor( Color.parseColor( "#00000000" ) );
+            viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent( context, StoreManagerActivity.class );
+                    intent.putExtra( "storeInfo",storeList.get( i ) );
+                    intent.putExtra( "locationStoreID",i );
+                    SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager(
+                            context, new LoginRegisterInformationHandle(
+                            context, ""));
+                    submitStoreInfo.submitStoreId( storeList.get( i ).getMer_id() );
+                    context.startActivity( intent );
+                }
+            } );
         }
         return view;
     }

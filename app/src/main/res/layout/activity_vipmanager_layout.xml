@@ -27,7 +27,7 @@
             android:textSize="18dp"/>
 
         <Button
-            android:id="@+id/btn_toVipSandard"
+            android:id="@+id/btn_toVipStandard"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -55,13 +55,32 @@
         android:background="@drawable/bt_square"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <ListView
-        android:id="@+id/lv_vip"
+    <TextView
+        android:gravity="center"
+        android:textSize="16sp"
         android:layout_marginTop="5dp"
-        android:padding="10dp"
+        android:id="@+id/tv_vipNumber"
         android:layout_below="@id/actv_selectVip"
+        android:text="当前会员：0人"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_below="@id/tv_vipNumber"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#FFC0C0C0" />
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/tv_vipNumber"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </ListView>
-
+        <TextView
+            android:textColor="@color/babyblue"
+            android:gravity="center"
+            android:text="点击右上角添加会员标准吧"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 </RelativeLayout>

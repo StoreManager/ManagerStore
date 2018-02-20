@@ -1,12 +1,16 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 
@@ -17,7 +21,7 @@ import com.cottee.managerstore.R;
 public class VIPManagerActivity extends Activity implements View.OnClickListener {
 
     private Button btn_back_to_manager;
-    private String[] data={"Apple","Banana","Orange","Watermelon","Pear","Grape","Pineapple","Strawberry","Cherry","Mango"};//要储存的数据
+    private Button btn_toVipStandard;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,10 +30,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
 
         btn_back_to_manager = (Button) findViewById( R.id.btn_back_to_manager );
         btn_back_to_manager.setOnClickListener( this );
-        ListView listView = (ListView) findViewById( R.id.lv_vip );
-
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);//把每一行内容的XML文件与数据给ArrayAdapter
-        listView.setAdapter(adapter);//把ArrayAdapter给ListView
+        btn_toVipStandard = (Button) findViewById( R.id.btn_toVipStandard );
+        btn_toVipStandard.setOnClickListener( this );
     }
 
     @Override
@@ -37,6 +39,9 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.btn_back_to_manager:
                 finish();
+                break;
+            case R.id.btn_toVipStandard:
+                startActivity( new Intent( this,VIPSearchActivity.class ) );
                 break;
             default:
                 break;
