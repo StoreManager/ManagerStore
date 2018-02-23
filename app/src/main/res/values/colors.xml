@@ -46,4 +46,12 @@
 
     <color name="transparent_background_button">#11000000</color>
     <color name="transparent_background">#ffffff</color>
+
+    <color name="gray2">#FFC0C0C0</color>
+    <color name="gray3">#FF969696</color>
+    <color name="gray4">#FF808080</color>
+    <color name="gray5">#FF646464</color>
+    <color name="gray6">#FF4B4B4B</color>
+    <color name="grayDividerDark">@color/gray2</color>
+    <color name="transparentAA">#AA000000</color>
 </resources>
