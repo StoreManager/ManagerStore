@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.ManageFoodDetailActivity;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
@@ -19,6 +20,9 @@ import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
+
+import static com.cottee.managerstore.properties.Properties
+        .PROJECT_DETAIL_MANAGE_GET;
 
 
 /**
@@ -130,7 +134,10 @@ public class LoginRegisterInformationHandle extends Handler {
 
     private static final int PROJECT_MANAGE_SUCCESS = 0;
     private static final int PROJECT_MANAGE_FAILD = 1;
-    private static final int PROJECT_MANAGE_CREATE_FAILD = 250;
+    private static final int PROJECT_MANAGE_TIME_OUT = 250;
+
+    private static final int PROJECT_DETIAL_MANAGE_SUCCESS = 1;
+    private static final int PROJECT_DETIAL_MANAGE_FAILD = 0;
 
     private static final int SESSION_SUCCESS = 1;
     private LoginRegisterInformationManage session;
@@ -414,7 +421,7 @@ public class LoginRegisterInformationHandle extends Handler {
                         /*shapeLoadingDialog.setDismiss();*/
                         ToastUtils.showToast( context, "添加失败" );
                         break;
-                    case PROJECT_MANAGE_CREATE_FAILD:
+                    case PROJECT_MANAGE_TIME_OUT:
                         /*shapeLoadingDialog.setDismiss();*/
 
                         new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
@@ -433,7 +440,7 @@ public class LoginRegisterInformationHandle extends Handler {
                     case PROJECT_MANAGE_FAILD:
                         ToastUtils.showToast( context, "删除失败" );
                         break;
-                    case PROJECT_MANAGE_CREATE_FAILD:
+                    case PROJECT_MANAGE_TIME_OUT:
                         sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
                         String update = sp.getString("update", "");
                         String updateId = sp.getString("updateId", "");
@@ -451,7 +458,7 @@ public class LoginRegisterInformationHandle extends Handler {
                     case PROJECT_MANAGE_FAILD:
                         ToastUtils.showToast( context, "修改失败" );
                         break;
-                    case PROJECT_MANAGE_CREATE_FAILD:
+                    case PROJECT_MANAGE_TIME_OUT:
                         sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
                         String deleteId = sp.getString("deleteId", "");
                         new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
@@ -459,7 +466,43 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
                 }
                 break;
+                //具体菜品
+            case Properties.PROJECT_DETAIL_MANAGE_ADD:
+                switch ((String)msg.obj) {
+//                    case :
+//
+//                       /* shapeLoadingDialog.setDismiss();*/
+//
+//                        break;
+                  /*  case PROJECT_DETIAL_MANAGE_FAILD:
+                        shapeLoadingDialog.setDismiss();
+                        ToastUtils.showToast( context, "添加失败" );
+                        break;
+                    case PROJECT_MANAGE_TIME_OUT:
+                        Toast.makeText(context, "超时", Toast.LENGTH_SHORT)
+                                .show();
+                        *//*shapeLoadingDialog.setDismiss();*//*
+//                        sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
+//                        String commit = sp.getString("commit", "");
+//                        new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
+//                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageCommit(commit);
+                        break;*/
 
+                    default:
+                        System.out.println("handle json: "+(String) msg.obj);
+                        ManageFoodDetailActivity manageFoodDetailActivity =
+                                new ManageFoodDetailActivity();
+                        manageFoodDetailActivity.parseJSONWithGSON((String) msg.obj);
+
+                        break;
+
+                }
+                break;
+
+            case Properties.PROJECT_DETAIL_MANAGE_DELETE:
+                break;
+            case Properties.PROJECT_DETAIL_MANAGE_UPDATE:
+                break;
 
             default:
                 break;
