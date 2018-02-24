@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,17 +23,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.FoodDetail;
+import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
+import com.cottee.managerstore.manage.ProjectTypeDetailManager;
 import com.cottee.managerstore.utils.BitmapUtils;
+import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.view.SelectPicPopupWindow;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -48,8 +57,7 @@ public class FoodDetailActivity extends Activity {
     private TextView tv_des;
     private SelectPicPopupWindow selectPicPopupWindow;
     private String filePath = null;
-    List<FoodDetail> foodDetailList = AddFoodActivity
-            .foodDetailList;
+    List<FoodDetail> foodDetailList = ManageFoodDetailActivity.detailFoodList;
     private int positon;
     private Button btn_delete;
     private TextView tv_title;
@@ -58,10 +66,22 @@ public class FoodDetailActivity extends Activity {
     private String path;
     private LinearLayout linear_description;
     private TextView tv_countNumber;
+    private int clicked=0;
+    private List<FoodDetail.ItemListBean> item_list;
+    private Handler mHandler = new Handler();
+    private ScrollView scroll_add_detail;
+    private FoodDetail foodDetail;
+    private List<FoodDetail> detailFoodList;
+    private ProjectTypeDetailManager detailManager;
+    private View view1;
+    private View view2;
+    private View view3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
+        clicked++;
         initView();
         initData();
         initEvent();
@@ -81,24 +101,39 @@ public class FoodDetailActivity extends Activity {
         edit_foodName = findViewById(R.id.edit_foodName);
         edit_foodPrice = findViewById(R.id.edit_foodPrice);
         edit_foodDescription = findViewById(R.id.edit_foodDescription);
+        view1 = findViewById(R.id.view1);
+        view2 = findViewById(R.id.view2);
+        view3 = findViewById(R.id.view3);
     }
     private void initData() {
-
+        detailManager = new ProjectTypeDetailManager(this,new LoginRegisterInformationHandle());
+        detailFoodList = ManageFoodDetailActivity.detailFoodList;
+        item_list = foodDetailList.get
+                (positon).getItem_list();
         positon = getIntent().getIntExtra("position", 0);
-        tv_foodName.setText(AddFoodActivity.foodDetailList.get(positon).getFoodName());
-        tv_foodPrice.setText(AddFoodActivity.foodDetailList.get(positon).getPrice());
-        imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(AddFoodActivity.foodDetailList.get(positon).getFoodImg()));
-        tv_des.setText(AddFoodActivity.foodDetailList.get(positon).getDescription());
-        tv_title.setText(AddFoodActivity.foodDetailList.get(positon).getFoodName());
+        tv_foodName.setText(item_list.get(positon).getName());
+        tv_foodPrice.setText(item_list.get(positon).getUnivalence());
+        imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getPhoto()));
+        tv_des.setText(item_list.get(positon).getDescription());
+        tv_title.setText(item_list.get(positon).getName());
+//        positon = getIntent().getIntExtra("position", 0);
+//        tv_foodName.setText(AddFoodActivity.foodDetailList.get(positon).getFoodName());
+//        tv_foodPrice.setText(AddFoodActivity.foodDetailList.get(positon).getPrice());
+//        imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(AddFoodActivity.foodDetailList.get(positon).getFoodImg()));
+//        tv_des.setText(AddFoodActivity.foodDetailList.get(positon).getDescription());
+//        tv_title.setText(AddFoodActivity.foodDetailList.get(positon).getFoodName());
     }
     private void initEvent() {
         btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+             clicked++;
                 btn_delete.setVisibility(View.GONE);
                 btn_ok.setVisibility(View.VISIBLE);
 
+                view1.setVisibility(View.GONE);
+                view2.setVisibility(View.GONE);
+                view3.setVisibility(View.GONE);
 
                 imgbtn_foodImg.setClickable(true);
                 btn_cancelEdit.setVisibility(View.VISIBLE);
@@ -150,7 +185,7 @@ public class FoodDetailActivity extends Activity {
 
                             }
                         });
-                        selectPicPopupWindow.showAtLocation(FoodDetailActivity.this.findViewById(R.id.linear_add),
+                        selectPicPopupWindow.showAtLocation(FoodDetailActivity.this.findViewById(R.id.scroll_add_detail),
                                 Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                     }
                 });
@@ -162,6 +197,39 @@ public class FoodDetailActivity extends Activity {
 
                 edit_foodName.setVisibility(View.VISIBLE);
                 edit_foodPrice.setVisibility(View.VISIBLE);
+                //金额判断
+                edit_foodPrice.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i,
+                                                  int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int
+                            i1, int i2) {
+                        String edit_price = edit_foodPrice.getText().toString().trim();
+                        if (edit_price.isEmpty())
+                        {
+                            return;
+                        }
+                        boolean octNumber = DetialInfomation.isOctNumber(edit_price);
+                        if (octNumber)
+                        {
+
+                        }
+                        else {
+                            Toast.makeText(FoodDetailActivity.this, "金额输入有误！",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
                 linear_description.setVisibility(View.VISIBLE);
 
                 edit_foodName.setText(tv_foodName.getText().toString());
@@ -177,12 +245,12 @@ public class FoodDetailActivity extends Activity {
                 tv_des.setText(edit_foodDescription.getText().toString());
 
 
-                AddFoodActivity.foodDetailList.get(positon).setFoodName(tv_foodName.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setPrice(tv_foodPrice.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setDescription(tv_des.getText().toString().trim());
+                item_list.get(positon).setName(tv_foodName.getText().toString().trim());
+                item_list.get(positon).setUnivalence(tv_foodPrice.getText().toString().trim());
+                item_list.get(positon).setDescription(tv_des.getText().toString().trim());
 
                 if (filePath!=null) {
-                    AddFoodActivity.foodDetailList.get(positon).setFoodImg(filePath);
+                   item_list.get(positon).setPhoto(filePath);
 
                 }
 
@@ -195,6 +263,9 @@ public class FoodDetailActivity extends Activity {
                 btn_ok.setVisibility(View.GONE);
                 btn_delete.setVisibility(View.VISIBLE);
 
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.VISIBLE);
+                view3.setVisibility(View.VISIBLE);
 
                 imgbtn_foodImg.setClickable(false);
                 btn_change.setVisibility(View.VISIBLE);
@@ -207,12 +278,13 @@ public class FoodDetailActivity extends Activity {
                 tv_des.setVisibility(View.VISIBLE);
 
 
-                AddFoodActivity.foodDetailList.get(positon).setFoodName(tv_foodName.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setPrice(tv_foodPrice.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setDescription(tv_des.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setFoodImg(filePath);
+                item_list.get(positon).setName(tv_foodName.getText().toString().trim());
+                item_list.get(positon).setUnivalence(tv_foodPrice.getText().toString().trim());
+                item_list.get(positon).setDescription(tv_des.getText().toString().trim());
+                item_list.get(positon).setPhoto(filePath);
             }
         });
+
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -225,19 +297,42 @@ public class FoodDetailActivity extends Activity {
                 tv_foodName.setVisibility(View.VISIBLE);
                 tv_foodPrice.setVisibility(View.VISIBLE);
                 tv_des.setVisibility(View.VISIBLE);
-                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(AddFoodActivity.foodDetailList.get(positon).getFoodImg()));
+                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getName()));
                 tv_foodName.setText(edit_foodName.getText().toString());
                 tv_foodPrice.setText(edit_foodPrice.getText().toString());
                 tv_des.setText(edit_foodDescription.getText().toString());
-                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(AddFoodActivity.foodDetailList.get(positon).getFoodImg()));
+                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getName()));
 
-                AddFoodActivity.foodDetailList.get(positon).setFoodName(tv_foodName.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setPrice(tv_foodPrice.getText().toString().trim());
-                AddFoodActivity.foodDetailList.get(positon).setDescription(tv_des.getText().toString().trim());
+                item_list.get(positon).setName(tv_foodName.getText().toString().trim());
+                item_list.get(positon).setUnivalence(tv_foodPrice.getText().toString().trim());
+                item_list.get(positon).setDescription(tv_des.getText().toString().trim());
 
                 if (path!=null) {
-                    AddFoodActivity.foodDetailList.get(positon).setFoodImg(path);
+                    item_list.get(positon).setPhoto(path);
+                    try {
+                        InputStream open = new FileInputStream( path );
+                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                        byte[] buffer = new byte[4096];
+                        int n = 0;
+                        while (-1 != (n = open.read( buffer ))) {
+                            output.write( buffer, 0, n );
+                        }
+
+                        OssUtils.updata( FoodDetailActivity.this
+                                , AddFoodActivity.objectKey,
+                                output.toByteArray());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    detailManager.projectDetailManageUpdate(edit_foodName.getText().toString()
+                            ,item_list.get(positon).getClass_id()
+                            ,item_list.get(positon).getItem_id()
+                            ,edit_foodPrice.getText().toString()
+                            ,edit_foodDescription.getText().toString()
+                            ,path);
                 }
+
                 finish();
             }
         });
@@ -254,14 +349,25 @@ public class FoodDetailActivity extends Activity {
                     @Override
                     public void onShow(DialogInterface dialog) {
                         //残忍删除
+                        final ProjectTypeDetailManager detailManager =
+                                new ProjectTypeDetailManager(FoodDetailActivity.this,new LoginRegisterInformationHandle());
+
+                        final String class_id = detailFoodList.get(positon)
+                                .getItem_list().get(positon).getClass_id();
+                        final String item_id = detailFoodList.get(positon)
+                                .getItem_list().get(positon).getItem_id();
+
                         Button btn_positive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                         btn_positive.setTextColor(Color.GRAY);
                         btn_positive.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View view) {
-                                AddFoodActivity.foodDetailList.remove(positon);
+                                detailManager.projectDetailManageDelete(class_id,item_id);
+                                ManageFoodDetailActivity.detailFoodList.remove(positon);
                                 finish();
+
+
                             }
                         });
                         Button btn_negative=alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
@@ -380,27 +486,34 @@ public class FoodDetailActivity extends Activity {
     }
     public void backType(View v)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder
-                (FoodDetailActivity.this);
-        builder.setTitle("用户提示")
-                .setMessage("小主确定放弃本次编辑吗？")
-                .setCancelable(false);
-        builder.setPositiveButton("放弃", new DialogInterface.OnClickListener() {
+        if (clicked==1)
+        {
+            finish();
+        }
+        else {
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
+            AlertDialog.Builder builder = new AlertDialog.Builder
+                    (FoodDetailActivity.this);
+            builder.setTitle("用户提示")
+                    .setMessage("小主确定放弃本次编辑吗？")
+                    .setCancelable(false);
+            builder.setPositiveButton("放弃", new DialogInterface.OnClickListener() {
 
-        builder.setNegativeButton("不放弃", new DialogInterface
-                .OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+
+            builder.setNegativeButton("不放弃", new DialogInterface
+                    .OnClickListener() {
 
 
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        builder.show();
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            builder.show();
+        }
     }
 }

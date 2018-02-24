@@ -39,7 +39,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private Toolbar tl_custom;
     private DrawerLayout dl_left;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Button btn_storeManager;
+    private ImageButton btn_storeManager;
     public Context mContext = StoreManagerActivity.this;
     private TextView tv_storeManager;
     private LinearLayout linear_changeStore;
@@ -49,11 +49,17 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
     private int clicked = 1;
-    private Button btntoprojectmanage;
-    private Button btn_to_employee_manage;
+    private ImageButton btntoprojectmanage;
+    private ImageButton btn_to_employee_manage;
     private int storeid;
-    private Button btn_vipManager;
+    private ImageButton btn_vipManager;
     private TextView tv_vipManager;
+    private TextView tv_to_project_manage;
+    private TextView tv_to_employee_manage;
+    private ImageButton btn_moneyManage;
+    private TextView tv_moneyManage;
+    private ImageButton btn_orderManage;
+    private TextView tv_orderManage;
 
 
     @Override
@@ -62,7 +68,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         setContentView( R.layout.activity_storemanager );
         findView();
         tl_custom.setTitle( "" );//设置Toolbar标题
-        tl_custom.setBackgroundColor( getResources().getColor( R.color.purplishblue ) );
+        tl_custom.setBackgroundColor( getResources().getColor( R.color.gray ) );
 //        tl_custom.setTitleTextColor(getResources().getColor(R.color.white)); //设置标题颜色
         setSupportActionBar( tl_custom );
         getSupportActionBar().setHomeButtonEnabled( true ); //设置返回键可用
@@ -91,21 +97,26 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         imgbtn_storeStatus = findViewById( R.id.imgbtn_storeStatus );
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
-        btn_to_employee_manage = (Button) findViewById(R.id.btn_to_employee_manage);
+        btn_to_employee_manage =  findViewById(R.id.btn_to_employee_manage);
+        tv_to_employee_manage = findViewById(R.id.tv_to_employee_manage);
+        btn_moneyManage = findViewById(R.id.btn_moneyManage);
+        tv_moneyManage = findViewById(R.id.tv_moneyManage);
+        btn_orderManage = findViewById(R.id.btn_orderManage);
+        tv_orderManage = findViewById(R.id.tv_orderManage);
         btn_to_employee_manage.setOnClickListener(this);
         linear_changeStore = findViewById( R.id.linear_changeStore );
         tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
-        btn_storeManager = (Button) findViewById( R.id.btn_storeManager );
+        btn_storeManager =  findViewById( R.id.btn_storeManager );
         btn_storeManager.setOnClickListener( this );
         tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
         tv_storeManager.setOnClickListener( this );
-        btn_vipManager = (Button) findViewById( R.id.btn_vipManager );
+        btn_vipManager =  findViewById( R.id.btn_vipManager );
         btn_vipManager.setOnClickListener( this );
         tv_vipManager = (TextView) findViewById( R.id.tv_vipManager );
         tv_vipManager.setOnClickListener( this );
-        btntoprojectmanage = (Button) findViewById( R.id.btn_to_project_manage );
+        btntoprojectmanage =  findViewById( R.id.btn_to_project_manage );
+        tv_to_project_manage = findViewById(R.id.tv_to_project_manage);
         pbtn_order.setOnClickListener( this );
-//        btn_releaseStore.setOnClickListener( this );
         imgbtn_storeStatus.setOnClickListener( this );
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener( this );
@@ -145,12 +156,41 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
                     scaleAnimation.setDuration( 200 );
                     view.startAnimation( scaleAnimation );
+                    btn_storeManager.setBackgroundResource(R.mipmap.storemanage);
+                    tv_storeManager.setTextColor(getResources().getColor(R.color.babyblue));
+                    btntoprojectmanage.setBackgroundResource(R.mipmap.food);
+                    tv_to_project_manage.setTextColor(getResources().getColor(R.color.babyblue));
+                    btn_to_employee_manage.setBackgroundResource(R.mipmap.employee);
+                    tv_to_employee_manage.setTextColor(getResources().getColor(R.color.babyblue));
+                    btn_vipManager.setBackgroundResource(R.mipmap.vipmanage);
+                    tv_vipManager.setTextColor(getResources().getColor(R.color.babyblue));
+                    btn_moneyManage.setBackgroundResource(R.mipmap.managemoney);
+                    tv_moneyManage.setTextColor(getResources().getColor(R.color.babyblue));
+                    btn_orderManage.setBackgroundResource(R.mipmap.order);
+                    tv_orderManage.setTextColor(getResources().getColor(R.color.babyblue));
+                    tl_custom.setBackgroundColor( getResources().getColor( R.color.purplishblue ) );
+                    pbtn_order.setBackgroundResource(R.color.purplishblue);
+
                 } else {
                     view.setBackgroundResource( R.mipmap.closethedoor );
                     ScaleAnimation scaleAnimation = new ScaleAnimation( 0.8f, 1.3f,
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
                     scaleAnimation.setDuration( 200 );
                     view.startAnimation( scaleAnimation );
+                    btn_storeManager.setBackgroundResource(R.mipmap.storemanage_close);
+                    tv_storeManager.setTextColor(getResources().getColor(R.color.gray));
+                    btntoprojectmanage.setBackgroundResource(R.mipmap.foodmanage_close);
+                    tv_to_project_manage.setTextColor(getResources().getColor(R.color.gray));
+                    btn_to_employee_manage.setBackgroundResource(R.mipmap.employeemanage_close);
+                    tv_to_employee_manage.setTextColor(getResources().getColor(R.color.gray));
+                    btn_vipManager.setBackgroundResource(R.mipmap.vipmanage_close);
+                    tv_vipManager.setTextColor(getResources().getColor(R.color.gray));
+                    btn_moneyManage.setBackgroundResource(R.mipmap.moneymanage_close);
+                    tv_moneyManage.setTextColor(getResources().getColor(R.color.gray));
+                    btn_orderManage.setBackgroundResource(R.mipmap.ordermanage_close);
+                    tv_orderManage.setTextColor(getResources().getColor(R.color.gray));
+                    tl_custom.setBackgroundColor( getResources().getColor( R.color.gray ) );
+                    pbtn_order.setBackgroundResource(R.color.gray);
                 }
                 break;
 

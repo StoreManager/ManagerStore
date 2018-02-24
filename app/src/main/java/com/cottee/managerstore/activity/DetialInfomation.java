@@ -457,7 +457,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     }
 
     //十进制
-    private boolean isOctNumber(String str) {
+    public static boolean isOctNumber(String str) {
         boolean flag = true;
         for (int i = 0, n = str.length(); i < n; i++) {
             char c = str.charAt( i );
