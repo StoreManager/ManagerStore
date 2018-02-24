@@ -87,6 +87,8 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private ImageView imv_back_to_storemanager;
     private PopupMenu popupMenu;
     private ImageView iv_menu;
+    public static String dishId;
+    public static String dishName;
 
 
     @Override
@@ -119,12 +121,12 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         lvprojectmanage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String dishId = dishTypeIdList.get(position);
-                String dishName = dishTypeNameList.get(position);
+                dishId = dishTypeIdList.get(position);
+                dishName = dishTypeNameList.get(position);
                 Intent intent = new Intent(ProjectManageActivity.this,
                         ManageFoodDetailActivity.class);
-                intent.putExtra("position",dishId);
-                intent.putExtra("positionName",dishName);
+                intent.putExtra("position", dishId);
+                intent.putExtra("positionName", dishName);
                 startActivity(intent);
 //                ToastUtils.showToast(ProjectManageActivity.this,"Id"+dishId);
             }
