@@ -4,17 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-   <LinearLayout
-       android:id="@+id/linear_storeManage"
-       android:background="@color/white"
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-    <!--Toolbar-->
-    <include layout="@layout/store_manager_toolbar" />
-    <!--DrawerLayout-->
-    <include layout="@layout/store_manager_drawerlayout" />
-   </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linear_storeManage"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--Toolbar-->
+        <include layout="@layout/store_manager_toolbar" />
+        <!--DrawerLayout-->
+        <!--<include layout="@layout/store_manager_drawerlayout" />-->
+        <include layout="@layout/layout_store_manager"/>
+    </LinearLayout>
     <Button
         android:id="@+id/pbtn_order"
         android:text="下单"

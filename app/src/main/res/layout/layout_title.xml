@@ -5,14 +5,13 @@
                 android:background="@color/babyblue">
 
     <Button
-        android:id="@+id/iv_back"
+        android:id="@+id/btn_back"
         android:onClick="backType"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:background="@mipmap/back_2x"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:scaleType="centerInside"
       />
 
@@ -21,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:singleLine="true"
-        android:layout_toLeftOf="@+id/btn_pop_menu"
-        android:layout_toRightOf="@+id/iv_back"
+        android:layout_toLeftOf="@+id/btn_editFood"
+        android:layout_toRightOf="@+id/btn_back"
         android:gravity="center"
         android:text="甜点"
         android:layout_marginTop="5dp"
@@ -31,21 +30,22 @@
         android:layout_centerInParent="true"/>
 
     <Button
-        android:id="@+id/btn_pop_menu"
+        android:id="@+id/btn_editFood"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_alignBaseline="@+id/iv_back"
-        android:layout_alignBottom="@+id/iv_back"
+        android:layout_marginTop="10dp"
+        android:layout_alignBaseline="@+id/btn_back"
+        android:layout_alignBottom="@+id/btn_back"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@mipmap/popmenu"
+        android:background="@mipmap/editfood_btn"
         android:scaleType="centerInside"/>
     <Button
         android:id="@+id/btn_cancelEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:text="取消"
+        android:textSize="13sp"
         android:layout_marginTop="5dp"
         android:textColor="#fff"
         android:background="@null"

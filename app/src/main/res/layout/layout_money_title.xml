@@ -4,7 +4,7 @@
                 android:layout_height="40dp"
                 android:background="#2942af">
     <Button
-        android:id="@+id/iv_back"
+        android:id="@+id/btn_back"
         android:onClick="backType"
         android:background="@mipmap/back_2x"
         android:layout_width="25dp"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:singleLine="true"
-        android:layout_toRightOf="@+id/iv_back"
+        android:layout_toRightOf="@+id/btn_back"
         android:gravity="center"
         android:text="账目"
         android:textColor="#ffffff"

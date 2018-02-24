@@ -6,13 +6,20 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:background="@color/colorAccent"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <include android:id="@+id/include"
                  layout="@layout/layout_title"/>
-    </RelativeLayout>
+        <Button
+            android:onClick="addFood"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/addfood_btn"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_weight="1"

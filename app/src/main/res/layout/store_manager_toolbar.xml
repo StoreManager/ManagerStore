@@ -16,15 +16,6 @@
         android:layout_marginLeft="40dp"
         android:textColor="@color/white"
         android:textSize="16sp"/>
-    <!--<TextView-->
-        <!--android:id="@+id/tv_Status"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:gravity="center"-->
-        <!--android:text="店铺状态"-->
-        <!--android:layout_marginLeft="50dp"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="16sp"/>-->
     <ImageButton
 
         android:id="@+id/imgbtn_storeStatus"

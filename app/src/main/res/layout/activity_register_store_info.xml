@@ -201,7 +201,7 @@
         android:text="完成"
         android:layout_gravity="center"
         android:background="@drawable/storestyle_btn"
-        android:textColor="@color/babyblue"
+        android:textColor="@drawable/button_font_style"
         android:textSize="16sp"
         />
 </LinearLayout>

@@ -1,157 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linear_add"
-    android:scrollbars="none"
+    android:id="@+id/scroll_add_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <include layout="@layout/layout_food_detail_title"/>
+
         <ImageButton
-            android:scaleType="fitXY"
-            android:clickable="false"
-            android:background="@mipmap/addimage"
             android:id="@+id/imgbtn_foodImg"
-            android:layout_marginTop="20dp"
             android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_height="150dp"/>
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/addimage"
+            android:clickable="false"
+            android:scaleType="fitXY"/>
+
         <LinearLayout
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="28dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="菜品名字 :"
-                android:textSize="15sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="名称 :"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"/>
+
             <TextView
                 android:id="@+id/tv_foodName"
-                android:text="肉"
-                android:textSize="13sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_marginRight="20dp"
+                android:gravity="right"
+                android:text="肉"
+                android:textSize="13sp"/>
+
             <EditText
                 android:id="@+id/edit_foodName"
-                android:visibility="gone"
-                android:textSize="13sp"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/editsharp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:clickable="true"
+                android:drawableBottom="@drawable/edit_line"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textSize="13sp"/>
         </LinearLayout>
 
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray"/>
 
         <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="28dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
             <TextView
-                android:text="菜品单价 :"
-                android:textSize="15sp"
-                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:background="@mipmap/moneya"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="价格 :"
+                android:textSize="15sp"/>
+
             <TextView
                 android:id="@+id/tv_foodPrice"
-                android:text="12"
-                android:textSize="13sp"
-                android:layout_marginTop="8dp"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:gravity="right"
+                android:text="12"
+                android:textSize="13sp"/>
+
             <EditText
                 android:id="@+id/edit_foodPrice"
-                android:visibility="gone"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:digits="1234567890."
+                android:layout_marginLeft="8dp"
+                android:drawableBottom="@drawable/edit_line"
+                android:gravity="right"
+                android:inputType="number"
+                android:singleLine="true"
                 android:textSize="13sp"
-                android:gravity="start"
-                android:inputType="numberDecimal"
-                android:background="@drawable/editsharp"
-                android:layout_marginTop="8dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_height="wrap_content">
+                android:visibility="gone"/>
+
             <TextView
-                android:text="菜品描述 : "
-                android:textSize="15sp"
-                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:gravity="right"
+                android:text="元"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+               android:layout_gravity="center_vertical"
+                android:text="描述 : "
+                android:textSize="15sp"/>
+
             <TextView
                 android:id="@+id/tv_des"
-                android:text="AAAA"
-                android:textSize="13sp"
-                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_marginRight="20dp"
+                android:gravity="right"
+                android:maxLines="15"
+                android:text="AAAA"
+                android:textSize="13sp"/>
+
             <LinearLayout
                 android:id="@+id/linear_description"
-                android:visibility="gone"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
                 <EditText
                     android:id="@+id/edit_foodDescription"
-                    android:gravity="start"
-                    android:textSize="13sp"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/editsharp"
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"/>
+                    android:background="@null"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:drawableBottom="@drawable/edit_line"
+                    android:gravity="right"
+                    android:textSize="13sp"/>
+
                 <TextView
                     android:id="@+id/tv_countNumber"
-                    android:text="还剩余100字"
+                     android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:text="还剩余100字"/>
             </LinearLayout>
 
         </LinearLayout>
-        <FrameLayout
+
+        <View
+            android:id="@+id/view3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray"/>
+
+        <FrameLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="120dp"
-                android:background="#7274ab"
-                android:visibility="gone"
                 android:layout_gravity="bottom"
+                android:background="#7274ab"
                 android:text="完成"
-                android:textColor="#fff"/>
+                android:textColor="#fff"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"/>
+
 
             <Button
                 android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="120dp"
-                android:background="@mipmap/delete"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
-                />
+                android:background="@mipmap/delete"/>
         </FrameLayout>
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

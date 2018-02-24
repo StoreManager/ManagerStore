@@ -51,15 +51,17 @@
     android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="50dp">
-    <ImageView
-        android:background="@mipmap/money_manage"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订单编号："
+        android:textSize="16sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"/>
+
     <TextView
         android:id="@+id/tv_every_income"
-        android:text="珍珠奶茶"
+        android:text="0123456789"
         android:textSize="16sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"

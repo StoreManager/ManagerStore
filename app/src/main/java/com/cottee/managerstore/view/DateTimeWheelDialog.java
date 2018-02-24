@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.adapter.ManageMoneyListViewAdapter;
 import com.cottee.managerstore.wheelwidget.AbstractWheelTextAdapter1;
 import com.cottee.managerstore.wheelwidget.OnWheelChangedListener;
 import com.cottee.managerstore.wheelwidget.OnWheelScrollListener;
@@ -41,7 +42,7 @@ public class DateTimeWheelDialog extends Dialog {
 
     private static ArrayList<String> arry_years = new ArrayList<String>();
     private static ArrayList<String> arry_months = new ArrayList<String>();
-    private static ArrayList<String> arry_days = new ArrayList<String>();
+    public static ArrayList<String> arry_days = new ArrayList<String>();
 
     private CalendarTextAdapter mYearAdapter;
     private CalendarTextAdapter mMonthAdapter;
@@ -52,7 +53,6 @@ public class DateTimeWheelDialog extends Dialog {
 
     private static final int MAXTEXTSIZE = 20;
     private static final int MINTEXTSIZE = 14;
-
 
 
     public DateTimeWheelDialog(@NonNull Context context) {
@@ -122,7 +122,7 @@ public class DateTimeWheelDialog extends Dialog {
         wv_month.setCurrentItem(getPositionByMonthWheel(selectMonth));
         wv_month.setCyclic(true);
 
-//        initializeDays(calculateCurrentDays(selectYear, selectMonth));
+        initializeDays(calculateCurrentDays(selectYear, selectMonth));
 ////        mDaydapter = new CalendarTextAdapter(context, arry_days, Integer.parseInt(selectDay) - 1, MAXTEXTSIZE, MINTEXTSIZE);
 //        wv_day.setVisibleItems(5);
 //        wv_day.setViewAdapter(mDaydapter);
@@ -263,14 +263,14 @@ public class DateTimeWheelDialog extends Dialog {
 
     }
 
-//    private void initializeDays(int days) {
-//        arry_days.clear();
-//        for (int i = 1; i <= days; i++) {
-//            arry_days.add(i + "日");
-//
-//        }
-//
-//    }
+    public void initializeDays(int days) {
+        arry_days.clear();
+        for (int i = 1; i <= days; i++) {
+            arry_days.add(i + "日");
+
+        }
+
+    }
 
     public DateTimeWheelDialog setSelectedDate(String registerTime) {
         if (!registerTime.equals("") && registerTime != null) {
@@ -332,7 +332,7 @@ public class DateTimeWheelDialog extends Dialog {
      * @param month
      * @param year
      */
-    private int calculateCurrentDays(String year, String month) {
+    public static int calculateCurrentDays(String year, String month) {
         int day = 0;
         boolean leayYear = false;
         if (Integer.parseInt(year) % 4 == 0 && Integer.parseInt(year) % 100 != 0) {

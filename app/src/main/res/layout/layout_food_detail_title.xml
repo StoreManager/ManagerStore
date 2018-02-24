@@ -5,9 +5,10 @@
                 android:background="@color/babyblue">
 
     <Button
-        android:id="@+id/iv_back"
+        android:id="@+id/btn_back"
         android:onClick="backType"
         android:padding="5dp"
+        android:layout_marginLeft="10dp"
         android:background="@mipmap/back_2x"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -21,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:singleLine="true"
-        android:layout_toLeftOf="@+id/btn_pop_menu"
-        android:layout_toRightOf="@+id/iv_back"
+        android:layout_toLeftOf="@+id/btn_editFood"
+        android:layout_toRightOf="@+id/btn_back"
         android:gravity="center"
         android:text="蛋糕"
         android:textColor="#ffffff"
@@ -31,23 +32,23 @@
 
     <Button
         android:id="@+id/btn_change"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:scaleType="centerInside"
-        android:background="@null"
-        android:textColor="#fff"
-        android:text="修改"/>
-    <Button
-        android:id="@+id/btn_cancelEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:background="@mipmap/editfood_btn"
+       />
+    <Button
+        android:id="@+id/btn_cancelEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="取消"
         android:textColor="#fff"
         android:background="@null"
+        android:textSize="14sp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+
         android:scaleType="centerInside"
         android:visibility="gone"/>
 </RelativeLayout>

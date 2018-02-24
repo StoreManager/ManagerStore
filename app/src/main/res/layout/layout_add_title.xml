@@ -5,7 +5,7 @@
                 android:background="@color/babyblue">
 
     <Button
-        android:id="@+id/iv_back"
+        android:id="@+id/btn_back"
         android:onClick="backType"
         android:layout_marginLeft="5dp"
         android:background="@mipmap/back_2x"
@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:singleLine="true"
-        android:layout_toLeftOf="@+id/btn_pop_menu"
-        android:layout_toRightOf="@+id/iv_back"
+        android:layout_toLeftOf="@+id/btn_editFood"
+        android:layout_toRightOf="@+id/btn_back"
         android:gravity="center"
         android:text="添加菜品"
         android:textColor="#ffffff"
