@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-                android:orientation="vertical">
-
-    <include layout="@layout/layout_custom_title"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -38,7 +31,7 @@
             android:focusable="false"
             android:src="@mipmap/ic_search"/>
 
-        <Button
+        <EditText
             android:id="@+id/btn_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,25 +56,5 @@
             android:layout_marginTop="5dp"
             android:background="@mipmap/clear_content"/>
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:divider="@null"
-            android:id="@+id/lv_employee_manage_information"/>
-
-    </LinearLayout>
-
-
 
 </LinearLayout>

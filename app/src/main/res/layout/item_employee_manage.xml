@@ -20,32 +20,15 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:background="@mipmap/employee_header"
-                android:layout_marginLeft="20dp"/>
-            <ImageView
-                android:id="@+id/imv_employee_status"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/circle_status_work_employee_manage"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="55dp"
-                android:visibility="visible"/>
+                android:layout_marginLeft="18dp"/>
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/circle_status_rest_employee_manage"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="55dp"
-                android:visibility="gone"/>
         </FrameLayout>
 
 
 
         <View
             android:layout_width="0.5dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:background="#747373"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"/>
@@ -58,7 +41,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
@@ -79,7 +63,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp">
                 <TextView
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
@@ -106,8 +91,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
             <Button
-                android:layout_width="10dp"
-                android:layout_height="25dp"
+                android:layout_width="8dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:background="@mipmap/next_arrow_icon"/>

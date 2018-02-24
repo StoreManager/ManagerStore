@@ -1,8 +1,11 @@
 package com.cottee.managerstore.activity1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.cottee.managerstore.R;
@@ -13,10 +16,11 @@ import com.cottee.managerstore.widget.Title;
  * Created by Administrator on 2018/1/2.
  */
 
-public class EmployeeManageActivity extends Activity {
+public class EmployeeManageActivity extends Activity implements View.OnClickListener {
 
     private ListView lv_employee_manage_information;
     private Title title;
+    private Button btn_search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class EmployeeManageActivity extends Activity {
 
     private void initView() {
         lv_employee_manage_information = (ListView) findViewById(R.id.lv_employee_manage_information);
+        btn_search = (Button) findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(this);
     }
     private void initTitle(){
         title = (Title)findViewById(R.id.title);
@@ -41,7 +47,7 @@ public class EmployeeManageActivity extends Activity {
         //可加button1
         title.mSetButtonInfo(new Title.ButtonInfo(true, Title
                 .BUTTON_RIGHT1, 0,
-                "me"));
+                "添加员工"));
         title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
             @Override
             public void onClick(int id, Title.ButtonViewHolder viewHolder) {
@@ -49,10 +55,23 @@ public class EmployeeManageActivity extends Activity {
                     case Title.BUTTON_RIGHT1:
                         break;
                     case Title.BUTTON_LEFT:
+                        finish();
                         break;
                 }
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+        case R.id.btn_search:
+            Intent intent = new Intent(EmployeeManageActivity.this,EmployeeManageSearchActivity.class);
+            startActivity(intent);
+            break;
+        default:
+        break;
+        }
     }
 }

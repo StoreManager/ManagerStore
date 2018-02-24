@@ -55,5 +55,5 @@
     <color name="gray6">#FF4B4B4B</color>
     <color name="grayDividerDark">@color/gray2</color>
     <color name="transparentAA">#AA000000</color>
-
+    <color name="gray0">#FFEEEEEE</color>
 </resources>
