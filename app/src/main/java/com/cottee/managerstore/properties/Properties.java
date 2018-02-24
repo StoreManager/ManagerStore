@@ -18,6 +18,7 @@ public class Properties {
     public static final int PROJECT_DETAIL_MANAGE_UPDATE =21;
     public static final int PROJECT_DETAIL_MANAGE_ADD=24;
     public static final int PROJECT_DETAIL_MANAGE_DELETE =23;
+    public static final int PROJECT_DETAIL_MANAGE_GET =22;
 
     public static final String EMAIL_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_submit.php";
     public static final String MAIL_VERIFICATION_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_validate.php";
