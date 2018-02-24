@@ -56,7 +56,7 @@ public class ManageMoneyListViewAdapter extends BaseAdapter {
         return view;
     }
     public static class ViewHolder {
-        private TextView tv_day;
+        public TextView tv_day;
         private TextView tv_week;
         private TextView tv_income;
         private TextView tv_every_income;

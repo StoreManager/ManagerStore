@@ -1,6 +1,6 @@
 package com.cottee.managerstore.adapter;
 
-import android.graphics.BitmapFactory;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,24 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
-import com.cottee.managerstore.activity.AddFoodActivity;
+import com.cottee.managerstore.activity.ManageFoodDetailActivity;
 import com.cottee.managerstore.bean.FoodDetail;
+import com.cottee.managerstore.utils.OssUtils;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatFlagsException;
 import java.util.List;
+
 
 /**
  * Created by Administrator on 2017-12-21.
  */
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.RecVH> {
-    public List<FoodDetail> products= AddFoodActivity.foodDetailList;
-
-  public   int mEditMode = View.GONE;
+    public List<FoodDetail> products=ManageFoodDetailActivity.detailFoodList;
+  public  int mEditMode = View.GONE;
     private MyItemClickListener myItemClickListener;
+    private Context context;
     //构造方法传入数据
-    public RecyclerviewAdapter(List<FoodDetail >products, MyItemClickListener myItemClickListener){
+    public RecyclerviewAdapter(Context context,List<FoodDetail >products, MyItemClickListener myItemClickListener){
+        this.context=context;
         this.products=products;
         this.myItemClickListener=myItemClickListener;
     }
@@ -52,24 +57,30 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyler,parent,false);
         return new RecVH(view);
     }
-    private boolean flag=false;
-    public void setSelectedGone(){
-        flag=true;
-    }
-
-    //  将数据放入相应的位置
+    //  将数据放入相应的位置f
     @Override
     public void onBindViewHolder(final RecVH holder, int position) {
-       final FoodDetail foodDetail= products.get(holder.getAdapterPosition());
-        holder.ivPic.setImageBitmap(BitmapFactory.decodeFile(products.get(position).getFoodImg()));
-        holder.tvTitle.setText(products.get(position).getFoodName());
-        holder.tv_price.setText(products.get(position).getPrice());
-        holder.tv_description.setText(products.get(position).getDescription());
+        FoodDetail foodDetail= products.get(position);
+        String photo = products.get(position).getItem_list().get(position)
+                .getPhoto();
+        if (photo!=null)
+         {
+             OssUtils.downImagefromOss(context, photo);
+             Glide.with(context)
+                     .load(photo)
+                     .error(R.mipmap.erro)
+                     .placeholder(R.mipmap.notshow)
+                     .into(holder.ivPic);
+         }
+            holder.tvTitle.setText(products.get(position).getItem_list().get(position).getName());
+            holder.tv_price.setText(products.get(position).getItem_list().get(position).getUnivalence());
+            holder.tv_description.setText(products.get(position).getItem_list().get(position).getDescription());
+
 
         if (mEditMode==View.GONE){
             holder.img_checkBox.setVisibility(View.GONE);
-        }  else
-        {
+        }
+       else{
             holder.img_checkBox.setVisibility(View.VISIBLE);
             if (foodDetail.isSelect())
             {
