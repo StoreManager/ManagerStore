@@ -24,15 +24,11 @@ import com.squareup.okhttp.Request;
 import java.io.IOException;
 import java.io.InputStream;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-
 public class OssUtils {
     private final static String TEST_BUCKET = "thethreestooges";
     private static String KEY_ID = "STS.J4G2KHA54nktUV6g83uVygCjn";
     private static String SECRET_KEY_ID = "2aEFRYXejM3BM7px7sQW3Vkb7fZT4TKM2FZN18VKyUuY";
-    private final static String endpoint = "http://oss-cn-shenzhen.aliyuncs" +
+    public final static String endpoint = "http://oss-cn-shenzhen.aliyuncs" +
             ".com";
     private static String TOKEN =
             "CAIS/QF1q6Ft5B2yfSjIq/fyefH8rOoV2amfV3CHgzhmedlViIbBjDz2IHtKe3ZvAekZsfkwlWxT7fwclqp5QZUd0e9GxzM0vPpt6gqET9frma7ctM4p6vCMHWyUFGSIvqv7aPn4S9XwY+qkb0u++AZ43br9c0fJPTXnS+rr76RqddMKRAK1QCNbDdNNXGtYpdQdKGHaOITGUHeooBKJVxAx4Fsk0DMisP3vk5DD0HeE0g2mkN1yjp/qP52pY/NrOJpCSNqv1IR0DPGajnEPtEATq/gr0/0Yomyd4MvuCl1Q8giANPHP7tpsIQl2a643AadYq+Lmkvl1qmkSey1SFdInGoABZWT8M1buzA7KRNqHKKAzFbD3A/Ud7k1us6hSIhvLz7v5hUpdHqaMbAqI7dMN2Ww88KfV1rde7alJL7yjY7PSW20joRDaK/qr+/A5pHoxdePf/76duaw15aL4RCxly6hdK7ZwHICZdunQlbJ+VCurRyTliBTjKga632dwwChOs3U=";
@@ -56,17 +52,6 @@ public class OssUtils {
         void onKeyUpData();
     }
 
-    public static void updata(Context context, final String objectkey, final String
-            filepath) {
-        initOSS(context, new OnLoginSuccessful() {
-            @Override
-            public void onKeyUpData() {
-                PutObjectRequest put = new PutObjectRequest(TEST_BUCKET, objectkey, filepath);
-                setServiceCallBack(put);
-            }
-        });
-
-    }
 
     public static void updata(Context context, final String objectkey, final byte[] bytes) {
         initOSS(context, new OnLoginSuccessful() {
@@ -86,7 +71,7 @@ public class OssUtils {
         });
     }
 
-    public static void down(Context context, final String objectKey) {
+    public static void downImagefromOss(Context context, final String objectKey) {
         initOSS(context, new OnLoginSuccessful() {
             @Override
             public void onKeyUpData() {
@@ -162,7 +147,7 @@ public class OssUtils {
         });
     }
 
-    private final static String requestPah = "https://thethreestooges" +
+    public final static String requestPah = "https://thethreestooges" +
             ".cn:5210/identity/oss/token.php";
 
     private static void getInfo(final OnLoginSuccessful onLoginSuccessful) {
