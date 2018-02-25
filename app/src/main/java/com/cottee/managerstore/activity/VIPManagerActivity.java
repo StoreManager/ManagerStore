@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,8 +72,15 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     public void OnCenterItemClick(VIPStandardDialog dialog, View view) {
         switch (view.getId()) {
             case R.id.dialog_sure:
-                Toast.makeText(this, "确定按钮", Toast.LENGTH_SHORT ).show();
-                dialog.dismiss();
+                String[] string = getString( centerDialog );
+                if (string == null) {
+                    return;
+                } else {
+                    Toast.makeText( this, "确定按钮", Toast
+                            .LENGTH_SHORT )
+                            .show();
+                    dialog.dismiss();
+                }
                 break;
             case R.id.dialog_cancel:
                 dialog.dismiss();
@@ -80,5 +88,23 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
             default:
                 break;
         }
+    }
+
+    @Override
+    public String[] getString(VIPStandardDialog dialog) {
+        EditText et_name = (EditText) dialog.findViewById( R.id.et_vipStandardName );
+        EditText et_min = (EditText) dialog.findViewById( R.id.et_min );
+        EditText et_max = (EditText) dialog.findViewById( R.id.et_max );
+        String name = et_name.getText().toString().trim();
+        String min = et_min.getText().toString().trim();
+        String max = et_max.getText().toString().trim();
+        if (name.isEmpty()) {
+            Toast.makeText( this, "输入名字哦", Toast.LENGTH_SHORT ).show();
+            return null;
+        }else if(min.isEmpty()||max.isEmpty()){
+            Toast.makeText( this, "输入积分区间哦", Toast.LENGTH_SHORT ).show();
+            return null;
+        }
+        return new String[]{name, min, max};
     }
 }
