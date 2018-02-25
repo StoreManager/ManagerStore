@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/purplishblue">
@@ -17,70 +18,98 @@
             android:layout_marginTop="15dp"
             android:background="@mipmap/back_2x"
             android:gravity="center_horizontal"/>
+
         <TextView
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="会员管理"
             android:textColor="@color/white"
             android:textSize="18dp"/>
 
         <Button
-            android:id="@+id/btn_toVipStandard"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/btn_addVipStandard"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:background="@mipmap/menu"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/addsmall"
             android:textSize="15sp"/>
     </RelativeLayout>
 
-    <AutoCompleteTextView
-        android:layout_marginLeft="5dp"
-        android:id="@+id/actv_selectVip"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:background="@drawable/et_square"
-        android:completionThreshold="2"
-        android:dropDownHorizontalOffset="0dp"
-        android:hint="会员查询"
-        android:textCursorDrawable="@drawable/autotextview"/>
-    <Button
-        android:layout_marginLeft="10dp"
-        android:layout_alignBaseline="@id/actv_selectVip"
-        android:layout_alignParentRight="true"
-        android:text="取消"
-        android:background="@drawable/bt_square"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:gravity="center"
-        android:textSize="16sp"
-        android:layout_marginTop="5dp"
-        android:id="@+id/tv_vipNumber"
-        android:layout_below="@id/actv_selectVip"
-        android:text="当前会员：0人"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:layout_below="@id/tv_vipNumber"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#FFC0C0C0" />
     <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/tv_vipNumber"
+        android:id="@+id/rl_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/ll_searchVIP"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <AutoCompleteTextView
+                android:id="@+id/actv_selectVip"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/et_square"
+                android:completionThreshold="2"
+                android:dropDownHorizontalOffset="0dp"
+                android:hint="会员查询"
+                android:textCursorDrawable="@drawable/autotextview"/>
+
+            <Button
+                android:id="@+id/btn_searchVIP"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/actv_selectVip"
+                android:background="@mipmap/search"/>
+        </LinearLayout>
         <TextView
-            android:textColor="@color/babyblue"
+            android:id="@+id/tv_vipNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_searchVIP"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="当前会员：0人"
+            android:textSize="16sp"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/tv_vipNumber"
+            android:layout_marginTop="5dp"
+            android:background="#FFC0C0C0"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_search">
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
             android:gravity="center"
             android:text="点击右上角添加会员标准吧"
-            android:textSize="16sp"
+            android:textColor="@color/babyblue"
+            android:textSize="16sp"/>
+
+        <ListView
+            android:id="@+id/lv_vipStandard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="gone">
+        </ListView>
     </RelativeLayout>
 </RelativeLayout>
