@@ -155,7 +155,9 @@ public class StoreStyleActivity extends AppCompatActivity implements ViewPager.O
         myHandler = new myHandler(StoreStyleActivity.this,fragments);
         initViews();
     }
-
+    public void back(View view){
+        finish();
+    }
     private void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
             @Override

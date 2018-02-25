@@ -10,11 +10,28 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         >
-        <com.cottee.managerstore.view.TabContainerView
-            android:id="@+id/ll_tab_container"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/purplishblue" />
+            android:background="@color/purplishblue">
+
+            <Button
+                android:id="@+id/btn_back_to_register"
+                android:onClick="back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@mipmap/back_2x"
+                android:gravity="center_horizontal"/>
+            <com.cottee.managerstore.view.TabContainerView
+                android:layout_toRightOf="@id/btn_back_to_register"
+                android:id="@+id/ll_tab_container"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/purplishblue" />
+        </RelativeLayout>
         <android.support.v4.view.ViewPager
             android:id="@+id/tab_pager"
             android:layout_width="match_parent"
