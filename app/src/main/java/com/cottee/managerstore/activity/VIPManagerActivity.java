@@ -15,23 +15,30 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.view.VIPStandardDialog;
 
 /**
  * Created by user on 2018/1/16.
  */
 
-public class VIPManagerActivity extends Activity implements View.OnClickListener {
+public class VIPManagerActivity extends Activity implements View.OnClickListener, VIPStandardDialog
+        .OnCenterItemClickListener  {
 
     private Button btn_back_to_manager;
     private Button btn_toVipStandard;
     private Button btn_searchVIP;
     private TextView tv_empty;
     private ListView lv_vipStandard;
+    private VIPStandardDialog centerDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_vipmanager_layout );
+
+        centerDialog = new VIPStandardDialog( this, R.layout.dialog_layout,
+                new int[]{R.id.dialog_cancel, R.id.dialog_sure} );
+        centerDialog.setOnCenterItemClickListener( this );
 
         btn_back_to_manager = (Button) findViewById( R.id.btn_back_to_manager );
         btn_back_to_manager.setOnClickListener( this );
@@ -50,10 +57,25 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
                 finish();
                 break;
             case R.id.btn_addVipStandard:// 添加会员标准
-                startActivity( new Intent( this,VIPSearchActivity.class ) );
+                centerDialog.show();
                 break;
             case R.id.btn_searchVIP://搜索会员
                 ToastUtils.showToast( this,"search" );
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void OnCenterItemClick(VIPStandardDialog dialog, View view) {
+        switch (view.getId()) {
+            case R.id.dialog_sure:
+                Toast.makeText(this, "确定按钮", Toast.LENGTH_SHORT ).show();
+                dialog.dismiss();
+                break;
+            case R.id.dialog_cancel:
+                dialog.dismiss();
                 break;
             default:
                 break;
