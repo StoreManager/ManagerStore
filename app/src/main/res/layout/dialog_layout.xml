@@ -15,7 +15,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:text="会员等级名称："
-            android:textColor="#F88833"
+            android:textColor="@color/colorBackground"
             android:textSize="16sp"/>
 
         <EditText
@@ -40,7 +40,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:text="等级积分区间："
-            android:textColor="#F88833"
+            android:textColor="@color/colorBackground"
             android:textSize="16sp"/>
 
         <EditText
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="——"
-            android:textColor="#F88833"
+            android:textColor="@color/colorBackground"
             android:textSize="16sp"/>
         <EditText
             android:id="@+id/et_max"
@@ -88,7 +88,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="取消"
-            android:textColor="#6FBF6A"
+            android:textColor="@color/colorTitle"
             android:textSize="20sp"/>
 
         <View
@@ -103,7 +103,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="确定"
-            android:textColor="#6FBF6A"
+            android:textColor="@color/colorTitle"
             android:textSize="20sp"/>
     </LinearLayout>
 

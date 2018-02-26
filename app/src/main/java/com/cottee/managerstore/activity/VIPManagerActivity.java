@@ -15,8 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.adapter.VIPStandardAdapter;
+import com.cottee.managerstore.bean.VIPStandard;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.view.VIPStandardDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 2018/1/16.
@@ -31,7 +36,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     private TextView tv_empty;
     private ListView lv_vipStandard;
     private VIPStandardDialog centerDialog;
-
+    public static List<VIPStandard> vipStandardList=new ArrayList<VIPStandard>();
+    private VIPStandardAdapter vipStandardAdapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -49,6 +55,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
         btn_searchVIP.setOnClickListener( this );
         tv_empty = (TextView) findViewById( R.id.tv_empty );
         lv_vipStandard = (ListView) findViewById( R.id.lv_vipStandard );
+        vipStandardAdapter = new VIPStandardAdapter( this, vipStandardList );
+        lv_vipStandard.setAdapter( vipStandardAdapter );
     }
 
     @Override
@@ -67,7 +75,6 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
                 break;
         }
     }
-
     @Override
     public void OnCenterItemClick(VIPStandardDialog dialog, View view) {
         switch (view.getId()) {
@@ -76,9 +83,10 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
                 if (string == null) {
                     return;
                 } else {
-                    Toast.makeText( this, "确定按钮", Toast
-                            .LENGTH_SHORT )
-                            .show();
+                    tv_empty.setVisibility( View.GONE );
+                    lv_vipStandard.setVisibility( View.VISIBLE );
+                    vipStandardList.add(new VIPStandard( string[0],string[1],string[2] ));
+                    vipStandardAdapter.notifyDataSetChanged();
                     dialog.dismiss();
                 }
                 break;
