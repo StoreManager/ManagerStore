@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -30,7 +31,16 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
         initView();
         EmployeeManageAdapter adapter = new EmployeeManageAdapter(this);
         lv_employee_manage_information.setAdapter(adapter);
+        lv_employee_manage_information.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(EmployeeManageActivity.this,EmployeeManageInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     private void initView() {
         lv_employee_manage_information = (ListView) findViewById(R.id.lv_employee_manage_information);
