@@ -3,10 +3,12 @@ package com.cottee.managerstore.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +26,18 @@ import java.util.List;
  */
 
 public class VIPManagerActivity extends Activity implements View.OnClickListener, VIPStandardDialog
-        .OnCenterItemClickListener  {
+        .OnCenterItemClickListener,PopupMenu.OnMenuItemClickListener   {
 
     private Button btn_back_to_manager;
-    private Button btn_toVipStandard;
+    private View btn_menu;
     private Button btn_searchVIP;
     private TextView tv_empty;
     private ListView lv_vipStandard;
     private VIPStandardDialog centerDialog;
     public static List<VIPStandard> vipStandardList=new ArrayList<VIPStandard>();
     private VIPStandardAdapter vipStandardAdapter;
+    private PopupMenu mMenu;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -45,8 +49,14 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
 
         btn_back_to_manager = (Button) findViewById( R.id.btn_back_to_manager );
         btn_back_to_manager.setOnClickListener( this );
-        btn_toVipStandard = (Button) findViewById( R.id.btn_addVipStandard );
-        btn_toVipStandard.setOnClickListener( this );
+        btn_menu = findViewById( R.id.btn_menu );
+        if(btn_menu!=null){
+            btn_menu.setOnClickListener( this );
+            mMenu = new PopupMenu( this, btn_menu );
+            mMenu.getMenuInflater().inflate( R.menu.popupmenu, mMenu.getMenu() );
+            mMenu.setOnMenuItemClickListener( this );
+        }
+
         btn_searchVIP = (Button) findViewById( R.id.btn_searchVIP );
         btn_searchVIP.setOnClickListener( this );
         tv_empty = (TextView) findViewById( R.id.tv_empty );
@@ -61,8 +71,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
             case R.id.btn_back_to_manager:
                 finish();
                 break;
-            case R.id.btn_addVipStandard:// 添加会员标准
-                centerDialog.show();
+            case R.id.btn_menu:
+                mMenu.show();
                 break;
             case R.id.btn_searchVIP://搜索会员
                 ToastUtils.showToast( this,"search" );
@@ -110,5 +120,17 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
             return null;
         }
         return new String[]{name, min, max};
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.action_addLevel) {  //根据ItemId进行判断。
+            centerDialog.show();
+            return true;
+        }else if(menuItem.getItemId()==R.id.action_edit){
+            Toast.makeText( this, "编辑", Toast.LENGTH_SHORT ).show();
+            return true;
+        }
+        return false;
     }
 }
