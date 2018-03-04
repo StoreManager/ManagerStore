@@ -1,13 +1,9 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -102,7 +98,7 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     public String[] getString(VIPStandardDialog dialog) {
         EditText et_name = (EditText) dialog.findViewById( R.id.et_vipStandardName );
         EditText et_min = (EditText) dialog.findViewById( R.id.et_min );
-        EditText et_max = (EditText) dialog.findViewById( R.id.et_max );
+        EditText et_max = (EditText) dialog.findViewById( R.id.et_level_introd );
         String name = et_name.getText().toString().trim();
         String min = et_min.getText().toString().trim();
         String max = et_max.getText().toString().trim();

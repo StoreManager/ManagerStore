@@ -20,12 +20,12 @@
 
         <EditText
             android:id="@+id/et_vipStandardName"
-            android:maxLength="8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:hint="如VIP1、青铜会员"
+            android:maxLength="8"
             android:textSize="14sp"/>
 
     </LinearLayout>
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
-            android:text="等级积分区间："
+            android:text="最小等级积分："
             android:textColor="@color/colorBackground"
             android:textSize="16sp"/>
 
@@ -52,23 +52,33 @@
             android:hint="0"
             android:inputType="number"
             android:textSize="12sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="——"
+            android:layout_margin="10dp"
+            android:text="会员等级描述："
             android:textColor="@color/colorBackground"
             android:textSize="16sp"/>
-        <EditText
-            android:id="@+id/et_max"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="7dp"
-            android:hint="300"
-            android:inputType="number"
-            android:textSize="12sp"/>
 
+        <EditText
+            android:id="@+id/et_level_introd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:ellipsize="end"
+            android:hint="例：该等级下限为100积分，即达到100积分，便可成为本级会员；若想成为高一级会员，则需要300积分。在本等级可享受8.8折优惠。"
+            android:inputType="text"
+            android:textSize="12sp"/>
     </LinearLayout>
 
     <View

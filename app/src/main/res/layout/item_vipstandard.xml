@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <RelativeLayout
-        android:background="@color/babyblue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#5d5f9e">
+
         <TextView
             android:layout_margin="10dp"
-            android:textColor="#efefef"
-            android:textSize="16sp"
-            android:text="青铜会员"
             android:id="@+id/tv_standardName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_vipLevelNumber"
-            android:layout_margin="10dp"
-            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="青铜会员"
             android:textColor="#efefef"
-            android:textSize="16sp"
-            android:text="等级人数:355"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_margin="10dp"
+            android:id="@+id/tv_vipLevelNumber"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="等级人数:355"
+            android:textColor="#efefef"
+            android:textSize="16sp"/>
+
         <TextView
             android:id="@+id/tv_interval"
-            android:layout_margin="10dp"
-            android:layout_below="@id/tv_standardName"
-            android:text="积分区间:"
-            android:textSize="16sp"
-            android:textColor="#efefef"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_standardName"
+            android:layout_margin="10dp"
+            android:text="积分下限："
+            android:textColor="#efefef"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_min"
@@ -41,28 +47,27 @@
             android:layout_below="@id/tv_standardName"
             android:layout_margin="10dp"
             android:layout_toRightOf="@id/tv_interval"
-            android:text="0"
+            android:text="300"
             android:textColor="#efefef"
             android:textSize="16sp"/>
         <TextView
-            android:id="@+id/tv_interval_logo"
+            android:id="@+id/tv_level_intro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_standardName"
-            android:layout_toRightOf="@id/tv_min"
+            android:layout_below="@id/tv_min"
             android:layout_margin="10dp"
-            android:text="——"
+            android:text="等级描述："
             android:textColor="#efefef"
             android:textSize="16sp"/>
 
         <TextView
-            android:id="@+id/tv_max"
+            android:id="@+id/tv_level_introd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_standardName"
+            android:layout_below="@id/tv_min"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@id/tv_interval_logo"
-            android:text="300"
+            android:layout_toRightOf="@id/tv_level_intro"
+            android:text="该等级积分下限为300，即达到300积分就可成为本级会员，在此等级可享受对应优惠折扣；若想成为高一级会员，则积分需要达到500积分。"
             android:textColor="#efefef"
             android:textSize="16sp"/>
     </RelativeLayout>

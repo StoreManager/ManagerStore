@@ -7,13 +7,13 @@ package com.cottee.managerstore.bean;
 public class VIPStandard {
     private String standardName;//会员名称
     private String min;//最小积分
-    private String max;//最大积分
+    private String level_introd;//等级描述
     private String number;
 
-    public VIPStandard(String standardName, String min, String max) {
+    public VIPStandard(String standardName, String min, String level_introd) {
         this.standardName = standardName;
         this.min = min;
-        this.max = max;
+        this.level_introd = level_introd;
     }
 
     public String getStandardName() {
@@ -32,12 +32,12 @@ public class VIPStandard {
         this.min = min;
     }
 
-    public String getMax() {
-        return max;
+    public String getLevel_introd() {
+        return level_introd;
     }
 
-    public void setMax(String max) {
-        this.max = max;
+    public void setLevel_introd(String level_introd) {
+        this.level_introd = level_introd;
     }
 
     public String getNumber() {

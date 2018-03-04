@@ -1,8 +1,6 @@
 package com.cottee.managerstore.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -50,14 +48,14 @@ public class VIPStandardAdapter extends BaseAdapter {
             viewHolder.tv_standardName = view.findViewById( R.id.tv_standardName );
             viewHolder.tv_vipLevelNumber = view.findViewById( R.id.tv_vipLevelNumber );
             viewHolder.tv_min = view.findViewById( R.id.tv_min );
-            viewHolder.tv_max = view.findViewById( R.id.tv_max );
+            viewHolder.tv_max = view.findViewById( R.id.tv_level_introd );
             view.setTag( viewHolder );
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.tv_standardName.setText( vipStandardList.get( i ).getStandardName() );
         viewHolder.tv_min.setText( vipStandardList.get( i ).getMin() );
-        viewHolder.tv_max.setText( vipStandardList.get( i ).getMax() );
+        viewHolder.tv_max.setText( vipStandardList.get( i ).getLevel_introd() );
         if (vipStandardList.get( i ).getNumber() == null) {
             viewHolder.tv_vipLevelNumber.setText( "等级人数：0" );
         } else {
