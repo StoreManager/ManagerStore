@@ -43,6 +43,8 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private List<ProjectManageInfo> projectList = new ArrayList<>();
     /*private List<ProjectManageInfo> projectTestList = new ArrayList<>();*/
     private List<String> addDishList = new ArrayList<>();
+    private List<String> moveUpdateDishList = new ArrayList<>();
+    private List<String> moveUpdateDishIdList = new ArrayList<>();
     private List<String> updateDishList = new ArrayList<>();
     private List<String> updateDishIdList = new ArrayList<>();
     private List<String> deleteIdList = new ArrayList<>();
@@ -56,6 +58,8 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private List<String> dishesExampleList = new ArrayList<>();
     private List<String> allDishTypeList = new ArrayList<>();
 
+    private String moveUpdateType="";
+    private String moveUpdateIdType="";
     private String updateType="";
     private String updateIdType="";
     private String deleteType="";
@@ -138,7 +142,38 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
 
 
+    private String updateSlideData(){
+        for (int i = 0; i< moveUpdateDishList.size(); i++){
 
+            String updateDishType = moveUpdateDishList.get(i);
+            if(i == moveUpdateDishList.size()-1 ){
+                moveUpdateType = moveUpdateType+updateDishType;
+
+            }else{
+                moveUpdateType = moveUpdateType+updateDishType+"#";
+            }
+
+        }
+        String update = moveUpdateType.trim();
+        /*update = update.substring(0, -1);*/
+        return update;
+    }
+    private String updateSlideIdData(){
+        for (int i = 0; i< moveUpdateDishIdList.size(); i++){
+
+            String updateDishType = moveUpdateDishIdList.get(i);
+            if(i == moveUpdateDishIdList.size()-1 ){
+                moveUpdateIdType = moveUpdateIdType+updateDishType;
+
+            }else{
+                moveUpdateIdType = moveUpdateIdType+updateDishType+"#";
+            }
+
+        }
+        String update = moveUpdateIdType.trim();
+        /*update = update.substring(0, -1);*/
+        return update;
+    }
 
     private String updateData(){
         for (int i = 0; i< updateDishList.size(); i++){
@@ -193,8 +228,28 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     public void onClick(View view) {
         switch(view.getId()){
         case R.id.btn_project_manage_add_classify_save:
+            if(beginPosition!=endPosition){
+                moveUpdateDishList.clear();
+                moveUpdateDishIdList.clear();
+                ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
+                        (ProjectManageAddClassifyActivity.this,""));
+                moveUpdateDishList.add(jsonDishName.get(endPosition));
+                moveUpdateDishIdList.add(jsonDishId.get(beginPosition));
+                moveUpdateDishList.add(jsonDishName.get(beginPosition));
+                moveUpdateDishIdList.add(jsonDishId.get(endPosition));
+                String update = updateSlideData();
+                String updateId = updateSlideIdData();
 
+                System.out.println("滑动更新名字:"+update);
+                System.out.println("滑动更新id:"+updateId);
+
+                if (!update.equals("")&&!updateId.equals("")){
+
+                    manage.projectManageUpdate(update,updateId);
+                }
+            }
             finish();
+
         break;
 
 
@@ -330,6 +385,8 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
             viewHolder.btnItemUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    updateDishList.clear();
+                    updateDishIdList.clear();
                     projectName = projectManageList.get(position).getProjectName();
                     Log.d("ssss","名字是："+projectName);
                     final EditText et = new EditText(ProjectManageAddClassifyActivity.this);
@@ -370,6 +427,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                         System.out.println("更新id:"+updateId);
 
                                         if (!update.equals("")&&!updateId.equals("")){
+
 
                                             manage.projectManageUpdate(update,updateId);
                                         }
