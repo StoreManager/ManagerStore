@@ -1,12 +1,15 @@
 package com.cottee.managerstore.activity1;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.cottee.managerstore.R;
@@ -63,6 +66,20 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
             public void onClick(int id, Title.ButtonViewHolder viewHolder) {
                 switch (id) {
                     case Title.BUTTON_RIGHT1:
+
+                        final EditText et = new EditText(EmployeeManageActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EmployeeManageActivity.this);
+                        builder.setTitle("请输入员工姓名");
+                        builder.setView(et);
+                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                        builder.setNegativeButton("cancel",null);
+                        builder.show();
                         break;
                     case Title.BUTTON_LEFT:
                         finish();

@@ -141,6 +141,8 @@
         </activity>
         <activity android:name=".activity1.EmployeeManageInfoActivity">
         </activity>
+        <activity android:name=".activity1.SuccessAddEmployeeActivity">
+        </activity>
     </application>
 
 </manifest>
