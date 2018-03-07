@@ -94,6 +94,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private TextView isMoney;
     private List<String> environment;
     private SubmitStoreInfoManager submitStoreInfo;
+    private ImageView shop_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,8 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
 
     private void findView() {
 
+        shop_icon = (ImageView)findViewById( R.id.iv_shop_icon );
+        shop_icon.setOnClickListener( this );
         tv_storeName = (TextView) findViewById( R.id.tv_storeName );
 
         btn_edit = (Button) findViewById( R.id.btn_edit );
@@ -361,6 +364,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_backs:
                 onBackPressed();
+                break;
+            case R.id.iv_shop_icon:
+                ToastUtils.showToast( this,"修改头像" );
                 break;
             default:
                 break;
