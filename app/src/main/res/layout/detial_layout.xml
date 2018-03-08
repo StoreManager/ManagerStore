@@ -40,7 +40,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginRight="15dp"
             android:ellipsize="end"
             android:gravity="right"
@@ -129,7 +129,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,49 +138,59 @@
             android:text="营业时间"
             android:textColor="#000"/>
         <LinearLayout
+            android:layout_marginRight="8dp"
+            android:gravity="center"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:orientation="horizontal">
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_timeAM"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="9:00"
+                android:text="19:00"
                 android:textColor="#000"/>
 
             <Button
+                android:text="11:12"
+                android:textSize="10sp"
                 android:id="@+id/et_timeAM"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
                 android:visibility="gone"/>
 
             <TextView
-                android:layout_width="20dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="--"
                 android:textColor="#000"/>
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/tv_timePM"
-                android:layout_width="50dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
                 android:text="20:00"
                 android:textColor="#000"/>
 
             <Button
+                android:text="12:00"
+                android:textSize="10sp"
                 android:id="@+id/et_timePM"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
                 android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
@@ -193,7 +203,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         >
 
@@ -244,7 +254,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50sp"
         android:orientation="horizontal">
 
         <TextView
@@ -256,6 +266,7 @@
             android:textColor="#000"/>
 
         <ToggleButton
+            android:layout_centerVertical="true"
             android:id="@+id/btn_order"
             android:layout_width="42dp"
             android:layout_height="40dp"
@@ -274,7 +285,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
@@ -346,6 +357,7 @@
     </RelativeLayout>
 
     <View
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#FFC0C0C0"/>
@@ -353,9 +365,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="¤ 店铺风采 ¤"
+        android:text=" 店铺风采 "
         android:textColor="#202020"
         android:textSize="18sp"/>
 

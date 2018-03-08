@@ -5,6 +5,6 @@
         android:title="添加等级"/>
 
     <item
-        android:id="@+id/action_edit"
-        android:title="编辑描述"/>
+        android:id="@+id/action_search"
+        android:title="搜索会员"/>
 </menu>

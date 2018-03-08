@@ -1,6 +1,7 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
 
         btn_back_to_manager = (Button) findViewById( R.id.btn_back_to_manager );
         btn_back_to_manager.setOnClickListener( this );
+
         btn_menu = findViewById( R.id.btn_menu );
         if(btn_menu!=null){
             btn_menu.setOnClickListener( this );
@@ -57,8 +59,6 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
             mMenu.setOnMenuItemClickListener( this );
         }
 
-        btn_searchVIP = (Button) findViewById( R.id.btn_searchVIP );
-        btn_searchVIP.setOnClickListener( this );
         tv_empty = (TextView) findViewById( R.id.tv_empty );
         lv_vipStandard = (ListView) findViewById( R.id.lv_vipStandard );
         vipStandardAdapter = new VIPStandardAdapter( this, vipStandardList );
@@ -73,9 +73,6 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.btn_menu:
                 mMenu.show();
-                break;
-            case R.id.btn_searchVIP://搜索会员
-                ToastUtils.showToast( this,"search" );
                 break;
             default:
                 break;
@@ -127,8 +124,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
         if (menuItem.getItemId() == R.id.action_addLevel) {  //根据ItemId进行判断。
             centerDialog.show();
             return true;
-        }else if(menuItem.getItemId()==R.id.action_edit){
-            Toast.makeText( this, "编辑", Toast.LENGTH_SHORT ).show();
+        }else if(menuItem.getItemId()==R.id.action_search){
+            startActivity( new Intent( this,VIPSearchActivity.class ) );
             return true;
         }
         return false;
