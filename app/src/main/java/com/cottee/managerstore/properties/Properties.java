@@ -66,4 +66,10 @@ public class Properties {
     public static final int PROJECT_MANAGE_GET = 15;
     public static final int PROJECT_MANAGE_UPDATE =16;
     public static final int PROJECT_MANAGE_DELETE =17;
+
+    //员工
+    public static final int EMPLOYEE_ADD = 30;
+   public static  final  String EMPLOYEE_ADD_PATH = "https://thethreestooges.cn:1225/staff/create/staff";
+    public static  final  String EMPLOYEE_ALL_GSON_PATH = "\n" +
+            "https://thethreestooges.cn:1225/staff/staff/list";
 }
