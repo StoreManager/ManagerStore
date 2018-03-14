@@ -10,12 +10,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
-import com.cottee.managerstore.activity.ManageFoodDetailActivity;
 import com.cottee.managerstore.bean.FoodDetail;
 import com.cottee.managerstore.utils.OssUtils;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatFlagsException;
 import java.util.List;
 
 
@@ -24,14 +22,17 @@ import java.util.List;
  */
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.RecVH> {
-    public List<FoodDetail> products=ManageFoodDetailActivity.detailFoodList;
-  public  int mEditMode = View.GONE;
+    public List<FoodDetail> products;
+    private List<String > saleList;
+    public List<FoodDetail.ItemListBean> itemList=new ArrayList<>();
+    public  int mEditMode = View.GONE;
     private MyItemClickListener myItemClickListener;
     private Context context;
     //构造方法传入数据
-    public RecyclerviewAdapter(Context context,List<FoodDetail >products, MyItemClickListener myItemClickListener){
+    public RecyclerviewAdapter(Context context,List<FoodDetail >products,List<String > saleList, MyItemClickListener myItemClickListener){
         this.context=context;
         this.products=products;
+        this.saleList=saleList;
         this.myItemClickListener=myItemClickListener;
     }
     //刷新布局
@@ -43,7 +44,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         }
         notifyDataSetChanged();
     }
-    public List<FoodDetail> getProducts() {
+    public List<FoodDetail> getFoodDetailList() {
         if (products == null) {
             products = new ArrayList<>();
         }
@@ -60,27 +61,26 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     //  将数据放入相应的位置f
     @Override
     public void onBindViewHolder(final RecVH holder, int position) {
-        FoodDetail foodDetail= products.get(position);
+        final FoodDetail foodDetail= products.get(holder.getAdapterPosition());
         String photo = products.get(position).getItem_list().get(position)
                 .getPhoto();
         if (photo!=null)
-         {
-             OssUtils.downImagefromOss(context, photo);
-             Glide.with(context)
-                     .load(photo)
-                     .error(R.mipmap.erro)
-                     .placeholder(R.mipmap.notshow)
-                     .into(holder.ivPic);
-         }
-            holder.tvTitle.setText(products.get(position).getItem_list().get(position).getName());
-            holder.tv_price.setText(products.get(position).getItem_list().get(position).getUnivalence());
-            holder.tv_description.setText(products.get(position).getItem_list().get(position).getDescription());
+        {
+            OssUtils.downImagefromOss(context, photo);
+            Glide.with(context)
+                    .load(photo)
+                    .into(holder.ivPic);
+        }
+        holder.tvTitle.setText(products.get(position).getItem_list().get(position).getName());
+        holder.tv_price.setText(products.get(position).getItem_list().get(position).getUnivalence());
+        holder.tv_sale_price.setText(saleList.get(position));
+        holder.tv_description.setText(products.get(position).getItem_list().get(position).getDescription());
 
 
         if (mEditMode==View.GONE){
             holder.img_checkBox.setVisibility(View.GONE);
         }
-       else{
+        else{
             holder.img_checkBox.setVisibility(View.VISIBLE);
             if (foodDetail.isSelect())
             {
@@ -106,9 +106,11 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         private final TextView tv_price;
         private final TextView tv_description;
         private final ImageView img_checkBox;
+        private final TextView tv_sale_price;
 
         public  RecVH(View itemView) {
             super(itemView);
+            tv_sale_price=itemView.findViewById(R.id.tv_sale_price);
             img_checkBox = itemView.findViewById(R.id.img_checkBox);
             ivPic=  itemView.findViewById(R.id.ivPic);
             tvTitle= itemView.findViewById(R.id.tv_name);
