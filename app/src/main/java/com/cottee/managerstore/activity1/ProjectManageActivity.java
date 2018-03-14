@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
-import com.cottee.managerstore.activity.ManageFoodDetailActivity;
+import com.cottee.managerstore.activity.ManageFoodDetail1Activity;
 import com.cottee.managerstore.bean.ProjectManageGetInfo;
 import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
@@ -121,7 +121,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                 dishId = dishTypeIdList.get(position);
                 dishName = dishTypeNameList.get(position);
                 Intent intent = new Intent(ProjectManageActivity.this,
-                        ManageFoodDetailActivity.class);
+                        ManageFoodDetail1Activity.class);
                 intent.putExtra("position", dishId);
                 intent.putExtra("positionName", dishName);
                 startActivity(intent);
@@ -281,7 +281,8 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     System.out.println(dishTypeNameList);
                     System.out.println(dishTypeIdList);
                     System.out.println(allTypeNameList);
-                    adapter = new ProjectManageAdapter(ProjectManageActivity.this, dishTypeNameList);
+                    adapter = new ProjectManageAdapter(ProjectManageActivity.this
+                            , dishTypeNameList);
 
                     if (!adapter.isEmpty()) {
                         ll_empty.setVisibility(View.GONE);
