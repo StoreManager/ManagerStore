@@ -26,6 +26,7 @@ import com.cottee.managerstore.widget.Title;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,9 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
         lv_employee_manage_information.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String empInfoId = empId.get(position);
                 Intent intent = new Intent(EmployeeManageActivity.this,EmployeeManageInfoActivity.class);
+                intent.putExtra("EMP_ID",empInfoId);
                 startActivity(intent);
             }
         });
@@ -70,7 +73,7 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
                 @Override
                 public void run() {
 
-                    HttpUtilSession.sendSessionOkHttpRequest(EmployeeManageActivity.this, Properties.EMPLOYEE_ALL_GSON_PATH, new Callback() {
+                    HttpUtilSession.sendSessionOkHttpRequest(EmployeeManageActivity.this, Properties.EMPLOYEE_LIST_GSON_PATH, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
 
@@ -215,7 +218,10 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
     public void onClick(View view) {
         switch(view.getId()){
         case R.id.btn_search:
+
             Intent intent = new Intent(EmployeeManageActivity.this,EmployeeManageSearchActivity.class);
+            intent.putExtra("EMP_NAME",(Serializable) empName);
+            intent.putExtra("EMP_ID",(Serializable) empId);
             startActivity(intent);
             break;
         default:

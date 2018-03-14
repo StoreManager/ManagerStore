@@ -70,6 +70,8 @@ public class Properties {
     //员工
     public static final int EMPLOYEE_ADD = 30;
    public static  final  String EMPLOYEE_ADD_PATH = "https://thethreestooges.cn:1225/staff/create/staff";
-    public static  final  String EMPLOYEE_ALL_GSON_PATH = "\n" +
+    public static  final  String EMPLOYEE_LIST_GSON_PATH = "\n" +
             "https://thethreestooges.cn:1225/staff/staff/list";
+    public static  final  String EMPLOYEE_INFO_GSON_PATH = "https://thethreestooges.cn:1225/staff/staff/info";
+    public static final int EMPLOYEE_INFO = 31;
 }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.cottee.managerstore.activity1.SuccessAddEmployeeActivity;
-import com.cottee.managerstore.bean.AddEmployeeInfo;
+import com.cottee.managerstore.bean.AddEmployee;
 import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.properties.Properties;
 import com.google.gson.Gson;
@@ -57,8 +57,8 @@ public class EmployeeManageMessage {
 
                         Gson gson = new Gson();
                         System.out.println("传来的账户密码："+str);
-                        int id = gson.fromJson(str, AddEmployeeInfo.class).getStaff_id();
-                        int password = gson.fromJson(str, AddEmployeeInfo.class).getPassword();
+                        int id = gson.fromJson(str, AddEmployee.class).getStaff_id();
+                        int password = gson.fromJson(str, AddEmployee.class).getPassword();
 
                         System.out.println("员工id:" + id);
                         System.out.println("员工密码:" + password);

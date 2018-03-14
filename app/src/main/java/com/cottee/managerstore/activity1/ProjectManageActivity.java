@@ -21,7 +21,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,9 +37,9 @@ import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BaseRefreshListener;
 import com.cottee.managerstore.utils.ToastUtils;
-import com.cottee.managerstore.widget.PopupMenu;
 import com.cottee.managerstore.widget.PullToRefreshLayout;
 import com.cottee.managerstore.widget.ShapeLoadingDialog;
+import com.cottee.managerstore.widget.Title;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -84,23 +83,21 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private PullToRefreshLayout pullToRefreshLayout;
     private LinearLayout ll_empty;
     private ShapeLoadingDialog shapeLoadingDialog;
-    private ImageView imv_back_to_storemanager;
-    private PopupMenu popupMenu;
-    private ImageView iv_menu;
     public static String dishId;
     public static String dishName;
+    private Title title;
+    private LinearLayout ll_dishes_add;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_manage);
+        initTitle();
         initview();
         addDishList.clear();
         allTypeNameList.clear();
 
-        String[] abs = new String[]{"添加菜品", "修改菜品",""};
-        popupMenu = new PopupMenu(this,abs);
 
 
 
@@ -308,56 +305,53 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
     public void initview() {
         pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.pt_push);
-        imv_back_to_storemanager = (ImageView) findViewById(R.id.imv_back_to_storemanager);
+
         lvprojectmanage = (ListView) findViewById(R.id.lv_project_manage);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
-        iv_menu = (ImageView) findViewById(R.id.iv_menu);
-        imv_back_to_storemanager.setOnClickListener(this);
+        ll_dishes_add = (LinearLayout) findViewById(R.id.ll_dishes_add);
+        ll_dishes_add.setOnClickListener(this);
 
 
+    }
 
-        iv_menu.setOnClickListener(this);
+    private void initTitle(){
+        title = (Title)findViewById(R.id.title);
+        title.setTitleNameStr("菜品分类");
+        title.setTheme(Title.TitleTheme.THEME_TRANSLATE);
+        title.mSetButtonInfo(new Title.ButtonInfo(true, Title
+                .BUTTON_LEFT, R.mipmap.back_2x,null
+        ));
+        //可加button1
+        title.mSetButtonInfo(new Title.ButtonInfo(true, Title
+                .BUTTON_RIGHT1, 0,
+                "修改菜品"));
+        title.setOnTitleButtonClickListener(new Title.OnTitleButtonClickListener() {
+            @Override
+            public void onClick(int id, Title.ButtonViewHolder viewHolder) {
+                switch (id) {
+                    case Title.BUTTON_RIGHT1:
+                        Intent intent = new Intent(ProjectManageActivity.this, ProjectManageAddClassifyActivity.class);
 
+                        System.out.println("MYT:" + (Serializable) dishTypeNameList);
+                        intent.putExtra("dishName", (Serializable) dishTypeNameList);
+                        intent.putExtra("dishId", (Serializable) dishTypeIdList);
+                        startActivity(intent);
+                        break;
+                    case Title.BUTTON_LEFT:
+                        finish();
+                        break;
+                }
+            }
+        });
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_menu:
-                popupMenu.showLocation(R.id.iv_menu);// 设置弹出菜单弹出的位置
-                // 设置回调监听，获取点击事件
-                popupMenu.setOnItemClickListener(new PopupMenu.OnItemClickListener() {
-
-                            @Override
-                            public void onClick(PopupMenu.MENUITEM item, String str) {
-                                switch(str){
-                                    case "添加菜品":
-                                        dialog = new DishesDialog(ProjectManageActivity.this);
-                                        dialog.show();
-                                        break;
-                                    case "修改菜品":
-                                        Intent intent = new Intent(ProjectManageActivity.this, ProjectManageAddClassifyActivity.class);
-
-                                        System.out.println("MYT:" + (Serializable) dishTypeNameList);
-                                        intent.putExtra("dishName", (Serializable) dishTypeNameList);
-                                        intent.putExtra("dishId", (Serializable) dishTypeIdList);
-                                        startActivity(intent);
-                                        break;
-                                    case "":
-                                        break;
-                                    default:
-                                        break;
-                                }
-
-
-                            }
-                        });
-                break;
-
-
-            case R.id.imv_back_to_storemanager:
-                finish();
+            case R.id.ll_dishes_add:
+                dialog = new DishesDialog(ProjectManageActivity.this);
+                dialog.show();
                 break;
 
 

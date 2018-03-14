@@ -5,65 +5,110 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-    <include layout="@layout/toolbar_project_manage"/>
+    <include layout="@layout/layout_custom_title"/>
 
-    <com.cottee.managerstore.widget.PullToRefreshLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/pt_push"
-        android:gravity="center">
-        <FrameLayout
+        android:layout_height="match_parent">
+        <com.cottee.managerstore.widget.PullToRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/ll_empty"
+            android:layout_height="match_parent"
+            android:id="@+id/pt_push"
+            android:gravity="center">
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
-                <ImageView
-                    android:id="@+id/error_refresh"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@mipmap/ic_warn"
-                    android:scaleType="centerInside"
-                    />
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <ImageView
+                        android:id="@+id/error_refresh"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@mipmap/ic_warn"
+                        android:scaleType="centerInside"
+                        />
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/empty"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:orientation="vertical">
+
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/lv_project_manage"
+                        android:scrollbars="none"
+                        android:divider="@null"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/view_push"
+                        android:visibility="invisible"/>
+
+
+                </LinearLayout>
+            </FrameLayout>
+
+
+        </com.cottee.managerstore.widget.PullToRefreshLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_add_project"
+                android:gravity="center_horizontal"
+                android:elevation="2dp"
+                android:id="@+id/ll_dishes_add">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/empty"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="20dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp">
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@mipmap/add_32x"
+                        android:layout_gravity="center_horizontal"/>
 
+                    <TextView
+                        android:layout_marginTop="2dp"
+                        android:layout_width="30dp"
+                        android:layout_height="13dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:text="添加"
+                        android:textSize="11dp"
+                        android:textColor="@color/purplishblue"/>
 
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/lv_project_manage"
-                    android:scrollbars="none"
-                    android:divider="@null"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/view_push"
-                    android:visibility="invisible"/>
+                </LinearLayout>
 
 
             </LinearLayout>
-        </FrameLayout>
 
-
-    </com.cottee.managerstore.widget.PullToRefreshLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 
 

@@ -4,7 +4,7 @@ package com.cottee.managerstore.bean;
  * Created by Administrator on 2018/3/7.
  */
 
-public class AddEmployeeInfo {
+public class AddEmployee {
     /**{"staff_id":"1101","password":8373}**/
 
     public int staff_id;
