@@ -35,7 +35,15 @@ public class ProjectTypeDetailManager {
         this.context = context;
         this.handler = handler;
     }
-    private void sendRequest(final int type, final String name, final String classId,final String itemid, final String univalence, final String description,final String photo) {
+    private void sendRequest(final int type
+            , final String name
+            ,final String discount_singe
+            ,final String discount
+            , final String classId
+            ,final String itemid
+            , final String univalence
+            , final String description
+            ,final String photo) {
         new Thread() {
             @Override
             public void run() {
@@ -46,9 +54,12 @@ public class ProjectTypeDetailManager {
                     Request request = null;
                     switch (type) {
                         case PROJECT_MANAGE_DETAIL_INFORMATION:
-                            request = new Request.Builder().url(Properties.PROJECT_DETAIL_MANAGE_ADD_PATH)
+                            request = new Request.Builder()
+                                    .url(Properties.PROJECT_DETAIL_MANAGE_ADD_PATH)
                                     .post(new FormBody.Builder()
                                     .add("name", name)
+                                    .add("discount_singe",discount_singe)
+                                    .add("discount",discount)
                                     .add("session",session)
                                     .add("class_id",classId)
                                     .add("univalence",univalence)
@@ -65,15 +76,17 @@ public class ProjectTypeDetailManager {
                                     .build();
                             break;
                         case Properties.PROJECT_DETAIL_MANAGE_UPDATE:
-                            request = new Request.Builder().url(Properties.PROJECT_DETAIL_MANAGE_UPDATE_PATH)
+                            request = new Request.Builder()
+                                    .url(Properties.PROJECT_DETAIL_MANAGE_UPDATE_PATH)
                                     .post(new FormBody.Builder()
                                             .add("name", name)
-                                            .add("class_id", classId)
-                                            .add("item_id",itemid)
+                                            .add("discount_singe",discount_singe)
+                                            .add("discount",discount)
+                                            .add("session",session)
+                                            .add("class_id",classId)
                                             .add("univalence",univalence)
                                             .add("description",description)
-                                            .add("photo",photo)
-                                            .add("session",session).build())
+                                            .add("photo",photo).build())
                                     .build();
                             break;
 //                            case
@@ -108,21 +121,21 @@ public class ProjectTypeDetailManager {
         }.start();
 
     }
-    public void projectDetailManageCommit( String foodName,String classId,String description,String univalence,String photo) {
+    public void projectDetailManageCommit( String foodName,String discount_singe,String discount,String classId,String description,String univalence,String photo) {
 
-        sendRequest(PROJECT_MANAGE_DETAIL_INFORMATION, foodName,classId,"",description,univalence,photo);
+        sendRequest(PROJECT_MANAGE_DETAIL_INFORMATION, foodName,discount_singe,discount,classId,"",description,univalence,photo);
 
     }
 
     public void projectDetailManageDelete(String classId,String itemId) {
 
-        sendRequest(Properties.PROJECT_DETAIL_MANAGE_DELETE,"",classId,itemId,"","","");
+        sendRequest(Properties.PROJECT_DETAIL_MANAGE_DELETE,"","","",classId,itemId,"","","");
 
     }
 
-    public void projectDetailManageUpdate(String foodName,String classId,String itemId,String univalence,String description,String photo) {
+    public void projectDetailManageUpdate(String foodName,String discount_singe,String discount,String classId,String itemId,String univalence,String description,String photo) {
 
-        sendRequest(Properties.PROJECT_DETAIL_MANAGE_UPDATE,foodName,classId,itemId,description,univalence,photo);
+        sendRequest(Properties.PROJECT_DETAIL_MANAGE_UPDATE,foodName,discount_singe,discount,classId,itemId,description,univalence,photo);
 
     }
     public void projectDetailManageStick(String class_id,String item_id)
@@ -131,7 +144,7 @@ public class ProjectTypeDetailManager {
     }
     public void JsonCommit( String classId) {
 
-        sendRequest(PROJECT_MANAGE_DETAIL_JSON_INFORMATION,"",classId,"","","","");
+//        sendRequest(PROJECT_MANAGE_DETAIL_JSON_INFORMATION,"",classId,"","","","");
 
     }
 }

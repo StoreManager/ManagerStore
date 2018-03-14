@@ -467,8 +467,14 @@ public class LoginRegisterInformationHandle extends Handler {
                 }
                 break;
                 //具体菜品
+//            case PROJECT_DETAIL_MANAGE_GET:
+//                System.out.println("handle json: "+(String) msg.obj);
+//                ManageFoodDetailActivity manageFoodDetailActivity =
+//                        new ManageFoodDetailActivity();
+//                manageFoodDetailActivity.parseJSONWithGSON((String) msg.obj);
+//                break;
             case Properties.PROJECT_DETAIL_MANAGE_ADD:
-                switch ((String)msg.obj) {
+
 //                    case :
 //
 //                       /* shapeLoadingDialog.setDismiss();*/
@@ -488,15 +494,15 @@ public class LoginRegisterInformationHandle extends Handler {
 //                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageCommit(commit);
                         break;*/
 
-                    default:
-                        System.out.println("handle json: "+(String) msg.obj);
-                        ManageFoodDetailActivity manageFoodDetailActivity =
-                                new ManageFoodDetailActivity();
-                        manageFoodDetailActivity.parseJSONWithGSON((String) msg.obj);
 
-                        break;
+//                        System.out.println("handle json: "+(String) msg.obj);
+//                        ManageFoodDetailActivity manageFoodDetailActivity =
+//                                new ManageFoodDetailActivity();
+//                        manageFoodDetailActivity.parseJSONWithGSON((String) msg.obj);
 
-                }
+
+
+
                 break;
 
             case Properties.PROJECT_DETAIL_MANAGE_DELETE:

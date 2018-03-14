@@ -34,7 +34,23 @@ public class FoodDetail {
         private String photo;
         private String univalence;
         private String description;
+        private String discount_singe;
+        private String discount;
+        public String getDiscount_singe() {
+            return discount_singe;
+        }
 
+        public void setDiscount_singe(String discount_singe) {
+            this.discount_singe = discount_singe;
+        }
+
+        public String getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(String discount) {
+            this.discount = discount;
+        }
         public String getClass_id() {
             return class_id;
         }
@@ -92,80 +108,4 @@ public class FoodDetail {
     public void setSelect(boolean select) {
         isSelect = select;
     }
-//
-//    private List<FoodDetail.ItemListBean> item_list;
-//
-//    public List<FoodDetail.ItemListBean> getItem_list() {
-//        return item_list;
-//    }
-//
-//    public void setItem_list(List<FoodDetail.ItemListBean> item_list) {
-//        this.item_list = item_list;
-//    }
-//
-//    public static class ItemListBean {
-//        /**
-//         * class_id : 1
-//         * item_id : 1
-//         * name : a
-//         * photo : aaa
-//         * univalence : aa
-//         * description : aaa
-//         */
-//
-//        private String class_id;
-//        private String item_id;
-//        private String name;
-//        private String photo;
-//        private String univalence;
-//        private String description;
-//
-//        public String getClass_id() {
-//            return class_id;
-//        }
-//
-//        public void setClass_id(String class_id) {
-//            this.class_id = class_id;
-//        }
-//
-//        public String getItem_id() {
-//            return item_id;
-//        }
-//
-//        public void setItem_id(String item_id) {
-//            this.item_id = item_id;
-//        }
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//        public void setName(String name) {
-//            this.name = name;
-//        }
-//
-//        public String getPhoto() {
-//            return photo;
-//        }
-//
-//        public void setPhoto(String photo) {
-//            this.photo = photo;
-//        }
-//
-//        public String getUnivalence() {
-//            return univalence;
-//        }
-//
-//        public void setUnivalence(String univalence) {
-//            this.univalence = univalence;
-//        }
-//
-//        public String getDescription() {
-//            return description;
-//        }
-//
-//        public void setDescription(String description) {
-//            this.description = description;
-//        }
-//    }
 }
