@@ -42,9 +42,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import static com.cottee.managerstore.activity.AddFoodActivity.objectKey;
 
 public class FoodDetailActivity extends Activity {
     private ImageButton imgbtn_foodImg;
@@ -57,7 +60,7 @@ public class FoodDetailActivity extends Activity {
     private TextView tv_des;
     private SelectPicPopupWindow selectPicPopupWindow;
     private String filePath = null;
-    List<FoodDetail> foodDetailList = ManageFoodDetailActivity.detailFoodList;
+    List<FoodDetail> foodDetailList =ManageFoodDetail1Activity.foodDetailList;
     private int positon;
     private Button btn_delete;
     private TextView tv_title;
@@ -71,11 +74,13 @@ public class FoodDetailActivity extends Activity {
     private Handler mHandler = new Handler();
     private ScrollView scroll_add_detail;
     private FoodDetail foodDetail;
-    private List<FoodDetail> detailFoodList;
+    private List<FoodDetail> foodDetails;
     private ProjectTypeDetailManager detailManager;
     private View view1;
     private View view2;
     private View view3;
+    private String class_id;
+    private String item_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +109,11 @@ public class FoodDetailActivity extends Activity {
         view1 = findViewById(R.id.view1);
         view2 = findViewById(R.id.view2);
         view3 = findViewById(R.id.view3);
+
     }
     private void initData() {
         detailManager = new ProjectTypeDetailManager(this,new LoginRegisterInformationHandle());
-        detailFoodList = ManageFoodDetailActivity.detailFoodList;
+        foodDetails = ManageFoodDetail1Activity.foodDetailList;
         item_list = foodDetailList.get
                 (positon).getItem_list();
         positon = getIntent().getIntExtra("position", 0);
@@ -116,12 +122,10 @@ public class FoodDetailActivity extends Activity {
         imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getPhoto()));
         tv_des.setText(item_list.get(positon).getDescription());
         tv_title.setText(item_list.get(positon).getName());
-//        positon = getIntent().getIntExtra("position", 0);
-//        tv_foodName.setText(AddFoodActivity.foodDetailList.get(positon).getFoodName());
-//        tv_foodPrice.setText(AddFoodActivity.foodDetailList.get(positon).getPrice());
-//        imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(AddFoodActivity.foodDetailList.get(positon).getFoodImg()));
-//        tv_des.setText(AddFoodActivity.foodDetailList.get(positon).getDescription());
-//        tv_title.setText(AddFoodActivity.foodDetailList.get(positon).getFoodName());
+        class_id = foodDetails.get(positon)
+                .getItem_list().get(positon).getClass_id();
+        item_id = foodDetails.get(positon)
+                .getItem_list().get(positon).getItem_id();
     }
     private void initEvent() {
         btn_change.setOnClickListener(new View.OnClickListener() {
@@ -319,18 +323,19 @@ public class FoodDetailActivity extends Activity {
                         }
 
                         OssUtils.updata( FoodDetailActivity.this
-                                , AddFoodActivity.objectKey,
+                                , objectKey,
                                 output.toByteArray());
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    detailManager.projectDetailManageUpdate(edit_foodName.getText().toString()
-                            ,item_list.get(positon).getClass_id()
-                            ,item_list.get(positon).getItem_id()
+                    detailManager.projectDetailManageUpdate(edit_foodName.getText().toString(),
+                            "0","0",class_id
+                            ,item_id
                             ,edit_foodPrice.getText().toString()
                             ,edit_foodDescription.getText().toString()
-                            ,path);
+                            ,objectKey);
+
                 }
 
                 finish();
@@ -352,10 +357,7 @@ public class FoodDetailActivity extends Activity {
                         final ProjectTypeDetailManager detailManager =
                                 new ProjectTypeDetailManager(FoodDetailActivity.this,new LoginRegisterInformationHandle());
 
-                        final String class_id = detailFoodList.get(positon)
-                                .getItem_list().get(positon).getClass_id();
-                        final String item_id = detailFoodList.get(positon)
-                                .getItem_list().get(positon).getItem_id();
+
 
                         Button btn_positive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
                         btn_positive.setTextColor(Color.GRAY);
@@ -363,8 +365,8 @@ public class FoodDetailActivity extends Activity {
 
                             @Override
                             public void onClick(View view) {
-                                detailManager.projectDetailManageDelete(class_id,item_id);
-                                ManageFoodDetailActivity.detailFoodList.remove(positon);
+                                detailManager.projectDetailManageDelete(class_id, item_id);
+                                foodDetailList.remove(positon);
                                 finish();
 
 

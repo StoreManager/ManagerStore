@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
@@ -80,7 +79,7 @@ public class ManageFoodDetailActivity extends Activity {
 
 }
     private void initView() {
-        addFoodActivity = new AddFoodActivity();
+//        addFoodActivity = new AddFoodActivity();
         tv_title = findViewById(R.id.tv_title);
         btn_editFood = findViewById(R.id.btn_editFood);
         btn_cancelEdit = findViewById(R.id.btn_cancelEdit);
@@ -106,12 +105,12 @@ public class ManageFoodDetailActivity extends Activity {
      */
     private void setBtnBackground(int size) {
         if (size != 0) {
-            if (size==adapter.getProducts().size())
+            if (size==adapter.getFoodDetailList().size())
             {
                 btn_top.setClickable(false);
                 btn_top.setBackgroundResource(R.drawable.btn_unusable);
             }
-            if (size>0&&(size<adapter.getProducts().size())){
+            if (size>0&&(size<adapter.getFoodDetailList().size())){
                 btn_top.setClickable(true);
                 btn_top.setBackgroundResource(R.drawable.top);
             }
@@ -128,12 +127,12 @@ public class ManageFoodDetailActivity extends Activity {
     private void initEvent()
     {
         adapter = new RecyclerviewAdapter(this,ManageFoodDetailActivity.detailFoodList,
-                new RecyclerviewAdapter.MyItemClickListener() {
+                null,new RecyclerviewAdapter.MyItemClickListener() {
 
                     @Override
                     public void onItemClick(int position,List<FoodDetail> foodDetailList) {
                         if (mLlMycollectionBottomDialog.getVisibility() ==View.VISIBLE) {
-                            FoodDetail foodDetail = foodDetailList.get(position);
+                            FoodDetail foodDetail =foodDetailList.get(position);
                             boolean isSelect = foodDetail.isSelect();
                             if (!isSelect) {
                                 index++;
@@ -162,13 +161,13 @@ public class ManageFoodDetailActivity extends Activity {
 
                     }
                 });
-        ((SimpleItemAnimator)recyclerView.getItemAnimator())
-                .setSupportsChangeAnimations(false);
+//        ((SimpleItemAnimator)recyclerView.getItemAnimator())
+//                .setSupportsChangeAnimations(false);
         recyclerView.setAdapter(adapter);
         adapter.notifyAdapter(ManageFoodDetailActivity.detailFoodList,false);
         adapter.notifyDataSetChanged();
 //       判断当前是否有数据，显示取消提示文字
-        if (adapter.getProducts().size()==0)
+        if (adapter.getFoodDetailList().size()==0)
         {
             linear_reminder.setVisibility(View.VISIBLE);
         }
@@ -220,7 +219,7 @@ public class ManageFoodDetailActivity extends Activity {
         btn_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i=0;i<adapter.getProducts().size();i++)
+                for(int i = 0; i<adapter.getFoodDetailList().size(); i++)
                 {
                     if (ManageFoodDetailActivity.detailFoodList.get(i).isSelect())
                     {
@@ -265,18 +264,18 @@ public class ManageFoodDetailActivity extends Activity {
     private void selectAllMain() {
         if (adapter == null) return;
         if (!isSelectAll) {
-            for (int i = 0, j = adapter.getProducts().size(); i < j; i++) {
-                adapter.getProducts().get(i).setSelect(true);
+            for (int i = 0, j = adapter.getFoodDetailList().size(); i < j; i++) {
+                adapter.getFoodDetailList().get(i).setSelect(true);
             }
-            index = adapter.getProducts().size();
+            index = adapter.getFoodDetailList().size();
             btn_top.setClickable(false);
             btn_top.setBackgroundResource(R.drawable.btn_unusable);
             btn_delete.setEnabled(true);
             btn_selectAll.setText("取消全选");
             isSelectAll = true;
         } else {
-            for (int i = 0, j = adapter.getProducts().size(); i < j; i++) {
-                adapter.getProducts().get(i).setSelect(false);
+            for (int i = 0, j = adapter.getFoodDetailList().size(); i < j; i++) {
+                adapter.getFoodDetailList().get(i).setSelect(false);
             }
             index = 0;
             btn_top.setClickable(true);
@@ -322,11 +321,11 @@ public class ManageFoodDetailActivity extends Activity {
                                 .getClass_id();
                         String item_id = detailFoodList.get(index)
                                 .getItem_list().get(index).getItem_id();
-                        for (int i = adapter.getProducts().size(), j =0 ; i > j; i--) {
-                            FoodDetail foodDetail = adapter.getProducts().get(i-1);
+                        for (int i = adapter.getFoodDetailList().size(), j = 0; i > j; i--) {
+                            FoodDetail foodDetail = adapter.getFoodDetailList().get(i-1);
                             if (foodDetail.isSelect()) {
-//                                detailManager.projectDetailManageDelete(class_id,item_id);
-                                adapter.getProducts().remove(foodDetail);
+                                detailManager.projectDetailManageDelete(class_id,item_id);
+                                adapter.getFoodDetailList().remove(foodDetail);
                                 index--;
 
 
@@ -340,7 +339,7 @@ public class ManageFoodDetailActivity extends Activity {
                         index = 0;
                         tv_selectNum.setText(String.valueOf(0));
                         setBtnBackground(index);
-                        if (adapter.getProducts().size() == 0){
+                        if (adapter.getFoodDetailList().size() == 0){
                             mLlMycollectionBottomDialog.setVisibility(View.GONE);
                         }
                         adapter.notifyDataSetChanged();

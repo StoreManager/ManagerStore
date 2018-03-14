@@ -80,7 +80,7 @@ public class AddFoodActivity extends Activity {
     private String foodDescription;
     private AddFoodInfoIsEmpty addFoodInfoIsEmpty;
 //    public static List<FoodDetail> foodDetailList=new ArrayList<>();
-    public  List<FoodDetail> foodDetailList=ManageFoodDetailActivity.detailFoodList;
+    public  List<FoodDetail> foodDetailList=ManageFoodDetail1Activity.foodDetailList;
     private  String path=null;
     private Handler mHandler = new Handler();
     private ScrollView scroll_addFood;
@@ -95,7 +95,8 @@ public class AddFoodActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
         userEmail = UserRequestInfo.getUserEmail();
-        objectKey = "merchant"+"/"+ userEmail +"/"+"item"+"/"+new DateFormat().format( "yyyyMMdd_hhmmss",
+        objectKey ="merchant"+"/"+ userEmail +"/"+"item"
+                +"/"+new DateFormat().format( "yyyyMMdd_hhmmss",
                 Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
         initView();
         initEvent();
@@ -264,7 +265,7 @@ public class AddFoodActivity extends Activity {
                 boolean empty= addFoodInfoIsEmpty.isInfoEmpty(foodImage,foodName,foodPrice);
                 if (empty)
                 {
-                    List<FoodDetail.ItemListBean> item_list = ManageFoodDetailActivity.foodDetail.getItem_list();
+                    List<FoodDetail.ItemListBean> item_list = ManageFoodDetail1Activity.foodDetail.getItem_list();
                     if (path!=null)
                     {
                         try {
@@ -286,7 +287,7 @@ public class AddFoodActivity extends Activity {
                     }
                     for (int i=0;i>item_list.size();i++)
                     {
-                        item_list.get(i).setPhoto(path);
+                        item_list.get(i).setPhoto(objectKey);
                         item_list.get(i).setName(foodName);
                         item_list.get(i).setUnivalence(foodPrice);
                         item_list.get(i).setDescription(foodDescription);
@@ -298,9 +299,12 @@ public class AddFoodActivity extends Activity {
                      ProjectTypeDetailManager detailManager = new
                             ProjectTypeDetailManager(AddFoodActivity.this,new LoginRegisterInformationHandle());
 
-                        detailManager.projectDetailManageCommit(foodName,
+                        detailManager.projectDetailManageCommit(foodName,"0","0",
                                 ProjectManageActivity.dishId,
-                               foodPrice, foodDescription,path);
+                               foodPrice, foodDescription,objectKey);
+//                    detailManager.projectDetailManageCommit(foodName,"0","0",
+//                            ProjectManageActivity.dishId,
+//                            foodPrice, foodDescription,path);
                             finish();
 
                 }
@@ -310,8 +314,8 @@ public class AddFoodActivity extends Activity {
         });
     }
     //加载相册图片
-    private void showImage(String imaePath){
-        Bitmap bm = BitmapFactory.decodeFile(imaePath);
+    private void showImage(String imagePath){
+        Bitmap bm = BitmapFactory.decodeFile(imagePath);
         imgbtn_foodImg.setImageBitmap(bm);
     }
     @Override

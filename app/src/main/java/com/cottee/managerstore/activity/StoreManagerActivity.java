@@ -61,6 +61,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private ImageButton btn_orderManage;
     private TextView tv_orderManage;
 
+    private boolean isOpen=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +122,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener( this );
         btntoprojectmanage.setOnClickListener( this );
+        btn_orderManage.setOnClickListener(this);
     }
 
     @Override
@@ -151,6 +153,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             case R.id.imgbtn_storeStatus:
                 clicked++;
                 if (clicked % 2 == 0) {
+                    isOpen=true;
+                    pbtn_order.setEnabled(true);
                     view.setBackgroundResource( R.mipmap.openthedoor );
                     ScaleAnimation scaleAnimation = new ScaleAnimation( 0.8f, 1.3f,
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
@@ -172,6 +176,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     pbtn_order.setBackgroundResource(R.color.purplishblue);
 
                 } else {
+                    isOpen=false;
+                    pbtn_order.setEnabled(false);
                     view.setBackgroundResource( R.mipmap.closethedoor );
                     ScaleAnimation scaleAnimation = new ScaleAnimation( 0.8f, 1.3f,
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
@@ -195,7 +201,17 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                 break;
 
             case R.id.pbtn_order:
-                Toast.makeText( mContext, "下单", Toast.LENGTH_SHORT ).show();
+                if (isOpen)
+                {
+//                    Toast.makeText(mContext, "Close!Now", Toast.LENGTH_SHORT)
+//                            .show();
+                }
+                else
+                {
+                    Toast.makeText( mContext, "下单", Toast.LENGTH_SHORT ).show();
+                }
+
+                break;
             case R.id.btn_to_project_manage:
                 Intent intentOne = new Intent( StoreManagerActivity.this, ProjectManageActivity.class );
                 startActivity( intentOne );
@@ -203,6 +219,9 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             case R.id.btn_to_employee_manage:
                 Intent intentTwo = new Intent( StoreManagerActivity.this, EmployeeManageActivity.class );
                 startActivity( intentTwo );
+                break;
+            case R.id.btn_orderManage:
+//                startActivity(new Intent(StoreManagerActivity.this,OrderManageMainActivity.class));
                 break;
             default:
                 break;
