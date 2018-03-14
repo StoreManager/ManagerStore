@@ -127,7 +127,7 @@
             android:name="TencentMapSDK"
             android:value="7KLBZ-SVMRD-PBA4J-PR24M-TKJW3-C2BX2"/>
 
-        <activity android:name=".activity.ManageFoodDetailActivity">
+        <activity android:name=".activity.ManageFoodDetail1Activity">
         </activity>
         <activity android:name=".activity.AddFoodActivity">
         </activity>
@@ -136,12 +136,6 @@
         <activity android:name=".activity.ManagePicActivity">
         </activity>
         <activity android:name=".activity.VIPSearchActivity">
-        </activity>
-        <activity android:name=".activity1.EmployeeManageSearchActivity">
-        </activity>
-        <activity android:name=".activity1.EmployeeManageInfoActivity">
-        </activity>
-        <activity android:name=".activity1.SuccessAddEmployeeActivity">
         </activity>
     </application>
 

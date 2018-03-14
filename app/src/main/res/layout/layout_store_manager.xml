@@ -21,7 +21,7 @@
 <LinearLayout
     android:id="@+id/linear_storeManage"
     android:orientation="vertical"
-    android:background="@color/block_background"
+    android:background="@drawable/bg_storemanage"
     android:layout_width="0dp"
     android:layout_marginRight="5dp"
     android:layout_marginLeft="8dp"
@@ -53,7 +53,7 @@
 </LinearLayout>
    <LinearLayout
        android:id="@+id/linear_foodManage"
-       android:background="@color/block_background"
+       android:background="@drawable/bg_storemanage"
        android:layout_width="0dp"
        android:orientation="vertical"
        android:layout_marginLeft="5dp"
@@ -87,6 +87,79 @@
 
    </LinearLayout>
 </LinearLayout>
+      <!--第三部分-->
+      <LinearLayout
+          android:layout_margin="13dp"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="130dp">
+         <LinearLayout
+             android:id="@+id/linear_moneyManage"
+             android:background="@drawable/bg_storemanage"
+             android:orientation="vertical"
+             android:layout_width="0dp"
+             android:layout_marginRight="5dp"
+             android:layout_marginLeft="8dp"
+             android:layout_height="130dp"
+             android:layout_weight="1"
+             android:clickable="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp">
+               <ImageButton
+                   android:id="@+id/btn_moneyManage"
+                   android:onClick="manageMoney"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:background="@mipmap/moneymanage_close"/>
+               <TextView
+                   android:id="@+id/tv_moneyManage"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="12sp"
+                   android:layout_marginTop="10dp"
+                   android:text="账目管理"
+                   android:textColor="@color/gray"/>
+            </LinearLayout>
+
+         </LinearLayout>
+         <LinearLayout
+             android:id="@+id/linear_orderManage"
+             android:background="@drawable/bg_storemanage"
+             android:orientation="vertical"
+             android:layout_width="0dp"
+             android:layout_marginLeft="5dp"
+             android:layout_marginRight="8dp"
+             android:layout_height="130dp"
+             android:layout_weight="1"
+             android:clickable="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                >
+               <ImageButton
+                   android:id="@+id/btn_orderManage"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:background="@mipmap/ordermanage_close"/>
+               <TextView
+                   android:id="@+id/tv_orderManage"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="12sp"
+                   android:layout_marginTop="10dp"
+                   android:text="订单管理"
+                   android:textColor="@color/gray"/>
+            </LinearLayout>
+
+         </LinearLayout>
+      </LinearLayout>
     <!--第二部分-->
    <LinearLayout
        android:layout_margin="13dp"
@@ -95,7 +168,7 @@
        android:layout_height="130dp">
       <LinearLayout
           android:id="@+id/linear_employeeManage"
-          android:background="@color/block_background"
+          android:background="@drawable/bg_storemanage"
           android:layout_width="0dp"
           android:orientation="vertical"
           android:layout_marginRight="5dp"
@@ -129,7 +202,7 @@
       </LinearLayout>
       <LinearLayout
           android:id="@+id/linear_vipManage"
-          android:background="@color/block_background"
+          android:background="@drawable/bg_storemanage"
           android:layout_width="0dp"
           android:orientation="vertical"
           android:layout_marginLeft="5dp"
@@ -160,79 +233,7 @@
 
       </LinearLayout>
    </LinearLayout>
-    <!--第三部分-->
-   <LinearLayout
-       android:layout_margin="13dp"
-       android:orientation="horizontal"
-       android:layout_width="match_parent"
-       android:layout_height="130dp">
-      <LinearLayout
-          android:id="@+id/linear_moneyManage"
-          android:background="@color/block_background"
-          android:orientation="vertical"
-          android:layout_width="0dp"
-          android:layout_marginRight="5dp"
-          android:layout_marginLeft="8dp"
-          android:layout_height="130dp"
-          android:layout_weight="1"
-          android:clickable="true">
-         <LinearLayout
-             android:orientation="vertical"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center_horizontal"
-             android:layout_marginTop="35dp">
-            <ImageButton
-                android:id="@+id/btn_moneyManage"
-                android:onClick="manageMoney"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@mipmap/moneymanage_close"/>
-            <TextView
-                android:id="@+id/tv_moneyManage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginTop="10dp"
-                android:text="账目管理"
-                android:textColor="@color/gray"/>
-         </LinearLayout>
 
-      </LinearLayout>
-      <LinearLayout
-          android:id="@+id/linear_orderManage"
-          android:background="@color/block_background"
-          android:orientation="vertical"
-          android:layout_width="0dp"
-          android:layout_marginLeft="5dp"
-          android:layout_marginRight="8dp"
-          android:layout_height="130dp"
-          android:layout_weight="1"
-          android:clickable="true">
-         <LinearLayout
-             android:orientation="vertical"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center_horizontal"
-             android:layout_marginTop="35dp"
-             >
-            <ImageButton
-                android:id="@+id/btn_orderManage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@mipmap/ordermanage_close"/>
-            <TextView
-                android:id="@+id/tv_orderManage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_marginTop="10dp"
-                android:text="订单管理"
-                android:textColor="@color/gray"/>
-         </LinearLayout>
-
-      </LinearLayout>
-   </LinearLayout>
    </LinearLayout>
 
    <!--侧滑菜单-->

@@ -26,7 +26,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/notshow"/>
+                />
 
             <LinearLayout
                 android:layout_gravity="bottom"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp">
                 <TextView
-                    android:text="价格："
+                    android:text="原价："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -73,25 +73,45 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
-                android:visibility="gone"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="20dp">
                 <TextView
-                    android:text="菜品描述："
+                    android:text="现价："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_sale_price"
+                    android:text="13"
+                    android:textColor="@color/red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:text="元"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="20dp">
+                <TextView
+                    android:text="描述："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     />
                 <TextView
                     android:id="@+id/tv_description"
-                    android:hint="口感好"
-                    android:maxLength="4"
-                    android:singleLine="true"
-                    android:ellipsize="end"
+                    android:text="13"
+                    android:textColor="@color/block_background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     />
             </LinearLayout>
         </LinearLayout>

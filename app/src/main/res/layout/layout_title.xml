@@ -17,11 +17,9 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:singleLine="true"
-        android:layout_toLeftOf="@+id/btn_editFood"
-        android:layout_toRightOf="@+id/btn_back"
         android:gravity="center"
         android:text="甜点"
         android:layout_marginTop="5dp"
@@ -29,6 +27,17 @@
         android:textSize="16sp"
         android:layout_centerInParent="true"/>
 
+    <Button
+        android:id="@+id/btn_sale"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:text="打折"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:background="@drawable/button_shape"
+        android:layout_toStartOf="@+id/btn_editFood"/>
     <Button
         android:id="@+id/btn_editFood"
         android:layout_width="30dp"
