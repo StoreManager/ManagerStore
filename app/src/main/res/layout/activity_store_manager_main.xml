@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             >
             <Button
+                android:id="@+id/btn_emp"
                 android:layout_width="330dp"
                 android:layout_height="50dp"
                 android:background="@drawable/storestyle_btn"

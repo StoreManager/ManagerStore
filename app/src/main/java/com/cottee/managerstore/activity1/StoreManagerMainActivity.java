@@ -9,11 +9,13 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.emp_login.EmpLoginActivity;
 
 
 public class StoreManagerMainActivity extends Activity {
 
     private Button myboss;
+    private Button btn_emp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +23,21 @@ public class StoreManagerMainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_store_manager_main);
         myboss = (Button) findViewById(R.id.bt_myboss);
+        btn_emp = (Button) findViewById(R.id.btn_emp);
 
         myboss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StoreManagerMainActivity.this,BossLoginActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+        });
+
+        btn_emp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StoreManagerMainActivity.this,EmpLoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }

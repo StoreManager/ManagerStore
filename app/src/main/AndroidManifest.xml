@@ -137,6 +137,10 @@
         </activity>
         <activity android:name=".activity.VIPSearchActivity">
         </activity>
+        <activity android:name=".activity1.emp_login.EmpLoginActivity"/>
+        <activity android:name=".activity1.EmployeeManageSearchActivity"/>
+        <activity android:name=".activity1.EmployeeManageInfoActivity"/>
+        <activity android:name=".activity1.SuccessAddEmployeeActivity"/>
     </application>
 
 </manifest>
