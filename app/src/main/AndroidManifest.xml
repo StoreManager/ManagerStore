@@ -137,10 +137,18 @@
         </activity>
         <activity android:name=".activity.VIPSearchActivity">
         </activity>
-        <activity android:name=".activity1.emp_login.EmpLoginActivity"/>
-        <activity android:name=".activity1.EmployeeManageSearchActivity"/>
+        <activity android:name=".activity1.emp_login.EmpLoginActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".activity1.EmployeeManageSearchActivity"
+                  android:launchMode="singleTask"/>
         <activity android:name=".activity1.EmployeeManageInfoActivity"/>
         <activity android:name=".activity1.SuccessAddEmployeeActivity"/>
+        <activity android:name=".activity1.emp_login.EmpMainActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".activity1.emp_login.EmpDetailMessage"
+                  android:launchMode="singleTask">
+
+        </activity>
     </application>
 
 </manifest>
