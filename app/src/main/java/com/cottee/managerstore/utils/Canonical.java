@@ -16,4 +16,11 @@ public class Canonical {
 
         return m.matches();
     }
+     public static boolean isMobile(String mobiles) {
+                 String telRegex = "13\\d{9}|14[57]\\d{8}|15[012356789]\\d{8}|18[01256789]\\d{8}|17[0678]\\d{8}";
+            Pattern p = Pattern.compile(telRegex);
+         Matcher m = p.matcher(mobiles);
+
+         return m.matches();
+     }
 }
