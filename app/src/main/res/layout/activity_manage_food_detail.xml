@@ -13,6 +13,7 @@
         <include android:id="@+id/include"
                  layout="@layout/layout_title"/>
         <Button
+            android:id="@+id/btn_addFood"
             android:onClick="addFood"
             android:layout_width="25dp"
             android:layout_height="25dp"

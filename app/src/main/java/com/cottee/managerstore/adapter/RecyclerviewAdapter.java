@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.FoodDetail;
 import com.cottee.managerstore.utils.OssUtils;
@@ -22,21 +23,130 @@ import java.util.List;
  */
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.RecVH> {
-    public List<FoodDetail> products;
-    private List<String > saleList;
-    public List<FoodDetail.ItemListBean> itemList=new ArrayList<>();
-    public  int mEditMode = View.GONE;
+//    public List<FoodDetail> products;
+//    private List<String > saleList;
+//    public List<FoodDetail.ItemListBean> itemList=new ArrayList<>();
+//    public  int mEditMode = View.GONE;
+//    private MyItemClickListener myItemClickListener;
+//    private Context context;
+//    private String photo;
+//
+//    //构造方法传入数据
+//    public RecyclerviewAdapter(Context context,List<FoodDetail >products,List<String > saleList, MyItemClickListener myItemClickListener){
+//        this.context=context;
+//        this.products=products;
+//        this.saleList=saleList;
+//        this.myItemClickListener=myItemClickListener;
+//    }
+//    //刷新布局
+//    public void notifyAdapter(List<FoodDetail >products, boolean isAdd) {
+//        if (!isAdd) {
+//            this.products = products;
+//        } else {
+//            this.products.addAll(products);
+//        }
+//        notifyDataSetChanged();
+//    }
+//    public List<FoodDetail> getFoodDetailList() {
+//        if (products == null) {
+//            products = new ArrayList<>();
+//        }
+//        return products;
+//    }
+//
+//    //创造ViewHolder
+//    @Override
+//    public RecVH onCreateViewHolder(ViewGroup parent, int viewType) {
+//        //把item的Layout转化成View传给ViewHolder
+//        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyler,parent,false);
+//        return new RecVH(view);
+//    }
+//    //  将数据放入相应的位置f
+//    @Override
+//    public void onBindViewHolder(final RecVH holder, int position) {
+//        final FoodDetail foodDetail= products.get(holder.getAdapterPosition());
+//        photo = foodDetail.getItem_list().get(position).getPhoto();
+//                Glide.with(context).load(photo).into(holder.ivPic);
+//
+//        holder.tvTitle.setText(products.get(position).getItem_list().get(position).getName());
+//        holder.tv_price.setText(products.get(position).getItem_list().get(position).getUnivalence());
+//        holder.tv_sale_price.setText(saleList.get(position));
+//        holder.tv_description.setText(products.get(position).getItem_list().get(position).getDescription());
+//
+//
+//        if (mEditMode==View.GONE){
+//            holder.img_checkBox.setVisibility(View.GONE);
+//        }
+//        else{
+//            holder.img_checkBox.setVisibility(View.VISIBLE);
+//            if (foodDetail.isSelect())
+//            {
+//                holder.img_checkBox.setImageResource(R.mipmap.check);
+//            }
+//            else {
+//                holder.img_checkBox.setImageResource(R.mipmap.uncheck);
+//            }
+//
+//        }
+//
+//    }
+//
+//    @Override
+//    public int getItemCount() {
+//        return products.size();
+//    }
+//
+//    //ViewHolder绑定控件
+//    public class RecVH extends RecyclerView.ViewHolder implements View.OnClickListener{
+//        ImageView ivPic;
+//        TextView tvTitle;
+//        private final TextView tv_price;
+//        private final TextView tv_description;
+//        private final ImageView img_checkBox;
+//        private final TextView tv_sale_price;
+//
+//        public  RecVH(View itemView) {
+//            super(itemView);
+//            tv_sale_price=itemView.findViewById(R.id.tv_sale_price);
+//            img_checkBox = itemView.findViewById(R.id.img_checkBox);
+//            ivPic=  itemView.findViewById(R.id.ivPic);
+//            tvTitle= itemView.findViewById(R.id.tv_name);
+//            tv_price = itemView.findViewById(R.id.tv_price);
+//            tv_description = itemView.findViewById(R.id.tv_description);
+//            itemView.setOnClickListener(this);
+//        }
+//
+//        @Override
+//        public void onClick(View view) {
+//            if (myItemClickListener!=null)
+//            {
+//                myItemClickListener.onItemClick(getAdapterPosition(),products);
+//            }
+//        }
+//    }
+//    public interface MyItemClickListener{
+//        void onItemClick(int position, List<FoodDetail> foodDetailList);
+//    }
+//
+//
+//    public void setCheckBoxVisible(int visible){
+//        mEditMode=visible;
+//        notifyDataSetChanged();
+//    }
+public List<FoodDetail.ItemListBean> products;
+    public int mEditMode = View.GONE;
     private MyItemClickListener myItemClickListener;
     private Context context;
+
     //构造方法传入数据
-    public RecyclerviewAdapter(Context context,List<FoodDetail >products,List<String > saleList, MyItemClickListener myItemClickListener){
-        this.context=context;
-        this.products=products;
-        this.saleList=saleList;
-        this.myItemClickListener=myItemClickListener;
+    public RecyclerviewAdapter(Context context, List<FoodDetail.ItemListBean> products, MyItemClickListener myItemClickListener) {
+        this.context = context;
+        this.products = products;
+        this.myItemClickListener = myItemClickListener;
     }
+
     //刷新布局
-    public void notifyAdapter(List<FoodDetail >products, boolean isAdd) {
+    public void notifyAdapter( List<FoodDetail.ItemListBean> products, boolean isAdd) {
         if (!isAdd) {
             this.products = products;
         } else {
@@ -44,7 +154,8 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         }
         notifyDataSetChanged();
     }
-    public List<FoodDetail> getFoodDetailList() {
+
+    public List<FoodDetail.ItemListBean>  getFoodDetailList() {
         if (products == null) {
             products = new ArrayList<>();
         }
@@ -55,38 +166,42 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     @Override
     public RecVH onCreateViewHolder(ViewGroup parent, int viewType) {
         //把item的Layout转化成View传给ViewHolder
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyler,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyler, parent, false);
         return new RecVH(view);
     }
+
     //  将数据放入相应的位置f
     @Override
-    public void onBindViewHolder(final RecVH holder, int position) {
-        final FoodDetail foodDetail= products.get(holder.getAdapterPosition());
-        String photo = products.get(position).getItem_list().get(position)
-                .getPhoto();
-        if (photo!=null)
-        {
-            OssUtils.downImagefromOss(context, photo);
+    public void onBindViewHolder(final RecVH holder, final int position) {
+        final FoodDetail.ItemListBean itemListBean = products.get(position);
+        String photo =itemListBean.getPhoto();
+        if (photo != null) {
+//            OssUtils.downImagefromOss(context, photo);
             Glide.with(context)
                     .load(photo)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.ivPic);
         }
-        holder.tvTitle.setText(products.get(position).getItem_list().get(position).getName());
-        holder.tv_price.setText(products.get(position).getItem_list().get(position).getUnivalence());
-        holder.tv_sale_price.setText(saleList.get(position));
-        holder.tv_description.setText(products.get(position).getItem_list().get(position).getDescription());
-
-
-        if (mEditMode==View.GONE){
-            holder.img_checkBox.setVisibility(View.GONE);
-        }
-        else{
-            holder.img_checkBox.setVisibility(View.VISIBLE);
-            if (foodDetail.isSelect())
-            {
-                holder.img_checkBox.setImageResource(R.mipmap.check);
+        holder.tvTitle.setText(itemListBean.getName());
+        holder.tv_price.setText(itemListBean.getUnivalence());
+        holder.tv_description.setText(itemListBean.getDescription());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myItemClickListener != null) {
+                    myItemClickListener.onItemClick(itemListBean,position);
+                }
             }
-            else {
+        });
+
+        if (mEditMode == View.GONE) {
+            holder.img_checkBox.setVisibility(View.GONE);
+        } else {
+            holder.img_checkBox.setVisibility(View.VISIBLE);
+
+            if (itemListBean.isSelect()) {
+                holder.img_checkBox.setImageResource(R.mipmap.check);
+            } else {
                 holder.img_checkBox.setImageResource(R.mipmap.uncheck);
             }
 
@@ -100,40 +215,33 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
     //ViewHolder绑定控件
-    public  class RecVH extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class RecVH extends RecyclerView.ViewHolder {
         ImageView ivPic;
         TextView tvTitle;
         private final TextView tv_price;
         private final TextView tv_description;
         private final ImageView img_checkBox;
-        private final TextView tv_sale_price;
 
-        public  RecVH(View itemView) {
+        public RecVH(View itemView) {
             super(itemView);
-            tv_sale_price=itemView.findViewById(R.id.tv_sale_price);
             img_checkBox = itemView.findViewById(R.id.img_checkBox);
-            ivPic=  itemView.findViewById(R.id.ivPic);
-            tvTitle= itemView.findViewById(R.id.tv_name);
+            ivPic = itemView.findViewById(R.id.ivPic);
+            tvTitle = itemView.findViewById(R.id.tv_name);
             tv_price = itemView.findViewById(R.id.tv_price);
             tv_description = itemView.findViewById(R.id.tv_description);
-            itemView.setOnClickListener(this);
+
         }
 
-        @Override
-        public void onClick(View view) {
-            if (myItemClickListener!=null)
-            {
-                myItemClickListener.onItemClick(getAdapterPosition(),products);
-            }
-        }
+
     }
-    public interface MyItemClickListener{
-        void onItemClick(int position, List<FoodDetail> foodDetailList);
+
+    public interface MyItemClickListener {
+        void onItemClick(FoodDetail.ItemListBean item,int position);
     }
 
 
-    public void setCheckBoxVisible(int visible){
-        mEditMode=visible;
+    public void setCheckBoxVisible(int visible) {
+        mEditMode = visible;
         notifyDataSetChanged();
     }
 }

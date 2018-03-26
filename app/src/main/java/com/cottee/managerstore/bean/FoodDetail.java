@@ -1,5 +1,7 @@
 package com.cottee.managerstore.bean;
 
+import com.cottee.managerstore.utils.OssUtils;
+
 import java.util.List;
 
 /**
@@ -31,11 +33,20 @@ public class FoodDetail {
         private String class_id;
         private String item_id;
         private String name;
-        private String photo;
+        private String  photo;
         private String univalence;
         private String description;
         private String discount_singe;
         private String discount;
+        private boolean isSelect;
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
         public String getDiscount_singe() {
             return discount_singe;
         }
@@ -76,6 +87,7 @@ public class FoodDetail {
         }
 
         public String getPhoto() {
+            photo=OssUtils.getOSSExtranetPath(photo);
             return photo;
         }
 
@@ -99,13 +111,5 @@ public class FoodDetail {
             this.description = description;
         }
     }
-    private boolean isSelect;
 
-    public boolean isSelect() {
-        return isSelect;
-    }
-
-    public void setSelect(boolean select) {
-        isSelect = select;
-    }
 }

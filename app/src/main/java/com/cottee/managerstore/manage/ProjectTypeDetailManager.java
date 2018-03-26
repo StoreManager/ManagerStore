@@ -79,17 +79,25 @@ public class ProjectTypeDetailManager {
                             request = new Request.Builder()
                                     .url(Properties.PROJECT_DETAIL_MANAGE_UPDATE_PATH)
                                     .post(new FormBody.Builder()
+                                            .add("session",session)
                                             .add("name", name)
                                             .add("discount_singe",discount_singe)
                                             .add("discount",discount)
-                                            .add("session",session)
                                             .add("class_id",classId)
                                             .add("univalence",univalence)
                                             .add("description",description)
                                             .add("photo",photo).build())
                                     .build();
                             break;
-//                            case
+                        case Properties.PROJECT_DETAIL_MANAGE_STICK:
+                            request=new Request.Builder()
+                                    .url(Properties.PROJECT_DETAIL_MANAGE_STICK_PATH)
+                                    .post(new FormBody.Builder()
+                                    .add("session",session)
+                                    .add("class_id",classId)
+                                    .add("item_id",itemid).build())
+                                    .build();
+                            break;
                         case PROJECT_MANAGE_DETAIL_JSON_INFORMATION:
                             Log.i(TAG, "run: 11111111111111111111111"+session);
                             Log.i(TAG, "run: -------------------"+ classId);
@@ -99,6 +107,7 @@ public class ProjectTypeDetailManager {
                                             .add("session",session).build())
                                     .build();
                             break;
+
                         default:
                             break;
                     }
@@ -133,18 +142,15 @@ public class ProjectTypeDetailManager {
 
     }
 
-    public void projectDetailManageUpdate(String foodName,String discount_singe,String discount,String classId,String itemId,String univalence,String description,String photo) {
+    public void projectDetailManageUpdate(String foodName,String discount_singe
+            ,String discount,String classId,String itemId
+            ,String univalence,String description,String photo) {
 
         sendRequest(Properties.PROJECT_DETAIL_MANAGE_UPDATE,foodName,discount_singe,discount,classId,itemId,description,univalence,photo);
 
     }
     public void projectDetailManageStick(String class_id,String item_id)
     {
-
-    }
-    public void JsonCommit( String classId) {
-
-//        sendRequest(PROJECT_MANAGE_DETAIL_JSON_INFORMATION,"",classId,"","","","");
-
+      sendRequest(Properties.PROJECT_DETAIL_MANAGE_STICK,"","","",class_id,item_id,"","","");
     }
 }

@@ -27,12 +27,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.FoodDetail;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.ProjectTypeDetailManager;
 import com.cottee.managerstore.utils.BitmapUtils;
-import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.view.SelectPicPopupWindow;
 
 import java.io.ByteArrayOutputStream;
@@ -64,14 +64,13 @@ public class FoodDetailActivity extends Activity {
     private int positon;
     private Button btn_delete;
     private TextView tv_title;
-    private Button btn_ok;
+    private Button btn_foodCommitOk;
     private Button btn_cancelEdit;
     private String path;
     private LinearLayout linear_description;
     private TextView tv_countNumber;
     private int clicked=0;
     private List<FoodDetail.ItemListBean> item_list;
-    private Handler mHandler = new Handler();
     private ScrollView scroll_add_detail;
     private FoodDetail foodDetail;
     private List<FoodDetail> foodDetails;
@@ -81,7 +80,7 @@ public class FoodDetailActivity extends Activity {
     private View view3;
     private String class_id;
     private String item_id;
-
+    private TextView tv_yuan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +94,8 @@ public class FoodDetailActivity extends Activity {
         linear_description = findViewById(R.id.linear_description);
         tv_countNumber = findViewById(R.id.tv_countNumber);
         btn_cancelEdit = findViewById(R.id.btn_cancelEdit);
-        btn_ok = findViewById(R.id.btn_ok);
+        btn_foodCommitOk = findViewById(R.id.btn_foodCommitOk);
+        tv_yuan = findViewById(R.id.tv_yuan);
         tv_title = findViewById(R.id.tv_title);
         imgbtn_foodImg = findViewById(R.id.imgbtn_foodImg);
         tv_foodName = findViewById(R.id.tv_foodName);
@@ -119,7 +119,7 @@ public class FoodDetailActivity extends Activity {
         positon = getIntent().getIntExtra("position", 0);
         tv_foodName.setText(item_list.get(positon).getName());
         tv_foodPrice.setText(item_list.get(positon).getUnivalence());
-        imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getPhoto()));
+        Glide.with(this).load(item_list.get(positon).getPhoto()).into(imgbtn_foodImg);
         tv_des.setText(item_list.get(positon).getDescription());
         tv_title.setText(item_list.get(positon).getName());
         class_id = foodDetails.get(positon)
@@ -133,7 +133,7 @@ public class FoodDetailActivity extends Activity {
             public void onClick(View view) {
              clicked++;
                 btn_delete.setVisibility(View.GONE);
-                btn_ok.setVisibility(View.VISIBLE);
+                btn_foodCommitOk.setVisibility(View.VISIBLE);
 
                 view1.setVisibility(View.GONE);
                 view2.setVisibility(View.GONE);
@@ -263,8 +263,7 @@ public class FoodDetailActivity extends Activity {
         btn_cancelEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                btn_ok.setVisibility(View.GONE);
+                btn_foodCommitOk.setVisibility(View.GONE);
                 btn_delete.setVisibility(View.VISIBLE);
 
                 view1.setVisibility(View.VISIBLE);
@@ -289,56 +288,61 @@ public class FoodDetailActivity extends Activity {
             }
         });
 
-        btn_ok.setOnClickListener(new View.OnClickListener() {
+        btn_foodCommitOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imgbtn_foodImg.setClickable(false);
-                btn_change.setVisibility(View.VISIBLE);
-                btn_cancelEdit.setVisibility(View.GONE);
-                edit_foodName.setVisibility(View.GONE);
-                edit_foodPrice.setVisibility(View.GONE);
-                linear_description.setVisibility(View.GONE);
-                tv_foodName.setVisibility(View.VISIBLE);
-                tv_foodPrice.setVisibility(View.VISIBLE);
-                tv_des.setVisibility(View.VISIBLE);
-                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getName()));
-                tv_foodName.setText(edit_foodName.getText().toString());
-                tv_foodPrice.setText(edit_foodPrice.getText().toString());
-                tv_des.setText(edit_foodDescription.getText().toString());
-                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getName()));
-
-                item_list.get(positon).setName(tv_foodName.getText().toString().trim());
-                item_list.get(positon).setUnivalence(tv_foodPrice.getText().toString().trim());
-                item_list.get(positon).setDescription(tv_des.getText().toString().trim());
-
-                if (path!=null) {
-                    item_list.get(positon).setPhoto(path);
-                    try {
-                        InputStream open = new FileInputStream( path );
-                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[4096];
-                        int n = 0;
-                        while (-1 != (n = open.read( buffer ))) {
-                            output.write( buffer, 0, n );
-                        }
-
-                        OssUtils.updata( FoodDetailActivity.this
-                                , objectKey,
-                                output.toByteArray());
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    detailManager.projectDetailManageUpdate(edit_foodName.getText().toString(),
-                            "0","0",class_id
-                            ,item_id
-                            ,edit_foodPrice.getText().toString()
-                            ,edit_foodDescription.getText().toString()
-                            ,objectKey);
-
-                }
-
-                finish();
+                Toast.makeText(FoodDetailActivity.this, "pppppp", Toast
+                        .LENGTH_SHORT).show();
+//                imgbtn_foodImg.setClickable(false);
+//                btn_change.setVisibility(View.VISIBLE);
+//                btn_cancelEdit.setVisibility(View.GONE);
+//                edit_foodName.setVisibility(View.GONE);
+//                edit_foodPrice.setVisibility(View.GONE);
+//                linear_description.setVisibility(View.GONE);
+//                tv_foodName.setVisibility(View.VISIBLE);
+//                tv_foodPrice.setVisibility(View.VISIBLE);
+//                tv_des.setVisibility(View.VISIBLE);
+//                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getName()));
+//                tv_foodName.setText(edit_foodName.getText().toString());
+//                tv_foodPrice.setText(edit_foodPrice.getText().toString());
+//                tv_des.setText(edit_foodDescription.getText().toString());
+//                imgbtn_foodImg.setImageBitmap(BitmapFactory.decodeFile(item_list.get(positon).getName()));
+//
+//                item_list.get(positon).setName(tv_foodName.getText().toString().trim());
+//                item_list.get(positon).setUnivalence(tv_foodPrice.getText().toString().trim());
+//                item_list.get(positon).setDescription(tv_des.getText().toString().trim());
+//
+//                if (path!=null) {
+//                    item_list.get(positon).setPhoto(path);
+//                    try {
+//                        InputStream open = new FileInputStream( path );
+//                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+//                        byte[] buffer = new byte[4096];
+//                        int n = 0;
+//                        while (-1 != (n = open.read( buffer ))) {
+//                            output.write( buffer, 0, n );
+//                        }
+//
+////                        OssUtils.updata( FoodDetailActivity.this
+////                                , objectKey,
+////                                output.toByteArray());
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println("名字：" + edit_foodName.getText().toString() + "classid:" +
+//                            item_list.get(positon).getClass_id() + "Item_id:"
+//                            + item_list.get(positon).getItem_id() + "价格：" +
+//                            edit_foodPrice.getText().toString());
+////
+//                    detailManager.projectDetailManageUpdate(edit_foodName.getText().toString()
+//                            ,"0","0"
+//                            ,class_id,item_id,edit_foodPrice.getText().toString()
+//                            ,edit_foodDescription.getText().toString(),objectKey);
+//
+//                }
+//
+//                finish();
             }
         });
 

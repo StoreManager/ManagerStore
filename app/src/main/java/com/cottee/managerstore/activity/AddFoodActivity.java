@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.media.DrmInitData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,13 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.ServiceException;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.FoodDetail;
@@ -40,9 +34,7 @@ import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.AddFoodInfoIsEmpty;
 import com.cottee.managerstore.manage.ProjectTypeDetailManager;
 import com.cottee.managerstore.utils.BitmapUtils;
-import com.cottee.managerstore.utils.LogUtils;
 import com.cottee.managerstore.utils.OssUtils;
-import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.view.SelectPicPopupWindow;
 
 import java.io.ByteArrayOutputStream;
@@ -52,15 +44,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import static android.content.ContentValues.TAG;
-import static com.cottee.managerstore.activity.FrontCoverActivity
-        .readBitmapAutoSize;
 
 public class AddFoodActivity extends Activity {
     private ImageButton imgbtn_foodImg;
@@ -79,8 +65,7 @@ public class AddFoodActivity extends Activity {
     private String foodPrice;
     private String foodDescription;
     private AddFoodInfoIsEmpty addFoodInfoIsEmpty;
-//    public static List<FoodDetail> foodDetailList=new ArrayList<>();
-    public  List<FoodDetail> foodDetailList=ManageFoodDetail1Activity.foodDetailList;
+//    public  List<FoodDetail> foodDetailList=ManageFoodDetail1Activity.foodDetailList;
     private  String path=null;
     private Handler mHandler = new Handler();
     private ScrollView scroll_addFood;
@@ -89,13 +74,18 @@ public class AddFoodActivity extends Activity {
     private String name;
     public static String objectKey;
     private String userEmail;
-
+    private Drawable on;
+    private Drawable off;
+    private boolean isCommitVip;
+    private int clicked=1;
+    public static final String SAVE_PIC_PATH=Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory().getAbsolutePath() : "/mnt/sdcard";//保存到SD卡
+//    public static final String SAVE_REAL_PATH = SAVE_PIC_PATH+"/good/savePic" ;//保存的确切位置
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
         userEmail = UserRequestInfo.getUserEmail();
-        objectKey ="merchant"+"/"+ userEmail +"/"+"item"
+        objectKey ="merchant/"+ userEmail+"/item"
                 +"/"+new DateFormat().format( "yyyyMMdd_hhmmss",
                 Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
         initView();
@@ -104,6 +94,9 @@ public class AddFoodActivity extends Activity {
     }
 
     private void initView() {
+        Resources resources = this.getResources();
+        on=resources.getDrawable(R.mipmap.turnon);
+        off=resources.getDrawable(R.mipmap.turnoff);
         scroll_addFood = findViewById(R.id.scroll_addFood);
         imgbtn_foodImg = findViewById(R.id.imgbtn_foodImg);
         edit_foodName = findViewById(R.id.edit_foodName);
@@ -111,7 +104,7 @@ public class AddFoodActivity extends Activity {
         edit_foodDescription = findViewById(R.id.edit_foodDescription);
         tv_inputNumber = findViewById(R.id.tv_inputNumber);
         btn_cancel = findViewById(R.id.btn_cancle);
-        btn_oK = findViewById(R.id.btn_ok);
+        btn_oK = findViewById(R.id.btn_foodCommitOk);
         tv_moneyErro = findViewById(R.id.tv_moneyErro);
     }
     private void initEvent() {
@@ -280,7 +273,7 @@ public class AddFoodActivity extends Activity {
                             OssUtils.updata( AddFoodActivity.this, objectKey,
                                     output.toByteArray());
 
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -292,7 +285,7 @@ public class AddFoodActivity extends Activity {
                         item_list.get(i).setUnivalence(foodPrice);
                         item_list.get(i).setDescription(foodDescription);
                         foodDetail.setItem_list(item_list);
-                        foodDetailList.add(foodDetail);
+//                        foodDetailList.add(foodDetail);
                     }
                     System.out.println("名字："+foodName + ProjectManageActivity
                             .dishId + foodDescription + foodPrice);
@@ -302,9 +295,6 @@ public class AddFoodActivity extends Activity {
                         detailManager.projectDetailManageCommit(foodName,"0","0",
                                 ProjectManageActivity.dishId,
                                foodPrice, foodDescription,objectKey);
-//                    detailManager.projectDetailManageCommit(foodName,"0","0",
-//                            ProjectManageActivity.dishId,
-//                            foodPrice, foodDescription,path);
                             finish();
 
                 }
@@ -380,30 +370,6 @@ public class AddFoodActivity extends Activity {
             }
         }
 
-    }
-    // 得到相册路径
-    public String getCameraPath(Intent data) {
-        Uri originalUri = data.getData();
-        String[] proj = {MediaStore.Images.Media.DATA};
-
-        // 好像是android多媒体数据库的封装接口，具体的看Android文档     数据库
-
-        Cursor cursor = this.managedQuery( originalUri, proj,
-                null, null, null );
-
-        // 获取游标
-
-        int column_index = cursor
-                .getColumnIndexOrThrow( MediaStore.Images.Media.DATA );
-
-        // 将光标移至开头 ，这个很重要，不小心很容易引起越界
-
-        cursor.moveToFirst();
-
-        // 最后根据索引值获取图片路径
-
-        String path = cursor.getString( column_index );
-        return path;
     }
     public void startClipActivity(String path) {
         Intent intent = new Intent( this, ManagePicActivity.class );

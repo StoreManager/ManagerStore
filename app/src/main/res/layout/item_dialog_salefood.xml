@@ -44,6 +44,8 @@
             android:layout_height="40dp"
             android:visibility="gone"
             android:hint="输入折扣，如0.95"
+            android:digits="1234567890."
+            android:inputType="number"
             android:background="@drawable/editsharp"/>
         <TextView
             android:id="@+id/tv_sale_warn"
@@ -59,23 +61,24 @@
 <LinearLayout
     android:layout_gravity="center"
     android:layout_marginTop="25dp"
+    android:layout_marginBottom="20dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <Button
         android:id="@+id/btn_sale_cancel"
         android:text="取消"
         android:textSize="13sp"
-        android:background="@drawable/bt_square"
+        android:background="@drawable/bg_order"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         />
     <Button
         android:id="@+id/btn_sale_ok"
         android:textSize="13sp"
         android:text="确认"
-        android:background="@drawable/bt_square"
+        android:background="@drawable/bg_order"
         android:layout_marginLeft="100dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="35dp"/>
 </LinearLayout>
 </LinearLayout>

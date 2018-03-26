@@ -9,6 +9,7 @@ public class Properties {
     public static  final  String PROJECT_DETAIL_MANAGE_GET_PATH ="https://thethreestooges.cn:1225/classify/item/select";
     public static final String PROJECT_DETAIL_MANAGE_ADD_PATH="https://thethreestooges.cn:1225/classify/item/insert";
     public static final String PROJECT_DETAIL_MANAGE_UPDATE_PATH="https://thethreestooges.cn:1225/classify/item/update";
+    public static final String PROJECT_DETAIL_MANAGE_STICK_PATH="https://thethreestooges.cn:1225/classify/item/stick";
     public static final String PROJECT_DETAIL_MANAGE_DELETE_PATH="\n" +
             "https://thethreestooges.cn:1225/classify/item/delete";
 
@@ -19,6 +20,7 @@ public class Properties {
     public static final int PROJECT_DETAIL_MANAGE_ADD=24;
     public static final int PROJECT_DETAIL_MANAGE_DELETE =23;
     public static final int PROJECT_DETAIL_MANAGE_GET =22;
+    public static final int PROJECT_DETAIL_MANAGE_STICK =25;
 
     public static final String EMAIL_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_submit.php";
     public static final String MAIL_VERIFICATION_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_validate.php";

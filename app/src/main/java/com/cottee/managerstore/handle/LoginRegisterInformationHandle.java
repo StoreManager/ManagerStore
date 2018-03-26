@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.cottee.managerstore.R;
-import com.cottee.managerstore.activity.ManageFoodDetailActivity;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
 import com.cottee.managerstore.activity1.ForgetPasswordActivity;
 import com.cottee.managerstore.activity1.RegisterPasswordActivity;
@@ -508,6 +507,7 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_DETAIL_MANAGE_DELETE:
                 break;
             case Properties.PROJECT_DETAIL_MANAGE_UPDATE:
+
                 break;
 
             default:

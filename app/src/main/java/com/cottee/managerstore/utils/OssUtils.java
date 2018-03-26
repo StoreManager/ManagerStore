@@ -25,13 +25,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class OssUtils {
-    private final static String TEST_BUCKET = "thethreestooges";
-    private static String KEY_ID = "STS.J4G2KHA54nktUV6g83uVygCjn";
-    private static String SECRET_KEY_ID = "2aEFRYXejM3BM7px7sQW3Vkb7fZT4TKM2FZN18VKyUuY";
-    public final static String endpoint = "http://oss-cn-shenzhen.aliyuncs" +
-            ".com";
-    private static String TOKEN =
-            "CAIS/QF1q6Ft5B2yfSjIq/fyefH8rOoV2amfV3CHgzhmedlViIbBjDz2IHtKe3ZvAekZsfkwlWxT7fwclqp5QZUd0e9GxzM0vPpt6gqET9frma7ctM4p6vCMHWyUFGSIvqv7aPn4S9XwY+qkb0u++AZ43br9c0fJPTXnS+rr76RqddMKRAK1QCNbDdNNXGtYpdQdKGHaOITGUHeooBKJVxAx4Fsk0DMisP3vk5DD0HeE0g2mkN1yjp/qP52pY/NrOJpCSNqv1IR0DPGajnEPtEATq/gr0/0Yomyd4MvuCl1Q8giANPHP7tpsIQl2a643AadYq+Lmkvl1qmkSey1SFdInGoABZWT8M1buzA7KRNqHKKAzFbD3A/Ud7k1us6hSIhvLz7v5hUpdHqaMbAqI7dMN2Ww88KfV1rde7alJL7yjY7PSW20joRDaK/qr+/A5pHoxdePf/76duaw15aL4RCxly6hdK7ZwHICZdunQlbJ+VCurRyTliBTjKga632dwwChOs3U=";
+    public final static String TEST_BUCKET = "thethreestooges";
+    public static String KEY_ID = "STS.J4G2KHA54nktUV6g83uVygCjn";
+    public static String SECRET_KEY_ID = "2aEFRYXejM3BM7px7sQW3Vkb7fZT4TKM2FZN18VKyUuY";
+    public final static String endpoint = "http://oss-cn-shenzhen.aliyuncs" + ".com";
+    public static String TOKEN = "CAIS/QF1q6Ft5B2yfSjIq/fyefH8rOoV2amfV3CHgzhmedlViIbBjDz2IHtKe3ZvAekZsfkwlWxT7fwclqp5QZUd0e9GxzM0vPpt6gqET9frma7ctM4p6vCMHWyUFGSIvqv7aPn4S9XwY+qkb0u++AZ43br9c0fJPTXnS+rr76RqddMKRAK1QCNbDdNNXGtYpdQdKGHaOITGUHeooBKJVxAx4Fsk0DMisP3vk5DD0HeE0g2mkN1yjp/qP52pY/NrOJpCSNqv1IR0DPGajnEPtEATq/gr0/0Yomyd4MvuCl1Q8giANPHP7tpsIQl2a643AadYq+Lmkvl1qmkSey1SFdInGoABZWT8M1buzA7KRNqHKKAzFbD3A/Ud7k1us6hSIhvLz7v5hUpdHqaMbAqI7dMN2Ww88KfV1rde7alJL7yjY7PSW20joRDaK/qr+/A5pHoxdePf/76duaw15aL4RCxly6hdK7ZwHICZdunQlbJ+VCurRyTliBTjKga632dwwChOs3U=";
     private static OSS oss;
 
     private static void initOSS(Context context, OnLoginSuccessful onLoginSuccessful) {
@@ -113,7 +111,17 @@ public class OssUtils {
         });
 
     }
+    public static String getOSSExtranetPath(String objectKey) {
+        String path="";
+        try {
+            path = MyApplication.getOSSClient().presignConstrainedObjectURL(OssUtils.TEST_BUCKET
+                    , objectKey, 30);
 
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
     private static void setServiceCallBack(PutObjectRequest put) {
 
         // 异步上传时可以设置进度回调

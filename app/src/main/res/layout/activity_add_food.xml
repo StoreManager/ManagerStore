@@ -71,7 +71,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="允许会员打折:"
+                android:textSize="13sp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+      <ToggleButton
+       android:id="@+id/togbtn_vip"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textOff="否"
+       android:textOn="是"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,13 +126,12 @@
                 android:text="还剩余100字数"/>
         </LinearLayout>
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_marginTop="60dp"
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_ok"
+                android:id="@+id/btn_foodCommitOk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="完成"
