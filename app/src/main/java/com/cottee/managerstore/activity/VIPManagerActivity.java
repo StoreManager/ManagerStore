@@ -122,7 +122,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.action_addLevel) {  //根据ItemId进行判断。
-            centerDialog.show();
+//            centerDialog.show();
+            startActivity( new Intent( this,AddVIPStandardActivity.class ) );
             return true;
         }else if(menuItem.getItemId()==R.id.action_search){
             startActivity( new Intent( this,VIPSearchActivity.class ) );
