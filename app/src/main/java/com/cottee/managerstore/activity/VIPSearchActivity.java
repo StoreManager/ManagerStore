@@ -44,5 +44,7 @@ public class VIPSearchActivity extends Activity {
             }
         } );
     }
-
+    public void backs(View view){
+        finish();
+    }
 }

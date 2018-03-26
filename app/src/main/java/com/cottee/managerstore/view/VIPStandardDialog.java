@@ -62,7 +62,6 @@ public class VIPStandardDialog extends Dialog implements View.OnClickListener {
 
     public void setOnCenterItemClickListener(OnCenterItemClickListener listener) {
         this.listener = listener;
-
     }
 
     @Override

@@ -4,10 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.cottee.managerstore.activity.VIPSearchActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purplishblue">
+
+        <Button
+            android:onClick="backs"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/back_2x"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="会员搜索"
+            android:textColor="@color/white"
+            android:textSize="18dp"/>
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <AutoCompleteTextView
+            android:layout_weight="3"
+            android:id="@+id/auto"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
+            android:background="@drawable/et_square"
+            android:completionThreshold="2"
+            android:dropDownHorizontalOffset="0dp"
+            android:hint="根据昵称或ID查找"
+            android:textCursorDrawable="@drawable/autotextview"/>
+
+        <Button
+            android:id="@+id/btn_backToAddressStore"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:background="@drawable/bt_square"
+            android:text="取消"
+            android:textColor="@color/colorText"/>
+    </LinearLayout>
     <ListView
         android:id="@+id/lv_vip"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent">
+    </ListView>
 
 </LinearLayout>
