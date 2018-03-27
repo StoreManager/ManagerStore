@@ -145,6 +145,15 @@
         <activity android:name=".activity1.EmployeeManageSearchActivity"/>
         <activity android:name=".activity1.EmployeeManageInfoActivity"/>
         <activity android:name=".activity1.SuccessAddEmployeeActivity"/>
+        <activity android:name=".activity1.emp_login.EmpMainActivity"
+                  android:launchMode="singleTask"/>
+        <activity android:name=".activity1.emp_login.EmpDetailMessageActivity"
+                  android:launchMode="singleTask"/>
+
+
+        <activity android:name=".activity1.emp_login.EmpUpdateDetailActivity"
+                  android:launchMode="singleTask"/>
+
        <activity android:name=".activity.ModifyFoodDetailActivity"/>
     </application>
 
