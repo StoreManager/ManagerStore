@@ -45,17 +45,21 @@ public class VIPStandardAdapter extends BaseAdapter {
         if (view == null) {
             viewHolder = new ViewHolder();
             view = View.inflate( context, R.layout.item_vipstandard, null );
-            viewHolder.tv_standardName = view.findViewById( R.id.tv_standardName );
-            viewHolder.tv_vipLevelNumber = view.findViewById( R.id.tv_vipLevelNumber );
+            viewHolder.tv_currentLevel = view.findViewById( R.id.tv_currentLevel );
+            viewHolder.tv_vipLevelNumber = view.findViewById( R.id.tv_vipnumber );
+            viewHolder.tv_vipname = view.findViewById( R.id.tv_vipname );
             viewHolder.tv_min = view.findViewById( R.id.tv_min );
-            viewHolder.tv_max = view.findViewById( R.id.tv_level_introd );
+            viewHolder.discount = view.findViewById( R.id.tv_discount );
+
             view.setTag( viewHolder );
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.tv_standardName.setText( vipStandardList.get( i ).getStandardName() );
+        viewHolder.tv_vipname.setText( vipStandardList.get( i ).getStandardName() );
         viewHolder.tv_min.setText( vipStandardList.get( i ).getMin() );
-        viewHolder.tv_max.setText( vipStandardList.get( i ).getLevel_introd() );
+        viewHolder.tv_currentLevel.setText( vipStandardList.get( i ).getCurrentLevel() );
+        viewHolder.discount.setText( vipStandardList.get( i ).getDiscount() );
+
         if (vipStandardList.get( i ).getNumber() == null) {
             viewHolder.tv_vipLevelNumber.setText( "等级人数：0" );
         } else {
@@ -65,9 +69,10 @@ public class VIPStandardAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        TextView tv_standardName;
-        TextView tv_vipLevelNumber;
-        TextView tv_min;
-        TextView tv_max;
+        TextView tv_currentLevel;//当前等级
+        TextView tv_vipname;//等级名称
+        TextView tv_min;//等级积分
+        TextView tv_vipLevelNumber;//等级人数
+        TextView discount;//优惠折扣
     }
 }

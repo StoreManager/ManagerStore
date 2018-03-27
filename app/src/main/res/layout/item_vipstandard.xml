@@ -4,72 +4,105 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#5d5f9e">
+        android:layout_height="50dp">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/colorTitle"
+                android:text="当前会员等级："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_currentLevel"
+                android:layout_marginLeft="5dp"
+                android:text="VIP1"
+                android:textColor="@color/colorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="当前等级人数："
+                android:textColor="@color/colorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_vipnumber"
+                android:text="355"
+                android:textColor="@color/colorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
         <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/tv_standardName"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/colorTitle"
+            android:text="当前等级名称："
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="青铜会员"
-            android:textColor="#efefef"
-            android:textSize="16sp"/>
-
+            android:layout_height="wrap_content"/>
         <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/tv_vipLevelNumber"
+            android:id="@+id/tv_vipname"
+            android:layout_marginLeft="5dp"
+            android:text="白金会员"
+            android:textColor="@color/colorTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="等级人数:355"
-            android:textColor="#efefef"
-            android:textSize="16sp"/>
-
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
         <TextView
-            android:id="@+id/tv_interval"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/colorTitle"
+            android:text="是否享受优惠："
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_standardName"
-            android:layout_margin="10dp"
-            android:text="积分下限："
-            android:textColor="#efefef"
-            android:textSize="16sp"/>
-
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_marginLeft="5dp"
+            android:text="无折扣"
+            android:textColor="@color/colorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/colorTitle"
+            android:text="当前会员积分："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tv_min"
+            android:layout_marginLeft="5dp"
+            android:text="500"
+            android:textColor="@color/colorTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_standardName"
-            android:layout_margin="10dp"
-            android:layout_toRightOf="@id/tv_interval"
-            android:text="300"
-            android:textColor="#efefef"
-            android:textSize="16sp"/>
-        <TextView
-            android:id="@+id/tv_level_intro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_min"
-            android:layout_margin="10dp"
-            android:text="等级描述："
-            android:textColor="#efefef"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/tv_level_introd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_min"
-            android:layout_margin="10dp"
-            android:layout_toRightOf="@id/tv_level_intro"
-            android:text="该等级积分下限为300，即达到300积分就可成为本级会员，在此等级可享受对应优惠折扣；若想成为高一级会员，则积分需要达到500积分。"
-            android:textColor="#efefef"
-            android:textSize="16sp"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>
