@@ -26,15 +26,13 @@ import java.util.List;
  * Created by user on 2018/1/16.
  */
 
-public class VIPManagerActivity extends Activity implements View.OnClickListener, VIPStandardDialog
-        .OnCenterItemClickListener,PopupMenu.OnMenuItemClickListener   {
+public class VIPManagerActivity extends Activity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener   {
 
     private Button btn_back_to_manager;
     private View btn_menu;
     private Button btn_searchVIP;
     private TextView tv_empty;
     private ListView lv_vipStandard;
-    private VIPStandardDialog centerDialog;
     public static List<VIPStandard> vipStandardList=new ArrayList<VIPStandard>();
     private VIPStandardAdapter vipStandardAdapter;
     private PopupMenu mMenu;
@@ -43,10 +41,6 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_vipmanager_layout );
-
-        centerDialog = new VIPStandardDialog( this, R.layout.dialog_layout,
-                new int[]{R.id.dialog_cancel, R.id.dialog_sure} );
-        centerDialog.setOnCenterItemClickListener( this );
 
         btn_back_to_manager = (Button) findViewById( R.id.btn_back_to_manager );
         btn_back_to_manager.setOnClickListener( this );
@@ -79,50 +73,8 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
         }
     }
     @Override
-    public void OnCenterItemClick(VIPStandardDialog dialog, View view) {
-        switch (view.getId()) {
-            case R.id.dialog_sure:
-                String[] string = getString( centerDialog );
-                if (string == null) {
-                    return;
-                } else {
-                    tv_empty.setVisibility( View.GONE );
-                    lv_vipStandard.setVisibility( View.VISIBLE );
-                    vipStandardList.add(new VIPStandard( string[0],string[1],string[2] ));
-                    vipStandardAdapter.notifyDataSetChanged();
-                    dialog.dismiss();
-                }
-                break;
-            case R.id.dialog_cancel:
-                dialog.dismiss();
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public String[] getString(VIPStandardDialog dialog) {
-        EditText et_name = (EditText) dialog.findViewById( R.id.et_vipStandardName );
-        EditText et_min = (EditText) dialog.findViewById( R.id.et_min );
-        EditText et_max = (EditText) dialog.findViewById( R.id.et_level_introd );
-        String name = et_name.getText().toString().trim();
-        String min = et_min.getText().toString().trim();
-        String max = et_max.getText().toString().trim();
-        if (name.isEmpty()) {
-            Toast.makeText( this, "输入名字哦", Toast.LENGTH_SHORT ).show();
-            return null;
-        }else if(min.isEmpty()||max.isEmpty()){
-            Toast.makeText( this, "输入积分区间哦", Toast.LENGTH_SHORT ).show();
-            return null;
-        }
-        return new String[]{name, min, max};
-    }
-
-    @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.action_addLevel) {  //根据ItemId进行判断。
-//            centerDialog.show();
             startActivity( new Intent( this,AddVIPStandardActivity.class ) );
             return true;
         }else if(menuItem.getItemId()==R.id.action_search){

@@ -104,6 +104,8 @@
             android:name=".activity1.ProjectManageActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+        <activity android:name=".activity.AddVIPStandardActivity"
+                  android:launchMode="singleTask"/>
         <activity
             android:name=".activity.FrontCoverActivity"
             android:launchMode="singleTask"/>
