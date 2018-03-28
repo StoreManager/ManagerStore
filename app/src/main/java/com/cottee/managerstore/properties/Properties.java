@@ -78,5 +78,11 @@ public class Properties {
     public static final int EMPLOYEE_INFO = 31;
 
     //会员
-    public static final String VIP_STANDARD_PATH="https://thethreestooges.cn:1225/VIP/vip/upload";
+    public static final String VIP_STANDARD_PATH="https://thethreestooges" +
+            ".cn:1225/VIP/vip/upload";//会员等级上传
+    public static final int VIP_SUB=32;
+    public static final String VIP_STANDARD_SHOW="https://thethreestooges.cn:1225/VIP/vip/show";
+    //会员等级显示
+
+
 }

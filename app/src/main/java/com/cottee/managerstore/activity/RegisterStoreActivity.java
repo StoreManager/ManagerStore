@@ -150,7 +150,6 @@ public class RegisterStoreActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        getStoreList();
         HttpUtilSession.sendSessionOkHttpRequest( mContext, Properties.GET_STORE, new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

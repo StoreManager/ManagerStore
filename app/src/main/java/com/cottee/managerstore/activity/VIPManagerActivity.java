@@ -7,20 +7,26 @@ import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.adapter.VIPStandardAdapter;
 import com.cottee.managerstore.bean.VIPStandard;
-import com.cottee.managerstore.utils.ToastUtils;
-import com.cottee.managerstore.view.VIPStandardDialog;
+import com.cottee.managerstore.httputils.HttpUtilSession;
+import com.cottee.managerstore.properties.Properties;
+import com.cottee.managerstore.utils.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 
 /**
  * Created by user on 2018/1/16.
@@ -55,8 +61,45 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
 
         tv_empty = (TextView) findViewById( R.id.tv_empty );
         lv_vipStandard = (ListView) findViewById( R.id.lv_vipStandard );
-        vipStandardAdapter = new VIPStandardAdapter( this, vipStandardList );
-        lv_vipStandard.setAdapter( vipStandardAdapter );
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        HttpUtilSession.sendSessionOkHttpRequest( this,
+                Properties.VIP_STANDARD_SHOW, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                if (s.isEmpty()) {
+                    return;
+                }
+                vipStandardList= Utils.handleVIPResponse( s );
+                if (vipStandardList.size() == 0) {
+                    tv_empty.setVisibility( View.VISIBLE );
+                } else {
+                    runOnUiThread( new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_empty.setVisibility( View.GONE );
+                            lv_vipStandard.setVisibility( View.VISIBLE );
+                            vipStandardAdapter = new VIPStandardAdapter( VIPManagerActivity.this,
+                                    vipStandardList );
+                            lv_vipStandard.setAdapter( vipStandardAdapter );
+                            vipStandardAdapter.notifyDataSetChanged();
+                        }
+                    } );
+
+                }
+            }
+        } );
+
     }
 
     @Override
@@ -83,4 +126,5 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
         }
         return false;
     }
+
 }

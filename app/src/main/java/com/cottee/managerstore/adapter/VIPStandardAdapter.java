@@ -55,16 +55,15 @@ public class VIPStandardAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.tv_vipname.setText( vipStandardList.get( i ).getStandardName() );
-        viewHolder.tv_min.setText( vipStandardList.get( i ).getMin() );
-        viewHolder.tv_currentLevel.setText( vipStandardList.get( i ).getCurrentLevel() );
+        viewHolder.tv_vipname.setText( vipStandardList.get( i ).getVIP_name() );
+        viewHolder.tv_min.setText( vipStandardList.get( i ).getMin_num() );
         viewHolder.discount.setText( vipStandardList.get( i ).getDiscount() );
 
-        if (vipStandardList.get( i ).getNumber() == null) {
-            viewHolder.tv_vipLevelNumber.setText( "等级人数：0" );
-        } else {
-            viewHolder.tv_vipLevelNumber.setText( vipStandardList.get( i ).getNumber() );
-        }
+//        if (vipStandardList.get( i ).getNumber() == null) {
+//            viewHolder.tv_vipLevelNumber.setText( "等级人数：0" );
+//        } else {
+//            viewHolder.tv_vipLevelNumber.setText( vipStandardList.get( i ).getNumber() );
+//        }
         return view;
     }
 

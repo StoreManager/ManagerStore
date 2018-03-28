@@ -5,49 +5,39 @@ package com.cottee.managerstore.bean;
  */
 
 public class VIPStandard {
-    private String currentLevel;//当前等级
-    private String standardName;//会员名称
-    private String min;//最小积分
-    private String number;
-    private String discount;//折扣
+    /**
+     * VIP_id : 1103
+     * VIP_name : vip1
+     * min_num : 300
+     * discount : 0.8
+     */
+    private String VIP_id;
+    private String VIP_name;
+    private String min_num;
+    private String discount;
 
-    public VIPStandard(String currentLevel, String standardName, String min, String discount) {
-        this.currentLevel = currentLevel;
-        this.standardName = standardName;
-        this.min = min;
-        this.discount = discount;
+    public String getVIP_id() {
+        return VIP_id;
     }
 
-    public String getCurrentLevel() {
-        return currentLevel;
+    public void setVIP_id(String VIP_id) {
+        this.VIP_id = VIP_id;
     }
 
-    public void setCurrentLevel(String currentLevel) {
-        this.currentLevel = currentLevel;
+    public String getVIP_name() {
+        return VIP_name;
     }
 
-    public String getStandardName() {
-        return standardName;
+    public void setVIP_name(String VIP_name) {
+        this.VIP_name = VIP_name;
     }
 
-    public void setStandardName(String standardName) {
-        this.standardName = standardName;
+    public String getMin_num() {
+        return min_num;
     }
 
-    public String getMin() {
-        return min;
-    }
-
-    public void setMin(String min) {
-        this.min = min;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
+    public void setMin_num(String min_num) {
+        this.min_num = min_num;
     }
 
     public String getDiscount() {

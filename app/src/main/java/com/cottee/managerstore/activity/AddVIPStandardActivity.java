@@ -17,6 +17,8 @@ import android.widget.ToggleButton;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.bean.VIPStandard;
+import com.cottee.managerstore.handle.VIPStandardHandle;
+import com.cottee.managerstore.manage.SubmitVIPStandardManager;
 import com.cottee.managerstore.wheelwidget.NumericWheelAdapter;
 import com.cottee.managerstore.wheelwidget.OnWheelChangedListener;
 import com.cottee.managerstore.wheelwidget.WheelView;
@@ -126,7 +128,9 @@ public class AddVIPStandardActivity extends Activity implements View.OnClickList
                 }else {
                     discount=tv_discount.getText().toString().trim();
                 }
-
+                SubmitVIPStandardManager manager = new SubmitVIPStandardManager( this, new VIPStandardHandle( this ) );
+                manager.submitVIP( name,min,discount );
+                finish();
                 break;
         }
     }
