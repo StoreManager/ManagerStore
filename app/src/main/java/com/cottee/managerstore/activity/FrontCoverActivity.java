@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.format.DateFormat;
 import android.util.Base64;
 import android.view.View;
 import android.view.Window;
@@ -38,7 +39,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by user on 2018/1/14.
@@ -71,7 +74,10 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
         setContentView( R.layout.activity_frontcover_layout );
 
         userEmail = UserRequestInfo.getUserEmail();
-        submitPath = "merchant/"+ userEmail + "surface.jpg";
+
+        submitPath ="merchant/"+"1151803550@qq.com" +"/item"
+                +"/"+new DateFormat().format( "yyyyMMdd_hhmmss",
+                Calendar.getInstance( Locale.CHINA ) ) + "surface"+".jpg";
 
         findView();
         Intent intent = getIntent();
@@ -175,8 +181,7 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
                             output.write( buffer, 0, n );
                         }
 
-                        OssUtils.updata( this, submitPath,
-                                output.toByteArray());
+                        OssUtils.updata( FrontCoverActivity.this,submitPath,output.toByteArray() );
 
                     } catch (IOException e) {
                         e.printStackTrace();

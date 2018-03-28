@@ -76,4 +76,7 @@ public class Properties {
             "https://thethreestooges.cn:1225/staff/staff/list";
     public static  final  String EMPLOYEE_INFO_GSON_PATH = "https://thethreestooges.cn:1225/staff/staff/info";
     public static final int EMPLOYEE_INFO = 31;
+
+    //会员
+    public static final String VIP_STANDARD_PATH="https://thethreestooges.cn:1225/VIP/vip/upload";
 }

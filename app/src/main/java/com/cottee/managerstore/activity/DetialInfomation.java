@@ -37,6 +37,7 @@ import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
 import com.cottee.managerstore.utils.BitmapUtils;
+import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.utils.ToastUtils;
 
 import java.io.File;
@@ -519,8 +520,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                     surface = data.getStringExtra( "submitPath" );
                     String bitmampath = data.getStringExtra( "bitmampath" );
                     submit();
-                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
-                    iv_surface.setImageBitmap( bitmap );
+//                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+                    String ossExtranetPath = OssUtils.getOSSExtranetPath( surface );
+                    Glide.with( this ).load( ossExtranetPath ).into( iv_surface );
                 }
             case ONE_REQ:
                 if (resultCode == RESULT_OK) {
