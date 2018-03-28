@@ -1,6 +1,7 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.cottee.managerstore.Filter.CashierInputFilter;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.bean.VIPStandard;
@@ -50,6 +52,8 @@ public class AddVIPStandardActivity extends Activity implements View.OnClickList
     private WheelView wl_last;
     private TextView tv_discount;
     private Button btn_ok;
+    private int level;
+    private String front_min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,10 @@ public class AddVIPStandardActivity extends Activity implements View.OnClickList
         on = resources.getDrawable( R.mipmap.turnon );
         off = resources.getDrawable( R.mipmap.turnoff );
 
+
+        Intent intent = getIntent();
+        level = intent.getIntExtra( "level", 1 );
+        front_min = intent.getStringExtra( "min" );
         findView();
 
     }
@@ -67,8 +75,11 @@ public class AddVIPStandardActivity extends Activity implements View.OnClickList
         back = (Button) findViewById( R.id.btn_back_to_vipmanager );
         back.setOnClickListener( this );
         tv_currentLevel = (TextView) findViewById( R.id.tv_currentStandard );
+        tv_currentLevel.setText( "VIP"+(level+1) );
         et_vipName = (EditText) findViewById( R.id.et_vipname );
         et_min = (EditText) findViewById( R.id.et_min );
+        CashierInputFilter[] filters = {new CashierInputFilter()};
+        et_min.setFilters( filters );
         btn_discount = (ToggleButton) findViewById( R.id.btn_discount );
         btn_discount.setOnCheckedChangeListener( this );
         ll_discount = (LinearLayout) findViewById( R.id.ll_discount );
@@ -120,6 +131,14 @@ public class AddVIPStandardActivity extends Activity implements View.OnClickList
                 }
                 if(min.isEmpty()){
                     Toast.makeText( this, "输入积分哦",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if( Integer.valueOf( front_min )>Integer.valueOf( min )){
+                    Toast.makeText( this,"前一等级最小积分是"+Integer.valueOf( front_min )+"," +
+                                    ""+"要大于前一等级积分哦",
+                            Toast
+                            .LENGTH_LONG ).show();
                     return;
                 }
                 String discount=null;

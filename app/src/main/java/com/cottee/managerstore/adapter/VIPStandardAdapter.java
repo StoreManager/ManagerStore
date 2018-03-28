@@ -45,8 +45,7 @@ public class VIPStandardAdapter extends BaseAdapter {
         if (view == null) {
             viewHolder = new ViewHolder();
             view = View.inflate( context, R.layout.item_vipstandard, null );
-            viewHolder.tv_currentLevel = view.findViewById( R.id.tv_currentLevel );
-            viewHolder.tv_vipLevelNumber = view.findViewById( R.id.tv_vipnumber );
+//            viewHolder.tv_vipLevelNumber = view.findViewById( R.id.tv_vipnumber );
             viewHolder.tv_vipname = view.findViewById( R.id.tv_vipname );
             viewHolder.tv_min = view.findViewById( R.id.tv_min );
             viewHolder.discount = view.findViewById( R.id.tv_discount );
@@ -68,10 +67,9 @@ public class VIPStandardAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        TextView tv_currentLevel;//当前等级
         TextView tv_vipname;//等级名称
         TextView tv_min;//等级积分
-        TextView tv_vipLevelNumber;//等级人数
+//        TextView tv_vipLevelNumber;//等级人数
         TextView discount;//优惠折扣
     }
 }

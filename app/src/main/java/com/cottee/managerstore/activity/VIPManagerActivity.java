@@ -118,7 +118,14 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.action_addLevel) {  //根据ItemId进行判断。
-            startActivity( new Intent( this,AddVIPStandardActivity.class ) );
+            Intent intent = new Intent( this, AddVIPStandardActivity.class );
+            intent.putExtra( "level",vipStandardList.size() );
+            String min_num = "0";
+            if(vipStandardList.size()>0){
+                min_num=vipStandardList.get( vipStandardList.size() - 1 ).getMin_num();
+            }
+            intent.putExtra( "min" ,min_num);
+            startActivity( intent );
             return true;
         }else if(menuItem.getItemId()==R.id.action_search){
             startActivity( new Intent( this,VIPSearchActivity.class ) );

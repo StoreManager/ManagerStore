@@ -170,7 +170,6 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
                 }
                 break;
             case R.id.btn_photoSubmit:
-
                 if (path != null) {
                     try {
                         InputStream open = new FileInputStream( path );
@@ -189,7 +188,6 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
                 }
                 Intent pathIntent = new Intent();
                 pathIntent.putExtra( "submitPath",submitPath );
-                pathIntent.putExtra( "bitmampath",path);
                 setResult( RESULT_OK,pathIntent );
                 finish();
                 break;

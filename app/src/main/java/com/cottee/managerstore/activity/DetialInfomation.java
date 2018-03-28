@@ -32,17 +32,24 @@ import android.widget.ToggleButton;
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.Filter.CashierInputFilter;
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
+import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
+import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BitmapUtils;
 import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.utils.Utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+
+import okhttp3.Call;
 
 /**
  * Created by user on 2017/12/12.
@@ -96,6 +103,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private List<String> environment;
     private SubmitStoreInfoManager submitStoreInfo;
     private ImageView shop_icon;
+    private int storeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +113,9 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         on = resources.getDrawable( R.mipmap.turnon );
         off = resources.getDrawable( R.mipmap.turnoff );
         Intent intent = getIntent();
-        storeInfo = (StoreInfo) intent.getSerializableExtra( "storeInfo" );
+        storeId = intent.getIntExtra( "storeId", 0 );
+//        storeInfo = (StoreInfo) intent.getSerializableExtra( "storeInfo" );
+        storeInfo=RegisterStoreActivity.storeList.get( storeId );
         findView();
         surface = storeInfo.getSurface();
         environment = storeInfo.getEnvironment();
@@ -518,41 +528,59 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             case PATH_REQ:
                 if (resultCode == RESULT_OK) {
                     surface = data.getStringExtra( "submitPath" );
-                    String bitmampath = data.getStringExtra( "bitmampath" );
                     submit();
-//                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
-                    String ossExtranetPath = OssUtils.getOSSExtranetPath( surface );
+                    String a = getStoreList().get( storeId ).getSurface();
+                    String ossExtranetPath = OssUtils.getOSSExtranetPath( a);
                     Glide.with( this ).load( ossExtranetPath ).into( iv_surface );
                 }
+                break;
             case ONE_REQ:
-                if (resultCode == RESULT_OK) {
-                    String submitPath1 = data.getStringExtra( "submitPath" );
-                    String bitmampath = data.getStringExtra( "bitmampath" );
-//                    submitStoreInfo.submitEnvirInfo( submitPath1 );
-                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
-                    iv_photo1.setImageBitmap( bitmap );
-                }
+//                if (resultCode == RESULT_OK) {
+//                    String submitPath1 = data.getStringExtra( "submitPath" );
+//                    String bitmampath = data.getStringExtra( "bitmampath" );
+////                    submitStoreInfo.submitEnvirInfo( submitPath1 );
+//                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+//                    iv_photo1.setImageBitmap( bitmap );
+//                }
                 break;
             case TWO_REQ:
-                if (resultCode == RESULT_OK) {
-                    String submitPath2 = data.getStringExtra( "submitPath" );
-                    String bitmampath = data.getStringExtra( "bitmampath" );
-//                    submitStoreInfo.submitEnvirInfo( submitPath2 );
-                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
-                    iv_photo2.setImageBitmap( bitmap );
-                }
-                break;
+//                if (resultCode == RESULT_OK) {
+//                    String submitPath2 = data.getStringExtra( "submitPath" );
+//                    String bitmampath = data.getStringExtra( "bitmampath" );
+////                    submitStoreInfo.submitEnvirInfo( submitPath2 );
+//                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+//                    iv_photo2.setImageBitmap( bitmap );
+//                }
+//                break;
             case THREE_REQ:
-                String submitPath3 = data.getStringExtra( "submitPath" );
-                if (resultCode == RESULT_OK) {
-                    String bitmampath = data.getStringExtra( "bitmampath" );
-//                    submitStoreInfo.submitEnvirInfo( submitPath3 );
-                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
-                    iv_photo3.setImageBitmap( bitmap );
-                }
+//                String submitPath3 = data.getStringExtra( "submitPath" );
+//                if (resultCode == RESULT_OK) {
+//                    String bitmampath = data.getStringExtra( "bitmampath" );
+////                    submitStoreInfo.submitEnvirInfo( submitPath3 );
+//                    Bitmap bitmap = FrontCoverActivity.readBitmapAutoSize( bitmampath );
+//                    iv_photo3.setImageBitmap( bitmap );
+//                }
                 break;
             default:
                 break;
         }
+    }
+    public List<StoreInfo> getStoreList(){
+        HttpUtilSession.sendSessionOkHttpRequest( mContext, Properties.GET_STORE, new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                String s = response.body().string();
+                if (s.isEmpty()) {
+                    return;
+                }
+                RegisterStoreActivity.storeList = Utils.handleStoreResponse( s );
+            }
+        } );
+            return RegisterStoreActivity.storeList;
     }
 }

@@ -138,7 +138,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
             case R.id.tv_storeManager:
                 Intent intent = new Intent( this, DetialInfomation.class );
                 storeInfo=RegisterStoreActivity.storeList.get( storeid );
-                intent.putExtra( "storeInfo", storeInfo );
+//                intent.putExtra( "storeInfo", storeInfo );
+                intent.putExtra( "storeId",storeid );
                 startActivity( intent );
                 break;
             case R.id.btn_vipManager:
