@@ -43,7 +43,7 @@
                     android:background="@null"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:hint=" 按姓名搜索..."
+                    android:hint=" 按姓名/账号搜索"
                     android:textColor="#000"
                     android:textSize="12dp"/>
 

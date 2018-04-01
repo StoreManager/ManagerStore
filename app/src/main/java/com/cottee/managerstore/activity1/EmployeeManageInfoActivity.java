@@ -14,6 +14,7 @@ import com.cottee.managerstore.bean.viewdata.LineChartData;
 import com.cottee.managerstore.httputils.Https;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.view.ImageViewExtend;
 import com.cottee.managerstore.widget.LineChart;
 import com.cottee.managerstore.widget.Title;
 import com.google.gson.Gson;
@@ -35,7 +36,7 @@ public class EmployeeManageInfoActivity extends Activity {
     private Title title;
     private LineChart mWeekLineChart;
     private String[] mWeekItems = new String[]{"日", "一", "二", "三", "四", "五", "六"};
-    private int[] mWeekPoints = new int[]{0, 12, 8, -1, -1, -1, -1};
+    private int[] mWeekPoints = new int[7];
     private List<LineChartData> mWeekList = new ArrayList<>();
 
     private EmployeeInfoHandle handler = new EmployeeInfoHandle();
@@ -43,6 +44,9 @@ public class EmployeeManageInfoActivity extends Activity {
     private TextView tv_emp_info_sex;
     private TextView tv_emp_info_birth;
     private TextView tv_emp_info_phone;
+    private ImageViewExtend imv_emp_header;
+    private int [] empAllTime = new int[7];
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,19 +54,13 @@ public class EmployeeManageInfoActivity extends Activity {
         setContentView(R.layout.activity_employee_info);
         Intent intent = getIntent();
         String emp_id = intent.getStringExtra("EMP_ID");
-        intiView();
         initTitle();
+        intiView();
         sendRequest(emp_id);
 
 
 
-        for (int i = 0; i < mWeekItems.length; i++) {
-            LineChartData data = new LineChartData();
-            data.setItem(mWeekItems[i]);
-            data.setPoint(mWeekPoints[i]);
-            mWeekList.add(data);
-        }
-        mWeekLineChart.setData(mWeekList);
+
     }
 
 
@@ -104,7 +102,8 @@ public class EmployeeManageInfoActivity extends Activity {
     private void parseJSONWithGSON(String jsonData) {
         //使用轻量级的Gson解析得到的json
         Gson gson = new Gson();
-        List<SingleEmployeeInfo.EmployeeInfoBean> empInfo = gson.fromJson(jsonData, SingleEmployeeInfo.class).getStaff_info();
+        SingleEmployeeInfo empInfo = gson.fromJson(jsonData, SingleEmployeeInfo.class);
+       /* List<SingleEmployeeInfo> empInfo = (List<SingleEmployeeInfo>) singleEmployeeInfo;*/
         System.out.println("员工信息外部数据："+empInfo);
        /* System.out.println("员工信息时间数据："+timeInfo);*/
         Message message = new Message();
@@ -123,29 +122,40 @@ public class EmployeeManageInfoActivity extends Activity {
         private String empSex;
         private String empBirth;
         private String empPhone;
+        private String[] empTime;
 
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case Properties.EMPLOYEE_INFO:
-                    List<SingleEmployeeInfo.EmployeeInfoBean> empInfo = (List<SingleEmployeeInfo.EmployeeInfoBean>) msg.obj;
+                    SingleEmployeeInfo empInfo = (SingleEmployeeInfo) msg.obj;
 
 
-                    empName = empInfo.get(0).getName();
-                    /*empSex = empInfo.get(0).getSex();
-                    empBirth = empInfo.get(0).getBirth();
-                    empPhone = empInfo.get(0).getPhone_number();*/
-
-                        System.out.println("单个员工名字："+ empName);
+                    empName = empInfo.getName();
+                    empSex = empInfo.getSex();
+                    empBirth = empInfo.getBirth();
+                    empPhone = empInfo.getPhone_number();
+                    empTime = empInfo.getTime_list();
+                    System.out.println("单个员工名字："+ empName);
                         System.out.println("单个员工性别："+ empSex);
                         System.out.println("单个员工生日："+ empBirth);
                         System.out.println("单个员工电话："+ empPhone);
 
-                    tv_emp_info_name.setText(empName);
-                    /*tv_emp_info_sex.setText(empSex);
-                    tv_emp_info_birth.setText(empBirth);
-                    tv_emp_info_phone.setText(empPhone);*/
+                        for(int i=0;i<empTime.length;i++){
+                            mWeekPoints[i]=Integer.parseInt(empTime[i]);
 
+                        }
+                    tv_emp_info_name.setText(empName);
+                    tv_emp_info_sex.setText(empSex);
+                    tv_emp_info_birth.setText(empBirth);
+                    tv_emp_info_phone.setText(empPhone);
+                    for (int i = 0; i < mWeekItems.length; i++) {
+                        LineChartData data = new LineChartData();
+                        data.setItem(mWeekItems[i]);
+                        data.setPoint(mWeekPoints[i]);
+                        mWeekList.add(data);
+                    }
+                    mWeekLineChart.setData(mWeekList);
 
                    /* if (!adapter.isEmpty()) {
                         ll_empty.setVisibility(View.GONE);
@@ -174,6 +184,9 @@ public class EmployeeManageInfoActivity extends Activity {
         tv_emp_info_sex = (TextView) findViewById(R.id.tv_emp_info_sex);
         tv_emp_info_birth = (TextView) findViewById(R.id.tv_emp_info_birth);
         tv_emp_info_phone = (TextView) findViewById(R.id.tv_emp_info_phone);
+        imv_emp_header = (ImageViewExtend) findViewById(R.id.imv_emp_header);
+        imv_emp_header.setmDrawShapeType(ImageViewExtend.SHAPE_CIRCLE);
+        imv_emp_header.setImageResource(R.mipmap.img_coffee);
     }
 
     private void initTitle(){

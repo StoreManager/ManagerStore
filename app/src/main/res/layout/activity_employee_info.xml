@@ -20,11 +20,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <ImageView
+                <com.cottee.managerstore.view.ImageViewExtend
+                    android:id="@+id/imv_emp_header"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@mipmap/ic_launcher"/>
+                    android:layout_gravity="center_horizontal"/>
 
                 <View
                     android:layout_width="match_parent"

@@ -62,6 +62,7 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
                 String empInfoId = empId.get(position);
                 Intent intent = new Intent(EmployeeManageActivity.this,EmployeeManageInfoActivity.class);
                 intent.putExtra("EMP_ID",empInfoId);
+                System.out.println("点击员工Id"+empInfoId);
                 startActivity(intent);
             }
         });

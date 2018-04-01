@@ -85,4 +85,10 @@ public class Properties {
     //会员等级显示
 
 
+
+    //员工登录
+    public static  final  String EMP_LOGIN_PATH ="https://thethreestooges.cn:1225/identity/login/staff_login.php";
+    public static final int EMP_LOGIN = 33;
+    public static final int EMP_UPDATE = 34;
+    public static  final  String EMP_UPDATE_PATH ="https://thethreestooges.cn:1225/staff/staff/update";
 }

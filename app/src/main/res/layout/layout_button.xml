@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+                android:gravity="center">
+
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:background="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/ll_up_picture"
+                >
+
+                //1
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/ll_item_one"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@color/white">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imv_icon"
+                        android:background="@mipmap/myt_store_close"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_item"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:text="店铺管理"
+                            android:textSize="13sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_up"
+
+                    android:layout_width="0.7dp"
+                    android:layout_height="150dp"
+                    android:layout_toRightOf="@id/ll_item_one"
+                    android:background="@color/page_background"/>
+                //2
+                <LinearLayout
+
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_toRightOf="@id/view_up"
+                    android:id="@+id/ll_item_two"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imv_icon_two"
+                        android:background="@mipmap/myt_restaurant_close"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_item_two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="13sp"
+                            android:text="菜品服务管理"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_below="@id/ll_item_one"
+                    android:layout_width="150dp"
+                    android:layout_height="0.7dp"
+                    android:id="@+id/view_vertical_left"
+                    android:layout_centerVertical="true"
+                    android:background="@color/page_background"/>
+
+                <View
+                    android:layout_below="@id/ll_item_two"
+                    android:layout_toRightOf="@id/view_vertical_left"
+                    android:layout_width="150dp"
+                    android:layout_height="0.7dp"
+                    android:id="@+id/view_vertical_right"
+                    android:layout_centerVertical="true"
+                    android:background="@color/page_background"/>
+
+                //3
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/view_vertical_left"
+                    android:id="@+id/ll_item_three"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@color/white"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imv_icon_three"
+                        android:background="@mipmap/myt_money_close"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_item_three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="13sp"
+                            android:text="账目管理"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_down"
+                    android:layout_toRightOf="@id/ll_item_three"
+                    android:layout_below="@id/view_up"
+                    android:layout_width="0.7dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/page_background"/>
+
+
+
+                //4
+                <LinearLayout
+
+                    android:layout_below="@id/view_vertical_right"
+                    android:layout_toRightOf="@id/view_down"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_item_four"
+                    android:gravity="center"
+                    android:background="@color/white">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imv_icon_four"
+                        android:background="@mipmap/myt_dingdan_close"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_item_four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="13sp"
+                            android:text="订单管理"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_vertical_one_left"
+                    android:layout_below="@id/ll_item_three"
+                    android:layout_width="150dp"
+                    android:layout_height="0.7dp"
+                    android:background="@color/page_background"/>
+                //5
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/view_vertical_one_left"
+                    android:id="@+id/ll_item_five"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@color/white"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imv_icon_five"
+                        android:background="@mipmap/myt_emp_close"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_item_five"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="13sp"
+                            android:text="员工管理"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_one_down"
+                    android:layout_toRightOf="@id/ll_item_five"
+                    android:layout_below="@id/view_down"
+                    android:layout_width="0.7dp"
+                    android:layout_height="150dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/page_background"/>
+
+                <View
+                    android:id="@+id/view_vertical_one_right"
+                    android:layout_toRightOf="@id/view_vertical_one_left"
+                    android:layout_below="@id/ll_item_four"
+                    android:layout_width="150dp"
+                    android:layout_height="0.7dp"
+                    android:background="@color/page_background"/>
+
+                //6
+                <LinearLayout
+
+                    android:layout_below="@id/view_vertical_one_right"
+                    android:layout_toRightOf="@id/view_one_down"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_item_six"
+                    android:gravity="center"
+                    android:background="@color/white">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imv_icon_six"
+                        android:background="@mipmap/myt_vip_close"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_item_six"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000"
+                            android:textSize="13sp"
+                            android:text="会员管理"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
+
+</RelativeLayout>

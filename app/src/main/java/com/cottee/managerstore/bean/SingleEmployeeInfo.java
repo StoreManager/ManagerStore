@@ -1,7 +1,5 @@
 package com.cottee.managerstore.bean;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2018/3/11.
  */
@@ -10,17 +8,17 @@ public class SingleEmployeeInfo {
     /**{"staff_info":{"name":"1","sex":"男","birth":"1996-03-11","phone_number":"15141433601","photo":"aaaaa","time_list":[{"overtime":180222,
     "time_sum":"2.1531"},{"overtime":180219,"time_sum":"2.1531"},{"overtime":180218,"time_sum":"2.1531"}]}}**/
 
-    private List<SingleEmployeeInfo.EmployeeInfoBean> staff_info;
+    /*private List<EmployeeInfoBean> staff_info;
 
-    public List<SingleEmployeeInfo.EmployeeInfoBean> getStaff_info() {
+    public List<EmployeeInfoBean> getStaff_info() {
         return staff_info;
     }
 
-    public void setStaff_info(List<SingleEmployeeInfo.EmployeeInfoBean> staff_info) {
+    public void setStaff_info(List<EmployeeInfoBean> staff_info) {
         this.staff_info = staff_info;
-    }
+    }*/
 
-    public static class EmployeeInfoBean {
+    /*public static class EmployeeInfoBean {*/
 
 
         public String name;
@@ -33,7 +31,7 @@ public class SingleEmployeeInfo {
 
         public String photo;
 
-        public List<EmployeeWorkTimeBean> time_list;
+        public String[] time_list;
 
         public String getName() {
             return name;
@@ -75,25 +73,13 @@ public class SingleEmployeeInfo {
             this.photo = photo;
         }
 
-        public List<EmployeeWorkTimeBean> getTime_list() {
+        public String[] getTime_list() {
             return time_list;
         }
 
-        public void setTime_list(List<EmployeeWorkTimeBean> time_list) {
+        public void setTime_list(String[] time_list) {
             this.time_list = time_list;
         }
 
-        public static class EmployeeWorkTimeBean {
-            public String time_sum;
 
-            public String getTime_sum() {
-                return time_sum;
-            }
-
-            public void setTime_sum(String time_sum) {
-                this.time_sum = time_sum;
-            }
-        }
-
-    }
 }

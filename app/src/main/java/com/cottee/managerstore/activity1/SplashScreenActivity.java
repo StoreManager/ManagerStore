@@ -11,6 +11,8 @@ import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.InitOssClient;
 
 import java.io.IOException;
 
@@ -36,7 +38,7 @@ public class SplashScreenActivity extends Activity {
 
         setContentView(R.layout.activity_splashscreen);
 
-
+        InitOssClient.initOssClient(this, ConfigOfOssClient.TOKEN_ADDRESS, ConfigOfOssClient.ENDPOINT);
 
         handle = new LoginRegisterInformationHandle(SplashScreenActivity.this, "");
 

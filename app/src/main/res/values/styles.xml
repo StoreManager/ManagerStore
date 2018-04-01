@@ -61,4 +61,10 @@
         <item name="android:windowBackground">@android:color/transparent</item> <!--窗口背景色透明-->
         <item name="android:backgroundDimEnabled">true</item> <!--背景是否模糊显示-->
     </style>
+
+    <style name="MyDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
+    </style>
+
 </resources>

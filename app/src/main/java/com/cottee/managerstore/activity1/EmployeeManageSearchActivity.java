@@ -87,7 +87,7 @@ public class EmployeeManageSearchActivity extends Activity implements View.OnCli
                     String single_name = emp_name.get(s);
                     String single_id = emp_id.get(s);
 
-                    if(single_name.indexOf(search_data)!=-1&&!search_data.equals("")){
+                    if(single_name.indexOf(search_data)!=-1&&!search_data.equals("")||single_id.indexOf(search_data)!=-1&&!search_data.equals("")){
 
                         search_name.add(single_name);
                         search_id.add(single_id);

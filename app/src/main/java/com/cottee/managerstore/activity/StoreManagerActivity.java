@@ -2,7 +2,7 @@ package com.cottee.managerstore.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,11 +25,8 @@ import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.Utils;
-import com.cottee.managerstore.view.PressureButton;
 import com.cottee.managerstore.view.StoreStausPopupWindow;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.cottee.managerstore.widget.ZoomHoverView;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,7 +37,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private Toolbar tl_custom;
     private DrawerLayout dl_left;
     private ActionBarDrawerToggle mDrawerToggle;
-    private ImageButton btn_storeManager;
+    private ImageView btn_storeManager;
     public Context mContext = StoreManagerActivity.this;
     private TextView tv_storeManager;
     private LinearLayout linear_changeStore;
@@ -49,25 +47,27 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_storename_manager;
     private StoreInfo storeInfo;
     private int clicked = 1;
-    private ImageButton btntoprojectmanage;
-    private ImageButton btn_to_employee_manage;
+    private ImageView btntoprojectmanage;
+    private ImageView btn_to_employee_manage;
     private int storeid;
-    private ImageButton btn_vipManager;
+    private ImageView btn_vipManager;
     private TextView tv_vipManager;
     private TextView tv_to_project_manage;
     private TextView tv_to_employee_manage;
-    private ImageButton btn_moneyManage;
+    private ImageView btn_moneyManage;
     private TextView tv_moneyManage;
-    private ImageButton btn_orderManage;
+    private ImageView btn_orderManage;
     private TextView tv_orderManage;
 
     private boolean isOpen=false;
+    private ZoomHoverView mZoomHoverView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_storemanager );
         findView();
+        initAnim();
         tl_custom.setTitle( "" );//设置Toolbar标题
         tl_custom.setBackgroundColor( getResources().getColor( R.color.gray ) );
 //        tl_custom.setTitleTextColor(getResources().getColor(R.color.white)); //设置标题颜色
@@ -94,58 +94,121 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void findView() {
+        mZoomHoverView = (ZoomHoverView) findViewById(R.id.zoom_hover_view_1);
         pbtn_order = findViewById( R.id.pbtn_order );
         imgbtn_storeStatus = findViewById( R.id.imgbtn_storeStatus );
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
-        btn_to_employee_manage =  findViewById(R.id.btn_to_employee_manage);
-        tv_to_employee_manage = findViewById(R.id.tv_to_employee_manage);
-        btn_moneyManage = findViewById(R.id.btn_moneyManage);
-        tv_moneyManage = findViewById(R.id.tv_moneyManage);
-        btn_orderManage = findViewById(R.id.btn_orderManage);
-        tv_orderManage = findViewById(R.id.tv_orderManage);
+        btn_to_employee_manage =  findViewById(R.id.imv_icon_five);
+        tv_to_employee_manage = findViewById(R.id.tv_item_five);
+        btn_moneyManage = findViewById(R.id.imv_icon_three);
+        tv_moneyManage = findViewById(R.id.tv_item_three);
+        btn_orderManage = findViewById(R.id.imv_icon_four);
+        tv_orderManage = findViewById(R.id.tv_item_four);
         btn_to_employee_manage.setOnClickListener(this);
         linear_changeStore = findViewById( R.id.linear_changeStore );
         tv_storename_manager = (TextView) findViewById( R.id.tv_storename_manager );
-        btn_storeManager =  findViewById( R.id.btn_storeManager );
+        btn_storeManager =  findViewById( R.id.imv_icon );
         btn_storeManager.setOnClickListener( this );
-        tv_storeManager = (TextView) findViewById( R.id.tv_storeManager );
+        tv_storeManager = (TextView) findViewById( R.id.tv_item );
         tv_storeManager.setOnClickListener( this );
-        btn_vipManager =  findViewById( R.id.btn_vipManager );
+        btn_vipManager =  findViewById( R.id.imv_icon_six );
         btn_vipManager.setOnClickListener( this );
-        tv_vipManager = (TextView) findViewById( R.id.tv_vipManager );
-        tv_vipManager.setOnClickListener( this );
-        btntoprojectmanage =  findViewById( R.id.btn_to_project_manage );
-        tv_to_project_manage = findViewById(R.id.tv_to_project_manage);
+        tv_vipManager = (TextView) findViewById( R.id.tv_item_six );
+        btntoprojectmanage =  findViewById( R.id.imv_icon_two );
+        tv_to_project_manage = findViewById(R.id.tv_item_two);
         pbtn_order.setOnClickListener( this );
         imgbtn_storeStatus.setOnClickListener( this );
-        tv_storeManager.setOnClickListener( this );
         linear_changeStore.setOnClickListener( this );
         btntoprojectmanage.setOnClickListener( this );
         btn_orderManage.setOnClickListener(this);
     }
 
+    private void initAnim() {
+        mZoomHoverView.setOnButtonView(new ZoomHoverView.OnButtonSelectedListener() {
+            @Override
+            public void onButtonSelected(View view, int viewId) {
+                switch(view.getId()){
+                    case R.id.ll_item_one:
+                        Intent intent = new Intent( StoreManagerActivity.this, DetialInfomation.class );
+                        storeInfo=RegisterStoreActivity.storeList.get( storeid );
+//                intent.putExtra( "storeInfo", storeInfo );
+                        intent.putExtra( "storeId",storeid );
+                        startActivity( intent );
+                        break;
+                    case R.id.ll_item_two:
+                        Intent intentOne = new Intent( StoreManagerActivity.this, ProjectManageActivity.class );
+                        startActivity( intentOne );
+                        break;
+                    case R.id.ll_item_three:
+                        startActivity(new Intent(StoreManagerActivity.this,ManageMoneyActivity.class));
+                        break;
+                    case R.id.ll_item_four:
+
+                        break;
+                    case R.id.ll_item_five:
+                        Intent intentTwo = new Intent( StoreManagerActivity.this, EmployeeManageActivity.class );
+                        startActivity( intentTwo );
+                        break;
+                    case R.id.ll_item_six:
+                        startActivity( new Intent( StoreManagerActivity.this, VIPManagerActivity.class ) );
+                        break;
+
+                }
+            }
+        });
+
+
+        mZoomHoverView.setOnZoomAnimatorListener(new ZoomHoverView.OnZoomAnimatorListener() {
+            @Override
+            public void onZoomInStart(View view) {
+                view.setBackground(getResources().getDrawable(R.drawable.holo_light_frame));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.setElevation(15.0f);
+                }
+            }
+
+            @Override
+            public void onZoomInEnd(View view) {
+
+            }
+
+            @Override
+            public void onZoomOutStart(View view) {
+
+            }
+
+            @Override
+            public void onZoomOutEnd(View view) {
+                view.setBackgroundColor(getResources().getColor(R.color.white));
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.setElevation(0);
+                }
+
+            }
+        });
+    }
+
+
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
+        mZoomHoverView.setOnItemView(new ZoomHoverView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(View view) {
+                mZoomHoverView.setCloseAnimation(view);
+            }
+        });
         getStoreList();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_storeManager:
-            case R.id.tv_storeManager:
-                Intent intent = new Intent( this, DetialInfomation.class );
-                storeInfo=RegisterStoreActivity.storeList.get( storeid );
-//                intent.putExtra( "storeInfo", storeInfo );
-                intent.putExtra( "storeId",storeid );
-                startActivity( intent );
-                break;
-            case R.id.btn_vipManager:
-            case R.id.tv_vipManager:
-                startActivity( new Intent( this, VIPManagerActivity.class ) );
-                break;
             case R.id.linear_changeStore:
                 startActivity( new Intent( this, RegisterStoreActivity.class ) );
                 finish();
@@ -161,17 +224,17 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
                     scaleAnimation.setDuration( 200 );
                     view.startAnimation( scaleAnimation );
-                    btn_storeManager.setBackgroundResource(R.mipmap.storemanage);
+                    btn_storeManager.setBackgroundResource(R.mipmap.myt_store_open);
                     tv_storeManager.setTextColor(getResources().getColor(R.color.babyblue));
-                    btntoprojectmanage.setBackgroundResource(R.mipmap.food);
+                    btntoprojectmanage.setBackgroundResource(R.mipmap.myt_restaurant_open);
                     tv_to_project_manage.setTextColor(getResources().getColor(R.color.babyblue));
-                    btn_to_employee_manage.setBackgroundResource(R.mipmap.employee);
+                    btn_to_employee_manage.setBackgroundResource(R.mipmap.myt_emp_open);
                     tv_to_employee_manage.setTextColor(getResources().getColor(R.color.babyblue));
-                    btn_vipManager.setBackgroundResource(R.mipmap.vipmanage);
+                    btn_vipManager.setBackgroundResource(R.mipmap.myt_vip_open);
                     tv_vipManager.setTextColor(getResources().getColor(R.color.babyblue));
-                    btn_moneyManage.setBackgroundResource(R.mipmap.managemoney);
+                    btn_moneyManage.setBackgroundResource(R.mipmap.myt_money_open);
                     tv_moneyManage.setTextColor(getResources().getColor(R.color.babyblue));
-                    btn_orderManage.setBackgroundResource(R.mipmap.order);
+                    btn_orderManage.setBackgroundResource(R.mipmap.myt_dingdan_open);
                     tv_orderManage.setTextColor(getResources().getColor(R.color.babyblue));
                     tl_custom.setBackgroundColor( getResources().getColor( R.color.purplishblue ) );
                     pbtn_order.setBackgroundResource(R.color.purplishblue);
@@ -184,17 +247,17 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
                     scaleAnimation.setDuration( 200 );
                     view.startAnimation( scaleAnimation );
-                    btn_storeManager.setBackgroundResource(R.mipmap.storemanage_close);
+                    btn_storeManager.setBackgroundResource(R.mipmap.myt_store_close);
                     tv_storeManager.setTextColor(getResources().getColor(R.color.gray));
-                    btntoprojectmanage.setBackgroundResource(R.mipmap.foodmanage_close);
+                    btntoprojectmanage.setBackgroundResource(R.mipmap.myt_restaurant_close);
                     tv_to_project_manage.setTextColor(getResources().getColor(R.color.gray));
-                    btn_to_employee_manage.setBackgroundResource(R.mipmap.employeemanage_close);
+                    btn_to_employee_manage.setBackgroundResource(R.mipmap.myt_emp_close);
                     tv_to_employee_manage.setTextColor(getResources().getColor(R.color.gray));
-                    btn_vipManager.setBackgroundResource(R.mipmap.vipmanage_close);
+                    btn_vipManager.setBackgroundResource(R.mipmap.myt_vip_close);
                     tv_vipManager.setTextColor(getResources().getColor(R.color.gray));
-                    btn_moneyManage.setBackgroundResource(R.mipmap.moneymanage_close);
+                    btn_moneyManage.setBackgroundResource(R.mipmap.myt_money_close);
                     tv_moneyManage.setTextColor(getResources().getColor(R.color.gray));
-                    btn_orderManage.setBackgroundResource(R.mipmap.ordermanage_close);
+                    btn_orderManage.setBackgroundResource(R.mipmap.myt_dingdan_close);
                     tv_orderManage.setTextColor(getResources().getColor(R.color.gray));
                     tl_custom.setBackgroundColor( getResources().getColor( R.color.gray ) );
                     pbtn_order.setBackgroundResource(R.color.gray);
@@ -213,17 +276,10 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 break;
-            case R.id.btn_to_project_manage:
-                Intent intentOne = new Intent( StoreManagerActivity.this, ProjectManageActivity.class );
-                startActivity( intentOne );
-                break;
-            case R.id.btn_to_employee_manage:
-                Intent intentTwo = new Intent( StoreManagerActivity.this, EmployeeManageActivity.class );
-                startActivity( intentTwo );
-                break;
-            case R.id.btn_orderManage:
+
+            /*case R.id.btn_orderManage:
 //                startActivity(new Intent(StoreManagerActivity.this,OrderManageMainActivity.class));
-                break;
+                break;*/
             default:
                 break;
         }
@@ -252,11 +308,5 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         }.start();
         return RegisterStoreActivity.storeList;
     }
-    public void manageMoney(View view)
-    {
-        startActivity(new Intent(StoreManagerActivity.this,ManageMoneyActivity.class));
-    }
-
-
 
 }

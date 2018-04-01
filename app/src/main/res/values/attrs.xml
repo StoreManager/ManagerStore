@@ -39,4 +39,20 @@
         <attr name="zhv_use_baseWH" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="ImageViewExtend">
+        <attr name="shape" format="integer" />
+
+        <attr name="border" format="boolean" />
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="rect_roundcorner" format="dimension" />
+
+        <attr name="shadow" format="boolean" />
+        <attr name="shadow_width" format="dimension" />
+        <attr name="shadow_color_star" format="color" />
+        <attr name="shadow_color_midd" format="color" />
+        <attr name="shadow_color_end" format="color" />
+
+    </declare-styleable>
+
 </resources>
