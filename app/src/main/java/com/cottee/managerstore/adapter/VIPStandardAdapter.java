@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.VIPStandard;
@@ -49,6 +51,7 @@ public class VIPStandardAdapter extends BaseAdapter {
             viewHolder.tv_vipname = view.findViewById( R.id.tv_vipname );
             viewHolder.tv_min = view.findViewById( R.id.tv_min );
             viewHolder.discount = view.findViewById( R.id.tv_discount );
+            viewHolder.btn_change=view.findViewById( R.id.btn_vip_change );
 
             view.setTag( viewHolder );
         } else {
@@ -57,12 +60,13 @@ public class VIPStandardAdapter extends BaseAdapter {
         viewHolder.tv_vipname.setText( vipStandardList.get( i ).getVIP_name() );
         viewHolder.tv_min.setText( vipStandardList.get( i ).getMin_num() );
         viewHolder.discount.setText( vipStandardList.get( i ).getDiscount() );
-
-//        if (vipStandardList.get( i ).getNumber() == null) {
-//            viewHolder.tv_vipLevelNumber.setText( "等级人数：0" );
-//        } else {
-//            viewHolder.tv_vipLevelNumber.setText( vipStandardList.get( i ).getNumber() );
-//        }
+        viewHolder.btn_change.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( context,"change",Toast.LENGTH_SHORT ).show();
+            }
+        } );
+//
         return view;
     }
 
@@ -71,5 +75,6 @@ public class VIPStandardAdapter extends BaseAdapter {
         TextView tv_min;//等级积分
 //        TextView tv_vipLevelNumber;//等级人数
         TextView discount;//优惠折扣
+        Button btn_change;
     }
 }

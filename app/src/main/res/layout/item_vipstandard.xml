@@ -3,77 +3,143 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <!--<LinearLayout-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="30dp">-->
-        <!--<TextView-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:textColor="@color/colorTitle"-->
-            <!--android:text="当前等级人数："-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
-        <!--<TextView-->
-            <!--android:id="@+id/tv_vipnumber"-->
-            <!--android:layout_marginLeft="5dp"-->
-            <!--android:text="355人"-->
-            <!--android:textColor="@color/colorTitle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"/>-->
-    <!--</LinearLayout>-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorTitle"
-            android:text="当前等级名称："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_vipname"
-            android:layout_marginLeft="5dp"
-            android:text="白金会员"
-            android:textColor="@color/colorTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorTitle"
-            android:text="是否享受优惠："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_discount"
-            android:layout_marginLeft="5dp"
-            android:text="无折扣"
-            android:textColor="@color/colorTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorTitle"
-            android:text="当前会员积分："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_min"
-            android:layout_marginLeft="5dp"
-            android:text="500"
-            android:textColor="@color/colorTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_vipitem_square"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:textColor="@color/dialog_bg"
+                            android:gravity="center"
+                            android:text="VIP1"
+                            android:background="@drawable/bg_level_square"
+                            android:id="@+id/tv_level"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="等级名称："
+                            android:textColor="@color/colorTitle"/>
+
+                        <TextView
+                            android:id="@+id/tv_vipname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="白金会员"
+                            android:textColor="@color/colorTitle"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="最低积分："
+                            android:textColor="@color/colorTitle"/>
+
+                        <TextView
+                            android:id="@+id/tv_min"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="500"
+                            android:textColor="@color/colorTitle"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:alpha="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#AEA4A2" />
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="享受折扣："
+                android:textColor="@color/colorTitle"/>
+
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="无折扣"
+                android:textColor="@color/colorTitle"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/btn_vip_change"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/bg_vipchange_square"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14sp"
+                    android:textColor="@drawable/button_font_style"
+                    android:text="修 改"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 </LinearLayout>
