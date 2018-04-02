@@ -52,7 +52,7 @@ public class VIPStandardAdapter extends BaseAdapter {
             viewHolder.tv_min = view.findViewById( R.id.tv_min );
             viewHolder.discount = view.findViewById( R.id.tv_discount );
             viewHolder.btn_change=view.findViewById( R.id.btn_vip_change );
-
+            viewHolder.tv_level=view.findViewById( R .id.tv_level);
             view.setTag( viewHolder );
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -66,7 +66,7 @@ public class VIPStandardAdapter extends BaseAdapter {
                 Toast.makeText( context,"change",Toast.LENGTH_SHORT ).show();
             }
         } );
-//
+        viewHolder.tv_level.setText( "VIP"+(i+1) );
         return view;
     }
 
@@ -76,5 +76,6 @@ public class VIPStandardAdapter extends BaseAdapter {
 //        TextView tv_vipLevelNumber;//等级人数
         TextView discount;//优惠折扣
         Button btn_change;
+        TextView tv_level;
     }
 }
