@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cottee.managerstore.R;
@@ -42,6 +44,7 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
     public static List<VIPStandard> vipStandardList=new ArrayList<VIPStandard>();
     private VIPStandardAdapter vipStandardAdapter;
     private PopupMenu mMenu;
+    private Button btn_addVIPStandard;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +64,15 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
 
         tv_empty = (TextView) findViewById( R.id.tv_empty );
         lv_vipStandard = (ListView) findViewById( R.id.lv_vipStandard );
+        btn_addVIPStandard = (Button) findViewById( R.id.btn_addVIPStandard );
+        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        btn_addVIPStandard.measure(w, h);
+        int height =btn_addVIPStandard.getMeasuredHeight();
+
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 0, 0, height);
+        lv_vipStandard.setLayoutParams(lp);
 
     }
 
