@@ -155,6 +155,7 @@
                   android:launchMode="singleTask"/>
 
        <activity android:name=".activity.ModifyFoodDetailActivity"/>
+        <activity android:name=".activity.ChangeVIPStandardActivity"/>
     </application>
 
 </manifest>

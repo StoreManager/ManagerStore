@@ -1,10 +1,12 @@
 package com.cottee.managerstore.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 2018/2/26.
  */
 
-public class VIPStandard {
+public class VIPStandard implements Serializable{
     /**
      * VIP_id : 1103
      * VIP_name : vip1

@@ -1,14 +1,15 @@
 package com.cottee.managerstore.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.ChangeVIPStandardActivity;
 import com.cottee.managerstore.bean.VIPStandard;
 
 import java.util.List;
@@ -63,7 +64,10 @@ public class VIPStandardAdapter extends BaseAdapter {
         viewHolder.btn_change.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText( context,"change",Toast.LENGTH_SHORT ).show();
+                Intent intent = new Intent(context, ChangeVIPStandardActivity.class);
+                intent.putExtra( "vip",vipStandardList.get( i ) );
+                intent.putExtra( "level",i+1 );
+                context.startActivity( intent );
             }
         } );
         viewHolder.tv_level.setText( "VIP"+(i+1) );
