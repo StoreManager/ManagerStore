@@ -60,8 +60,8 @@ public class AddVIPStandardActivity extends Activity implements View.OnClickList
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_add_vipstandard );
         Resources resources = this.getResources();
-        on = resources.getDrawable( R.mipmap.turnon );
-        off = resources.getDrawable( R.mipmap.turnoff );
+        on = resources.getDrawable( R.mipmap.discounton);
+        off = resources.getDrawable( R.mipmap.discountoff );
 
 
         Intent intent = getIntent();
