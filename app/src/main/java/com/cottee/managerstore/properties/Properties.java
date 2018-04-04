@@ -84,6 +84,11 @@ public class Properties {
     public static final String VIP_STANDARD_SHOW="https://thethreestooges.cn:1225/VIP/vip/show";
     //会员等级显示
 
+    //会员等级修改
+    public static final String VIP_CHANGE_PATH="https://thethreestooges.cn:1225/VIP/vip/update";
+    public static final int VIP_CHANGE=35;
+
+
 
 
     //员工登录

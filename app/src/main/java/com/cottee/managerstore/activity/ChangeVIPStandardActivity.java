@@ -19,7 +19,9 @@ import android.widget.ToggleButton;
 import com.cottee.managerstore.Filter.CashierInputFilter;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.VIPStandard;
+import com.cottee.managerstore.handle.ChangeVIPHandle;
 import com.cottee.managerstore.handle.VIPStandardHandle;
+import com.cottee.managerstore.manage.ChangeVIPStandardManager;
 import com.cottee.managerstore.manage.SubmitVIPStandardManager;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.wheelwidget.NumericWheelAdapter;
@@ -34,7 +36,7 @@ import java.util.List;
  * Created by user on 2018/4/3.
  */
 
-public class ChangeVIPStandardActivity extends Activity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener ,OnWheelChangedListener {
+public class ChangeVIPStandardActivity extends Activity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, OnWheelChangedListener {
 
     private Button back;
     private TextView tv_currentLevel;
@@ -55,8 +57,8 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
     private Drawable on;
     private Drawable off;
     private String[] split;
-    private String frontNumber="8";
-    private String lastNumber="8";
+    private String frontNumber = "8";
+    private String lastNumber = "8";
 
 
     @Override
@@ -70,11 +72,11 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
         vipStandard = (VIPStandard) intent.getSerializableExtra( "vip" );
         level = intent.getIntExtra( "level", 1 );
         String discount = vipStandard.getDiscount();
-        if(!discount.equals( "不打折" )){
-        split = discount.split( "\\." );
-        frontNumber = split[0];
-        String[] splits = this.split[1].split( "折" );
-        lastNumber = splits[0];
+        if (!discount.equals( "不打折" )) {
+            split = discount.split( "\\." );
+            frontNumber = split[0];
+            String[] splits = this.split[1].split( "折" );
+            lastNumber = splits[0];
         }
         findView();
 
@@ -102,10 +104,10 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
         btn_ok = (Button) findViewById( R.id.btn_vipOK );
         btn_ok.setOnClickListener( this );
 
-        if(vipStandard.getDiscount().equals( "不打折" )){
+        if (vipStandard.getDiscount().equals( "不打折" )) {
             ll_discount.setVisibility( View.GONE );
             btn_discount.setChecked( false );
-        }else {
+        } else {
             ll_discount.setVisibility( View.VISIBLE );
             btn_discount.setChecked( true );
         }
@@ -122,31 +124,32 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
             case R.id.btn_vipOK:
                 String name = et_vipName.getText().toString().trim();
                 String min = et_min.getText().toString().trim();
-                if(name.isEmpty()){
-                    Toast.makeText( this, "输入名称哦",Toast.LENGTH_SHORT).show();
+                if (name.isEmpty()) {
+                    Toast.makeText( this, "输入名称哦", Toast.LENGTH_SHORT ).show();
                     return;
                 }
-                if(min.isEmpty()){
-                    Toast.makeText( this, "输入积分哦",Toast.LENGTH_SHORT).show();
+                if (min.isEmpty()) {
+                    Toast.makeText( this, "输入积分哦", Toast.LENGTH_SHORT ).show();
                     return;
                 }
 
-                String discount=null;
-                if(ll_discount.getVisibility()==View.GONE){
-                    discount="不打折";
-                }else {
-                    discount=tv_discount.getText().toString().trim();
+                String discount = null;
+                if (ll_discount.getVisibility() == View.GONE) {
+                    discount = "不打折";
+                } else {
+                    discount = tv_discount.getText().toString().trim();
                 }
-//                SubmitVIPStandardManager manager = new SubmitVIPStandardManager( this, new VIPStandardHandle( this ) );
-//                manager.submitVIP( name,min,discount );
-//                finish();
+                ChangeVIPStandardManager manager = new ChangeVIPStandardManager( this, new
+                        ChangeVIPHandle( this ) );
+                manager.changeVIP( vipStandard.getVIP_id(), name, min, discount );
+                finish();
                 break;
         }
     }
 
 
     private void initWheelView() {
-        NumericWheelAdapter numericAdapter1 = new NumericWheelAdapter(this, 1, 9 );
+        NumericWheelAdapter numericAdapter1 = new NumericWheelAdapter( this, 1, 9 );
         numericAdapter1.setLabel( "" );
         numericAdapter1.setTextSize( 20 );
         numericAdapter1.setTextColor( Color.parseColor( "#25449e" ) );
@@ -174,12 +177,12 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         btn_discount.setBackground( isChecked ? on : off );
-        if(isChecked){
+        if (isChecked) {
             initWheelView();
             ll_discount.setVisibility( View.VISIBLE );
-            tv_discount.setText((wl_front.getCurrentItem()+1)+"."+(wl_last.getCurrentItem())
-                    +"折");
-        }else {
+            tv_discount.setText( (wl_front.getCurrentItem() + 1) + "." + (wl_last.getCurrentItem())
+                    + "折" );
+        } else {
             ll_discount.setVisibility( View.GONE );
             tv_discount.setText( "不打折" );
         }
@@ -187,12 +190,12 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
 
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
-        switch (wheel.getId()){
+        switch (wheel.getId()) {
             case R.id.wl_front:
-                tv_discount.setText( (newValue+1)+"."+wl_last.getCurrentItem()+"折" );
+                tv_discount.setText( (newValue + 1) + "." + wl_last.getCurrentItem() + "折" );
                 break;
             case R.id.wl_last:
-                tv_discount.setText( (wl_front.getCurrentItem()+1)+"."+newValue+"折" );
+                tv_discount.setText( (wl_front.getCurrentItem() + 1) + "." + newValue + "折" );
                 break;
         }
     }
