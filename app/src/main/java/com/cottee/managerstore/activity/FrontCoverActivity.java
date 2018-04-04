@@ -28,10 +28,17 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.UserRequestInfo;
+import com.cottee.managerstore.bean.emp_login.EmpRequestInfo;
+import com.cottee.managerstore.handle.oss_handler.OssHandler;
 import com.cottee.managerstore.utils.BitmapUtils;
 import com.cottee.managerstore.utils.LogUtils;
 import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
+import com.cottee.managerstore.utils.myt_oss.InitOssClient;
+import com.cottee.managerstore.utils.myt_oss.UploadUtils;
+import com.cottee.managerstore.view.ImageViewExtend;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -67,24 +74,34 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
     private String path;
     private String userEmail;
     private String submitPath;
+    private String account;
+    private String objectKey;
+    private OssHandler handler = new OssHandler(this);
+    private File cache_image;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_frontcover_layout );
 
-        userEmail = UserRequestInfo.getUserEmail();
 
-        submitPath ="merchant/"+"1151803550@qq.com" +"/item"
+        account = UserRequestInfo.getUserEmail();
+        InitOssClient.initOssClient(this, ConfigOfOssClient.TOKEN_ADDRESS, ConfigOfOssClient.ENDPOINT);
+        objectKey = "merchant/"+ account+"/item"
                 +"/"+new DateFormat().format( "yyyyMMdd_hhmmss",
-                Calendar.getInstance( Locale.CHINA ) ) + "surface"+".jpg";
+                Calendar.getInstance( Locale.CHINA ) ) + ".jpg";
 
         findView();
         Intent intent = getIntent();
         String photo_url = intent.getStringExtra( "photo_url" );
         if (photo_url != null) {
             iv_bigPicture.setBackground( null );
-            Glide.with( this ).load( photo_url ).into( iv_bigPicture );
+            OssHandler ossHandler = new OssHandler( this, iv_bigPicture );
+            cache_image = new File( getCacheDir(), Base64.encodeToString
+                     ( photo_url.getBytes(),
+                             Base64.DEFAULT ) );
+            DownloadUtils.downloadFileFromOss( cache_image, ossHandler, ConfigOfOssClient
+                    .BUCKET_NAME, photo_url );
         }
     }
 
@@ -171,23 +188,10 @@ public class FrontCoverActivity extends Activity implements View.OnClickListener
                 break;
             case R.id.btn_photoSubmit:
                 if (path != null) {
-                    try {
-                        InputStream open = new FileInputStream( path );
-                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[4096];
-                        int n = 0;
-                        while (-1 != (n = open.read( buffer ))) {
-                            output.write( buffer, 0, n );
-                        }
-
-                        OssUtils.updata( FrontCoverActivity.this,submitPath,output.toByteArray() );
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    UploadUtils.uploadFileToOss(handler, ConfigOfOssClient.BUCKET_NAME, objectKey, path);
                 }
                 Intent pathIntent = new Intent();
-                pathIntent.putExtra( "submitPath",submitPath );
+                pathIntent.putExtra( "submitPath",objectKey );
                 setResult( RESULT_OK,pathIntent );
                 finish();
                 break;

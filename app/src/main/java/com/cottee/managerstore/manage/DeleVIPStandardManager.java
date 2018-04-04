@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.handle.ChangeVIPHandle;
+import com.cottee.managerstore.handle.DeleteVIPHandle;
 import com.cottee.managerstore.properties.Properties;
 
 import java.io.IOException;
@@ -19,18 +20,17 @@ import okhttp3.Response;
  * Created by user on 2018/4/4.
  */
 
-public class ChangeVIPStandardManager {
+public class DeleVIPStandardManager {
     private Context context;
-    private ChangeVIPHandle changeVIPHandle;
-    public final static int VIP_CHANGE = 35;
+    private DeleteVIPHandle deleteVIPHandle;
+    public final static int VIP_DELE = 36;
 
-    public ChangeVIPStandardManager(Context context, ChangeVIPHandle changeVIPHandle) {
+    public DeleVIPStandardManager(Context context, DeleteVIPHandle deleteVIPHandle) {
         this.context = context;
-        this.changeVIPHandle = changeVIPHandle;
+        this.deleteVIPHandle = deleteVIPHandle;
     }
 
-    private void sendRequest(final int type, final String vip_id, final String vipname, final String
-            min, final String discount) {
+    private void sendRequest(final int type, final String vip_id) {
         new Thread() {
 
             private String str;
@@ -41,15 +41,12 @@ public class ChangeVIPStandardManager {
                     OkHttpClient client = new OkHttpClient();
                     Request request = null;
                     switch (type) {
-                        case VIP_CHANGE:
-                            request = new Request.Builder().url( Properties.VIP_CHANGE_PATH).post( new
+                        case VIP_DELE:
+                            request = new Request.Builder().url( Properties.VIP_DELE_PATH ).post( new
                                     FormBody
-                                    .Builder().add(
+                                            .Builder().add(
                                     "session", UserRequestInfo.getSession() ).add( "vip_id", vip_id )
-                                    .add( "VIP_name",
-                                            vipname )
-                                    .add( "min_num",
-                                            min ).add( "discount", discount ).build() ).build();
+                                    .build() ).build();
                             break;
                         default:
                             break;
@@ -63,7 +60,7 @@ public class ChangeVIPStandardManager {
                         Message message = new Message();
                         message.what = type;
                         message.arg1 = Integer.parseInt( str );
-                        changeVIPHandle.sendMessage( message );
+                        deleteVIPHandle.sendMessage( message );
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -74,8 +71,7 @@ public class ChangeVIPStandardManager {
 
     }
 
-    public void changeVIP(final String vip_id,final String vipname, final String min, final
-    String discount) {
-        sendRequest( VIP_CHANGE, vip_id,vipname, min, discount );
+    public void deleteVIP(final String vip_id) {
+        sendRequest( VIP_DELE, vip_id);
     }
 }

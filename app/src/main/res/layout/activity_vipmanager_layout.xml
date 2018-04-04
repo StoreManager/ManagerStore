@@ -70,12 +70,4 @@
             android:visibility="gone">
         </ListView>
     </RelativeLayout>
-    <Button
-        android:id="@+id/btn_addVIPStandard"
-        android:background="@color/purplishblue"
-        android:textColor="@color/dialog_bg"
-        android:text="添加会员等级"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
 </RelativeLayout>

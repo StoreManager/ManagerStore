@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -32,9 +33,11 @@ import android.widget.ToggleButton;
 import com.bumptech.glide.Glide;
 import com.cottee.managerstore.Filter.CashierInputFilter;
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.emp_login.EmpDetailMessageActivity;
 import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
+import com.cottee.managerstore.handle.oss_handler.OssHandler;
 import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.manage.StoreInfoManager;
 import com.cottee.managerstore.manage.SubmitStoreInfoManager;
@@ -43,6 +46,8 @@ import com.cottee.managerstore.utils.BitmapUtils;
 import com.cottee.managerstore.utils.OssUtils;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.Utils;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,6 +109,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
     private SubmitStoreInfoManager submitStoreInfo;
     private ImageView shop_icon;
     private int storeId;
+    private File cache_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +121,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         Intent intent = getIntent();
         storeId = intent.getIntExtra( "storeId", 0 );
 //        storeInfo = (StoreInfo) intent.getSerializableExtra( "storeInfo" );
-        storeInfo=RegisterStoreActivity.storeList.get( storeId );
+        storeInfo = RegisterStoreActivity.storeList.get( storeId );
         findView();
         surface = storeInfo.getSurface();
         environment = storeInfo.getEnvironment();
@@ -129,7 +135,12 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
         }
         if (surface != null && !surface.equals( "#" ) && !surface.equals( " " )) {
             iv_surface.setBackground( null );
-            Glide.with( this ).load( surface ).into( iv_surface );
+            OssHandler ossHandler = new OssHandler( this, iv_surface );
+            cache_image = new File( getCacheDir(), Base64.encodeToString
+                    ( surface.getBytes(),
+                            Base64.DEFAULT ) );
+            DownloadUtils.downloadFileFromOss( cache_image, ossHandler, ConfigOfOssClient
+                    .BUCKET_NAME, surface );
         }
         if (environment.size() > 1) {
             one = environment.get( 0 );
@@ -174,7 +185,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
 
     private void findView() {
 
-        shop_icon = (ImageView)findViewById( R.id.iv_shop_icon );
+        shop_icon = (ImageView) findViewById( R.id.iv_shop_icon );
         shop_icon.setOnClickListener( this );
         tv_storeName = (TextView) findViewById( R.id.tv_storeName );
 
@@ -377,7 +388,7 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                 onBackPressed();
                 break;
             case R.id.iv_shop_icon:
-                ToastUtils.showToast( this,"修改头像" );
+                ToastUtils.showToast( this, "修改头像" );
                 break;
             default:
                 break;
@@ -529,9 +540,13 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
                 if (resultCode == RESULT_OK) {
                     surface = data.getStringExtra( "submitPath" );
                     submit();
-                    String a = getStoreList().get( storeId ).getSurface();
-                    String ossExtranetPath = OssUtils.getOSSExtranetPath( a);
-                    Glide.with( this ).load( ossExtranetPath ).into( iv_surface );
+                    OssHandler ossHandler = new OssHandler( this, iv_surface );
+                    cache_image = new File( getCacheDir(), Base64.encodeToString
+                            ( surface.getBytes(),
+                                    Base64.DEFAULT ) );
+                    DownloadUtils.downloadFileFromOss( cache_image, ossHandler, ConfigOfOssClient
+                            .BUCKET_NAME, surface );
+                    storeInfo.setSurface( surface );
                 }
                 break;
             case ONE_REQ:
@@ -564,23 +579,5 @@ public class DetialInfomation extends Activity implements View.OnClickListener {
             default:
                 break;
         }
-    }
-    public List<StoreInfo> getStoreList(){
-        HttpUtilSession.sendSessionOkHttpRequest( mContext, Properties.GET_STORE, new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                String s = response.body().string();
-                if (s.isEmpty()) {
-                    return;
-                }
-                RegisterStoreActivity.storeList = Utils.handleStoreResponse( s );
-            }
-        } );
-            return RegisterStoreActivity.storeList;
     }
 }

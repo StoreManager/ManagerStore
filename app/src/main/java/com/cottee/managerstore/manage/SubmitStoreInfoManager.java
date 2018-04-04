@@ -44,7 +44,6 @@ public class SubmitStoreInfoManager {
             address, final String phone, final double lat, final double lng,final String
             photoUrl,final String city,final String circle,final String photo) {
 
-
         new Thread() {
             @Override
             public void run() {

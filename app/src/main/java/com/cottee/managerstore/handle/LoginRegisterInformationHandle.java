@@ -406,7 +406,7 @@ public class LoginRegisterInformationHandle extends Handler {
                         ToastUtils.showToast( context, "修改成功" );
                         break;
                     case 0:
-                        ToastUtils.showToast( context, "图片修改成功" );
+                        ToastUtils.showToast( context, "服务器打瞌睡了，再试一次吧" );
                         break;
                 }
                 break;

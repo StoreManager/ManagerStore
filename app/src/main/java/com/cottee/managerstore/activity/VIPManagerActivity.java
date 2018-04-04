@@ -1,23 +1,30 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.adapter.VIPStandardAdapter;
 import com.cottee.managerstore.bean.VIPStandard;
+import com.cottee.managerstore.handle.DeleteVIPHandle;
 import com.cottee.managerstore.httputils.HttpUtilSession;
+import com.cottee.managerstore.manage.DeleVIPStandardManager;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.Utils;
 
@@ -61,19 +68,36 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
             mMenu.getMenuInflater().inflate( R.menu.popupmenu, mMenu.getMenu() );
             mMenu.setOnMenuItemClickListener( this );
         }
-
         tv_empty = (TextView) findViewById( R.id.tv_empty );
         lv_vipStandard = (ListView) findViewById( R.id.lv_vipStandard );
-        btn_addVIPStandard = (Button) findViewById( R.id.btn_addVIPStandard );
-        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        btn_addVIPStandard.measure(w, h);
-        int height =btn_addVIPStandard.getMeasuredHeight();
-
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, 0, 0, height);
-        lv_vipStandard.setLayoutParams(lp);
-
+        lv_vipStandard.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder( VIPManagerActivity.this );
+                builder.setMessage( "确定要删除此等级吗" );
+                builder.setCancelable( true );
+                builder.setNegativeButton( "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                } );
+                builder.setPositiveButton( "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DeleVIPStandardManager manager = new DeleVIPStandardManager( VIPManagerActivity.this, new DeleteVIPHandle(
+                                VIPManagerActivity.this ) );
+                        manager.deleteVIP( vipStandardList.get( position).getVIP_id() );
+                        vipStandardList.remove( position );
+                        vipStandardAdapter.notifyDataSetChanged();
+                    }
+                } );
+                AlertDialog dialog = builder.create();
+                Window window = dialog.getWindow();
+//为Window设置动画
+                window.setWindowAnimations( R.style.CustomDialog );
+                dialog.show();
+            }
+        } );
     }
 
     @Override

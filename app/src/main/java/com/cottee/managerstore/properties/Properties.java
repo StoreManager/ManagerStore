@@ -87,7 +87,9 @@ public class Properties {
     //会员等级修改
     public static final String VIP_CHANGE_PATH="https://thethreestooges.cn:1225/VIP/vip/update";
     public static final int VIP_CHANGE=35;
-
+    //会员等级删除
+    public static final String VIP_DELE_PATH="https://thethreestooges.cn:1225/VIP/vip/dele";
+    public static final int VIP_DELE=36;
 
 
 
