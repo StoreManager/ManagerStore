@@ -20,6 +20,7 @@ import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
 import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
+import com.cottee.managerstore.utils.myt_oss_file.FileUtils;
 import com.cottee.managerstore.view.ImageViewExtend;
 import com.cottee.managerstore.widget.LineChart;
 import com.cottee.managerstore.widget.Title;
@@ -57,6 +58,7 @@ public class EmpDetailMessageActivity extends Activity {
     private String empBirth;
     private String empPhone;
     private String empPhoto;
+    private File cache_image;
 
 
     @Override
@@ -101,6 +103,10 @@ public class EmpDetailMessageActivity extends Activity {
                         intent.putExtra("SAX",empSex);
                         intent.putExtra("BIRTH",empBirth);
                         intent.putExtra("PHONE",empPhone);
+                        if(cache_image!=null){
+                            intent.putExtra("PHOTO", FileUtils.fileToByte(cache_image));
+                        }
+
                         startActivity(intent);
 
                         break;
@@ -197,7 +203,8 @@ public class EmpDetailMessageActivity extends Activity {
                     }
 
                     OssHandler ossHandler = new OssHandler(EmpDetailMessageActivity.this,imv_header);
-                    final File cache_image = new File(getCacheDir(), Base64.encodeToString(empPhoto.getBytes(), Base64.DEFAULT));
+                    cache_image = new File(getCacheDir(), Base64.encodeToString(empPhoto.getBytes(), Base64.DEFAULT));
+                    System.out.println("员工的图片缓存："+cache_image);
                     DownloadUtils.downloadFileFromOss(cache_image, ossHandler, ConfigOfOssClient.BUCKET_NAME, empPhoto);
 
 

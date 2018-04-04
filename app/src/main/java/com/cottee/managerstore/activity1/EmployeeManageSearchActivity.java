@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cottee.managerstore.R;
-import com.cottee.managerstore.adapter.EmployeeManageAdapter;
+import com.cottee.managerstore.adapter.EmployManageSearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class EmployeeManageSearchActivity extends Activity implements View.OnCli
     private ListView lv_search_employee_info;
     private List<String> search_name = new ArrayList<>();
     private List<String> search_id = new ArrayList<>();
-    private EmployeeManageAdapter adapter;
+    private EmployManageSearchAdapter adapter;
     private TextView tv_no_emp_info;
 
     @Override
@@ -112,7 +112,7 @@ public class EmployeeManageSearchActivity extends Activity implements View.OnCli
 
             }
         });
-        adapter = new EmployeeManageAdapter(this,search_name,search_id);
+        adapter = new EmployManageSearchAdapter(this,search_name,search_id);
         lv_search_employee_info.setAdapter(adapter);
 
 
