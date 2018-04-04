@@ -46,6 +46,7 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
     private EmployeeManageAdapter adapter;
     private List<String> empName = new ArrayList<>();
     private List<String> empId = new ArrayList<>();
+    private List<String> empPhoto = new ArrayList<>();
     private EmployeeManageHandle handler = new EmployeeManageHandle();
 
     @Override
@@ -137,11 +138,13 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
 
                         empName.add(empInfo.get(i).getName());
                         empId.add(String.valueOf(empInfo.get(i).getStaff_id()));
+                        empPhoto.add(empInfo.get(i).getPhoto());
                         System.out.println("单个员工名字："+empInfo.get(i).getName());
                         System.out.println("单个员工id："+empInfo.get(i).getStaff_id());
+                        System.out.println("单个员工图片："+empInfo.get(i).getPhoto());
                     }
 
-                    adapter = new EmployeeManageAdapter(EmployeeManageActivity.this,empName,empId);
+                    adapter = new EmployeeManageAdapter(EmployeeManageActivity.this,empName,empId,empPhoto);
                     lv_employee_manage_information.setAdapter(adapter);
                    /* if (!adapter.isEmpty()) {
                         ll_empty.setVisibility(View.GONE);

@@ -16,13 +16,5 @@
         <!--<include layout="@layout/store_manager_drawerlayout" />-->
         <include layout="@layout/layout_store_manager"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/pbtn_order"
-        android:text="下单"
-        android:clickable="false"
-        android:background="@color/gray"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
+
 </FrameLayout>

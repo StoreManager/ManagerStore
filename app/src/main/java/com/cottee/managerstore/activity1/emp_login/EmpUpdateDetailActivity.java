@@ -77,6 +77,7 @@ public class EmpUpdateDetailActivity extends Activity implements View.OnClickLis
     private int type=-1;
     private String path=null;
     private OssHandler handler = new OssHandler(this);
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +88,12 @@ public class EmpUpdateDetailActivity extends Activity implements View.OnClickLis
         empSax = intent.getStringExtra("SAX");
         empBirth = intent.getStringExtra("BIRTH");
         empPhone = intent.getStringExtra("PHONE");
+        byte[] empPhoto = intent.getByteArrayExtra("PHOTO");
+        if(empPhoto!=null){
+            bitmap = BitmapFactory.decodeByteArray(empPhoto, 0, empPhoto.length);
+        }
+
+
         accunt = EmpRequestInfo.getUserEmail();
         InitOssClient.initOssClient(this, ConfigOfOssClient.TOKEN_ADDRESS, ConfigOfOssClient.ENDPOINT);
         objectKey ="merchant/"+ accunt+"/item"
@@ -112,7 +119,10 @@ public class EmpUpdateDetailActivity extends Activity implements View.OnClickLis
         et_emp_update_birth.setText(empBirth);
         et_emp_update_phone.setText(empPhone);
         imv_update_header.setmDrawShapeType(ImageViewExtend.SHAPE_CIRCLE);
-        imv_update_header.setImageResource(R.mipmap.img_coffee);
+        if(bitmap!=null){
+            imv_update_header.setImageBitmap(bitmap);
+        }
+
         et_emp_update_birth.setOnClickListener(this);
         btn_emp_info_commit.setOnClickListener(this);
         imv_update_header.setOnClickListener(this);
