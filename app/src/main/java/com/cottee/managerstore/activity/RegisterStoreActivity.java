@@ -33,6 +33,7 @@ import com.cottee.managerstore.adapter.StoreListviewAdapter;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.properties.Properties;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.Utils;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -159,6 +160,10 @@ public class RegisterStoreActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
                 String s = response.body().string();
+                if (s.equals( 250 )){
+                    ToastUtils.showToast( RegisterStoreActivity.this,"250" );
+                    return;
+                }
                 if (s.isEmpty()) {
                     return;
                 }

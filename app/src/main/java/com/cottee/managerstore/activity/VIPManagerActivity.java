@@ -70,9 +70,9 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
         }
         tv_empty = (TextView) findViewById( R.id.tv_empty );
         lv_vipStandard = (ListView) findViewById( R.id.lv_vipStandard );
-        lv_vipStandard.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+        lv_vipStandard.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder( VIPManagerActivity.this );
                 builder.setMessage( "确定要删除此等级吗" );
                 builder.setCancelable( true );
@@ -96,8 +96,15 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
 //为Window设置动画
                 window.setWindowAnimations( R.style.CustomDialog );
                 dialog.show();
+                return false;
             }
         } );
+//        lv_vipStandard.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+//
+//            }
+//        } );
     }
 
     @Override
@@ -114,6 +121,9 @@ public class VIPManagerActivity extends Activity implements View.OnClickListener
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 if (s.isEmpty()) {
+                    return;
+                }
+                if(s.equals( 250 )){
                     return;
                 }
                 vipStandardList= Utils.handleVIPResponse( s );
