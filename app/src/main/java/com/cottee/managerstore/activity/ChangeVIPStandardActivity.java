@@ -110,9 +110,8 @@ public class ChangeVIPStandardActivity extends Activity implements View.OnClickL
         } else {
             ll_discount.setVisibility( View.VISIBLE );
             btn_discount.setChecked( true );
+            tv_discount.setText( vipStandard.getDiscount() );
         }
-        tv_discount.setText( vipStandard.getDiscount() );
-
     }
 
     @Override
