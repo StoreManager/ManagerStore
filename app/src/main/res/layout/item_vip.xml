@@ -1,39 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fff"
+              android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_vipIcon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@mipmap/ic_launcher"/>
     <RelativeLayout
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/iv_vipIcon"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <TextView
-            android:textSize="20sp"
-            android:id="@+id/tv_vipLevel"
-            android:text="VIP等级"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textSize="18sp"
-            android:layout_below="@id/tv_vipLevel"
-            android:text="ID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginRight="10dp"
-            android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"
-            android:text="详细信息"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_vipIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <RelativeLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_vipIcon">
+
+            <TextView
+                android:id="@+id/tv_vipname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不吃鱼的猫"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_vipID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_vipname"
+                android:text="ID号：1111111"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 
-</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="#FFC0C0C0"/>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:text="会员等级："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_standardName"
+                android:textColor="#25449e"
+                android:text="青铜会员"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_marginRight="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:text="当前积分："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="#25449e"
+                android:text="500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:background="#f5f5f5"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"></LinearLayout>
+</LinearLayout>
