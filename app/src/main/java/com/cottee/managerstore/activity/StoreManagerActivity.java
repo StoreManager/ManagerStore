@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.EmployeeManageActivity;
+import com.cottee.managerstore.activity1.OrdersManageActivity;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.StoreInfo;
 import com.cottee.managerstore.httputils.HttpUtilSession;
@@ -61,6 +62,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
 
     private boolean isOpen=false;
     private ZoomHoverView mZoomHoverView;
+    private LinearLayout store_main_money_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +70,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         setContentView( R.layout.activity_storemanager );
         findView();
         initAnim();
-        tl_custom.setTitle( "" );//设置Toolbar标题
-        tl_custom.setBackgroundColor( getResources().getColor( R.color.gray ) );
+        tl_custom.setTitle("");//设置Toolbar标题
+        tl_custom.setBackgroundColor( getResources().getColor( R.color.main_close_black ) );
 //        tl_custom.setTitleTextColor(getResources().getColor(R.color.white)); //设置标题颜色
         setSupportActionBar( tl_custom );
         getSupportActionBar().setHomeButtonEnabled( true ); //设置返回键可用
@@ -99,6 +101,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
         imgbtn_storeStatus = findViewById( R.id.imgbtn_storeStatus );
         tl_custom = findViewById( R.id.tl_custom );
         dl_left = findViewById( R.id.dl_left );
+        store_main_money_info = (LinearLayout) findViewById(R.id.store_main_money_info);
         btn_to_employee_manage =  findViewById(R.id.imv_icon_five);
         tv_to_employee_manage = findViewById(R.id.tv_item_five);
         btn_moneyManage = findViewById(R.id.imv_icon_three);
@@ -144,7 +147,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                         startActivity(new Intent(StoreManagerActivity.this,ManageMoneyActivity.class));
                         break;
                     case R.id.ll_item_four:
-
+                        startActivity(new Intent(StoreManagerActivity.this,OrdersManageActivity.class));
                         break;
                     case R.id.ll_item_five:
                         Intent intentTwo = new Intent( StoreManagerActivity.this, EmployeeManageActivity.class );
@@ -203,7 +206,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                 mZoomHoverView.setCloseAnimation(view);
             }
         });
-        getStoreList();
+        /*getStoreList();*/
     }
 
     @Override
@@ -224,6 +227,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
                     scaleAnimation.setDuration( 200 );
                     view.startAnimation( scaleAnimation );
+                    store_main_money_info.setBackgroundColor(getResources().getColor(R.color.babyblue));
                     btn_storeManager.setBackgroundResource(R.mipmap.myt_store_open);
                     tv_storeManager.setTextColor(getResources().getColor(R.color.babyblue));
                     btntoprojectmanage.setBackgroundResource(R.mipmap.myt_restaurant_open);
@@ -247,6 +251,7 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                             0.8f, 1.3f, Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f );
                     scaleAnimation.setDuration( 200 );
                     view.startAnimation( scaleAnimation );
+                    store_main_money_info.setBackgroundColor(getResources().getColor(R.color.gray));
                     btn_storeManager.setBackgroundResource(R.mipmap.myt_store_close);
                     tv_storeManager.setTextColor(getResources().getColor(R.color.gray));
                     btntoprojectmanage.setBackgroundResource(R.mipmap.myt_restaurant_close);
@@ -259,8 +264,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                     tv_moneyManage.setTextColor(getResources().getColor(R.color.gray));
                     btn_orderManage.setBackgroundResource(R.mipmap.myt_dingdan_close);
                     tv_orderManage.setTextColor(getResources().getColor(R.color.gray));
-                    tl_custom.setBackgroundColor( getResources().getColor( R.color.gray ) );
-                    pbtn_order.setBackgroundResource(R.color.gray);
+                    tl_custom.setBackgroundColor( getResources().getColor( R.color.main_close_black ) );
+                    pbtn_order.setBackgroundResource(R.color.main_close_black);
                 }
                 break;
 

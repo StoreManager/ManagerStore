@@ -14,6 +14,7 @@
         <include layout="@layout/store_manager_toolbar" />
         <!--DrawerLayout-->
         <!--<include layout="@layout/store_manager_drawerlayout" />-->
+
         <include layout="@layout/layout_store_manager"/>
     </LinearLayout>
 

@@ -17,10 +17,9 @@
             >
             <com.cottee.managerstore.view.ImageViewExtend
                 android:id="@+id/imv_employee_header"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/emp_header"
                 android:layout_marginLeft="18dp"/>
 
         </FrameLayout>

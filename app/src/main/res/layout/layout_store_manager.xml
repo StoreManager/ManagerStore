@@ -11,9 +11,10 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
       <LinearLayout
+          android:id="@+id/store_main_money_info"
           android:layout_width="match_parent"
           android:layout_height="170dp"
-          android:background="#8493ca"
+          android:background="@color/gray"
           android:orientation="vertical">
          <LinearLayout
              android:layout_width="match_parent"
@@ -21,7 +22,52 @@
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="4"
+                   android:gravity="center">
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:gravity="center"
+                         android:text="今日订单"
+                         android:textColor="@color/white"
+                         android:textSize="15dp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="3"
+                   android:gravity="center"
+                   android:orientation="horizontal">
+
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:gravity="center_horizontal|bottom"
+                         android:text="111"
+                         android:textColor="@color/white"
+                         android:textSize="25dp"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:gravity="center_vertical|bottom"
+                         android:text="笔"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/white"
+                         android:textSize="14dp"/>
+
+
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"/>
             </LinearLayout>
             <View
                 android:layout_width="1px"
@@ -31,8 +77,54 @@
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="4"
+                   android:gravity="center">
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:text="今日营业额"
+                      android:textColor="@color/white"
+                      android:textSize="15dp"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="3"
+                   android:gravity="center"
+                   android:orientation="horizontal">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:gravity="center_vertical|bottom"
+                      android:text="¥"
+                      android:textColor="@color/white"
+                      android:textSize="16dp"/>
+
+                  <TextView
+                      android:layout_marginLeft="20dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:gravity="center_horizontal|bottom"
+                      android:text="1340.00"
+                      android:textColor="@color/white"
+                      android:textSize="25dp"/>
+
+
+
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0dp"
+                   android:layout_weight="1"/>
             </LinearLayout>
+
          </LinearLayout>
          <View
              android:layout_width="match_parent"
@@ -51,7 +143,7 @@
                    android:layout_height="wrap_content"
                    android:text="月营业额："
                    android:textColor="@color/white"
-                   android:textSize="16dp"/>
+                   android:textSize="15dp"/>
 
             </LinearLayout>
             <LinearLayout
@@ -72,7 +164,7 @@
 
       <com.cottee.managerstore.widget.ZoomHoverView
           android:id="@+id/zoom_hover_view_1"
-          android:layout_width="310dp"
+          android:layout_width="330dp"
           android:layout_marginTop="5dp"
           android:layout_gravity="center_horizontal"
           android:layout_height="350dp"
@@ -86,8 +178,9 @@
          <Button
              android:id="@+id/pbtn_order"
              android:text="下单"
+             android:gravity="center"
              android:clickable="false"
-             android:background="@color/gray"
+             android:background="@color/main_close_black"
              android:textColor="@color/white"
              android:layout_width="match_parent"
              android:layout_height="50dp"

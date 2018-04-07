@@ -14,7 +14,8 @@
     <color name="transparent">#00000000</color>
     <color name="blueGray">#AEA4A2</color>
     <color name="gray">#AEA4A2</color>
-
+    <color name="main_blue">#8493ca</color>
+    <color name="main_close_black">#3d3c3c</color>
     <color name="Indigo_colorPrimaryDark">#303f9f</color>
     <color name="Indigo_colorPrimary">#3f51b5</color>
     <color name="Indigo_nav_color">#4675FF</color>

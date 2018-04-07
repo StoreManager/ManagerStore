@@ -76,6 +76,9 @@ public class EmployeeManageAdapter extends BaseAdapter {
         cache_image = new File(context.getCacheDir(), Base64.encodeToString(empPhoto.get(i).getBytes(), Base64.DEFAULT));
         System.out.println("传进来的objectKey："+empPhoto.get(i));
         System.out.println("传进来的缓存："+cache_image);
+        if(empPhoto.get(i).equals("")){
+            holder.imv_employee_header.setImageResource(R.mipmap.emp_header);
+        }
         DownloadUtils.downloadFileFromOss(cache_image, ossHandler, ConfigOfOssClient.BUCKET_NAME, empPhoto.get(i));
 
         return view;
