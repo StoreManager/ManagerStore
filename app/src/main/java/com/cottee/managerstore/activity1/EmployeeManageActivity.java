@@ -1,7 +1,7 @@
 package com.cottee.managerstore.activity1;
 
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.base.BaseActivity;
 import com.cottee.managerstore.adapter.EmployeeManageAdapter;
 import com.cottee.managerstore.bean.AllEmployeeGetInfo;
 import com.cottee.managerstore.httputils.HttpUtilSession;
@@ -38,7 +39,7 @@ import okhttp3.Response;
  * Created by Administrator on 2018/1/2.
  */
 
-public class EmployeeManageActivity extends Activity implements View.OnClickListener {
+public class EmployeeManageActivity extends BaseActivity implements View.OnClickListener {
 
     private ListView lv_employee_manage_information;
     private Title title;
@@ -48,6 +49,7 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
     private List<String> empId = new ArrayList<>();
     private List<String> empPhoto = new ArrayList<>();
     private EmployeeManageHandle handler = new EmployeeManageHandle();
+    private Dialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
         setContentView(R.layout.activity_employee_manage);
         initTitle();
         initView();
+        dialog = startDialog();
         sendRequestWithOkHttp();
 
         lv_employee_manage_information.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -143,6 +146,8 @@ public class EmployeeManageActivity extends Activity implements View.OnClickList
                         System.out.println("单个员工id："+empInfo.get(i).getStaff_id());
                         System.out.println("单个员工图片："+empInfo.get(i).getPhoto());
                     }
+                    stopDialog(dialog);
+
 
                     adapter = new EmployeeManageAdapter(EmployeeManageActivity.this,empName,empId,empPhoto);
                     lv_employee_manage_information.setAdapter(adapter);
