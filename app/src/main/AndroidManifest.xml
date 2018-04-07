@@ -160,7 +160,8 @@
         <activity android:name=".activity.ChangeVIPStandardActivity"/>
         <activity
             android:name=".activity1.OrdersManageActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".activity.VIPDetialActivity">
         </activity>
     </application>
