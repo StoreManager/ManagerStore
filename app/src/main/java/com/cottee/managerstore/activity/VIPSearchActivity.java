@@ -1,6 +1,7 @@
 package com.cottee.managerstore.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,12 @@ public class VIPSearchActivity extends Activity {
             @Override
             public View getView(int i, View view, ViewGroup viewGroup) {
                 view= View.inflate(VIPSearchActivity.this, R.layout.item_vip,null );
+                view.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(  new Intent( VIPSearchActivity.this,VIPDetialActivity.class ) );
+                    }
+                } );
                 return view;
             }
         } );

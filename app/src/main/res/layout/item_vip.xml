@@ -15,7 +15,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/employee_header"/>
 
         <RelativeLayout
             android:gravity="center_vertical"
