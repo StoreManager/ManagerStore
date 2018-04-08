@@ -11,7 +11,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.ManageFoodDetail1Activity;
+import com.cottee.managerstore.activity1.base.BaseActivity;
 import com.cottee.managerstore.bean.ProjectManageGetInfo;
 import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
@@ -38,7 +38,6 @@ import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BaseRefreshListener;
 import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.widget.PullToRefreshLayout;
-import com.cottee.managerstore.widget.ShapeLoadingDialog;
 import com.cottee.managerstore.widget.Title;
 import com.google.gson.Gson;
 
@@ -60,7 +59,7 @@ import static com.cottee.managerstore.properties.Properties.PROJECT_MANAGE_GET;
  * Created by Administrator on 2017/12/16.
  */
 
-public class ProjectManageActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProjectManageActivity extends BaseActivity implements View.OnClickListener {
 
 
     private static ProjectManageAdapter adapter;
@@ -82,11 +81,12 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
     private boolean up = false;
     private PullToRefreshLayout pullToRefreshLayout;
     private LinearLayout ll_empty;
-    private ShapeLoadingDialog shapeLoadingDialog;
+    /*private ShapeLoadingDialog shapeLoadingDialog;*/
     public static String dishId;
     public static String dishName;
     private Title title;
     private LinearLayout ll_dishes_add;
+    private Dialog loadingDialog;
 
 
     @Override
@@ -98,20 +98,20 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
         addDishList.clear();
         allTypeNameList.clear();
 
+        loadingDialog = startDialog("加载中");
+        sendRequestWithOkHttp();
 
-
-
-        shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
+        /*shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
                 .loadText("加载中...")
                 .build();
         shapeLoadingDialog.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                sendRequestWithOkHttp();
+
 
             }
-        },2000);
+        },2000);*/
 
 
 
@@ -181,7 +181,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
 
 
                         if(responeData.trim().equals("250")){
-                            shapeLoadingDialog.setDismiss();
+                            /*shapeLoadingDialog.setDismiss();*/
                             ToastUtils.showToast(ProjectManageActivity.this,"session无效效，正在重新登陆请稍等" );
                             new LoginRegisterInformationManage(ProjectManageActivity.this,new LoginRegisterInformationHandle()).againLogin();
                             /*sendRequestWithOkHttp();*/
@@ -283,7 +283,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     System.out.println(allTypeNameList);
                     adapter = new ProjectManageAdapter(ProjectManageActivity.this
                             , dishTypeNameList);
-
+                    stopDialog(loadingDialog);
                     if (!adapter.isEmpty()) {
                         ll_empty.setVisibility(View.GONE);
 
@@ -294,7 +294,7 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     }
 
                     lvprojectmanage.setAdapter(adapter);
-                    shapeLoadingDialog.setDismiss();
+
 
 
                     break;
@@ -601,17 +601,18 @@ public class ProjectManageActivity extends AppCompatActivity implements View.OnC
                     }
                     String add = addData();
                     System.out.println("添加：" + add);
-
+                    Dialog addDialog = startDialog("添加中");
                     ProjectTypeManage manage = new ProjectTypeManage(ProjectManageActivity.this, new LoginRegisterInformationHandle
-                            (shapeLoadingDialog));
+                            (ProjectManageActivity.this,addDialog));
                     if (!add.equals("")) {
                         SharedPreferences sp = getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);//Context
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("commit", add);
                         editor.commit();
                         /*shapeLoadingDialog.show();*/
+
                         manage.projectManageCommit(add);
-                        pullToRefreshLayout.autoRefresh();
+                        /*pullToRefreshLayout.autoRefresh();*/
                     }
                     addDishList.clear();
                     list.clear();

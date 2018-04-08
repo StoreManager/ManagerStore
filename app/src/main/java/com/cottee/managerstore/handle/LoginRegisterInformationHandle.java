@@ -1,6 +1,7 @@
 package com.cottee.managerstore.handle;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,10 +19,7 @@ import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.manage.UserManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
-import com.cottee.managerstore.widget.ShapeLoadingDialog;
-
-import static com.cottee.managerstore.properties.Properties
-        .PROJECT_DETAIL_MANAGE_GET;
+import com.cottee.managerstore.utils.WeiboDialogUtils;
 
 
 /**
@@ -34,7 +32,7 @@ public class LoginRegisterInformationHandle extends Handler {
     private Context context;
     private String emailAddress;
     private String loginPassword;
-    private ShapeLoadingDialog shapeLoadingDialog;
+
 
 
     /*
@@ -141,6 +139,7 @@ public class LoginRegisterInformationHandle extends Handler {
     private static final int SESSION_SUCCESS = 1;
     private LoginRegisterInformationManage session;
     private SharedPreferences sp;
+    private Dialog dialog;
 
 
     public LoginRegisterInformationHandle(Context context, String emailAddress) {
@@ -156,10 +155,11 @@ public class LoginRegisterInformationHandle extends Handler {
     }
 
 
-    public LoginRegisterInformationHandle(ShapeLoadingDialog shapeLoadingDialog) {
-        this.shapeLoadingDialog = shapeLoadingDialog;
-    }
 
+    public LoginRegisterInformationHandle(Context context,Dialog dialog) {
+        this.dialog = dialog;
+        this.context = context;
+    }
 
     public LoginRegisterInformationHandle() {
     }
@@ -414,10 +414,12 @@ public class LoginRegisterInformationHandle extends Handler {
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
                        /* shapeLoadingDialog.setDismiss();*/
-
+                        WeiboDialogUtils.closeDialog(dialog);
+                        ToastUtils.showToast( context, "添加成功" );
                         break;
                     case PROJECT_MANAGE_FAILD:
                         /*shapeLoadingDialog.setDismiss();*/
+                        WeiboDialogUtils.closeDialog(dialog);
                         ToastUtils.showToast( context, "添加失败" );
                         break;
                     case PROJECT_MANAGE_TIME_OUT:

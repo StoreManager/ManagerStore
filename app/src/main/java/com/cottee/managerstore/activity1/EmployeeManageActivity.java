@@ -57,7 +57,7 @@ public class EmployeeManageActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_employee_manage);
         initTitle();
         initView();
-        dialog = startDialog();
+        dialog = startDialog("加载中");
         sendRequestWithOkHttp();
 
         lv_employee_manage_information.setOnItemClickListener(new AdapterView.OnItemClickListener() {

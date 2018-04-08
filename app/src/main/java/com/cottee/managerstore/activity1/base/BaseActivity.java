@@ -20,8 +20,8 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public Dialog startDialog(){
-        Dialog dialog = WeiboDialogUtils.createLoadingDialog(this, "加载中...");
+    public Dialog startDialog(String name){
+        Dialog dialog = WeiboDialogUtils.createLoadingDialog(this, name);
         return dialog;
     }
 
