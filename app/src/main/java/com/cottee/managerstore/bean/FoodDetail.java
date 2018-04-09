@@ -1,7 +1,13 @@
 package com.cottee.managerstore.bean;
 
-import com.cottee.managerstore.utils.OssUtils;
+import android.util.Base64;
 
+import com.cottee.managerstore.handle.oss_handler.OssHandler;
+import com.cottee.managerstore.utils.OssUtils;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
+
+import java.io.File;
 import java.util.List;
 
 /**
@@ -87,7 +93,6 @@ public class FoodDetail {
         }
 
         public String getPhoto() {
-            photo=OssUtils.getOSSExtranetPath(photo);
             return photo;
         }
 
