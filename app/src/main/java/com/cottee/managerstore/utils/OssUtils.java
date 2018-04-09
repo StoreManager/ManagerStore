@@ -19,7 +19,9 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.cottee.managerstore.httputils.HttpUtils;
 import com.google.gson.Gson;
+import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +34,7 @@ public class OssUtils {
     public static String TOKEN = "CAIS/QF1q6Ft5B2yfSjIq/fyefH8rOoV2amfV3CHgzhmedlViIbBjDz2IHtKe3ZvAekZsfkwlWxT7fwclqp5QZUd0e9GxzM0vPpt6gqET9frma7ctM4p6vCMHWyUFGSIvqv7aPn4S9XwY+qkb0u++AZ43br9c0fJPTXnS+rr76RqddMKRAK1QCNbDdNNXGtYpdQdKGHaOITGUHeooBKJVxAx4Fsk0DMisP3vk5DD0HeE0g2mkN1yjp/qP52pY/NrOJpCSNqv1IR0DPGajnEPtEATq/gr0/0Yomyd4MvuCl1Q8giANPHP7tpsIQl2a643AadYq+Lmkvl1qmkSey1SFdInGoABZWT8M1buzA7KRNqHKKAzFbD3A/Ud7k1us6hSIhvLz7v5hUpdHqaMbAqI7dMN2Ww88KfV1rde7alJL7yjY7PSW20joRDaK/qr+/A5pHoxdePf/76duaw15aL4RCxly6hdK7ZwHICZdunQlbJ+VCurRyTliBTjKga632dwwChOs3U=";
     private static OSS oss;
 
-    private static void initOSS(Context context, OnLoginSuccessful onLoginSuccessful) {
+    private static void initOSS(final Context context, OnLoginSuccessful onLoginSuccessful) {
         OSSCredentialProvider credentialProvider = new
                 OSSStsTokenCredentialProvider(KEY_ID, SECRET_KEY_ID, TOKEN
         );
@@ -43,6 +45,33 @@ public class OssUtils {
         conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
         oss = new OSSClient(context.getApplicationContext(), endpoint,
                 credentialProvider);
+//        HttpUtils.sendOkHttpRequest("https://thethreestooges.cn:5210/identity/oss/token.php", new Callback() {
+//
+//
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+//                Gson gson = new Gson();
+//                OssBean ossBean = gson.fromJson(response.body().string
+//                        (), OssBean.class);
+//                String KEY_ID = ossBean.getCredentials().getAccessKeyId();
+//                String TOKEN = ossBean.getCredentials().getSecurityToken();
+//                String SECRET_KEY_ID = ossBean.getCredentials().getAccessKeySecret();
+//                OSSCredentialProvider credentialProvider = new
+//                        OSSStsTokenCredentialProvider(KEY_ID, SECRET_KEY_ID, TOKEN);
+//                ClientConfiguration conf = new ClientConfiguration();
+//                conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
+//                conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+//                conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
+//                conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
+//                oss = new OSSClient(context.getApplicationContext(), endpoint,
+//                        credentialProvider);
+//            }
+//        });
         getInfo(onLoginSuccessful);
     }
 
@@ -109,7 +138,6 @@ public class OssUtils {
                 });
             }
         });
-
     }
     public static String getOSSExtranetPath(String objectKey) {
         String path="";

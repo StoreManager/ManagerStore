@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
@@ -68,7 +69,9 @@ public class LoginRegisterInformationHandle extends Handler {
      */
 
     private static final int VERRETURNSUCCESS = 0;
+
     private static final int USERPASSWORDFAILD = 1;
+
 
 
     /**
@@ -231,6 +234,8 @@ public class LoginRegisterInformationHandle extends Handler {
                 }
 
                 break;
+
+
 
             /*case Properties.SESSION_TYPE:
                 if(msg.arg1==SESSION_SUCCESS){
@@ -476,37 +481,22 @@ public class LoginRegisterInformationHandle extends Handler {
 //                break;
             case Properties.PROJECT_DETAIL_MANAGE_ADD:
 
-//                    case :
-//
-//                       /* shapeLoadingDialog.setDismiss();*/
-//
-//                        break;
-                  /*  case PROJECT_DETIAL_MANAGE_FAILD:
-                        shapeLoadingDialog.setDismiss();
-                        ToastUtils.showToast( context, "添加失败" );
-                        break;
-                    case PROJECT_MANAGE_TIME_OUT:
-                        Toast.makeText(context, "超时", Toast.LENGTH_SHORT)
-                                .show();
-                        *//*shapeLoadingDialog.setDismiss();*//*
-//                        sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
-//                        String commit = sp.getString("commit", "");
-//                        new LoginRegisterInformationManage(context,new LoginRegisterInformationHandle()).againLogin();
-//                        new ProjectTypeManage(context,new LoginRegisterInformationHandle()).projectManageCommit(commit);
-                        break;*/
-
-
-//                        System.out.println("handle json: "+(String) msg.obj);
-//                        ManageFoodDetailActivity manageFoodDetailActivity =
-//                                new ManageFoodDetailActivity();
-//                        manageFoodDetailActivity.parseJSONWithGSON((String) msg.obj);
-
 
 
 
                 break;
 
             case Properties.PROJECT_DETAIL_MANAGE_DELETE:
+                switch (msg.arg1) {
+                    case PROJECT_MANAGE_SUCCESS:
+                        System.out.println
+                                ("---------------------------------------30000------成功");
+                        break;
+                    case PROJECT_MANAGE_FAILD:
+                        System.out.println
+                                ("---------------------------------------30000------shibai");
+                        break;
+                }
                 break;
             case Properties.PROJECT_DETAIL_MANAGE_UPDATE:
 

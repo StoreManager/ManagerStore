@@ -5,44 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_dialog_salefood">
-    <RadioGroup
-                 android:id="@+id/radioGroup_sale_id"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="10dp"
-                 android:layout_marginTop="20dp">
-                   <RadioButton
-                     android:id="@+id/sale_myself"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                    android:text="自己打折"
-                     android:textSize="16sp"
-                  />
-                  <RadioButton
-                    android:id="@+id/sale_vip"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:text="VIP会员打折"
-                      android:textSize="16sp"
-                      android:layout_marginTop="20dp"/>
-        <RadioButton
-            android:id="@+id/sale_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="取消打折"
-            android:textSize="16sp"
-            android:layout_marginTop="20dp"/>
-              </RadioGroup>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/ed_sale_edit"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:visibility="gone"
             android:hint="输入折扣，如0.95"
             android:digits="1234567890."
             android:inputType="number"

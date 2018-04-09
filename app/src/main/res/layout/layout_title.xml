@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@color/babyblue">
+                android:background="@color/purplishblue">
 
     <Button
         android:id="@+id/btn_back"
@@ -27,39 +27,32 @@
         android:textSize="16sp"
         android:layout_centerInParent="true"/>
 
-    <Button
-        android:id="@+id/btn_sale"
-        android:layout_width="35dp"
-        android:layout_height="30dp"
-        android:text="打折"
-        android:textSize="10sp"
-        android:textColor="@color/white"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        android:background="@drawable/button_shape"
-        android:layout_toStartOf="@+id/btn_editFood"/>
+
     <Button
         android:id="@+id/btn_editFood"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="编辑"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:background="@null"
         android:layout_alignBaseline="@+id/btn_back"
         android:layout_alignBottom="@+id/btn_back"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@mipmap/editfood_btn"
         android:scaleType="centerInside"/>
-    <Button
-        android:id="@+id/btn_cancelEdit"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:text="取消"
-        android:textSize="13sp"
-        android:layout_marginTop="5dp"
-        android:textColor="#fff"
-        android:background="@null"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:scaleType="centerInside"
-        android:visibility="gone"/>
+    <!--<Button-->
+        <!--android:id="@+id/btn_cancelEdit"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:text="取消"-->
+        <!--android:textSize="13sp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:textColor="#fff"-->
+        <!--android:background="@null"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:visibility="gone"/>-->
 </RelativeLayout>

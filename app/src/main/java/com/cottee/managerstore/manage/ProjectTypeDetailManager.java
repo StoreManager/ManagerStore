@@ -40,10 +40,12 @@ public class ProjectTypeDetailManager {
             ,final String discount_singe
             ,final String discount
             , final String classId
-            ,final String itemid
-            , final String univalence
+            ,final String photo
             , final String description
-            ,final String photo) {
+            , final String univalence
+            ,final String itemid
+
+           ) {
         new Thread() {
             @Override
             public void run() {
@@ -57,22 +59,23 @@ public class ProjectTypeDetailManager {
                             request = new Request.Builder()
                                     .url(Properties.PROJECT_DETAIL_MANAGE_ADD_PATH)
                                     .post(new FormBody.Builder()
+                                    .add("session",session)
                                     .add("name", name)
                                     .add("discount_singe",discount_singe)
                                     .add("discount",discount)
-                                    .add("session",session)
                                     .add("class_id",classId)
-                                    .add("univalence",univalence)
+                                    .add("photo",photo)
                                     .add("description",description)
-                                    .add("photo",photo).build())
+                                    .add("univalence",univalence).build())
                                     .build();
                             break;
                         case Properties.PROJECT_DETAIL_MANAGE_DELETE:
                             request = new Request.Builder().url(Properties.PROJECT_DETAIL_MANAGE_DELETE_PATH)
                                     .post(new FormBody.Builder()
+                                            .add("session",session)
                                             .add("class_id", classId)
                                             .add("item_id",itemid)
-                                            .add("session",session).build())
+                                            .build())
                                     .build();
                             break;
                         case Properties.PROJECT_DETAIL_MANAGE_UPDATE:
@@ -84,9 +87,10 @@ public class ProjectTypeDetailManager {
                                             .add("discount_singe",discount_singe)
                                             .add("discount",discount)
                                             .add("class_id",classId)
-                                            .add("univalence",univalence)
+                                            .add("photo",photo)
                                             .add("description",description)
-                                            .add("photo",photo).build())
+                                            .add("univalence",univalence)
+                                            .add("item_id",itemid).build())
                                     .build();
                             break;
                         case Properties.PROJECT_DETAIL_MANAGE_STICK:
@@ -132,25 +136,25 @@ public class ProjectTypeDetailManager {
     }
     public void projectDetailManageCommit( String foodName,String discount_singe,String discount,String classId,String description,String univalence,String photo) {
 
-        sendRequest(PROJECT_MANAGE_DETAIL_INFORMATION, foodName,discount_singe,discount,classId,"",description,univalence,photo);
+        sendRequest(PROJECT_MANAGE_DETAIL_INFORMATION, foodName,discount_singe,discount,classId,photo,description,univalence,"");
 
     }
 
     public void projectDetailManageDelete(String classId,String itemId) {
 
-        sendRequest(Properties.PROJECT_DETAIL_MANAGE_DELETE,"","","",classId,itemId,"","","");
+        sendRequest(Properties.PROJECT_DETAIL_MANAGE_DELETE,"","","",classId,"","","",itemId);
 
     }
 
     public void projectDetailManageUpdate(String foodName,String discount_singe
-            ,String discount,String classId,String itemId
-            ,String univalence,String description,String photo) {
+            ,String discount,String classId,String photo
+            ,String description,String univalence,String itemId) {
 
-        sendRequest(Properties.PROJECT_DETAIL_MANAGE_UPDATE,foodName,discount_singe,discount,classId,itemId,description,univalence,photo);
+        sendRequest(Properties.PROJECT_DETAIL_MANAGE_UPDATE,foodName,discount_singe,discount,classId,photo,description,univalence,itemId);
 
     }
     public void projectDetailManageStick(String class_id,String item_id)
     {
-      sendRequest(Properties.PROJECT_DETAIL_MANAGE_STICK,"","","",class_id,item_id,"","","");
+      sendRequest(Properties.PROJECT_DETAIL_MANAGE_STICK,"","","",class_id,"","","",item_id);
     }
 }

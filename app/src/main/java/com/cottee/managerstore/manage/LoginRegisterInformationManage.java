@@ -31,6 +31,9 @@ public class LoginRegisterInformationManage {
     public final static int FORGET_PASSWORD_EMAIL_SUBMIT = 5;
     public final static int FORGET_PASSWORD_EMAIL_VER_SUBMIT = 6;
     public final static int FORGET_PASSWORD_EMAIL_PSD_SUBMIT = 7;
+    public final static int MODIFY_EMP_PASSWORD_SUBMIT=8;
+    public final static int MODIFY_EMP_PASSWORD=9;
+
     private String str;
     private String sessionString;
 
@@ -112,6 +115,7 @@ public class LoginRegisterInformationManage {
             @Override
             public void run() {
                 try {
+                    String session = UserRequestInfo.getSession();
                     OkHttpClient client = new OkHttpClient();
                     Request request = null;
                     switch (type) {
@@ -121,10 +125,17 @@ public class LoginRegisterInformationManage {
                                     password).build()).build();
                             break;
                         case Properties.SESSION_TYPE:
-                            request = new Request.Builder().url("https://thethreestooges.cn:1225/identity/login/login.php").post(new FormBody.Builder().add("username", email).add("password",
+                            request = new Request.Builder().url("https://thethreestooges.cn:1225/identity/login/login.php")
+                                    .post(new FormBody.Builder().add("username", email)
+                                            .add("password",
                                     password).build()).build();
                             break;
-
+                        case MODIFY_EMP_PASSWORD:
+                            request=new Request.Builder().url(Properties.MODIFYEMP_PATH).post(new FormBody.Builder()
+                            .add("password",password)
+                            .add("session",session).build())
+                            .build();
+                            break;
                         default:
                             break;
                     }
@@ -165,6 +176,7 @@ public class LoginRegisterInformationManage {
                             request = new Request.Builder().url(Properties.LOGIN_PATH).post(new FormBody.Builder().add("username", email).add("password",
                                     password).build()).build();
                             break;*/
+
                         case CHECKOUT_EMAIL:
                             request = new Request.Builder().url(Properties.EMAIL_SUBMIT_PATH).post(new FormBody.Builder().add("mail_address", email).build()).build();
                             break;
@@ -181,14 +193,22 @@ public class LoginRegisterInformationManage {
                             break;
 
                         case FORGET_PASSWORD_EMAIL_VER_SUBMIT:
-                            request = new Request.Builder().url(Properties.FORGET_PASSWORD_EMAIL_VER_SUBMIT_PATH).post(new FormBody.Builder().add("mail_address", email).add(" " +
+                            request = new Request.Builder()
+                                    .url(Properties.FORGET_PASSWORD_EMAIL_VER_SUBMIT_PATH).post(new FormBody.Builder().add("mail_address", email).add(" " +
                                     "mail_ver", password).build()).build();
                             break;
-
+                        case MODIFY_EMP_PASSWORD:
+                            request = new Request.Builder().url(Properties.MODIFYEMP_PATH)
+                                    .post(new FormBody.Builder()
+                                            .add
+                                    ("password", password)
+                                            .add("session", UserRequestInfo.getSession()).build()).build();
+                            break;
                         case FORGET_PASSWORD_EMAIL_PSD_SUBMIT:
                             request = new Request.Builder().url(Properties.FORGET_PASSWORD_EMAIL_PSD_SUBMIT_PATH).post(new FormBody.Builder().add
                                     ("mail_address", email).add(" " +"password", password).build()).build();
                             break;
+
                         default:
                             break;
                     }
@@ -296,7 +316,16 @@ public class LoginRegisterInformationManage {
 
     }
 
+    /**
+     * 修改员工密码
+     *
+     *
+     */
+    public void modifyEmpPwd(String session,String password) {
 
+        sendRequest(MODIFY_EMP_PASSWORD_SUBMIT,session,password);
+
+    }
 
 
 

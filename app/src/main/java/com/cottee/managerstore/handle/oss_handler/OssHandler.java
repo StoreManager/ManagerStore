@@ -2,8 +2,10 @@ package com.cottee.managerstore.handle.oss_handler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,9 +43,10 @@ public class OssHandler extends Handler {
                 if(bitmap!=null){
                     System.out.println("下载图片bitmap:"+bitmap);
                     imv.setImageBitmap(bitmap);
+//
 
                     String success_download = "图片下载成功";
-                    Toast.makeText(context, success_download, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, success_download, Toast.LENGTH_SHORT).show();
                 }
                 System.out.println("下载图片bitmap"+bitmap);
                 break;

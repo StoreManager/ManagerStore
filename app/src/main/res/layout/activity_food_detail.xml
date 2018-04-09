@@ -12,16 +12,16 @@
 
         <include layout="@layout/layout_food_detail_title"/>
 
+
         <ImageButton
             android:id="@+id/imgbtn_foodImg"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:background="@mipmap/addimage"
             android:clickable="false"
             android:scaleType="fitXY"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,20 +32,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="名称 :"
                 android:layout_gravity="center_vertical"
+                android:text="名称 :"
                 android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/tv_foodName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:gravity="right"
-                android:text="肉"
-                android:textSize="13sp"/>
 
             <EditText
                 android:id="@+id/edit_foodName"
@@ -56,7 +45,6 @@
                 android:layout_marginRight="20dp"
                 android:background="@null"
                 android:clickable="true"
-                android:drawableBottom="@drawable/edit_line"
                 android:gravity="right"
                 android:singleLine="true"
                 android:textSize="13sp"/>
@@ -65,7 +53,7 @@
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.5px"
             android:layout_marginTop="15dp"
             android:background="@color/gray"/>
 
@@ -83,45 +71,26 @@
                 android:text="价格 :"
                 android:textSize="15sp"/>
 
-            <TextView
-                android:id="@+id/tv_foodPrice"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:gravity="right"
-                android:text="12"
-                android:textSize="13sp"/>
 
             <EditText
                 android:id="@+id/edit_foodPrice"
-                android:layout_width="230dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
                 android:background="@null"
                 android:digits="1234567890."
-                android:layout_marginLeft="8dp"
-                android:drawableBottom="@drawable/edit_line"
                 android:gravity="right"
                 android:inputType="number"
                 android:singleLine="true"
                 android:textSize="13sp"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/tv_yuan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="20dp"
-                android:gravity="right"
-                android:text="元"/>
+                />
         </LinearLayout>
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.5px"
             android:layout_marginTop="15dp"
             android:background="@color/gray"/>
 
@@ -131,87 +100,58 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:text="描述 : "
                 android:textSize="15sp"/>
 
+            <EditText
+                android:id="@+id/edit_foodDescription"
+                android:layout_width="300dp"
+                android:layout_height="130dp"
+                android:gravity="start"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editsharp"
+                android:textSize="13sp"/>
+
             <TextView
-                android:id="@+id/tv_des"
+                android:id="@+id/tv_countNumber"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="40dp"
                 android:gravity="right"
-                android:maxLines="15"
-                android:text="AAAA"
-                android:textSize="13sp"/>
-
-            <LinearLayout
-                android:id="@+id/linear_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <EditText
-                    android:id="@+id/edit_foodDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dp"
-                    android:background="@null"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:drawableBottom="@drawable/edit_line"
-                    android:gravity="right"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_countNumber"
-                     android:layout_gravity="center_vertical"
-                    android:gravity="right"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:text="还剩余100字"/>
-            </LinearLayout>
+                android:text="还剩余100字"/>
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/gray"/>
-
         <FrameLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_foodCommitOk"
+                android:id="@+id/btn_foodOk"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
                 android:background="#7274ab"
                 android:text="完成"
                 android:textColor="#fff"
-                android:layout_alignParentBottom="true"
                 android:visibility="gone"/>
 
 
             <Button
-                android:id="@+id/btn_delete"
+                android:id="@+id/btn_deleteFood"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_alignParentBottom="true"

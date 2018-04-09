@@ -30,25 +30,25 @@
         android:textSize="16sp"
         android:layout_centerInParent="true"/>
 
+    <!--<Button-->
+        <!--android:id="@+id/btn_change"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:background="@mipmap/editfood_btn"-->
+       <!--/>-->
     <Button
-        android:id="@+id/btn_change"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentRight="true"
-        android:scaleType="centerInside"
-        android:background="@mipmap/editfood_btn"
-       />
-    <Button
-        android:id="@+id/btn_cancelEdit"
+        android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="取消"
+        android:text="保存"
         android:textColor="#fff"
         android:background="@null"
         android:textSize="14sp"
         android:layout_alignParentRight="true"
 
         android:scaleType="centerInside"
-        android:visibility="gone"/>
+       />
 </RelativeLayout>

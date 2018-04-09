@@ -88,9 +88,13 @@ public class AddFoodActivity extends Activity {
     private String  discount="1";//打折zhi
     private String  discount_sing="0";//sale sign
     private OssHandler handler = new OssHandler(this);
+    private ProjectTypeDetailManager detailManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        detailManager = new
+                ProjectTypeDetailManager(AddFoodActivity.this,new LoginRegisterInformationHandle());
         setContentView(R.layout.activity_add_food);
         InitOssClient.initOssClient(this, ConfigOfOssClient.TOKEN_ADDRESS, ConfigOfOssClient.ENDPOINT);
         userEmail = UserRequestInfo.getUserEmail();
@@ -289,22 +293,22 @@ public class AddFoodActivity extends Activity {
                     List<FoodDetail.ItemListBean> item_list = ManageFoodDetail1Activity.foodDetail.getItem_list();
                     if (path!=null)
                     {
-                        try {
-                            InputStream open = new FileInputStream( path );
-                            ByteArrayOutputStream output = new ByteArrayOutputStream();
-                            byte[] buffer = new byte[4096];
-                            int n = 0;
-                            while (-1 != (n = open.read( buffer ))) {
-                                output.write( buffer, 0, n );
-                            }
+//                        try {
+//                            InputStream open = new FileInputStream( path );
+//                            ByteArrayOutputStream output = new ByteArrayOutputStream();
+//                            byte[] buffer = new byte[4096];
+//                            int n = 0;
+//                            while (-1 != (n = open.read( buffer ))) {
+//                                output.write( buffer, 0, n );
+//                            }
                              UploadUtils.uploadFileToOss(handler, ConfigOfOssClient.BUCKET_NAME
                                      ,objectKey,path);
 //                            OssUtils.updata( AddFoodActivity.this, objectKey,
 //                                    output.toByteArray());
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
                         for (int i=0;i>item_list.size();i++)
                         {
                             item_list.get(i).setPhoto(objectKey);
@@ -316,12 +320,9 @@ public class AddFoodActivity extends Activity {
                             foodDetail.setItem_list(item_list);
 //                        foodDetailList.add(foodDetail);
                         }
-                        ProjectTypeDetailManager detailManager = new
-                                ProjectTypeDetailManager(AddFoodActivity.this,new LoginRegisterInformationHandle());
 
-                        detailManager.projectDetailManageCommit(foodName,discount_sing,discount,
-                                ProjectManageActivity.dishId,
-                                foodPrice, foodDescription,objectKey);
+                        detailManager.projectDetailManageCommit(foodName,discount_sing,discount
+                                ,ProjectManageActivity.dishId,foodDescription,foodPrice,objectKey);
                         finish();
                     }
                      else if (path==null)

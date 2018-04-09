@@ -36,6 +36,7 @@ public class Properties {
     public static final String SUPPLY_STORE_ID="https://thethreestooges.cn:1225/register/set/user_mer";
     //    public static final String SUPPLY_INFOS= "https://thethreestooges" +
 //            ".cn/merchant/bean/register/supply_register.php";
+
     public static final String GET_STORE = "https://thethreestooges.cn:1225/register/mer/show";//已审核的店铺地址
     public static final String STORE_ENVIR = "https://thethreestooges" +
             ".cn:1225/register/environment/up";//店铺环境
@@ -68,10 +69,12 @@ public class Properties {
     public static final int PROJECT_MANAGE_GET = 15;
     public static final int PROJECT_MANAGE_UPDATE =16;
     public static final int PROJECT_MANAGE_DELETE =17;
+    public static final int PROJECT_MANAGE_MODIFYEMP =18;
 
     //员工
     public static final int EMPLOYEE_ADD = 30;
    public static  final  String EMPLOYEE_ADD_PATH = "https://thethreestooges.cn:1225/staff/create/staff";
+   public static  final  String MODIFYEMP_PATH = "https://thethreestooges.cn:1225/staff/staff_change/pwd";
     public static  final  String EMPLOYEE_LIST_GSON_PATH = "\n" +
             "https://thethreestooges.cn:1225/staff/staff/list";
     public static  final  String EMPLOYEE_INFO_GSON_PATH = "https://thethreestooges.cn:1225/staff/staff/info";

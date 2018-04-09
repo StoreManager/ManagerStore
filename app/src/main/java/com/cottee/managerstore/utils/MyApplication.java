@@ -3,12 +3,15 @@ package com.cottee.managerstore.utils;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
-import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.alibaba.sdk.android.push.CloudPushService;
+import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.cottee.managerstore.httputils.HttpUtils;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
@@ -17,13 +20,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-/**
- * Created by chn on 2018/1/10.
- * (╯°□°）╯︵ ┻━┻ MMP好气啊！
- * (╯‵□′)╯︵┻━┻ 老子怒掀桌子！
- * ┻━┻︵╰(‵□′)╯︵┻━┻老子双手掀桌！
- * ┬─┬﻿ ノ( ゜-゜ノ) 算了，我不生气了！日子还得过老老实实敲吧~
- */
+import static android.content.ContentValues.TAG;
 
 public class MyApplication extends Application {
     //todo 选取session并且判读当为“”时，则视为暂无登陆
@@ -31,9 +28,6 @@ public class MyApplication extends Application {
     private static OSSClient ossClient;
     private static SharedPreferences config;
     public final static String endpoint = "http://oss-cn-shenzhen.aliyuncs" + ".com";
-//    public static String KEY_ID = "STS.J4G2KHA54nktUV6g83uVygCjn";
-//    public static String SECRET_KEY_ID = "2aEFRYXejM3BM7px7sQW3Vkb7fZT4TKM2FZN18VKyUuY";
-//    public static String TOKEN = "CAIS/QF1q6Ft5B2yfSjIq/fyefH8rOoV2amfV3CHgzhmedlViIbBjDz2IHtKe3ZvAekZsfkwlWxT7fwclqp5QZUd0e9GxzM0vPpt6gqET9frma7ctM4p6vCMHWyUFGSIvqv7aPn4S9XwY+qkb0u++AZ43br9c0fJPTXnS+rr76RqddMKRAK1QCNbDdNNXGtYpdQdKGHaOITGUHeooBKJVxAx4Fsk0DMisP3vk5DD0HeE0g2mkN1yjp/qP52pY/NrOJpCSNqv1IR0DPGajnEPtEATq/gr0/0Yomyd4MvuCl1Q8giANPHP7tpsIQl2a643AadYq+Lmkvl1qmkSey1SFdInGoABZWT8M1buzA7KRNqHKKAzFbD3A/Ud7k1us6hSIhvLz7v5hUpdHqaMbAqI7dMN2Ww88KfV1rde7alJL7yjY7PSW20joRDaK/qr+/A5pHoxdePf/76duaw15aL4RCxly6hdK7ZwHICZdunQlbJ+VCurRyTliBTjKga632dwwChOs3U=";
 
     /**
      * 获取全局上下文
@@ -45,6 +39,7 @@ public class MyApplication extends Application {
         config = context.getSharedPreferences("config",
                 MODE_PRIVATE);
         initOSS();
+        initCloudChannel(this);
 
 
     }
@@ -56,6 +51,38 @@ public class MyApplication extends Application {
         return ossClient;
     }
 
+    private static CloudPushService pushService;
+
+    private void initCloudChannel(Context applicationContext) {
+        PushServiceFactory.init(applicationContext);
+        pushService = PushServiceFactory.getCloudPushService
+                ();
+        pushService.register(applicationContext, new CommonCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Log.d(TAG, "init cloudchannel success");
+            }
+
+            @Override
+            public void onFailed(String errorCode, String errorMessage) {
+                Log.d(TAG, "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+            }
+        });
+        if (config.getBoolean("logined", false)) {
+            String username = config.getString("Id", "");
+            if (!username.equals(""))
+                pushService.bindAccount(username, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Log.i("ClodePush", "Success");
+                    }
+                    @Override
+                    public void onFailed(String s, String s1) {
+                        Log.i("ClodePush", "onFailed");
+                    }
+                });
+        }
+    }
     private void initOSS() {
         HttpUtils.sendOkHttpRequest("https://thethreestooges.cn:5210/identity/oss/token.php", new Callback() {
 
