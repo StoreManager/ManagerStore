@@ -25,7 +25,7 @@ import com.cottee.managerstore.R;
 import com.cottee.managerstore.adapter.RecyclerviewAdapter;
 import com.cottee.managerstore.bean.FoodDetail;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
-import com.cottee.managerstore.handle.oss_handler.OssHandler;
+import com.cottee.managerstore.handle.OssHandler;
 import com.cottee.managerstore.httputils.HttpUtilSession;
 import com.cottee.managerstore.manage.LoginRegisterInformationManage;
 import com.cottee.managerstore.manage.ProjectTypeDetailManager;
