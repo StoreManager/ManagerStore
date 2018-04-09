@@ -111,8 +111,8 @@ public class RegisterStoreActivity extends AppCompatActivity {
         linear_changePassword.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText( RegisterStoreActivity.this, "修改密码！", Toast
-                        .LENGTH_SHORT ).show();
+
+                startActivity( new Intent(RegisterStoreActivity.this,ModifyBossLoginPasswordActivity.class));
             }
         } );
 //       退出登录

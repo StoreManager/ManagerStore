@@ -21,20 +21,26 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
 import com.cottee.managerstore.bean.FoodDetail;
 import com.cottee.managerstore.bean.UserRequestInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
+import com.cottee.managerstore.handle.oss_handler.OssHandler;
 import com.cottee.managerstore.manage.AddFoodInfoIsEmpty;
 import com.cottee.managerstore.manage.ProjectTypeDetailManager;
 import com.cottee.managerstore.utils.BitmapUtils;
-import com.cottee.managerstore.utils.OssUtils;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.InitOssClient;
+import com.cottee.managerstore.utils.myt_oss.UploadUtils;
 import com.cottee.managerstore.view.SelectPicPopupWindow;
 
 import java.io.ByteArrayOutputStream;
@@ -78,12 +84,15 @@ public class AddFoodActivity extends Activity {
     private Drawable off;
     private boolean isCommitVip;
     private int clicked=1;
-    public static final String SAVE_PIC_PATH=Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory().getAbsolutePath() : "/mnt/sdcard";//保存到SD卡
-//    public static final String SAVE_REAL_PATH = SAVE_PIC_PATH+"/good/savePic" ;//保存的确切位置
+    private ToggleButton togbtn_vip;
+    private String  discount="1";//打折zhi
+    private String  discount_sing="0";//sale sign
+    private OssHandler handler = new OssHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
+        InitOssClient.initOssClient(this, ConfigOfOssClient.TOKEN_ADDRESS, ConfigOfOssClient.ENDPOINT);
         userEmail = UserRequestInfo.getUserEmail();
         objectKey ="merchant/"+ userEmail+"/item"
                 +"/"+new DateFormat().format( "yyyyMMdd_hhmmss",
@@ -97,6 +106,7 @@ public class AddFoodActivity extends Activity {
         Resources resources = this.getResources();
         on=resources.getDrawable(R.mipmap.turnon);
         off=resources.getDrawable(R.mipmap.turnoff);
+        togbtn_vip = findViewById(R.id.togbtn_vip);
         scroll_addFood = findViewById(R.id.scroll_addFood);
         imgbtn_foodImg = findViewById(R.id.imgbtn_foodImg);
         edit_foodName = findViewById(R.id.edit_foodName);
@@ -104,11 +114,29 @@ public class AddFoodActivity extends Activity {
         edit_foodDescription = findViewById(R.id.edit_foodDescription);
         tv_inputNumber = findViewById(R.id.tv_inputNumber);
         btn_cancel = findViewById(R.id.btn_cancle);
-        btn_oK = findViewById(R.id.btn_foodCommitOk);
+        btn_oK = findViewById(R.id.btn_foodModifyOk);
         tv_moneyErro = findViewById(R.id.tv_moneyErro);
     }
     private void initEvent() {
+       togbtn_vip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+
+
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView, boolean
+                   isChecked) {
+               if (isChecked==true)
+               {
+                   discount="-1";
+                   discount_sing="1";
+               }
+               else
+               {
+                  discount="1";
+                  discount_sing="0";
+               }
+           }
+       });
      edit_foodName.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
@@ -269,33 +297,39 @@ public class AddFoodActivity extends Activity {
                             while (-1 != (n = open.read( buffer ))) {
                                 output.write( buffer, 0, n );
                             }
-
-                            OssUtils.updata( AddFoodActivity.this, objectKey,
-                                    output.toByteArray());
+                             UploadUtils.uploadFileToOss(handler, ConfigOfOssClient.BUCKET_NAME
+                                     ,objectKey,path);
+//                            OssUtils.updata( AddFoodActivity.this, objectKey,
+//                                    output.toByteArray());
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-                    }
-                    for (int i=0;i>item_list.size();i++)
-                    {
-                        item_list.get(i).setPhoto(objectKey);
-                        item_list.get(i).setName(foodName);
-                        item_list.get(i).setUnivalence(foodPrice);
-                        item_list.get(i).setDescription(foodDescription);
-                        foodDetail.setItem_list(item_list);
+                        for (int i=0;i>item_list.size();i++)
+                        {
+                            item_list.get(i).setPhoto(objectKey);
+                            item_list.get(i).setName(foodName);
+                            item_list.get(i).setUnivalence(foodPrice);
+                            item_list.get(i).setDescription(foodDescription);
+                            item_list.get(i).setDiscount(discount);
+                            item_list.get(i).setDiscount_singe(discount_sing);
+                            foodDetail.setItem_list(item_list);
 //                        foodDetailList.add(foodDetail);
-                    }
-                    System.out.println("名字："+foodName + ProjectManageActivity
-                            .dishId + foodDescription + foodPrice);
-                     ProjectTypeDetailManager detailManager = new
-                            ProjectTypeDetailManager(AddFoodActivity.this,new LoginRegisterInformationHandle());
+                        }
+                        ProjectTypeDetailManager detailManager = new
+                                ProjectTypeDetailManager(AddFoodActivity.this,new LoginRegisterInformationHandle());
 
-                        detailManager.projectDetailManageCommit(foodName,"0","0",
+                        detailManager.projectDetailManageCommit(foodName,discount_sing,discount,
                                 ProjectManageActivity.dishId,
-                               foodPrice, foodDescription,objectKey);
-                            finish();
+                                foodPrice, foodDescription,objectKey);
+                        finish();
+                    }
+                     else if (path==null)
+                    {
+                        Toast.makeText(AddFoodActivity.this, "图片为空上传失败", Toast
+                                .LENGTH_SHORT).show();
+                    }
+
 
                 }
 
@@ -366,6 +400,7 @@ public class AddFoodActivity extends Activity {
                     BitmapUtils bitmapUtils = new BitmapUtils( getApplicationContext() );
                     bitmap = bitmapUtils.decodeFile(path);
                     imgbtn_foodImg.setImageBitmap( bitmap );
+                    System.out.println("000000000000000000000" + path);
                     break;
             }
         }
