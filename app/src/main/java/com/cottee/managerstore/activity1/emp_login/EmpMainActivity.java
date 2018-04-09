@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity1.EmpModifyPwdActivity;
 import com.cottee.managerstore.widget.Title;
 
 /**
@@ -80,5 +82,9 @@ public class EmpMainActivity extends Activity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    public void modifyEmp(View view)
+    {
+        startActivity(new Intent(EmpMainActivity.this, EmpModifyPwdActivity.class));
     }
 }

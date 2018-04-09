@@ -199,7 +199,6 @@ public class EmpDetailMessageActivity extends Activity {
                     System.out.println("单个员工头像："+ empPhoto);
                     for(int i=0;i<empTime.length;i++){
                         mWeekPoints[i]=Integer.parseInt(empTime[i]);
-
                     }
 
                     OssHandler ossHandler = new OssHandler(EmpDetailMessageActivity.this,imv_header);
@@ -224,8 +223,6 @@ public class EmpDetailMessageActivity extends Activity {
                         ll_empty.setVisibility(View.GONE);
 
                     } else {
-
-
                         ll_empty.setVisibility(View.VISIBLE);
                     }*/
 
