@@ -2,6 +2,7 @@ package com.cottee.managerstore.utils;
 
 import com.cottee.managerstore.bean.SearchLocation;
 import com.cottee.managerstore.bean.StoreInfo;
+import com.cottee.managerstore.bean.VIP;
 import com.cottee.managerstore.bean.VIPStandard;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -74,6 +75,19 @@ public class Utils {
         return userBeanList;
     }
 
+    public static List<VIP> handleSearvhVIPResponse(String response) {
+        JsonObject jsonObject = new JsonParser().parse( response ).getAsJsonObject();
+        JsonArray jsonArray = jsonObject.getAsJsonArray( "vip_user_list" );
+        Gson gson = new Gson();
+        List<VIP> userBeanList = new ArrayList<>();
+        for (JsonElement user : jsonArray) {
+            //通过反射 得到UserBean.class
+            VIP vip= gson.fromJson( user, new TypeToken<VIP>() {
+            }.getType() );
+            userBeanList.add( vip );
+        }
+        return userBeanList;
+    }
 
 
 

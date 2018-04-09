@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/tv_standardName"
+                android:id="@+id/tv_standardNames"
                 android:textColor="#25449e"
                 android:text="青铜会员"
                 android:layout_width="wrap_content"
@@ -86,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_vipmin"
                 android:textColor="#25449e"
                 android:text="500"
                 android:layout_width="wrap_content"

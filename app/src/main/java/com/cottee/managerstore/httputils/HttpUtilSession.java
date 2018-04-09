@@ -46,4 +46,22 @@ public class HttpUtilSession {
                 .build();
         client.newCall( request ).enqueue( callback );
     }
+
+    public static void sendVIPOkHttpRequest(Context context,
+                                                   final String address,
+                                                   final String text,
+                                                   final String lastId,
+                                                   final Callback callback) {
+
+        String session = UserRequestInfo.getSession();
+        OkHttpClient client = new OkHttpClient();
+        Request  request = new Request.Builder()
+                .url(address)
+                .post(new FormBody.Builder()
+                        .add("session",session)
+                        .add("name_part",text).add( "last_id",lastId )
+                        .build())
+                .build();
+        client.newCall( request ).enqueue( callback );
+    }
 }

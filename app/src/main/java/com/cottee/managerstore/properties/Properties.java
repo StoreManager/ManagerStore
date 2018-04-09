@@ -94,6 +94,7 @@ public class Properties {
     public static final String VIP_DELE_PATH="https://thethreestooges.cn:1225/VIP/vip/dele";
     public static final int VIP_DELE=36;
 
+    public static final String VIP_PATH="https://thethreestooges.cn:1225/VIP/vip_name/part";
 
 
     //员工登录

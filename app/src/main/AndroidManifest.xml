@@ -180,7 +180,6 @@
         <activity android:name=".activity1.EmpModifyPwdActivity">
         </activity>
         <activity android:name=".activity1.OrdersManageActivity" android:launchMode="singleTask" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.VIPDetialActivity" />
         <activity android:name=".activity1.base.BaseActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
     </application>

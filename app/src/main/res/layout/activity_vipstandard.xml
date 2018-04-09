@@ -47,15 +47,16 @@
             android:textSize="13sp"
             android:textCursorDrawable="@drawable/autotextview"/>
     </LinearLayout>
-    <TextView
-        android:paddingLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_vertical"
-        android:background="#fff"
-        android:text="全部会员：18人"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+    <!--<TextView-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:background="#fff"-->
+        <!--android:text="全部会员：18人"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp"/>-->
     <ListView
+        android:visibility="gone"
         android:divider="@null"
         android:id="@+id/lv_vip"
         android:layout_width="match_parent"
