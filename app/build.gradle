@@ -9,6 +9,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions { includeCompileClasspath = true }
+        }
+        defaultConfig{
+            applicationId "com.cottee.managerstore"
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+            }
+        }
+
     }
     buildTypes {
         release {
@@ -44,4 +54,8 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.5'
     compile 'com.squareup.okio:okio:1.9.0'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+//    云推送
+    compile 'com.aliyun.ams:alicloud-android-push:3.1.0'
+
 }

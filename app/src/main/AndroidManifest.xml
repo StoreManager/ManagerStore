@@ -37,6 +37,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.alibaba.app.appkey"
+            android:value="24840980"/> <!-- 请填写你自己的- appKey -->
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="87e0bf35f3e52e4d411aeb6b9f2d87be"/> <!-- 请填写你自己的appSecret -->
+        <receiver
+            android:name=".receiver.MyMessageReceiver"
+            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED"/>
+            </intent-filter>
+            <intent-filter>
+            <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".activity.RegisterStoreActivity"
             android:launchMode="singleTask"
@@ -120,8 +139,7 @@
         <activity
             android:name=".activity1.ProjectManageAddClassifyActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity1.EmployeeManageActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".activity1.EmployeeManageActivity"/>
         <activity
             android:name=".activity.VIPManagerActivity"
             android:launchMode="singleTask"/>
@@ -138,14 +156,11 @@
         </activity>
         <activity android:name=".activity.AddFoodActivity">
         </activity>
-        <activity android:name=".activity.FoodDetailActivity">
-        </activity>
         <activity android:name=".activity.ManagePicActivity">
         </activity>
         <activity android:name=".activity.VIPSearchActivity">
         </activity>
-        <activity android:name=".activity1.emp_login.EmpLoginActivity"
-            />
+        <activity android:name=".activity1.emp_login.EmpLoginActivity"/>
         <activity android:name=".activity1.EmployeeManageSearchActivity"/>
         <activity android:name=".activity1.EmployeeManageInfoActivity"/>
         <activity android:name=".activity1.SuccessAddEmployeeActivity"/>
@@ -159,15 +174,15 @@
             android:name=".activity1.emp_login.EmpUpdateDetailActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".activity.ModifyFoodDetailActivity"/>
-        <activity android:name=".activity.ChangeVIPStandardActivity"/>
-        <activity
-            android:name=".activity1.OrdersManageActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity.VIPDetialActivity">
+        <activity android:name=".activity.ModifyBossLoginPasswordActivity">
         </activity>
-        <activity android:name=".activity1.base.BaseActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".activity.ChangeVIPStandardActivity"/>
+        <activity android:name=".activity1.EmpModifyPwdActivity">
+        </activity>
+        <activity android:name=".activity1.OrdersManageActivity" android:launchMode="singleTask" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.VIPDetialActivity" />
+        <activity android:name=".activity1.base.BaseActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
     </application>
 
 </manifest>
