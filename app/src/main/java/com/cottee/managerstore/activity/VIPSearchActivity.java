@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -111,7 +112,6 @@ public class VIPSearchActivity extends Activity {
             }
         } );
     }
-
     public void backs(View view) {
         finish();
     }

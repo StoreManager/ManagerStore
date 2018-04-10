@@ -2,6 +2,7 @@ package com.cottee.managerstore.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,7 +14,11 @@ import com.bumptech.glide.Glide;
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.ChangeVIPStandardActivity;
 import com.cottee.managerstore.bean.VIP;
+import com.cottee.managerstore.handle.oss_handler.OssHandler;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -60,10 +65,16 @@ public class VIPAdapter extends BaseAdapter {
         } else {
             viewHolder = (VIPAdapter.ViewHolder) view.getTag();
         }
-//        Glide.with( context ).load( vips.get( position ).getPhoto() ).into( viewHolder.iv_icon );
-        viewHolder.tv_id.setText( vips.get( position ).getUser_id() );
+        OssHandler ossHandler = new OssHandler( context,viewHolder.iv_icon);
+        File cache_image = new File( context.getCacheDir(), Base64.encodeToString
+                ( vips.get( position ).getPhoto().getBytes(),
+                        Base64.DEFAULT ) );
+        DownloadUtils.downloadFileFromOss( cache_image, ossHandler, ConfigOfOssClient
+                .BUCKET_NAME, vips.get( position ).getPhoto() );
+        viewHolder.tv_id.setText( "ID:" +vips.get( position ).getUser_id() );
         viewHolder.tv_name.setText( vips.get( position ).getNickname() );
-//        viewHolder.tv_min.setText( vips.get( position ).getIntegral() );
+        viewHolder.tv_min.setText( vips.get( position ).getIntegral() );
+        viewHolder.tv_standardName.setText( vips.get( position ).getVip_name() );
         return view;
     }
 

@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#f5f5f5"
+    android:orientation="vertical"
     tools:context="com.cottee.managerstore.activity.VIPSearchActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/purplishblue">
 
         <Button
-            android:onClick="backs"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:background="@mipmap/back_2x"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal"
+            android:onClick="backs"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,37 +31,45 @@
             android:textColor="@color/white"
             android:textSize="18dp"/>
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
+
         <AutoCompleteTextView
-            android:layout_margin="10dp"
             android:id="@+id/auto"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:background="@drawable/auto_vip_search_square"
             android:completionThreshold="2"
             android:dropDownHorizontalOffset="0dp"
             android:hint=" 根据昵称或ID查找"
-            android:textSize="13sp"
-            android:textCursorDrawable="@drawable/autotextview"/>
+            android:textCursorDrawable="@drawable/autotextview"
+            android:textSize="13sp"/>
     </LinearLayout>
     <!--<TextView-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:background="#fff"-->
-        <!--android:text="全部会员：18人"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="30dp"/>-->
-    <ListView
-        android:visibility="gone"
-        android:divider="@null"
-        android:id="@+id/lv_vip"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+    <!--android:paddingLeft="10dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:background="#fff"-->
+    <!--android:text="全部会员：18人"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"/>-->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.cottee.managerstore.view.HstListView
+            android:id="@+id/lv_vip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:visibility="gone">
+        </com.cottee.managerstore.view.HstListView>
+    </ScrollView>
+
 
 </LinearLayout>

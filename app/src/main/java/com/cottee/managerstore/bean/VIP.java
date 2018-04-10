@@ -9,6 +9,16 @@ public class VIP {
     private String user_id;
     private String nickname;
     private String photo;
+    private String vip_name;
+
+    public String getVip_name() {
+        return vip_name;
+    }
+
+    public void setVip_name(String vip_name) {
+        this.vip_name = vip_name;
+    }
+
     public String getIntegral() {
         return integral;
     }
