@@ -1,6 +1,8 @@
 package com.cottee.managerstore.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -38,7 +40,7 @@ public class FoodStyleGrivdViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         final ViewHolder viewHolder;
         if (view == null) {
             viewHolder=new ViewHolder();
@@ -49,6 +51,16 @@ public class FoodStyleGrivdViewAdapter extends BaseAdapter {
             viewHolder=(ViewHolder)view.getTag();
         }
         viewHolder.tv_style.setText(foodList.get(i));
+        viewHolder.tv_style.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("storeStyle",foodList.get(i));
+                System.out.println("11111111111111"+foodList.get(i));
+                ((Activity)context).setResult( Activity.RESULT_OK,intent );
+                ((Activity)context).finish();
+            }
+        } );
         return view;
     }
     protected static class ViewHolder {

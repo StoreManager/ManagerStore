@@ -32,17 +32,7 @@ public class FoodFragment extends Fragment {
         View view = inflater.inflate(R.layout.food_fragment, container, false);
         food = StoreStyleActivity.getFood();
         gv_food = view.findViewById(R.id.gv_food);
-        gv_food.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,
-                                    int i, long l) {
-                Intent intent = new Intent();
-                intent.putExtra("storeStyle",food.get(i));
-                System.out.println("11111111111111"+food.get(i));
-                getActivity().setResult(Activity.RESULT_OK,intent);
-                getActivity().finish();
-            }
-        });
+        gv_food.setAdapter( new FoodStyleGrivdViewAdapter( getContext() ,food) );
         return view;
     }
     public void initFoodData(List<String> foodList){

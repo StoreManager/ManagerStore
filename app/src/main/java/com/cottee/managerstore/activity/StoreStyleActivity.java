@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
@@ -37,7 +38,7 @@ public class StoreStyleActivity extends AppCompatActivity implements ViewPager.O
 
     private static List<String> entertainment;
     private StoreStyleActivity.myHandler myHandler;
-    private static List<String> food;
+    public static List<String> food=new ArrayList<>(  );
 
 
     private static class myHandler extends Handler {
