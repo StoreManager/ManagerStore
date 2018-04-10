@@ -185,7 +185,7 @@ public class LoginRegisterInformationManage {
                                     "mail_ver", password).build()).build();
                             break;
                         case FINISH_USER_REGISTER:
-                            request = new Request.Builder().url(Properties.USER_BUILD_PATH).post(new FormBody.Builder().add("mail_address", email).add(" " +
+                            request = new Request.Builder().url(Properties.USER_BUILD_PATH).post(new FormBody.Builder().add("username", email).add(" " +
                                     "password", password).build()).build();
                             break;
                         case FORGET_PASSWORD_EMAIL_SUBMIT:
@@ -206,7 +206,7 @@ public class LoginRegisterInformationManage {
                             break;
                         case FORGET_PASSWORD_EMAIL_PSD_SUBMIT:
                             request = new Request.Builder().url(Properties.FORGET_PASSWORD_EMAIL_PSD_SUBMIT_PATH).post(new FormBody.Builder().add
-                                    ("mail_address", email).add(" " +"password", password).build()).build();
+                                    ("username", email).add(" " +"password", password).build()).build();
                             break;
 
                         default:

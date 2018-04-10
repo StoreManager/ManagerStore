@@ -42,8 +42,8 @@ public class LoginRegisterInformationHandle extends Handler {
  * 邮箱已存在返回 3
  * 提交字段有误返回 4
   */
-    private static final int SUBMITSUCCESSFUL = 0;
-    private static final int SUBMITFAILD = 1;
+    private static final int SUBMITSUCCESSFUL = 1;
+    private static final int SUBMITFAILD = 0;
     private static final int VERSUBMITFAST = 2;
     private static final int EMAILEXIST = 3;
     /*
@@ -54,8 +54,8 @@ public class LoginRegisterInformationHandle extends Handler {
  * 无该用户记录返回 5
  * 提交字段有误 返回 4
       */
-    private static final int VERSSUCCESS = 0;
-    private static final int VERSFALSE = 1;
+    private static final int VERSSUCCESS = 1;
+    private static final int VERSFALSE =0;
     private static final int VERTIMEOUT_AGAINSUCCESS = 2;
     private static final int VERTIMEOUT_AGAINFAILD = 3;
     private static final int NO_VER = 5;
@@ -67,9 +67,9 @@ public class LoginRegisterInformationHandle extends Handler {
      * 账户密码写入失败 1
      */
 
-    private static final int VERRETURNSUCCESS = 0;
+    private static final int VERRETURNSUCCESS = 1;
 
-    private static final int USERPASSWORDFAILD = 1;
+    private static final int USERPASSWORDFAILD = 0;
 
 
 
@@ -91,8 +91,8 @@ public class LoginRegisterInformationHandle extends Handler {
      * 提交字段有误返回 4
      */
 
-    private static final int FORGET_EMAILSUCCESS = 0;
-    private static final int FORGET_EMAILFAILD = 1;
+    private static final int FORGET_EMAILSUCCESS =1;
+    private static final int FORGET_EMAILFAILD = 0;
     private static final int FORGET_VERSUBMITFAST = 2;
     private static final int EMAIL_UNEXIST = 3;
 
@@ -106,8 +106,8 @@ public class LoginRegisterInformationHandle extends Handler {
      */
 
 
-    private static final int FORGET_VERSSUCCESS = 0;
-    private static final int FORGET_VERSFALSE = 1;
+    private static final int FORGET_VERSSUCCESS = 1;
+    private static final int FORGET_VERSFALSE = 0;
     private static final int FORGET_VERTIMEOUT_AGAINFAILD = 3;
     private static final int FORGET_NO_VER = 5;
     private static final int FORGET_INFO_FALSE = 4;
@@ -119,8 +119,8 @@ public class LoginRegisterInformationHandle extends Handler {
      * 失败返回 1
      */
 
-    private static final int FORGET_RETURNSUCCESS = 0;
-    private static final int FORGET_RETURNFAILD = 1;
+    private static final int FORGET_RETURNSUCCESS =1;
+    private static final int FORGET_RETURNFAILD = 0;
 
 
     private static final int TO_HOME = 10;
@@ -177,15 +177,10 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
 
                     case SUBMITFAILD:
-                        ToastUtils.showToast( context, "发送失败" );
+                        ToastUtils.showToast( context, "验证码发送频率过快/邮箱已存在" );
 
                         break;
-                    case VERSUBMITFAST:
-                        ToastUtils.showToast( context, "验证码发送频率过快" );
-                        break;
-                    case EMAILEXIST:
-                        ToastUtils.showToast( context, "邮箱已存在" );
-                        break;
+
                 }
                 break;
 
@@ -311,15 +306,10 @@ public class LoginRegisterInformationHandle extends Handler {
                         break;
 
                     case FORGET_EMAILFAILD:
-                        ToastUtils.showToast( context, "发送失败" );
+                        ToastUtils.showToast( context, "邮箱不存在/验证码发送频率过快" );
 
                         break;
-                    case FORGET_VERSUBMITFAST:
-                        ToastUtils.showToast( context, "验证码发送频率过快" );
-                        break;
-                    case EMAIL_UNEXIST:
-                        ToastUtils.showToast( context, "邮箱不存在" );
-                        break;
+
                 }
                 break;
 
@@ -334,15 +324,6 @@ public class LoginRegisterInformationHandle extends Handler {
                     case FORGET_VERSFALSE:
                         ToastUtils.showToast( context, "验证码错误" );
 
-                        break;
-                    case FORGET_VERTIMEOUT_AGAINFAILD:
-                        ToastUtils.showToast( context, "验证码过期重新发送失败" );
-                        break;
-                    case FORGET_INFO_FALSE:
-                        ToastUtils.showToast( context, "提交字段有误" );
-                        break;
-                    case FORGET_NO_VER:
-                        ToastUtils.showToast( context, "无该用户记录" );
                         break;
 
                 }

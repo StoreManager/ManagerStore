@@ -22,13 +22,13 @@ public class Properties {
     public static final int PROJECT_DETAIL_MANAGE_GET =22;
     public static final int PROJECT_DETAIL_MANAGE_STICK =25;
 
-    public static final String EMAIL_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_submit.php";
-    public static final String MAIL_VERIFICATION_PATH = "http://thethreestooges.cn/merchant/bean/login/mail_validate.php";
-    public static final String USER_BUILD_PATH = "http://thethreestooges.cn/merchant/bean/login/user_write.php";
+    public static final String EMAIL_SUBMIT_PATH = "https://thethreestooges.cn:1225/application/login/mail_submit.php";
+    public static final String MAIL_VERIFICATION_PATH = "https://thethreestooges.cn:1225/application/login/mail_validate.php";
+    public static final String USER_BUILD_PATH = "https://thethreestooges.cn:1225/application/login/user_write.php";
     public static final String LOGIN_PATH = "http://thethreestooges.cn/merchant/bean/login/login.php";
-    public static final String FORGET_PASSWORD_EMAIL_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/forget_submit.php";
-    public static final String FORGET_PASSWORD_EMAIL_VER_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/forget_validate.php";
-    public static final String FORGET_PASSWORD_EMAIL_PSD_SUBMIT_PATH = "http://thethreestooges.cn/merchant/bean/login/user_forget.php";
+    public static final String FORGET_PASSWORD_EMAIL_SUBMIT_PATH = "https://thethreestooges.cn:1225/application/login/forget_submit.php";
+    public static final String FORGET_PASSWORD_EMAIL_VER_SUBMIT_PATH = "https://thethreestooges.cn:1225/application/login/forget_validate.php";
+    public static final String FORGET_PASSWORD_EMAIL_PSD_SUBMIT_PATH = "https://thethreestooges.cn:1225/application/login/user_forget.php";
     public static final String STORE_PHOTO = "https://thethreestooges.cn/merchant/bean/register/photo_mer_upload.php";
     public static final String PHOTO_BUSLIC = "https://thethreestooges.cn/merchant/bean/register/photo_buslic_upload.php";
     public static final String NECESSARY_INFO = "https://thethreestooges.cn:1225/register/first/register";

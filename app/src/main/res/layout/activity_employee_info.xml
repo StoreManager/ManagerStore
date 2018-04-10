@@ -24,7 +24,8 @@
                     android:id="@+id/imv_emp_header"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:background="@mipmap/emp_header"/>
 
                 <View
                     android:layout_width="match_parent"
