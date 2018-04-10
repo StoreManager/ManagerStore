@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.handle.oss_handler.OssHandler;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
 import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
 import com.cottee.managerstore.view.ImageViewExtend;
@@ -78,6 +79,9 @@ public class EmployeeManageAdapter extends BaseAdapter {
         System.out.println("传进来的缓存："+cache_image);
         if(empPhoto.get(i).equals("")){
             holder.imv_employee_header.setImageResource(R.mipmap.emp_header);
+        }
+        if(cache_image.exists()){
+            ToastUtils.showToast(context,"缓存空的");
         }
         DownloadUtils.downloadFileFromOss(cache_image, ossHandler, ConfigOfOssClient.BUCKET_NAME, empPhoto.get(i));
 

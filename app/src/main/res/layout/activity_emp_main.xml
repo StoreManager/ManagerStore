@@ -5,10 +5,78 @@
                                              android:layout_height="match_parent">
 
     <include layout="@layout/layout_custom_title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <Button
+                    android:background="@mipmap/myt_restaurant_open"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="菜品管理"
+                    android:textColor="@color/purplishblue"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <Button
+                    android:background="@mipmap/myt_dingdan_open"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="订单管理"
+                    android:textColor="@color/purplishblue"/>
+            </LinearLayout>
+        </LinearLayout>
 
-<Button
-    android:onClick="modifyEmp"
-    android:text="修改员工密码"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top|center_horizontal"
+            android:orientation="vertical">
+            <Button
+                android:onClick="modifyEmp"
+                android:background="@mipmap/emp_change_pswd"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="修改密码"
+                android:textColor="@color/purplishblue"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
 </LinearLayout>

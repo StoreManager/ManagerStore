@@ -46,7 +46,8 @@ public class ProjectTypeManage {
                     Request request = null;
                     switch (type) {
                         case PROJECT_MANAGE_LARGE_INFORMATION:
-                            request = new Request.Builder().url(Properties.PROJECT_MANAGE_ADD_PATH).post(new FormBody.Builder().add("name", typeNum).add("session",session).build())
+                            request = new Request.Builder().url(Properties.PROJECT_MANAGE_ADD_PATH).post(new FormBody.Builder().add("name",
+                                    typeNum).add("session",session).add("discount_sign"," ").add("defin_discount"," ").build())
                                     .build();
                             break;
                         case Properties.PROJECT_MANAGE_DELETE:

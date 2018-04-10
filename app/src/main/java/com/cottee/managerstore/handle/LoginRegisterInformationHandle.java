@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.activity.RegisterStoreActivity;
@@ -132,8 +131,9 @@ public class LoginRegisterInformationHandle extends Handler {
     private static final int SEAT_PEOPLE_NUMBER_SUCCESS = 0;
     private static final int SEAT_PEOPLE_NUMBER_FAILD = 1;
 
-    private static final int PROJECT_MANAGE_SUCCESS = 0;
-    private static final int PROJECT_MANAGE_FAILD = 1;
+    private static final int PROJECT_MANAGE_SUCCESS = 1;
+    private static final int PROJECT_MANAGE_FAILD = 0;
+    private static final int PROJECT_MANAGE_SHORT = 2;
     private static final int PROJECT_MANAGE_TIME_OUT = 250;
 
     private static final int PROJECT_DETIAL_MANAGE_SUCCESS = 1;
@@ -427,6 +427,10 @@ public class LoginRegisterInformationHandle extends Handler {
                         WeiboDialogUtils.closeDialog(dialog);
                         ToastUtils.showToast( context, "添加失败" );
                         break;
+                    case PROJECT_MANAGE_SHORT:
+                        WeiboDialogUtils.closeDialog(dialog);
+                        ToastUtils.showToast( context, "添加失败" );
+                        break;
                     case PROJECT_MANAGE_TIME_OUT:
                         /*shapeLoadingDialog.setDismiss();*/
 
@@ -439,12 +443,12 @@ public class LoginRegisterInformationHandle extends Handler {
 
             case Properties.PROJECT_MANAGE_DELETE:
                 switch (msg.arg1) {
-                    case PROJECT_MANAGE_SUCCESS:
+                    case 0:
                         /*ToastUtils.showToast( context, "删除成功" );*/
 
                         break;
-                    case PROJECT_MANAGE_FAILD:
-                        ToastUtils.showToast( context, "删除失败" );
+                    case 1:
+                        /*ToastUtils.showToast( context, "删除失败" );*/
                         break;
                     case PROJECT_MANAGE_TIME_OUT:
                         sp = context.getSharedPreferences("ProjectManage", Context.MODE_PRIVATE);
@@ -459,7 +463,7 @@ public class LoginRegisterInformationHandle extends Handler {
             case Properties.PROJECT_MANAGE_UPDATE:
                 switch (msg.arg1) {
                     case PROJECT_MANAGE_SUCCESS:
-                        /*ToastUtils.showToast( context, "修改成功" );*/
+                       /* ToastUtils.showToast( context, "修改成功" );*/
                         break;
                     case PROJECT_MANAGE_FAILD:
                         ToastUtils.showToast( context, "修改失败" );

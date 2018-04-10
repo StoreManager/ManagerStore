@@ -37,7 +37,7 @@ import java.util.Map;
  * Created by Administrator on 2017/12/23.
  */
 
-public class ProjectManageAddClassifyActivity extends AppCompatActivity implements View.OnClickListener ,SlideAndDragListView.OnDragDropListener{
+public class ProjectManageAddClassifyActivity extends AppCompatActivity implements View.OnClickListener ,SlideAndDragListView.OnDragDropListener {
 
     private Toolbar tbprojectmanageadd;
     private List<ProjectManageInfo> projectList = new ArrayList<>();
@@ -58,20 +58,21 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     private List<String> dishesExampleList = new ArrayList<>();
     private List<String> allDishTypeList = new ArrayList<>();
 
-    private String moveUpdateType="";
-    private String moveUpdateIdType="";
-    private String updateType="";
-    private String updateIdType="";
-    private String deleteType="";
+    private String moveUpdateType = "";
+    private String moveUpdateIdType = "";
+    private String updateType = "";
+    private String updateIdType = "";
+    private String deleteType = "";
     private List<String> jsonDishName;
     private List<String> jsonDishId;
     private List<String> newJsonIdList;
     private LinearLayout ll_add_empty;
-    private int beginPosition ;
-    private int endPosition ;
+    private int beginPosition;
+    private int endPosition;
     private Button btn_project_manage_add_classify_no_save;
     private ProjectManageInfo mDraggedEntity;
     /*private ProjectManageHandler handler = new ProjectManageHandler();*/
+    private ViewHolder viewHolder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,9 +87,9 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         jsonDishName = (List<String>) intent.getSerializableExtra("dishName");
         jsonDishId = (List<String>) intent.getSerializableExtra("dishId");
 
-        System.out.println("json"+ jsonDishName);
-        System.out.println("json"+ jsonDishId);
-
+        System.out.println("json" + jsonDishName);
+        System.out.println("json" + jsonDishId);
+        allDishTypeList = jsonDishName;
 
 
         updateDishList.clear();
@@ -96,7 +97,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         deleteIdList.clear();
 
 
-        for(int i = 0; i< jsonDishName.size(); i++){
+        for (int i = 0; i < jsonDishName.size(); i++) {
             ProjectManageInfo info = new ProjectManageInfo(jsonDishName.get(i));
 
             projectList.add(info);
@@ -104,19 +105,17 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         }
 
 
-
-
-        adapter = new ProjectManageAddAdapter(this,projectList);
-        if(!adapter.isEmpty()){
+        adapter = new ProjectManageAddAdapter(this, projectList);
+        if (!adapter.isEmpty()) {
             ll_add_empty.setVisibility(View.GONE);
 
-        }else {
+        } else {
             ll_add_empty.setVisibility(View.VISIBLE);
         }
         lvprojectmanageadd.setAdapter(adapter);
         lvprojectmanageadd.setOnDragDropListener(this);
 
-        if(beginPosition!=endPosition){
+        if (beginPosition != endPosition) {
             btn_project_manage_add_classify_no_save.setVisibility(View.GONE);
             btnprojectmanageaddclassifysave.setVisibility(View.VISIBLE);
         }
@@ -125,7 +124,7 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     }
 
 
-    public void initview(){
+    public void initview() {
         tbprojectmanageadd = (Toolbar) findViewById(R.id.tb_project_manage_add);
         lvprojectmanageadd = (SlideAndDragListView) findViewById(R.id.lv_project_manage_add);
         btnprojectmanageaddclassifysave = (Button) findViewById(R.id.btn_project_manage_add_classify_save);
@@ -138,19 +137,15 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     }
 
 
-
-
-
-
-    private String updateSlideData(){
-        for (int i = 0; i< moveUpdateDishList.size(); i++){
+    private String updateSlideData() {
+        for (int i = 0; i < moveUpdateDishList.size(); i++) {
 
             String updateDishType = moveUpdateDishList.get(i);
-            if(i == moveUpdateDishList.size()-1 ){
-                moveUpdateType = moveUpdateType+updateDishType;
+            if (i == moveUpdateDishList.size() - 1) {
+                moveUpdateType = moveUpdateType + updateDishType;
 
-            }else{
-                moveUpdateType = moveUpdateType+updateDishType+"#";
+            } else {
+                moveUpdateType = moveUpdateType + updateDishType + "#";
             }
 
         }
@@ -158,15 +153,16 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         /*update = update.substring(0, -1);*/
         return update;
     }
-    private String updateSlideIdData(){
-        for (int i = 0; i< moveUpdateDishIdList.size(); i++){
+
+    private String updateSlideIdData() {
+        for (int i = 0; i < moveUpdateDishIdList.size(); i++) {
 
             String updateDishType = moveUpdateDishIdList.get(i);
-            if(i == moveUpdateDishIdList.size()-1 ){
-                moveUpdateIdType = moveUpdateIdType+updateDishType;
+            if (i == moveUpdateDishIdList.size() - 1) {
+                moveUpdateIdType = moveUpdateIdType + updateDishType;
 
-            }else{
-                moveUpdateIdType = moveUpdateIdType+updateDishType+"#";
+            } else {
+                moveUpdateIdType = moveUpdateIdType + updateDishType + "#";
             }
 
         }
@@ -175,15 +171,15 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         return update;
     }
 
-    private String updateData(){
-        for (int i = 0; i< updateDishList.size(); i++){
+    private String updateData() {
+        for (int i = 0; i < updateDishList.size(); i++) {
 
             String updateDishType = updateDishList.get(i);
-            if(i == updateDishList.size()-1 ){
-                updateType = updateType+updateDishType;
+            if (i == updateDishList.size() - 1) {
+                updateType = updateType + updateDishType;
 
-            }else{
-                updateType = updateType+updateDishType+"#";
+            } else {
+                updateType = updateType + updateDishType + "#";
             }
 
         }
@@ -191,15 +187,16 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         /*update = update.substring(0, -1);*/
         return update;
     }
-    private String updateIdData(){
-        for (int i = 0; i< updateDishIdList.size(); i++){
+
+    private String updateIdData() {
+        for (int i = 0; i < updateDishIdList.size(); i++) {
 
             String updateDishType = updateDishIdList.get(i);
-            if(i == updateDishIdList.size()-1 ){
-                updateIdType = updateIdType+updateDishType;
+            if (i == updateDishIdList.size() - 1) {
+                updateIdType = updateIdType + updateDishType;
 
-            }else{
-                updateIdType = updateIdType+updateDishType+"#";
+            } else {
+                updateIdType = updateIdType + updateDishType + "#";
             }
 
         }
@@ -207,15 +204,16 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         /*update = update.substring(0, -1);*/
         return update;
     }
-    private String deleteIdData(){
-        for (int i = 0; i< deleteIdList.size(); i++){
+
+    private String deleteIdData() {
+        for (int i = 0; i < deleteIdList.size(); i++) {
 
             String updateDishType = deleteIdList.get(i);
-            if(i == deleteIdList.size()-1 ){
-                deleteType = deleteType+updateDishType;
+            if (i == deleteIdList.size() - 1) {
+                deleteType = deleteType + updateDishType;
 
-            }else{
-                deleteType = deleteType+updateDishType+"#";
+            } else {
+                deleteType = deleteType + updateDishType + "#";
             }
 
         }
@@ -226,64 +224,73 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
-        case R.id.btn_project_manage_add_classify_save:
-            if(beginPosition!=endPosition){
-                moveUpdateDishList.clear();
-                moveUpdateDishIdList.clear();
-                ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
-                        (ProjectManageAddClassifyActivity.this,""));
-                moveUpdateDishList.add(jsonDishName.get(endPosition));
-                moveUpdateDishIdList.add(jsonDishId.get(beginPosition));
-                moveUpdateDishList.add(jsonDishName.get(beginPosition));
+        switch (view.getId()) {
+            case R.id.btn_project_manage_add_classify_save:
+                if (beginPosition != endPosition) {
+                    moveUpdateDishList.clear();
+                    moveUpdateDishIdList.clear();
+                /*for(int i=0;i<projectList.size();i++){
+                    allDishTypeList.add(projectList.get(i).getProjectName());
+                }*/
+                    ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this, new LoginRegisterInformationHandle
+                            (ProjectManageAddClassifyActivity.this, ""));
+                    for (int i = 0; i < allDishTypeList.size(); i++) {
+                        if (projectList.get(i).getProjectName() != allDishTypeList.get(i)) {
+                            moveUpdateDishList.add(projectList.get(i).getProjectName());
+                            moveUpdateDishIdList.add(jsonDishId.get(i));
+                            System.out.println("滑动后确定修改的菜品" + projectList.get(i).getProjectName());
+                            System.out.println("滑动后确定修改的id" + jsonDishId.get(i));
+                        }
+                    }
+                /*moveUpdateDishList.add(allDishTypeList.get(endPosition));
                 moveUpdateDishIdList.add(jsonDishId.get(endPosition));
-                String update = updateSlideData();
-                String updateId = updateSlideIdData();
+                moveUpdateDishList.add(allDishTypeList.get(beginPosition));
+                moveUpdateDishIdList.add(jsonDishId.get(beginPosition));*/
+                    String update = updateSlideData();
+                    String updateId = updateSlideIdData();
 
-                System.out.println("滑动更新名字:"+update);
-                System.out.println("滑动更新id:"+updateId);
+                    System.out.println("滑动更新名字:" + update);
+                    System.out.println("滑动更新id:" + updateId);
 
-                if (!update.equals("")&&!updateId.equals("")){
+                    if (!update.equals("") && !updateId.equals("")) {
 
-                    manage.projectManageUpdate(update,updateId);
+                        manage.projectManageUpdate(update, updateId);
+                    }
                 }
-            }
-            finish();
-
-        break;
-
-
-        case R.id.btn_back_to_project_manage_from_add:
-
-            if(beginPosition!=endPosition){
-                new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .show();
-            }else {
                 finish();
-            }
+
+                break;
 
 
-            break;
+            case R.id.btn_back_to_project_manage_from_add:
+
+                if (beginPosition != endPosition) {
+                    new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("是否放弃本次修改？")
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+
+                                }
+                            })
+                            .setNegativeButton("取消", null)
+                            .show();
+                } else {
+                    finish();
+                }
+
+
+                break;
 
 
         }
     }
 
 
-
-
     public class ProjectManageAddAdapter extends BaseAdapter {
 
         private Context context;
-        private List<ProjectManageInfo> projectManageList;
+        /* private List<ProjectManageInfo> projectManageList;*/
         private String projectName;
 
 
@@ -291,19 +298,19 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
 
             this.context = context;
-            this.projectManageList = projectManageList;
+            /*this.projectManageList = projectManageList;*/
 
 
         }
 
         @Override
         public int getCount() {
-            return projectManageList.size();
+            return projectList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return projectManageList.get(position);
+            return projectList.get(position);
         }
 
         @Override
@@ -313,10 +320,11 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
         @Override
         public View getView(final int position, View convertview, ViewGroup viewGroup) {
-            final ViewHolder viewHolder;
-            if(convertview==null){
+
+
+            if (convertview == null) {
                 viewHolder = new ViewHolder();
-                convertview = LayoutInflater.from(getApplicationContext()).inflate( R.layout.item_project_manage_add, viewGroup,false  );
+                convertview = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_project_manage_add, viewGroup, false);
                 viewHolder.tvItemName = (TextView) convertview.findViewById(R.id.tv_item_project_manage_classify_name);
                 viewHolder.btnItemUpdate = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_update);
                 viewHolder.btnItemDelete = (Button) convertview.findViewById(R.id.btn_item_project_manage_classify_delete);
@@ -324,16 +332,16 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                 viewHolder.btnItemDrag.setOnTouchListener(mOnTouchListener);
                 convertview.setTag(viewHolder);
 
-            }else{
-                viewHolder = (ViewHolder)convertview.getTag();
+            } else {
+                viewHolder = (ViewHolder) convertview.getTag();
             }
 
             viewHolder.btnItemDrag.setTag(Integer.parseInt(position + ""));
-            if(projectManageList.get(position).getProjectName().length()<7){
-                viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName());
-            }else{
-                viewHolder.tvItemName.setText(projectManageList.get(position).getProjectName().substring(0,9)
-                        +".....");
+            if (projectList.get(position).getProjectName().length() < 7) {
+                viewHolder.tvItemName.setText(projectList.get(position).getProjectName());
+            } else {
+                viewHolder.tvItemName.setText(projectList.get(position).getProjectName().substring(0, 9)
+                        + ".....");
             }
 
 
@@ -344,32 +352,34 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                             .setIcon(android.R.drawable.ic_dialog_info)
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    allDishTypeList.clear();
 
-
-                                    projectManageList.remove(position);
+                                    projectList.remove(position);
                                     adapter.notifyDataSetChanged();
-                                    if(position+1<=jsonDishId.size()){
+                                    for (int i = 0; i < projectList.size(); i++) {
+                                        allDishTypeList.add(projectList.get(i).getProjectName());
+                                    }
+                                    System.out.println("修改之后的总菜品：" + allDishTypeList);
+                                    if (position + 1 <= jsonDishId.size()) {
                                         deleteIdList.add(jsonDishId.get(position));
                                         jsonDishId.remove(jsonDishId.get(position));
 
                                     }
-                                    ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
-                                            (ProjectManageAddClassifyActivity.this,""));
+                                    ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this, new LoginRegisterInformationHandle
+                                            (ProjectManageAddClassifyActivity.this, ""));
                                     String deleteId = deleteIdData();
 
-                                    System.out.println("删除id:"+deleteId);
-                                    if(!deleteId.equals("")){
+                                    System.out.println("删除id:" + deleteId);
+                                    if (!deleteId.equals("")) {
 
                                         manage.projectManageDelete(deleteId);
                                     }
 
 
-
-
-                                    if(!adapter.isEmpty()){
+                                    if (!adapter.isEmpty()) {
                                         ll_add_empty.setVisibility(View.GONE);
 
-                                    }else {
+                                    } else {
                                         ll_add_empty.setVisibility(View.VISIBLE);
                                     }
                                 }
@@ -380,15 +390,14 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
             });
 
 
-
-
             viewHolder.btnItemUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     updateDishList.clear();
                     updateDishIdList.clear();
-                    projectName = projectManageList.get(position).getProjectName();
-                    Log.d("ssss","名字是："+projectName);
+                    allDishTypeList.clear();
+                    projectName = projectList.get(position).getProjectName();
+                    Log.d("ssss", "名字是：" + projectName);
                     final EditText et = new EditText(ProjectManageAddClassifyActivity.this);
                     et.setText(projectName);
                     new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("请修改菜品分类名称")
@@ -400,36 +409,38 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
                                     String input = et.getText().toString();
 
                                     if (input.equals("")) {
-                                        Toast.makeText(getApplicationContext(), "输入不能为空！" , Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "输入不能为空！", Toast.LENGTH_SHORT).show();
                                         return;
-                                    }
-                                    else {
-                                        for (ProjectManageInfo projectInfo : projectList)
-                                        {
+                                    } else {
+                                        for (ProjectManageInfo projectInfo : projectList) {
                                             if (input.equals(projectInfo.getProjectName())) {
-                                                ToastUtils.showToast(ProjectManageAddClassifyActivity.this,"亲，修改的菜品类型已存在了");
+                                                ToastUtils.showToast(ProjectManageAddClassifyActivity.this, "亲，修改的菜品类型已存在了");
                                                 return;
                                             }
                                         }
 
-                                        projectManageList.get(position).setProjectName(input);
+                                        projectList.get(position).setProjectName(input);
                                         adapter.notifyDataSetChanged();
-                                        if(position+1<=jsonDishId.size()){
+                                        for (int i = 0; i < projectList.size(); i++) {
+                                            allDishTypeList.add(projectList.get(i).getProjectName());
+                                        }
+                                        System.out.println("修改之后的总菜品：" + allDishTypeList);
+                                        if (position + 1 <= jsonDishId.size()) {
                                             updateDishIdList.add(jsonDishId.get(position));
                                             updateDishList.add(input);
                                         }
-                                        System.out.println("修改的是:"+updateDishIdList+" "+updateDishList);
-                                        ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this,new LoginRegisterInformationHandle
-                                                (ProjectManageAddClassifyActivity.this,""));
+                                        System.out.println("修改的是:" + updateDishIdList + " " + updateDishList);
+                                        ProjectTypeManage manage = new ProjectTypeManage(ProjectManageAddClassifyActivity.this, new LoginRegisterInformationHandle
+                                                (ProjectManageAddClassifyActivity.this, ""));
                                         String update = updateData();
                                         String updateId = updateIdData();
-                                        System.out.println("更新名字:"+update);
-                                        System.out.println("更新id:"+updateId);
+                                        System.out.println("更新名字:" + update);
+                                        System.out.println("更新id:" + updateId);
 
-                                        if (!update.equals("")&&!updateId.equals("")){
+                                        if (!update.equals("") && !updateId.equals("")) {
 
 
-                                            manage.projectManageUpdate(update,updateId);
+                                            manage.projectManageUpdate(update, updateId);
                                         }
 
 
@@ -442,9 +453,6 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
             });
 
 
-            allDishTypeList.add(projectManageList.get(position).getProjectName());
-
-
             return convertview;
 
 
@@ -452,7 +460,8 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
 
 
     }
-    protected  static   class ViewHolder{
+
+    protected static class ViewHolder {
 
         TextView tvItemName;
         Button btnItemUpdate;
@@ -477,14 +486,30 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
     public void onDragViewStart(int beginPosition) {
         this.beginPosition = beginPosition;
         mDraggedEntity = projectList.get(beginPosition);
-        ToastUtils.showToast(this,"onDragViewStart   beginPosition--->" + beginPosition);
+        new AlertDialog.Builder(ProjectManageAddClassifyActivity.this).setTitle("亲，滑动和修改中间有些逻辑bug，暂停维护，请谅解！")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        /*for (int i = 0; i < lvprojectmanageadd.getCount(); i++) {
+                            View view = lvprojectmanageadd.getChildAt(2);
+                            *//*View view1 = lvprojectmanageadd.getChildAt(i).findViewById(R.id.btn_item_project_manage_classify_delete);*//*
+                            view.setVisibility(View.INVISIBLE);
+                           *//* view1.setVisibility(View.INVISIBLE);*//*
+                        }*/
+
+                    }
+                }).setNegativeButton("取消", null)
+                .show();
+        /*ToastUtils.showToast(this,"onDragViewStart   beginPosition--->" + beginPosition);*/
     }
+
+
 
     @Override
     public void onDragDropViewMoved(int fromPosition, int toPosition) {
         ProjectManageInfo remove = projectList.remove(fromPosition);
         projectList.add(toPosition, remove);
-        ToastUtils.showToast(this,"onDragDropViewMoved   fromPosition--->" + fromPosition + "  toPosition-->" + toPosition);
+        /*ToastUtils.showToast(this,"onDragDropViewMoved   fromPosition--->" + fromPosition + "  toPosition-->" + toPosition);*/
     }
 
     @Override
@@ -496,7 +521,9 @@ public class ProjectManageAddClassifyActivity extends AppCompatActivity implemen
         }
         projectList.set(finalPosition, mDraggedEntity);
         ToastUtils.showToast(this,"onDragViewDown   finalPosition--->" + finalPosition);
-
+        for(int i=0;i<projectList.size();i++){
+            System.out.println("滑动完显示目前有的东西"+projectList.get(i));
+        }
     }
 
 

@@ -6,19 +6,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 import android.widget.TextView;
 
 import com.cottee.managerstore.R;
 import com.cottee.managerstore.bean.SingleEmployeeInfo;
 import com.cottee.managerstore.bean.viewdata.LineChartData;
+import com.cottee.managerstore.handle.oss_handler.OssHandler;
 import com.cottee.managerstore.httputils.Https;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.ToastUtils;
+import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
+import com.cottee.managerstore.utils.myt_oss.DownloadUtils;
 import com.cottee.managerstore.view.ImageViewExtend;
 import com.cottee.managerstore.widget.LineChart;
 import com.cottee.managerstore.widget.Title;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,6 +141,11 @@ public class EmployeeManageInfoActivity extends Activity {
                     empBirth = empInfo.getBirth();
                     empPhone = empInfo.getPhone_number();
                     empTime = empInfo.getTime_list();
+                    String empPhoto = empInfo.getPhoto();
+                    OssHandler ossHandler = new OssHandler(EmployeeManageInfoActivity.this,imv_emp_header);
+                    File cache_image = new File(getCacheDir(), Base64.encodeToString(empPhoto.getBytes(), Base64.DEFAULT));
+                    System.out.println("员工的具体图片缓存："+cache_image);
+                    DownloadUtils.downloadFileFromOss(cache_image, ossHandler, ConfigOfOssClient.BUCKET_NAME, empPhoto);
                     System.out.println("单个员工名字："+ empName);
                         System.out.println("单个员工性别："+ empSex);
                         System.out.println("单个员工生日："+ empBirth);
@@ -186,7 +196,7 @@ public class EmployeeManageInfoActivity extends Activity {
         tv_emp_info_phone = (TextView) findViewById(R.id.tv_emp_info_phone);
         imv_emp_header = (ImageViewExtend) findViewById(R.id.imv_emp_header);
         imv_emp_header.setmDrawShapeType(ImageViewExtend.SHAPE_CIRCLE);
-        imv_emp_header.setImageResource(R.mipmap.img_coffee);
+        /*imv_emp_header.setImageResource(R.mipmap.img_coffee);*/
     }
 
     private void initTitle(){

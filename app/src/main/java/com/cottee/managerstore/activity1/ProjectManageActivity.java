@@ -32,7 +32,6 @@ import com.cottee.managerstore.bean.ProjectManageGetInfo;
 import com.cottee.managerstore.bean.ProjectManageInfo;
 import com.cottee.managerstore.handle.LoginRegisterInformationHandle;
 import com.cottee.managerstore.httputils.HttpUtilSession;
-import com.cottee.managerstore.manage.LoginRegisterInformationManage;
 import com.cottee.managerstore.manage.ProjectTypeManage;
 import com.cottee.managerstore.properties.Properties;
 import com.cottee.managerstore.utils.BaseRefreshListener;
@@ -183,7 +182,8 @@ public class ProjectManageActivity extends BaseActivity implements View.OnClickL
                         if(responeData.trim().equals("250")){
                             /*shapeLoadingDialog.setDismiss();*/
                             ToastUtils.showToast(ProjectManageActivity.this,"session无效效，正在重新登陆请稍等" );
-                            new LoginRegisterInformationManage(ProjectManageActivity.this,new LoginRegisterInformationHandle()).againLogin();
+                            stopDialog(loadingDialog);
+                         /*   new LoginRegisterInformationManage(ProjectManageActivity.this,new LoginRegisterInformationHandle()).againLogin();*/
                             /*sendRequestWithOkHttp();*/
                         }
                         else if (responeData.trim().equals("0")){
