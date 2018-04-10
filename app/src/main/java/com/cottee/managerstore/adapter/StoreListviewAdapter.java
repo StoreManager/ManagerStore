@@ -33,12 +33,16 @@ import java.util.List;
 public class StoreListviewAdapter extends BaseAdapter {
     private Context context;
     private List<StoreInfo> storeList;
-    private Drawable drawable;
-    public StoreListviewAdapter(Context context, List<StoreInfo> list,Drawable drawable) {
+    private Drawable off;
+    private Drawable on;
+
+    public StoreListviewAdapter(Context context, List<StoreInfo> list, Drawable off, Drawable on) {
         this.context = context;
         this.storeList = list;
-        this.drawable=drawable;
+        this.off = off;
+        this.on = on;
     }
+
     @Override
     public int getCount() {
         return storeList.size();
@@ -46,7 +50,7 @@ public class StoreListviewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return storeList.get(i);
+        return storeList.get( i );
     }
 
     @Override
@@ -58,41 +62,46 @@ public class StoreListviewAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final ViewHolder viewHolder;
         if (view == null) {
-            viewHolder=new ViewHolder();
-            view= View.inflate(context, R.layout.layout_registerstore,null);
-            viewHolder.tv_registerStoreName=view.findViewById(R.id.tv_registerStoreName);
-            viewHolder.btn_storeManager=view.findViewById(R.id.btn_registerStoreManage);
-            viewHolder.iv_publish=view.findViewById( R.id.iv_publish );
-            viewHolder.tv_storeManager=view.findViewById( R.id.tv_registerStoreManage );
-            view.setTag(viewHolder);
+            viewHolder = new ViewHolder();
+            view = View.inflate( context, R.layout.layout_registerstore, null );
+            viewHolder.tv_registerStoreName = view.findViewById( R.id.tv_registerStoreName );
+            viewHolder.btn_storeManager = view.findViewById( R.id.btn_registerStoreManage );
+            viewHolder.iv_publish = view.findViewById( R.id.iv_publish );
+            viewHolder.tv_storeManager = view.findViewById( R.id.tv_registerStoreManage );
+            view.setTag( viewHolder );
         } else {
-            viewHolder=(ViewHolder)view.getTag();
+            viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName());
-        viewHolder.iv_publish.setImageDrawable( drawable );
+        viewHolder.tv_registerStoreName.setText( storeList.get( i ).getName() );
         viewHolder.tv_storeManager.setVisibility( View.VISIBLE );
         viewHolder.btn_storeManager.setVisibility( View.GONE );
         view.setBackgroundColor( Color.parseColor( "#10000000" ) );
-        if(storeList.get( i ).isPass()){
-            viewHolder.tv_storeManager.setVisibility( View.GONE);
-            viewHolder.btn_storeManager.setVisibility( View.VISIBLE);
+        if (storeList.get( i ).isPass()) {
+            viewHolder.iv_publish.setImageDrawable( on );
+            viewHolder.tv_storeManager.setVisibility( View.GONE );
+            viewHolder.btn_storeManager.setVisibility( View.VISIBLE );
             view.setBackgroundColor( Color.parseColor( "#00000000" ) );
             viewHolder.btn_storeManager.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent( context, StoreManagerActivity.class );
-                    intent.putExtra( "storeInfo",storeList.get( i ) );
-                    intent.putExtra( "locationStoreID",i );
+                    intent.putExtra( "storeInfo", storeList.get( i ) );
+                    intent.putExtra( "locationStoreID", i );
                     SubmitStoreInfoManager submitStoreInfo = new SubmitStoreInfoManager(
                             context, new LoginRegisterInformationHandle(
-                            context, ""));
+                            context, "" ) );
                     submitStoreInfo.submitStoreId( storeList.get( i ).getMer_id() );
                     context.startActivity( intent );
                 }
             } );
+
+        } else {
+            viewHolder.iv_publish.setImageDrawable( off );
         }
+
         return view;
     }
+
     public static class ViewHolder {
         TextView tv_registerStoreName;
         TextView btn_storeManager;

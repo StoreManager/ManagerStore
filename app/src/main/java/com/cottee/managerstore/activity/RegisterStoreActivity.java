@@ -60,7 +60,8 @@ public class RegisterStoreActivity extends AppCompatActivity {
     public static List<StoreInfo> storeList = new ArrayList<>();
     private TextView tv_nostore;
     private Context mContext = RegisterStoreActivity.this;
-    private Drawable drawable;
+    private Drawable off;
+    private Drawable on;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,8 @@ public class RegisterStoreActivity extends AppCompatActivity {
         initView();
         initEvent();
         Resources resources = this.getResources();
-        drawable = resources.getDrawable( R.mipmap.nopiblish);
+        off= resources.getDrawable( R.mipmap.nopiblish);
+        on= resources.getDrawable( R.mipmap.published);
         tl_custom.setTitle( "Sweet商铺管理系统" );//设置Toolbar标题
         tl_custom.setBackgroundColor( getResources().getColor( R.color.purplishblue ) );
         tl_custom.setTitleTextColor( getResources().getColor( R.color.white ) ); //设置标题颜色
@@ -177,7 +179,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
                             tv_nostore.setVisibility( View.GONE );
                             lv_registerStore.setVisibility( View.VISIBLE );
                             storeListviewAdapter = new StoreListviewAdapter(
-                                    mContext, storeList,drawable );
+                                    mContext, storeList,off,on );
                             lv_registerStore.setAdapter( storeListviewAdapter );
                             storeListviewAdapter.notifyDataSetChanged();
                         }
