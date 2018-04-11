@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                   >
+
+                    <LinearLayout
+                        android:id="@+id/ll_left"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        >
+
+                        <com.cottee.managerstore.wheelwidget.WheelView
+                            android:id="@+id/wl_front"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="."
+                        android:textColor="#25449e"
+                        android:textSize="30sp"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_right"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        >
+
+                        <com.cottee.managerstore.wheelwidget.WheelView
+                            android:id="@+id/wl_last"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_ok_sale"
+                        android:background="@mipmap/check"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginRight="30dp"/>
+                </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

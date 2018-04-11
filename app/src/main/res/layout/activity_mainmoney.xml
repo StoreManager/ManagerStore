@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <ImageButton
+        android:id="@+id/ibt_back"
+        android:onClick="back"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#25449E"
+        android:src="@mipmap/back_2x" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_toRightOf="@id/ibt_back"
+        android:background="#25449E"
+        android:gravity="center_vertical"
+        android:text="            账目"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_choosetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="选择时间："
+        android:textColor="#25449E"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/tv_title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_choosetime"
+        android:background="@drawable/layout_dateshow_shap"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/ibt_datechoose"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignBottom="@id/tv_date"
+        android:layout_below="@id/tv_title"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_date"
+        android:background="#25449E"
+        android:onClick="date_choose"
+        android:src="@mipmap/date_open" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ibt_datechoose"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/layout_dateshow_shap"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#25449e" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="5dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:background="#25449e"
+                android:onClick="showdateontv"
+                android:text="确定"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:background="#25449e"
+                android:onClick="clean"
+                android:text="清空"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/v_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_date"
+        android:layout_marginTop="10dp"
+        android:background="#80888888" />
+
+    <View
+        android:id="@+id/v_line2"
+        android:layout_width="1dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/v_line1"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#80888888" />
+
+    <TextView
+        android:id="@+id/tv_total_income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_line1"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/v_line2"
+        android:gravity="center"
+        android:text="总收入（元）"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_total_income"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/v_line2"
+        android:gravity="center"
+        android:text="21,215,555"
+        android:textColor="#8493CA"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_annual_income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_line1"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/v_line2"
+        android:gravity="center"
+        android:text="年收入（元）"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_total_income"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/v_line2"
+        android:gravity="center"
+        android:text="81,265,359"
+        android:textColor="#77BB55"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/v_line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/v_line2"
+        android:background="#80888888" />
+
+    <ListView
+        android:id="@+id/lv_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/v_line3"
+        android:layout_marginTop="5dp" />
+
+</RelativeLayout>
+    <!--<LinearLayout
+                android:id="@+id/ll_inputdate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/layout_inputdate_bg"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/et_datestart"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:inputType="date"
+                    android:background="@drawable/layout_inputdate_shap"
+                    android:hint="起始日期：年/月/日"
+                    android:layout_margin="5dp"
+                    />
+
+                <EditText
+                    android:id="@+id/et_dateend"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:inputType="date"
+                    android:background="@drawable/layout_inputdate_shap"
+                    android:hint="结束日期：年/月/日"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>-->

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tv_order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:text="订单编号："
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_order_idnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tv_order_id"
+        android:text="#####"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_order_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/tv_order_idnumber"
+        android:padding="5dp"
+        android:text="10:23"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_order_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/tv_order_time"
+        android:padding="5dp"
+        android:text="¥67.70"
+        android:textColor="#25449E"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/iv_order_show"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_order_price"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tv_order_price"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/order_open" />
+
+    <LinearLayout
+        android:id="@+id/ll_order_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_order_id"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+</RelativeLayout>
