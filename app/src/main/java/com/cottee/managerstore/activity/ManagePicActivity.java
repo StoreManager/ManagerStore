@@ -36,7 +36,7 @@ public class ManagePicActivity extends Activity {
         init();
     }
     private void init() {
-        bt_cancel =  findViewById( R.id.bt_photo_cancle);
+        bt_cancel =  findViewById( R.id.bt_photo_canclePic);
         bt_ok = findViewById(R.id.bt_photo_ok);
         Intent intent = getIntent();
         String path = (String) intent.getExtras().get("path");
@@ -56,7 +56,7 @@ public class ManagePicActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                onBackPressed();
+              finish();
             }
         });
 

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activities.*;
 import com.cottee.managerstore.activity1.EmployeeManageActivity;
 import com.cottee.managerstore.activity1.OrdersManageActivity;
 import com.cottee.managerstore.activity1.ProjectManageActivity;
@@ -144,7 +145,8 @@ public class StoreManagerActivity extends AppCompatActivity implements View.OnCl
                         startActivity( intentOne );
                         break;
                     case R.id.ll_item_three:
-                        startActivity(new Intent(StoreManagerActivity.this,ManageMoneyActivity.class));
+                        startActivity(new Intent(StoreManagerActivity.this,
+                                com.cottee.managerstore.activities.ManageMoneyActivity.class));
                         break;
                     case R.id.ll_item_four:
                         startActivity(new Intent(StoreManagerActivity.this,OrdersManageActivity.class));

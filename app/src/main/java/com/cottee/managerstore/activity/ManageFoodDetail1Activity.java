@@ -6,10 +6,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -64,7 +66,7 @@ public class ManageFoodDetail1Activity extends Activity  {
     private Button btn_top;
     private LinearLayoutManager layout;
     private Button btn_editFood;
-//    private Button btn_cancelEdit;
+    private Button btn_cancelEdit;
     private LinearLayout linear_reminder;
     private TextView tv_title;
     public static String name;
@@ -89,12 +91,7 @@ public class ManageFoodDetail1Activity extends Activity  {
     private String discount_sing="1";
     private String discount="0";
     private AlertDialog.Builder builder;
-//    private SwipeRefreshLayout refresh;
-
-    private static final int MYLIVE_MODE_CHECK = 0;
-    private static final int MYLIVE_MODE_EDIT = 1;
-    private int mEditMode = MYLIVE_MODE_CHECK;
-    private boolean editorStatus = false;
+    private SwipeRefreshLayout refresh;
     private File cache_image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +101,7 @@ public class ManageFoodDetail1Activity extends Activity  {
         InitOssClient.initOssClient(this, ConfigOfOssClient.TOKEN_ADDRESS, ConfigOfOssClient.ENDPOINT);
         dishId = getIntent().getStringExtra("position");
         dishName = getIntent().getStringExtra("positionName");
-
+        sendRequestWithOkHttp();
         initView();
         initData();
         initEvent();
@@ -115,12 +112,12 @@ public class ManageFoodDetail1Activity extends Activity  {
 
     }
     private void initView() {
-//        refresh = findViewById(R.id.refresh);
+        refresh = findViewById(R.id.refresh);
         tv_sale_type = findViewById(R.id.tv_sale_type);
         btn_addFood = findViewById(R.id.btn_addFood);
         tv_title = findViewById(R.id.tv_title);
         btn_editFood = findViewById(R.id.btn_editFood);
-//        btn_cancelEdit = findViewById(R.id.btn_cancelEdit);
+        btn_cancelEdit = findViewById(R.id.btn_cancelEdit);
         linear_reminder = findViewById(R.id.linear_reminder);
         recyclerView = findViewById(R.id.recyclerView);
         btn_delete = findViewById(R.id.btn_delete);
@@ -197,26 +194,29 @@ public class ManageFoodDetail1Activity extends Activity  {
                               new RecyclerviewAdapter.MyItemClickListener() {
                           @Override
                           public void onItemClick(FoodDetail.ItemListBean item, int position) {
-                              if (editorStatus)
-                              {
-                                  int size = foodDetailList.size();
-                                  boolean isSelect = item.isSelect();
-                                  if (isSelect) {
-                                      foodDetailList.remove(item);
-                                      btn_selectAll.setText("全选");
-                                  }else {
-                                      foodDetailList.add(item);
-                                      if (size>=item_list.size()) {
+                              if (mLlMycollectionBottomDialog.getVisibility() == View.VISIBLE) {
+
+                                  boolean select = item.isSelect();
+                                  if (select) {
+                                      selectedList.remove(item);
+                                      item.setSelect(false);
+                                      if (selectedList.size() <= item_list.size()) {
                                           btn_selectAll.setText("全选");
+                                          btn_top.setClickable(false);
                                       }
+                                  } else {
+                                      selectedList.add(item);
+                                      item.setSelect(true);
+                                      if (selectedList.size() == item_list.size()) {
+                                          btn_selectAll.setText("取消全选");
+                                          btn_top.setClickable(false);
+                                      }
+
                                   }
-                                  item.setSelect(!isSelect);
-                                  item_list.set(position,item);
-                                  setBtnBackground(size);
-                                  tv_selectNum.setText(String.valueOf(size));
+                                  setBtnBackground(selectedList.size());
+                                  tv_selectNum.setText(String.valueOf(selectedList.size()));
                                   adapter.notifyDataSetChanged();
-                              }
-                              else {
+                              } else {
                                   cache_image = new File(getCacheDir()
                                           , Base64.encodeToString(item_list.get(position).getPhoto().getBytes(), Base64.DEFAULT));
                                   DownloadUtils.downloadFileFromOss(cache_image
@@ -250,13 +250,11 @@ public class ManageFoodDetail1Activity extends Activity  {
                         adapter.notifyDataSetChanged();
                     break;
                 case REFRESH_RESULT:
-//
-
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             sendRequestWithOkHttp();
-//                            refresh.setRefreshing(false);
+                            refresh.setRefreshing(false);
                         }
                     }, 2000);
                     break;
@@ -265,27 +263,98 @@ public class ManageFoodDetail1Activity extends Activity  {
         }
     }
     private void initEvent() {
+        //数据刷新机制
+       refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+           @Override
+           public void onRefresh() {
 
+              new Thread(new Runnable() {
+                  @Override
+                  public void run() {
+                      if (adapter==null)
+                      {
+                            refresh.setRefreshing(false);
+                      }
+                      adapter=new RecyclerviewAdapter(mContext, item_list, new RecyclerviewAdapter.MyItemClickListener() {
+                          @Override
+                          public void onItemClick(FoodDetail.ItemListBean item, int position) {
+                              if (mLlMycollectionBottomDialog.getVisibility() == View.VISIBLE) {
+                                  boolean select = item.isSelect();
+                                  if (select) {
+                                      selectedList.remove(item);
+                                      item.setSelect(false);
+                                      if (selectedList.size() <= item_list.size()) {
+                                          btn_selectAll.setText("全选");
+                                          btn_top.setClickable(false);
+                                      }
+                                  } else {
+                                      selectedList.add(item);
+                                      item.setSelect(true);
+                                      if (selectedList.size() == item_list.size()) {
+                                          btn_selectAll.setText("取消全选");
+                                          btn_top.setClickable(false);
+                                      }
+
+                                  }
+                                  setBtnBackground(selectedList.size());
+                                  tv_selectNum.setText(String.valueOf(selectedList.size()));
+                                  adapter.notifyDataSetChanged();
+                              } else {
+                                  cache_image = new File(getCacheDir()
+                                          , Base64.encodeToString(item_list.get(position).getPhoto().getBytes(), Base64.DEFAULT));
+                                  DownloadUtils.downloadFileFromOss(cache_image
+                                          , new OssHandler(mContext), ConfigOfOssClient.BUCKET_NAME, item_list.get(position).getPhoto());
+                                  Intent intent = new Intent(mContext,
+                                          ModifyFoodDetailActivity.class);
+                                  intent.putExtra("position",position);
+                                  intent.putExtra("foodname",item_list.get(position).getName());
+                                  intent.putExtra("foodprice",item_list.get(position).getUnivalence());
+                                  intent.putExtra("fooddesc",item_list.get(position).getDescription());
+                                  if(cache_image!=null){
+                                      intent.putExtra("photo", FileUtils.fileToByte(cache_image));
+                                  }
+                                  startActivity(intent);
+                              }
+                          }
+                      });
+                      recyclerView.setAdapter(adapter);
+                      adapter.notifyDataSetChanged();
+                      refresh.setRefreshing(false);
+                  }
+              }).start();
+           }
+       });
         btn_addFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(ManageFoodDetail1Activity.this,AddFoodActivity.class), 1);
             }
         });
-
+        btn_cancelEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.setCheckBoxVisible(View.GONE);
+                btn_addFood.setVisibility(View.VISIBLE);
+                btn_editFood.setVisibility(View.VISIBLE);
+                btn_cancelEdit.setVisibility(View.GONE);
+                mLlMycollectionBottomDialog.setVisibility(View.GONE);
+            }
+        });
         btn_editFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (adapter.products.size() == 0) {
                     mLlMycollectionBottomDialog.setVisibility(View.GONE);
+                    btn_cancelEdit.setVisibility(View.GONE);
                     btn_editFood.setVisibility(View.VISIBLE);
                     Toast.makeText(mContext, "请至少添加一项菜品", Toast
                             .LENGTH_SHORT).show();
                 } else {
-                    updataEditMode();
+                    updateEditMode();
+                    adapter.setCheckBoxVisible(View.VISIBLE);
                     btn_addFood.setVisibility(View.GONE);
-//                    adapter.setEditMode(View.VISIBLE);
-//                    btn_editFood.setVisibility(View.GONE);
+                    btn_cancelEdit.setVisibility(View.VISIBLE);
+                    btn_editFood.setVisibility(View.GONE);
                 }
             }
         });
@@ -303,21 +372,45 @@ public class ManageFoodDetail1Activity extends Activity  {
             }
         });
         //置顶
+
         btn_top.setOnClickListener(new View.OnClickListener() {
+
+            private FoodDetail.ItemListBean listBean;
+
             @Override
             public void onClick(View view) {
+                int size=selectedList.size();
+                for (int i=0;i<adapter.getFoodDetailList().size();i++)
+                {
+                    listBean = adapter
+                            .getFoodDetailList().get(i);
+                    if(!listBean.isSelect())
+                    {
+                        adapter.getFoodDetailList().remove(listBean);
 
-                for (int i = 0; i <adapter.getFoodDetailList().size(); i++) {
-                    FoodDetail.ItemListBean listBean = item_list.get(i);
-                    if (listBean.isSelect()) {
-                        adapter.getFoodDetailList().remove(i);
-                        adapter.getFoodDetailList().add(0,adapter.getFoodDetailList().get(i));
-                        detailManager.projectDetailManageStick(adapter.getFoodDetailList().get(i).getClass_id()
-                                ,adapter.getFoodDetailList().get(i).getItem_id());
-//                        btn_editFood.setVisibility(View.VISIBLE);
-                        mLlMycollectionBottomDialog.setVisibility(View.GONE);
-//                        adapter.setEditMode(View.GONE);
+                        size--;
                     }
+                }
+                tv_selectNum.setText(String.valueOf(0));
+                setBtnBackground(size);
+//                System.out.println("classId: "+bean.getClass_id());
+//                System.out.println("item_id: " + bean.getItem_id());
+                detailManager.projectDetailManageStick(listBean.getClass_id(),listBean.getItem_id());
+//                detailManager.projectDetailManageDelete(listBean.getClass_id(), listBean.getItem_id());
+//                for (int i = adapter.getFoodDetailList().size(), j =0 ; i > j; i--) {
+//                    FoodDetail.ItemListBean listBean = adapter
+//                            .getFoodDetailList().get(i - 1);
+//                    if (!listBean.isSelect()) {
+//
+//                        adapter.getFoodDetailList().remove(listBean);
+//                        size--;
+//                    }
+//                }
+                size = 0;
+                tv_selectNum.setText(String.valueOf(0));
+                setBtnBackground(size);
+                if (adapter.getFoodDetailList().size() == 0){
+                    mLlMycollectionBottomDialog.setVisibility(View.GONE);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -349,33 +442,19 @@ public class ManageFoodDetail1Activity extends Activity  {
             btn_delete.setTextColor(ContextCompat.getColor(this, R.color.color_4d4d4e));
         }
     }
-    private void updataEditMode() {
-        mEditMode = mEditMode == MYLIVE_MODE_CHECK ? MYLIVE_MODE_EDIT : MYLIVE_MODE_CHECK;
-        if (mEditMode == MYLIVE_MODE_EDIT) {
-            btn_editFood.setText("取消");
+    private void updateEditMode() {
+
+        if (mLlMycollectionBottomDialog.getVisibility() == View.GONE) {
+//            btn_editFood.setText("取消");
             mLlMycollectionBottomDialog.setVisibility(View.VISIBLE);
-            editorStatus = true;
+
         } else {
-            btn_editFood.setText("编辑");
             mLlMycollectionBottomDialog.setVisibility(View.GONE);
-            editorStatus = false;
+
             clearAll();
         }
-        adapter.setEditMode(mEditMode);
+        adapter.setCheckBoxVisible(View.VISIBLE);
     }
-//    private void updateEditMode() {
-//
-//        if (mLlMycollectionBottomDialog.getVisibility() == View.GONE) {
-//            btn_cancelEdit.setText("取消");
-//            mLlMycollectionBottomDialog.setVisibility(View.VISIBLE);
-//
-//        } else {
-//            mLlMycollectionBottomDialog.setVisibility(View.GONE);
-//
-//            clearAll();
-//        }
-//        adapter.setCheckBoxVisible(View.VISIBLE);
-//    }
 
     private void clearAll() {
         tv_selectNum.setText(String.valueOf(0));
@@ -387,35 +466,38 @@ public class ManageFoodDetail1Activity extends Activity  {
     /**
      * 全选和反选
      */
+    private ArrayList<FoodDetail.ItemListBean> selectedList = new ArrayList<>();
     private void selectAllMain() {
-        if (adapter == null) return;
-        if (foodDetailList.size()>=adapter.getFoodDetailList().size()) {
-
-            for ( FoodDetail.ItemListBean foodDetail:adapter.getFoodDetailList()) {
-                foodDetail.setSelect(false);
+        if (adapter == null)
+            return;
+        if (selectedList.size() == adapter.getItemCount()) {
+            for (FoodDetail.ItemListBean item : adapter.getFoodDetailList()) {
+                item.setSelect(false);
             }
-            foodDetailList.clear();
-            btn_delete.setEnabled(false);
+            selectedList.clear();
+            btn_delete.setEnabled(true);
             btn_selectAll.setText("全选");
         } else {
-            foodDetailList.clear();
-            for ( FoodDetail.ItemListBean foodDetail:adapter.getFoodDetailList()) {
-                foodDetailList.add(foodDetail);
-                foodDetail.setSelect(true);
+            selectedList.clear();
+            for (FoodDetail.ItemListBean item : adapter.getFoodDetailList()) {
+                item.setSelect(true);
+                selectedList.add(item);
             }
-            btn_delete.setEnabled(true);
+            btn_delete.setEnabled(false);
             btn_selectAll.setText("取消全选");
+
         }
+        int size = selectedList.size();
         adapter.notifyDataSetChanged();
-        setBtnBackground(foodDetailList.size());
-        tv_selectNum.setText(String.valueOf(foodDetailList.size()));
+        setBtnBackground(size);
+        tv_selectNum.setText(String.valueOf(size));
     }
 
     /**
      * 删除逻辑
      */
     private void deleteVideo() {
-        if (index == 0) {
+        if (selectedList.size() == 0) {
             btn_delete.setEnabled(false);
             return;
         }
@@ -429,7 +511,7 @@ public class ManageFoodDetail1Activity extends Activity  {
         Button sure =  builder.findViewById(R.id.btn_sure);
         if (msg == null || cancle == null || sure == null) return;
 
-        if (index == 1) {
+        if (selectedList.size() == 1) {
             msg.setText("删除后不可恢复，是否删除该条目？");
         } else {
             msg.setText("删除后不可恢复，是否删除这" + index + "个条目？");
@@ -441,19 +523,39 @@ public class ManageFoodDetail1Activity extends Activity  {
             }
         });
         sure.setOnClickListener(new View.OnClickListener() {
+
+            private FoodDetail.ItemListBean listBean;
+
             @Override
             public void onClick(View v) {
-                for (int i = adapter.getFoodDetailList().size(), j =0 ; i > j; i--) {
-                    FoodDetail.ItemListBean listBean = adapter
-                            .getFoodDetailList().get(i - 1);
-                    if (listBean.isSelect()) {
+                int size=selectedList.size();
+                for (int i=0;i<adapter.getFoodDetailList().size();i++)
+                {
+                    listBean = adapter
+                            .getFoodDetailList().get(i);
+                    if(!listBean.isSelect())
+                    {
                         adapter.getFoodDetailList().remove(listBean);
-                        index--;
+                        size--;
                     }
                 }
-                index = 0;
                 tv_selectNum.setText(String.valueOf(0));
-                setBtnBackground(index);
+                setBtnBackground(size);
+                System.out.println("classId: "+listBean.getClass_id());
+                System.out.println("item_id: " + listBean.getItem_id());
+                detailManager.projectDetailManageDelete(listBean.getClass_id(), listBean.getItem_id());
+//                for (int i = adapter.getFoodDetailList().size(), j =0 ; i > j; i--) {
+//                    FoodDetail.ItemListBean listBean = adapter
+//                            .getFoodDetailList().get(i - 1);
+//                    if (!listBean.isSelect()) {
+//
+//                        adapter.getFoodDetailList().remove(listBean);
+//                        size--;
+//                    }
+//                }
+                size = 0;
+                tv_selectNum.setText(String.valueOf(0));
+                setBtnBackground(size);
                 if (adapter.getFoodDetailList().size() == 0){
                     mLlMycollectionBottomDialog.setVisibility(View.GONE);
                 }

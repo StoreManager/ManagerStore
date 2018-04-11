@@ -19,11 +19,16 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,9 +43,12 @@ import com.cottee.managerstore.handle.oss_handler.OssHandler;
 import com.cottee.managerstore.manage.AddFoodInfoIsEmpty;
 import com.cottee.managerstore.manage.ProjectTypeDetailManager;
 import com.cottee.managerstore.utils.BitmapUtils;
+import com.cottee.managerstore.utils.ToastUtils;
 import com.cottee.managerstore.utils.myt_oss.ConfigOfOssClient;
 import com.cottee.managerstore.utils.myt_oss.InitOssClient;
 import com.cottee.managerstore.utils.myt_oss.UploadUtils;
+import com.cottee.managerstore.view.SaleFoodDialog;
+import com.cottee.managerstore.view.SalePopupWindow;
 import com.cottee.managerstore.view.SelectPicPopupWindow;
 
 import java.io.ByteArrayOutputStream;
@@ -84,11 +92,15 @@ public class AddFoodActivity extends Activity {
     private Drawable off;
     private boolean isCommitVip;
     private int clicked=1;
-    private ToggleButton togbtn_vip;
+//    private ToggleButton togbtn_vip;
     private String  discount="1";//打折zhi
     private String  discount_sing="0";//sale sign
     private OssHandler handler = new OssHandler(this);
     private ProjectTypeDetailManager detailManager;
+    private FrameLayout frame_sale_food;
+    private SaleFoodDialog dialog;
+    private String sale;
+    private TextView tv_sale_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +122,8 @@ public class AddFoodActivity extends Activity {
         Resources resources = this.getResources();
         on=resources.getDrawable(R.mipmap.turnon);
         off=resources.getDrawable(R.mipmap.turnoff);
-        togbtn_vip = findViewById(R.id.togbtn_vip);
+        frame_sale_food = findViewById(R.id.frame_addFood);
+        tv_sale_type = findViewById(R.id.tv_sale_type);
         scroll_addFood = findViewById(R.id.scroll_addFood);
         imgbtn_foodImg = findViewById(R.id.imgbtn_foodImg);
         edit_foodName = findViewById(R.id.edit_foodName);
@@ -122,25 +135,46 @@ public class AddFoodActivity extends Activity {
         tv_moneyErro = findViewById(R.id.tv_moneyErro);
     }
     private void initEvent() {
-       togbtn_vip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        frame_sale_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(AddFoodActivity.this, v);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId())
+                        {
+                            case R.id.vip_sale:
+                                discount_sing="1";
+                                discount="-1";
+                                tv_sale_type.setText("会员折扣");
+                                break;
+                            case R.id.myself_sale:
+                                discount_sing="1";
+                                dialog = new SaleFoodDialog(AddFoodActivity.this, new SaleFoodDialog.OnEditInputFinishedListener() {
+                                    @Override
+                                    public void editInputFinished(String sale) {
+                                        discount=sale;
+                                        tv_sale_type.setText("自定义折扣");
+                                    }
+                                });
+                                dialog.show();
+                                break;
+                            case R.id.cancel_sale:
+                               discount_sing="0";
+                               discount="1";
+                                tv_sale_type.setText("无折扣");
+                                break;
+                        }
+                        return false;
+                    }
 
-
-
-           @Override
-           public void onCheckedChanged(CompoundButton buttonView, boolean
-                   isChecked) {
-               if (isChecked==true)
-               {
-                   discount="-1";
-                   discount_sing="1";
-               }
-               else
-               {
-                  discount="1";
-                  discount_sing="0";
-               }
-           }
-       });
+                });
+                inflater.inflate(R.menu.popupmenu_sale,popupMenu.getMenu());
+                popupMenu.show();
+            }
+        });
      edit_foodName.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
@@ -166,32 +200,8 @@ public class AddFoodActivity extends Activity {
                     @Override
                     //拍照
                     public void click_take_photo() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder
-                                (AddFoodActivity.this);
-                        builder.setTitle("用户提示")
-                                .setMessage("小主务必将手机横向拍摄！")
-                                .setCancelable(false);
-                        builder.setPositiveButton("偏不", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-
-                            }
-                        });
-
-                        builder.setNegativeButton("好的", new DialogInterface.OnClickListener() {
-
-
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
-                                startActivityForResult( intent, 1 );
-                            }
-                        });
-                        builder.show();
-
+                        Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+                        startActivityForResult( intent, 1 );
                     }
 
                     @Override
@@ -293,34 +303,23 @@ public class AddFoodActivity extends Activity {
                     List<FoodDetail.ItemListBean> item_list = ManageFoodDetail1Activity.foodDetail.getItem_list();
                     if (path!=null)
                     {
-//                        try {
-//                            InputStream open = new FileInputStream( path );
-//                            ByteArrayOutputStream output = new ByteArrayOutputStream();
-//                            byte[] buffer = new byte[4096];
-//                            int n = 0;
-//                            while (-1 != (n = open.read( buffer ))) {
-//                                output.write( buffer, 0, n );
-//                            }
                              UploadUtils.uploadFileToOss(handler, ConfigOfOssClient.BUCKET_NAME
                                      ,objectKey,path);
-//                            OssUtils.updata( AddFoodActivity.this, objectKey,
-//                                    output.toByteArray());
-
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
+//                        for (int i=0;i<item_list.size();i++)
+//                        {
+//                            FoodDetail.ItemListBean bean = item_list
+//                                    .get(i);
+//                            bean.setPhoto(objectKey);
+//                            bean.setName(foodName);
+//                            bean.setUnivalence(foodPrice);
+//                            bean.setDescription(foodDescription);
+//                            bean.setDiscount(discount);
+//                            bean.setDiscount_singe(discount_sing);
+//                            item_list.add(bean);
+//
+////                        foodDetailList.add(foodDetail);
 //                        }
-                        for (int i=0;i>item_list.size();i++)
-                        {
-                            item_list.get(i).setPhoto(objectKey);
-                            item_list.get(i).setName(foodName);
-                            item_list.get(i).setUnivalence(foodPrice);
-                            item_list.get(i).setDescription(foodDescription);
-                            item_list.get(i).setDiscount(discount);
-                            item_list.get(i).setDiscount_singe(discount_sing);
-                            foodDetail.setItem_list(item_list);
-//                        foodDetailList.add(foodDetail);
-                        }
-
+                        System.out.println("折扣：" + discount);
                         detailManager.projectDetailManageCommit(foodName,discount_sing,discount
                                 ,ProjectManageActivity.dishId,foodDescription,foodPrice,objectKey);
                         finish();
@@ -330,7 +329,6 @@ public class AddFoodActivity extends Activity {
                         Toast.makeText(AddFoodActivity.this, "图片为空上传失败", Toast
                                 .LENGTH_SHORT).show();
                     }
-
 
                 }
 
