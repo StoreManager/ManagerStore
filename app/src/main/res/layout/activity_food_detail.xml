@@ -78,13 +78,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:layout_marginRight="25dp"
                 android:background="@null"
                 android:digits="1234567890."
                 android:gravity="right"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textSize="13sp"
-                />
+                android:textSize="13sp"/>
         </LinearLayout>
 
         <View
@@ -130,7 +130,6 @@
                 android:layout_marginRight="40dp"
                 android:gravity="right"
                 android:text="还剩余100字"/>
-
         </LinearLayout>
 
         <FrameLayout
@@ -148,8 +147,6 @@
                 android:text="完成"
                 android:textColor="#fff"
                 android:visibility="gone"/>
-
-
             <Button
                 android:id="@+id/btn_deleteFood"
                 android:layout_width="match_parent"

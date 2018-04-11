@@ -17,12 +17,15 @@
             android:orientation="horizontal"
             android:gravity="center">
             <LinearLayout
+                android:id="@+id/linear_food_manage"
                 android:layout_width="0dp"
+                android:clickable="true"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
                 <Button
+                    android:id="@+id/btn_food_manage"
                     android:background="@mipmap/myt_restaurant_open"
                     android:layout_width="70dp"
                     android:layout_height="70dp"/>
@@ -35,12 +38,15 @@
                     android:textColor="@color/purplishblue"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/linear_order_manage"
                 android:layout_width="0dp"
+                android:clickable="true"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
                 <Button
+                    android:id="@+id/btn_order_manage"
                     android:background="@mipmap/myt_dingdan_open"
                     android:layout_width="70dp"
                     android:layout_height="70dp"/>
@@ -63,6 +69,7 @@
             android:gravity="top|center_horizontal"
             android:orientation="vertical">
             <Button
+                android:id="@+id/btn_modify_pwd"
                 android:onClick="modifyEmp"
                 android:background="@mipmap/emp_change_pswd"
                 android:layout_width="70dp"

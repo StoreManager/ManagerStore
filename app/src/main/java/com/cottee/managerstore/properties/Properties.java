@@ -5,6 +5,11 @@ package com.cottee.managerstore.properties;
  */
 
 public class Properties {
+    //订单获取
+    public static final String ORDER_GET_PATH="https://thethreestooges.cn:1225/mer_indent/indent_list/no_ok";
+    public static final int ORDER_ADD=37;
+    //订单修改
+    public static final String ORDER_UPDATE_PATH="https://thethreestooges.cn:1225/mer_indent/order/dispose";
     //具体菜品
     public static  final  String PROJECT_DETAIL_MANAGE_GET_PATH ="https://thethreestooges.cn:1225/classify/item/select";
     public static final String PROJECT_DETAIL_MANAGE_ADD_PATH="https://thethreestooges.cn:1225/classify/item/insert";

@@ -29,6 +29,18 @@ public class HttpUtilSession {
                 .build();
         client.newCall( request ).enqueue( callback );
     }
+    public static void sendOrderIdOkHttpRequest(Context context, final String address,final String indent_id, final Callback callback) {
+
+        String session = UserRequestInfo.getSession();
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody requestBody = new FormBody.Builder().add( "session", session ).add("indent_id",indent_id).build();
+
+        Request request = new Request.Builder()
+                .url( address ).post( requestBody )
+                .build();
+        client.newCall( request ).enqueue( callback );
+    }
 
     public static void sendFoodDetailOkHttpRequest(Context context,
                                                    final String address,

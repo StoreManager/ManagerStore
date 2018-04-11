@@ -52,11 +52,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private ProjectTypeDetailManager detailManager;
     private String discount_sing="1";
     private String discount_sale="0";
-//    public int mEditMode = View.GONE;
+    public int mEditMode = View.GONE;
     private MyItemClickListener myItemClickListener;
     private Context context;
-    private static final int MYLIVE_MODE_CHECK = 0;
-    int mEditMode = MYLIVE_MODE_CHECK;
 
     //构造方法传入数据
     public RecyclerviewAdapter(Context context, List<FoodDetail.ItemListBean> products
@@ -67,7 +65,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
     //刷新布局
-    public void notifyAdapter(List<FoodDetail.ItemListBean> products, boolean isAdd) {
+    public void notifyAdapter( List<FoodDetail.ItemListBean> products, boolean isAdd) {
         if (!isAdd) {
             this.products = products;
         } else {
@@ -76,7 +74,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         notifyDataSetChanged();
     }
 
-    public List<FoodDetail.ItemListBean> getFoodDetailList() {
+    public List<FoodDetail.ItemListBean>  getFoodDetailList() {
         if (products == null) {
             products = new ArrayList<>();
         }
@@ -111,8 +109,19 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         holder.tvTitle.setText(name);
         holder.tv_price.setText(univalence);
         holder.tv_description.setText(description);
-        if (mEditMode == MYLIVE_MODE_CHECK) {
-            holder.img_checkBox.setVisibility(View.GONE);
+//        if (mEditMode == MYLIVE_MODE_CHECK) {
+//            holder.img_checkBox.setVisibility(View.GONE);
+//        } else {
+//            holder.img_checkBox.setVisibility(View.VISIBLE);
+//
+//            if (itemListBean.isSelect()) {
+//                holder.img_checkBox.setImageResource(R.mipmap.check);
+//            } else {
+//                holder.img_checkBox.setImageResource(R.mipmap.uncheck);
+//            }
+//        }
+        if (mEditMode == View.GONE) {
+//            holder.img_checkBox.setVisibility(View.GONE);
         } else {
             holder.img_checkBox.setVisibility(View.VISIBLE);
 
@@ -121,6 +130,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             } else {
                 holder.img_checkBox.setImageResource(R.mipmap.uncheck);
             }
+
         }
         holder.frame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,14 +244,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         void onItemClick(FoodDetail.ItemListBean item,int position);
     }
 
-//
-//    public void setCheckBoxVisible(int visible) {
-//        mEditMode = visible;
-//        notifyDataSetChanged();
-//    }
-public void setEditMode(int editMode) {
-    mEditMode = editMode;
-    notifyDataSetChanged();
-}
 
+    public void setCheckBoxVisible(int visible) {
+        mEditMode = visible;
+        notifyDataSetChanged();
+    }
 }

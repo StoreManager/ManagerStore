@@ -72,24 +72,67 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="折扣类型:"
+            android:textSize="13sp"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="允许会员打折:"
-                android:textSize="13sp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-      <ToggleButton
-       android:id="@+id/togbtn_vip"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textOff="否"
-       android:textOn="是"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"/>
+            <FrameLayout
+                android:id="@+id/frame_addFood"
+                android:onClick="region"
+
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/sale_border">
+
+                <ImageButton
+                    android:id="@+id/img_arrow"
+                    android:onClick="chooseSaleType"
+                    android:background="@mipmap/inputarrow"
+                    android:layout_width="15dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="right|center"/>
+
+                <TextView
+                    android:id="@+id/tv_sale_type"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:hint="选择折扣"
+                    android:textColor="#000000"/>
+
+            </FrameLayout>
+    </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<TextView-->
+                <!--android:text="打折:"-->
+                <!--android:textSize="13sp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+      <!--<ToggleButton-->
+       <!--android:id="@+id/togbtn_vip"-->
+       <!--android:layout_width="wrap_content"-->
+       <!--android:layout_height="wrap_content"-->
+       <!--android:textOff="否"-->
+       <!--android:textOn="是"/>-->
+        <!--</LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,5 +182,6 @@
                 android:textColor="#fff"
                 android:background="#7274ab"/>
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

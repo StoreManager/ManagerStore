@@ -44,7 +44,7 @@ public class FoodDetail {
         private String description;
         private String discount_singe;
         private String discount;
-        private boolean isSelect;
+        private boolean isSelect=false;
 
         public boolean isSelect() {
             return isSelect;

@@ -50,6 +50,7 @@ dependencies {
     implementation files('libs/TencentSearchSDK_v1.1.7/libs/TencentMapSearch_v1.1.7.490d100.jar')
     implementation 'com.squareup.okhttp:okhttp:2.0.0'
     implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'cn.aigestudio.datepicker:DatePicker:2.2.0'
     implementation 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.5'

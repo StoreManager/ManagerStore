@@ -9,6 +9,7 @@
         android:layout_weight="5">
         //菜品
         <TextView
+            android:id="@+id/tv_order_dish_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="宫保鸡丁"
@@ -29,6 +30,7 @@
             android:textSize="17dp"
             android:textColor="#000"/>
         <TextView
+            android:id="@+id/tv_order_dish_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3"
@@ -47,6 +49,7 @@
             android:textSize="17dp"
             android:textColor="#000"/>
         <TextView
+            android:id="@+id/tv_order_dish_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="232.00"

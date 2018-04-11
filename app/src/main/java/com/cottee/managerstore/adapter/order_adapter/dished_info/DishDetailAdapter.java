@@ -4,8 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.bean.OrderInfo;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/7.
@@ -13,14 +17,17 @@ import com.cottee.managerstore.R;
 
 public class DishDetailAdapter extends BaseAdapter {
     private Context context;
+    private List<OrderInfo.IndentListNoOkBean.TrolleyListBean.ListBean> dishList;
 
-    public DishDetailAdapter(Context context) {
-        this.context =context;
+    public DishDetailAdapter(Context context, List<OrderInfo.IndentListNoOkBean.TrolleyListBean.ListBean> dishList) {
+        this.context = context;
+        this.dishList = dishList;
     }
+
 
     @Override
     public int getCount() {
-        return 3;
+        return dishList.size();
     }
 
     @Override
@@ -30,7 +37,7 @@ public class DishDetailAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -40,16 +47,21 @@ public class DishDetailAdapter extends BaseAdapter {
         if(view==null){
             holder = new ViewHolder();
             view = View.inflate(context, R.layout.item_order_dish_detail, null);
-
+            holder.tv_order_dish_name = view.findViewById(R.id.tv_order_dish_name);
+            holder.tv_order_dish_count = view.findViewById(R.id.tv_order_dish_count);
+            holder.tv_order_dish_price = view.findViewById(R.id.tv_order_dish_price);
             view.setTag(holder);
         }else {
             holder = (ViewHolder) view.getTag();
         }
-
-
+        holder.tv_order_dish_name.setText(dishList.get(i).getGoodsName());
+        holder.tv_order_dish_count.setText(String.valueOf(dishList.get(i).getDisNum()));
+        holder.tv_order_dish_price.setText(dishList.get(i).getPay());
         return view;
     }
     protected static class ViewHolder{
-
+        TextView tv_order_dish_name;
+        TextView tv_order_dish_count;
+        TextView tv_order_dish_price;
     }
 }
