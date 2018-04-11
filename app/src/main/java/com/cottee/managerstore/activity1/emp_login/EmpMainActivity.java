@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 
 import com.cottee.managerstore.R;
+import com.cottee.managerstore.activity.ManageFoodDetail1Activity;
 import com.cottee.managerstore.activity1.EmpModifyPwdActivity;
 import com.cottee.managerstore.widget.Title;
 
@@ -20,6 +22,9 @@ import com.cottee.managerstore.widget.Title;
 public class EmpMainActivity extends Activity {
 
     private Title title;
+    private Button btn_modify_pwd;
+    private Button btn_food_manage;
+    private Button btn_order_manage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,12 +32,37 @@ public class EmpMainActivity extends Activity {
         setContentView(R.layout.activity_emp_main);
         initTitle();
         initView();
+        initEvent();
     }
 
     private void initView() {
-
+        btn_modify_pwd = findViewById(R.id.btn_modify_pwd);
+        btn_food_manage = findViewById(R.id.btn_food_manage);
+        btn_order_manage = findViewById(R.id.btn_order_manage);
     }
+   private void initEvent()
+    {
+    btn_modify_pwd.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(EmpMainActivity.this,EmpModifyPwdActivity.class));
+        }
+    });
+    btn_food_manage.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(EmpMainActivity.this,
+                    ManageFoodDetail1Activity.class);
+            startActivity(intent);
+        }
+    });
+    btn_order_manage.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+        }
+    });
+}
     private void initTitle() {
         title = (Title) findViewById(R.id.title);
         title.setTitleNameStr("Sweet员工");
