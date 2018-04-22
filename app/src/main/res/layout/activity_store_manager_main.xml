@@ -35,58 +35,71 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:gravity="center">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--<FrameLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<Button-->
+                <!--android:layout_width="330dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@drawable/storestyle_btn"-->
+                <!--android:text="老板登录"-->
+                <!--android:id="@+id/bt_myboss"-->
+                <!--android:textColor="#4862af"-->
+                <!--android:textSize="18dp"/>-->
             <Button
-                android:layout_width="330dp"
-                android:layout_height="50dp"
-                android:background="@drawable/storestyle_btn"
-                android:text="老板登录"
                 android:id="@+id/bt_myboss"
-                android:textColor="#4862af"
-                android:textSize="18dp"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@mipmap/boss_2x"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"
-                />
-
-        </FrameLayout>
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@mipmap/boss"
+        android:layout_gravity="center"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="老板登录"
+            android:textSize="13sp"
+            android:textColor="@color/purplishblue"/>
+        <!--</FrameLayout>-->
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <!--<FrameLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--&gt;-->
+            <!--<Button-->
+                <!--android:id="@+id/btn_emp"-->
+                <!--android:layout_width="330dp"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:background="@drawable/storestyle_btn"-->
+                <!--android:text="员工登录"-->
+                <!--android:textColor="#4862af"-->
+                <!--android:textSize="18dp"/>-->
             <Button
                 android:id="@+id/btn_emp"
-                android:layout_width="330dp"
-                android:layout_height="50dp"
-                android:background="@drawable/storestyle_btn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@mipmap/emp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
                 android:text="员工登录"
-                android:textColor="#4862af"
-                android:textSize="18dp"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@mipmap/worker_2x"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"
-                />
-        </FrameLayout>
+                android:textSize="13sp"
+                android:textColor="@color/purplishblue"/>
+        <!--</FrameLayout>-->
 
 
     </LinearLayout>
